@@ -26,7 +26,7 @@ contract Pledge {
     // a multisig object
     MultiSig private multiSig;
 
-    modifier onlyPledgee {
+    modifier onlyPledgee() {
         require(msg.sender == pledgee);
         _;
     }
