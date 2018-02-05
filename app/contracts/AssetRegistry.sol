@@ -1,6 +1,9 @@
 pragma solidity ^0.4.19;
 
 import './Asset.sol';
+import './StandardAsset.sol';
+import './FungibleAsset.sol';
+
 import 'github.com/OpenZeppelin/zeppelin-solidity/contracts/ReentrancyGuard.sol';
 
 contract AssetRegistry is ReentrancyGuard {
@@ -46,7 +49,12 @@ contract AssetRegistry is ReentrancyGuard {
     }
     // generate a unique asset id
     uint id = uint(keccak256(owner, _nsi, _metadataRef));
-    Asset newAsset = new Asset(owner, id, _nsi, _transferrable, _fungible, _metadataRef);
+    Asset newAsset;
+    if (_fungible) {
+      newAsset = new StandardAsset(owner, id, _nsi, _transferrable, _metadataRef);
+    } else {
+      newAsset = new FungibleAsset(owner, id, _nsi, _transferrable, _metadataRef);
+    }
     registeredAssets[newAsset] = true;
     assetsByNamespace[_nsi].push(address(newAsset));
     assetsById[id] = address(newAsset);
