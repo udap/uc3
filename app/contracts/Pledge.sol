@@ -4,7 +4,13 @@ import './Asset.sol';
 import './MultiSig.sol';
 import 'github.com/OpenZeppelin/zeppelin-solidity/contracts/ownership/Ownable.sol';
 import 'github.com/OpenZeppelin/zeppelin-solidity/contracts/ECRecovery.sol';
-
+/**
+ * @dev a pledge is a contract between a debtor and a creditor in which the debtor conveys
+ * possessory title of the collateral to a creditor to secure repayment for some debt or
+ * obligation. It is like an escrow that when both parties accept the pledge, the pledgor
+ * gets funds and the pledgee owns the title. when the debt is fully repaid, the pledge
+ * is discharged.
+ */
 contract Pledge {
     enum State {
         INITIATED, APPROVED, REJECTED, EXECUTED, DISCHARGED
@@ -17,12 +23,13 @@ contract Pledge {
     address public collateral;
     // the remaining credit
     uint public owingBalance;
-    // pledge reference data (multihash referencing a P2P or cloud data storage)
-    bytes public dataRef;
+    // pledge state
+    State public state;
+    // pledge reference data (a multihash referencing a P2P or cloud data storage)
+    bytes public pledgeRef;
     // discharge reference data (a multihash value referring to a P2P or cloud data storage)
     bytes public dischargeRef;
 
-    State public state;
     // a multisig object
     MultiSig private multiSig;
 
@@ -31,7 +38,7 @@ contract Pledge {
         _;
     }
     /**
-     * @dev constructor
+     * @dev constructor.
      * @param _pledgor the owner of the asset
      * @param _pledgee the creditor that accepts the pledge and offers credit to the pledgor
      * @param _asset the asset to be pledged to the creditor
@@ -59,7 +66,7 @@ contract Pledge {
      * @param _dataRef additional data for the approval
      * @param _sigs collected signatures
      */
-    function approve(uint _approvedAmount, bytes _dataRef, bytes[] _sigs) public returns (bool) {
+    function approve(uint _approvedAmount, bytes _dataRef, bytes[] _sigs) public onlyPledgee {
         require(state == State.INITIATED);
         bytes32 _msgHash = keccak256(collateral,pledgor,pledgee);
         bool approved = multiSig.isSigned(_msgHash, _sigs);

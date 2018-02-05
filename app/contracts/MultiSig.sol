@@ -1,76 +1,86 @@
 pragma solidity 0.4.19;
 
 contract MultiSig {
-  uint constant public MAX_OWNER_COUNT = 50;
-  // (only) mutable state
+  uint constant public MAX_SIGNER_COUNT = 50;
   uint public nonce;
-  // immutable state
   uint public threshold;
-  // immutable state
-  mapping (address => bool) ownerRegistered;
-  // immutable state
-  address[] public owners;
+  mapping (address => bool) private signerRegistered;
+  // trx hash to confirmations
+  mapping (bytes32 => mapping (address => bool)) private txConfirmations;
+  address[] public signers;
 
-  modifier validThreshold(uint _ownerCount, uint _threshold) {
-    require(_ownerCount <= MAX_OWNER_COUNT && _threshold <= _ownerCount && _threshold != 0);
+  modifier validThreshold(uint _signerCount, uint _threshold) {
+    require(_signerCount <= MAX_SIGNER_COUNT && _threshold <= _signerCount && _threshold != 0);
     _;
   }
-  function MultiSig(uint _threshold, address[] _owners)
-    public validThreshold(_owners.length,_threshold) {
 
-    address lastAdd = address(0);
-    for (uint i=0; i<_owners.length; i++) {
-      require(_owners[i] > lastAdd);
-      ownerRegistered[_owners[i]] = true;
-      lastAdd = _owners[i];
+    modifier onlyOwner() {
+        require(msg.sender == address(this));
+        _;
     }
-    owners = _owners;
+
+    modifier signerDoesNotExist(address _signer) {
+        require(!signerRegistered[_signer]);
+        _;
+    }
+
+    modifier signerExists(address _signer) {
+        require(signerRegistered[_signer]);
+        _;
+    }
+
+    modifier validAddress(address _addr) {
+        require(_addr != address(0));
+        _;
+    }
+
+  /**
+   * @dev constructor to create a MultiSig contract.
+   * @param _threshold uint the number of required confirmation
+   * @param _owners a list of owners. duplicates are not allowed in the array.
+   */
+  function MultiSig(uint _threshold, address[] _signers)
+    public validThreshold(_signers.length,_threshold) {
+    for (uint i=0; i<_signers.length; i++) {
+        require(!signerRegistered[_signers[i]] && _signers[i] != address(0));
+        signerRegistered[_signers[i]] = true;
+    }
+    signers = _signers;
     threshold = _threshold;
   }
 
+    function addSigner(address _signer)
+        public onlyOwner validAddress(_signer) signerDoesNotExist(_signer) {
+        signerRegistered[_signer] = true;
+        signers.push(_signer);
+    }
+
+    function removeSigner(address _signer)
+        public onlyOwner validAddress(_signer) signerExists(_signer) {
+        signerRegistered[_signer] = false;
+        for (uint i=0; i<signers.length - 1; i++) {
+            if (signers[i] == _signer) {
+                signers[i] = signers[signers.length - 1];
+                break;
+            }
+        }
+        signers.length -= 1;
+        if (threshold > signers.length)
+            changeThreshold(signers.length);
+    }
+
+    function changeThreshold(uint _threshold)
+        public onlyOwner validThreshold(signers.length,_threshold) {
+        threshold = _threshold;
+    }
+
   function isSigner(address _signer) public view returns (bool) {
-      return ownerRegistered[_signer];
+      return signerRegistered[_signer];
   }
 
-  /**
-   * @dev check if required signatures are collected
-   **/
-  function isSigned(bytes32 _msgHash, bytes[] _sigs) public returns (bool) {
-    require(_sigs.length == threshold);
-    address lastAdd = address(0); // cannot have address(0) as an owner
-    for (uint i = 0; i < threshold; i++) {
-        var (r,s,v) = getRsv(_sigs[i]);
-        address recovered = ecrecover(_msgHash, v, r, s);
-        require(recovered > lastAdd && ownerRegistered[recovered]);
-        lastAdd = recovered;
-    }
-  }
-
-  function getRsv(bytes _sig) public returns (bytes32, bytes32, uint8) {
-    bytes32 r;
-    bytes32 s;
-    uint8 v;
-
-    //Check the signature length
-    require(_sig.length == 65);
-
-    // Divide the signature in r, s and v variables
-    assembly {
-      r := mload(add(_sig, 32))
-      s := mload(add(_sig, 64))
-      v := byte(0, mload(add(_sig, 96)))
-    }
-
-    // Version of signature should be 27 or 28, but 0 and 1 are also possible versions
-    if (v < 27) {
-      v += 27;
-    }
-    return (r,s,v);
-  }
 
   /**
    * @dev submit transaction to destination address with multiple signatures/approvals.
-   * Note that address recovered from signatures must be strictly increasing
    * @param sigV bytes32 signature v
    * @param sigR bytes32 signature r
    * @param sigS bytes32 signature s
@@ -85,12 +95,18 @@ contract MultiSig {
     // Follows ERC191 signature scheme: https://github.com/ethereum/EIPs/issues/191
     bytes32 txHash = keccak256(byte(0x19), byte(0), this, destination, value, data, nonce);
 
-    address lastAdd = address(0); // cannot have address(0) as an owner
     for (uint i = 0; i < threshold; i++) {
         address recovered = ecrecover(txHash, sigV[i], sigR[i], sigS[i]);
-        require(recovered > lastAdd && ownerRegistered[recovered]);
-        lastAdd = recovered;
+        if (signerRegistered[recovered])
+            txConfirmations[txHash][recovered] = true;
     }
+    uint count = 0;
+    for (i=0; i<signers.length; i++) {
+        if (txConfirmations[txHash][signers[i]])
+            count+=1;
+        if (count == threshold) break;
+    }
+    require(count == threshold);
 
     // If we make it here all signatures are accounted for
     nonce = nonce + 1;
@@ -98,4 +114,5 @@ contract MultiSig {
   }
 
   function () public payable {}
+
 }

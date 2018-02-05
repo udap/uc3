@@ -1,23 +1,36 @@
 pragma solidity ^0.4.19;
 
 import './Asset.sol';
-import 'github.com/OpenZeppelin/zeppelin-solidity/contracts/ownership/Ownable.sol';
+import 'github.com/OpenZeppelin/zeppelin-solidity/contracts/ReentrancyGuard.sol';
 
-contract AssetRegistry is Ownable {
-  event AssetRegistered(address asset, bytes32 nsi);
+contract AssetRegistry is ReentrancyGuard {
+  event AssetRegistered(address indexed asset, uint indexed assetId);
 
   // default namespace id
   bytes32 constant DEFAULT_NSI = "default";
-
+  address private owner;
   // number of assets in the registry
   uint256 private numOfAssets;
   // map asset addr to a bool
-  mapping(address=>bool) assets;
+  mapping(address=>bool) private registeredAssets;
   // index by namespace
-  mapping(bytes32=>address[]) assetsByNamespace;
-  // index by owner
-  mapping(address=>address[]) assetsByOwner;
+  mapping(bytes32=>address[]) private assetsByNamespace;
+  // indexed by id
+  mapping(uint=>address) private assetsById;
 
+  modifier assetNotRegistered(address _asset) {
+      require(!registeredAssets[_asset]);
+      _;
+  }
+
+  modifier onlyOwner() {
+      require(msg.sender == owner);
+      _;
+  }
+
+  function AssetRegistry(address _owner) public {
+    owner = _owner;
+  }
   /**
    * @dev create and register a new asset
    * @param _nsi the namespace identifier
@@ -25,45 +38,42 @@ contract AssetRegistry is Ownable {
    * @param _fungible is the asset fungible?
    * @param _metadataRef a multihash of the metadata
    */
-  function createAsset(bytes32 _nsi, bool _transferrable, bool _fungible, bytes _metadataRef)
+  function createAsset(bytes32 _nsi, bool _transferrable, bool _fungible, bytes32 _metadataRef)
     public returns (address) {
-
-    require(_metadataRef.length <= 256);
 
     if (_nsi == '') {
       _nsi = DEFAULT_NSI;
     }
-
-    Asset _asset = new Asset(msg.sender,_nsi, _transferrable, _fungible, _metadataRef);
-
-    assets[_asset] = true;
-    assetsByNamespace[_nsi].push(_asset);
-    assetsByOwner[msg.sender].push(_asset);
-    numOfAssets++;
-
-    AssetRegistered(address(_asset), _nsi);
-    return address(_asset);
+    // generate a unique asset id
+    uint id = uint(keccak256(owner, _nsi, _metadataRef));
+    Asset newAsset = new Asset(owner, id, _nsi, _transferrable, _fungible, _metadataRef);
+    registeredAssets[newAsset] = true;
+    assetsByNamespace[_nsi].push(address(newAsset));
+    assetsById[id] = address(newAsset);
+    return address(newAsset);
   }
 
   /**
    * @dev register an asset
    * @param _asset the address of the asset to be registered
    */
-  function register(address _asset) public returns (bool) {
-    require(_asset != address(0));
-    require(!assets[_asset]);
-    assets[_asset] = true;
+  function register(address _asset) public nonReentrant assetNotRegistered(_asset) {
+    registeredAssets[_asset] = true;
+    assetsById[Asset(_asset).getId()] = _asset;
     assetsByNamespace[Asset(_asset).getNamespace()].push(_asset);
-    assetsByOwner[Asset(_asset).owner()].push(_asset);
     numOfAssets++;
-    return true;
+//    AssetRegistered(_asset,_assetId);
   }
 
   /**
-   * @dev return number of assets of current msg.sender
+   * @dev return number of assets
    */
-  function getCount() public view returns (uint) {
-    return assetsByOwner[msg.sender].length;
+  function getCount() public view onlyOwner returns (uint) {
+    return numOfAssets;
+  }
+
+  function getAsset(uint assetId) public view returns (address) {
+      return assetsById[assetId];
   }
 
 }
