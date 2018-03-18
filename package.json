@@ -9,5 +9,6 @@
   "license": "ISC",
   "homepage": "",
   "devDependencies": {
+    "truffle": "^4.1.3"
   }
 }
