@@ -2,8 +2,8 @@ pragma solidity ^0.4.19;
 
 import './Asset.sol';
 import './MultiSig.sol';
-import 'github.com/OpenZeppelin/zeppelin-solidity/contracts/ownership/Ownable.sol';
-import 'github.com/OpenZeppelin/zeppelin-solidity/contracts/ECRecovery.sol';
+import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
+import 'zeppelin-solidity/contracts/ECRecovery.sol';
 /**
  * @dev a pledge is a contract between a debtor and a creditor in which the debtor conveys
  * possessory title of the collateral to a creditor to secure repayment for some debt or

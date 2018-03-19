@@ -2,7 +2,7 @@ pragma solidity 0.4.19;
 
 import './Asset.sol';
 import './Pledge.sol';
-import 'github.com/OpenZeppelin/zeppelin-solidity/contracts/ownership/Ownable.sol';
+import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
 
 contract PledgeService is Ownable {
     enum RequestState {

@@ -4,7 +4,7 @@ import './Asset.sol';
 import './StandardAsset.sol';
 import './FungibleAsset.sol';
 
-import 'github.com/OpenZeppelin/zeppelin-solidity/contracts/ReentrancyGuard.sol';
+import 'zeppelin-solidity/contracts/ReentrancyGuard.sol';
 
 contract AssetRegistry is ReentrancyGuard {
   event AssetRegistered(address indexed asset, uint indexed assetId);

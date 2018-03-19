@@ -1,6 +1,6 @@
 pragma solidity ^0.4.19;
 
-import 'github.com/OpenZeppelin/zeppelin-solidity/contracts/token/ERC20/BasicToken.sol';
+import 'zeppelin-solidity/contracts/token/ERC20/BasicToken.sol';
 import './Asset.sol';
 import './FungibleAsset.sol';
 
