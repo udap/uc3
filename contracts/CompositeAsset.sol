@@ -26,8 +26,8 @@ contract CompositeAsset is StandardAsset {
   }
 
   function getAsset(uint idx) public returns (address) {
-    require(idx < assetsIds.length);
-    return assets[assetsIds[idx]];
+    require(idx < assetIds.length);
+    return assets[assetIds[idx]];
   }
 
   function transfer(address _to, uint _assetId) public {
