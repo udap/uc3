@@ -70,7 +70,7 @@ contract AssetRegistry is ReentrancyGuard {
     assetsById[Asset(_asset).getId()] = _asset;
     assetsByNamespace[Asset(_asset).getNamespace()].push(_asset);
     numOfAssets++;
-//    AssetRegistered(_asset,_assetId);
+    AssetRegistered(_asset,Asset(_asset).getId());
   }
 
   /**
