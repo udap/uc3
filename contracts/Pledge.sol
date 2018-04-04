@@ -46,7 +46,7 @@ contract Pledge {
      */
     function Pledge(address _pledgor, address _pledgee, address _asset, address[] _cosigners) public {
         require(_pledgor != address(0) && _pledgee != address(0) && _asset != address(0));
-        require(_pledgor == Asset(_asset).owner());
+        require(_pledgor == Asset(_asset).getOwner());
         pledgor = _pledgor;
         pledgee = _pledgee;
         collateral = _asset;

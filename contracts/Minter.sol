@@ -28,7 +28,7 @@ contract AssetToken is FungibleAsset, BasicToken {
 contract Minter {
     function mint(address _asset, address _to, uint _tokens) public returns (address) {
         require(_asset != address(0) && tx.origin == Asset(_asset).getOwner());
-        AssetToken token = new AssetToken(_asset.getOwner(),_asset.mdMultiHash(),_asset.getAmount(),_tokens);
+        AssetToken token = new AssetToken(Asset(_asset).getOwner(),_asset.mdMultiHash(),_asset.getAmount(),_tokens);
         return address(token);
     }
 }

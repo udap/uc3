@@ -26,7 +26,7 @@ contract PledgeService is Ownable {
     mapping(uint => address) private pledges;
 
     modifier assetOwner(address asset) {
-        require(asset != address(0) && msg.sender == Asset(asset).owner());
+        require(asset != address(0) && msg.sender == Asset(asset).getOwner());
         _;
     }
 
