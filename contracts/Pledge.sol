@@ -71,7 +71,7 @@ contract Pledge {
         bytes32 _msgHash = keccak256(collateral,pledgor,pledgee);
         require(multiSig.isSigned(_msgHash, _sigs));
         state = State.APPROVED;
-        dataRef = _dataRef;
+        pledgeRef = _dataRef;
         owingBalance = _approvedAmount;
     }
 
@@ -95,7 +95,7 @@ contract Pledge {
         }
         require(flags[0] && flags[1]);
         // submit transaction to the pledgor/debtor with approvedAmount of tokens/ethers
-        require(pledgor.call.value(owingBalance)(dataRef));
+        require(pledgor.call.value(owingBalance)(pledgeRef));
         // update states
         state = State.EXECUTED;
     }
@@ -106,7 +106,7 @@ contract Pledge {
     function reject(bytes _hash) public onlyPledgee {
         require(state == State.INITIATED);
         state = State.REJECTED;
-        dataRef = _hash;
+        pledgeRef = _hash;
     }
 
     /**
