@@ -101,7 +101,7 @@ contract PledgeService is Ownable {
      */
     function execute(address _pledge, bytes[] _signatures) public onlyOwner {
       require(_pledge != address(0));
-      Pledge(_pledge).execute(signatures);
+      Pledge(_pledge).execute(_signatures);
     }
 
     /**

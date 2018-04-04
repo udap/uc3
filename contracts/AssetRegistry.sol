@@ -53,7 +53,7 @@ contract AssetRegistry is ReentrancyGuard {
     if (_fungible) {
       newAsset = new StandardAsset(owner, id, _nsi, _transferrable, _metadataRef);
     } else {
-      newAsset = new FungibleAsset(owner, id, _nsi, _transferrable, _metadataRef);
+      newAsset = new FungibleAsset(owner, id, _nsi, _transferrable, _metadataRef,0);
     }
     registeredAssets[newAsset] = true;
     assetsByNamespace[_nsi].push(address(newAsset));
