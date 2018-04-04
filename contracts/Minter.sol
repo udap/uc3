@@ -11,12 +11,12 @@ contract AssetToken is FungibleAsset, BasicToken {
     FungibleAsset(_issuer, uint(keccak256(_issuer, _mdHash)),'',true,_mdHash, _amount)
     public {
      totalSupply_ = _tokens;
-     balances[owner] = totalSupply_;
+     balances[_issuer] = totalSupply_;
   }
 
   function transfer(address _to) public {
     super.transfer(_to, totalSupply_);
-    AssetTransferred(_to, tokenId);
+//    AssetTransferred(_to, tokenId);
   }
 
   function burn() public {
