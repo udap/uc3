@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+	<title>Issue</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="home.css">
+</head>
+<body>
+	<!-- header -->
+	<header class="head">
+		<a href="home.html"><span class="glyphicon glyphicon-menu-left"></span></a>Issue
+	</header>
+	<!-- container -->
+	<div class="container-fluid reg">
+		<p class="reg-loguet"><a class="ly-title-next">Mark<span>*</span>is required.</a></p>
+		<form id="form1" name="form1" method="post" action="">
+			<ul>
+				<li>
+					<div class="input-group">
+						<div class="title"><span>*</span>Issuer</div>
+						<div class="module">
+							<input type="text" class="input" placeholder="Please fill in the Issuer.">
+							<div class="error-msg">拥有者不可为空</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="input-group">
+						<div class="title"><span>*</span>Owner</div>
+						<div class="module">
+							<input type="password" class="input" placeholder="Please fill in the Owner.">
+							<div class="error-msg">监管不可为空</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="input-group">
+						<div class="title"><span>*</span>Supervise</div>
+						<div class="module">
+							<input type="password" class="input" placeholder="Please fill in the Supervise.">
+							<div class="error-msg">监管不可为空</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="input-group">
+						<div class="title"><span>*</span>Product</div>
+						<div class="module">
+							<input type="password" class="input" placeholder="Please fill in the Product.">
+							<div class="error-msg">产品不可为空</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="input-group">
+						<div class="title"><span>*</span>Number(piece)</div>
+						<div class="module">
+							<input type="text" class="input" placeholder="Please fill in the Number(piece).">
+							<div class="error-msg">单件数量不可为空</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="input-group">
+						<div class="title"><span>*</span>Total</div>
+						<div class="module">
+							<input type="text" class="input" placeholder="Please fill in the Total.">
+							<div class="error-msg">总重量不可为空</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="input-group">
+						<div class="title"><span>*</span>Storehouse</div>
+						<div class="module">
+							<input type="text" class="input" placeholder="Please fill in the Storehouse.">
+							<div class="error-msg">仓储库房不可为空</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="input-group">
+						<div class="title"><span>*</span>Warehouse address</div>
+						<div class="module">
+							<input type="text" class="input" placeholder="Please fill in the Warehouse address.">
+							<div class="error-msg">仓储地址不可为空</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="input-group">
+						<div class="title"><span>*</span>Pledgee</div>
+						<div class="module">
+							<input type="text" class="input" placeholder="Please fill in the Pledgee.">
+							<div class="error-msg">质权人不可为空</div>
+						</div>
+					</div>
+				</li>
+				<li class="gray-row">
+					<div class="row-title">New Product</div>
+					<a class="un-arrow" href="javascript:;" id="psw"></a>
+				</li>
+				<li class="new"></li>
+				<li class="conceal">
+					<ul class="item">
+						<li><a class="arrow add" href="javascript:;"></a><a class="arrow delate" href="javascript:;"></a></li>
+						<li>
+						<div class="input-group">
+							<div class="title"><span>*</span>SKU</div>
+							<div class="module">
+								<input type="text" class="input" placeholder="Please fill in the SKU.">
+								<div class="error-msg">SKU不可为空</div>
+							</div>
+						</div>
+						</li>
+						<li>
+						<div class="input-group">
+							<div class="title"><span>*</span>Origin</div>
+							<div class="module">
+								<input type="text" class="input" placeholder="Please fill in the Origin.">
+								<div class="error-msg">产地不可为空</div>
+							</div>
+						</div>
+						</li>
+						<li>
+						<div class="input-group">
+							<div class="title"><span>*</span>Name</div>
+							<div class="module">
+								<input type="text" class="input" placeholder="Please fill in the Name.">
+								<div class="error-msg">货物品名不可为空</div>
+							</div>
+						</div>
+						</li>
+						<li>
+						<div class="input-group">
+							<div class="title"><span>*</span>Number</div>
+							<div class="module">
+								<input type="text" class="input" placeholder="Please fill in the Number">
+								<div class="error-msg">数量不可为空</div>
+							</div>
+						</div>
+						</li>
+						<li>
+						<div class="input-group">
+							<div class="title"><span>*</span>Unit weight</div>
+							<div class="module">
+								<input type="text" class="input" placeholder="Please fill in the Unit weight">
+								<div class="error-msg">单件重量不可为空</div>
+							</div>
+						</div>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</form>
+		<div class="btns">
+			<a href="home.html" class="press cancel"><span>CANCEL</span></a>
+			<a href="javascript:;" class="press"><span>SUBMIT</span></a>
+		</div>
+	</div>
+	<!-- footer -->
+	<footer class="bottom-bar">
+		<a href="home.html"><img src="img/logo-gray.png" alt="logo"></a>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script>
+		$(function(){
+			var cont = $('.conceal').html();
+			$('#psw').click(function(){
+				$('.new').html($('.new').html()+cont);
+			})
+
+
+			$('body').on('click' , '.delate' , function(){ 
+				$(this).parent().parent().fadeOut(function(){
+					$(this).remove();
+				});
+			});
+
+
+
+		})
+	</script>
+</body>
+</html>

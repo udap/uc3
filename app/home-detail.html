@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+	<title>Detail</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="home.css">
+</head>
+<body>
+	<!-- header -->
+	<header class="head">
+		<a href="home.html"><span class="glyphicon glyphicon-menu-left"></span></a>Detail
+	</header>
+	<!-- container -->
+	<div class="container-fluid detail">
+		<form name="form1" method="post" action="">
+			<ul>
+				<li>Issuer：0xcD86431E62Bca1F4Fbef76669D3FB22B90fc83b1</li>
+				<li>Owner：0xcD86431E62Bca1F4Fbef76669D3FB22B90fc83b1</li>
+				<li>Supervise：0xcD86431E62Bca1F4Fbef76669D3FB22B90fc83b1</li>
+				<li>Product：cone</li>
+				<li>Number(piece):12</li>
+				<li>Total:144Kg</li>
+				<li>Storehouse:TZQ1002-B1</li>
+				<li>Warehouse address:New source storage in bijie area, guizhou province.</li>
+				<li>Pledgee</li>
+				<li>Creation date:2018-01-08</li>
+			</ul>
+		</form>
+			<ul>
+				<li class="gray-row">
+					<div class="row-title">Product Detail</div>
+					<a class="un-arrow" href="javascript:;" id="psw"></a>
+				</li>
+				<li class="display">
+					<ul class="item">
+						<li>SKU:171004100000000</li>
+						<li>Origin:TGO</li>
+						<li>Name:Grade A and first class grain (mildew <=2%)</li>
+						<li>Number(piece):1000</li>
+						<li>Unit weight:200.00Jin</li>
+						<li>Total:200000.00Jin</li>
+					</ul>
+					<ul class="item">
+						<li>SKU:171004100000000</li>
+						<li>Origin:TGO</li>
+						<li>Name:Grade A and first class grain (mildew <=2%)</li>
+						<li>Number(piece):1000</li>
+						<li>Unit weight:200.00Jin</li>
+						<li>Total:200000.00Jin</li>
+					</ul>
+				</li>
+			</ul>
+			<div class="btns">
+				<a href="home-pledge.html" class="press"><span>PLEDGE</span></a>
+				<a href="home-transfer.html" class="press"><span>TRANSFER</span></a>
+			</div>
+	</div>
+	<!-- footer -->
+	<footer class="bottom-bar">
+		<a href="home.html"><img src="img/logo-gray.png" alt="logo"></a>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script>
+		$(function(){
+			$('#psw').click(function(){
+				$('.display').toggle();
+				if($(this).hasClass('un-arrow')){
+					$(this).removeClass('un-arrow').addClass('up-arrow');
+				}else{
+					$(this).removeClass('up-arrow').addClass('un-arrow');					
+				}
+			})
+		})
+	</script>
+</body>
+</html>
