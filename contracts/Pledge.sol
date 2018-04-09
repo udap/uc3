@@ -69,7 +69,7 @@ contract Pledge {
     function approve(uint _approvedAmount, bytes _dataRef, bytes[] _sigs) public onlyPledgee {
         require(state == State.INITIATED);
         bytes32 _msgHash = keccak256(collateral,pledgor,pledgee);
-        require(multiSig.isSigned(_msgHash, _sigs));
+//        require(multiSig.isSigned(_msgHash, _sigs));
         state = State.APPROVED;
         pledgeRef = _dataRef;
         owingBalance = _approvedAmount;

@@ -113,6 +113,28 @@ contract MultiSig {
     require(destination.call.value(value)(data));
   }
 
+  function getRsv(bytes signedString) public returns (bytes32,bytes32,byte){
+      bytes32  r = bytesToBytes32(slice(signedString, 0, 32));
+      bytes32  s = bytesToBytes32(slice(signedString, 32, 32));
+      byte  v = slice(signedString, 64, 1)[0];
+      return (r,s,v);
+  }
+
+    function slice(bytes memory data, uint start, uint len) returns (bytes){
+        bytes memory b = new bytes(len);
+
+        for(uint i = 0; i < len; i++){
+            b[i] = data[i + start];
+        }
+
+        return b;
+    }
+    function bytesToBytes32(bytes memory source) returns (bytes32 result) {
+        assembly {
+            result := mload(add(source, 32))
+        }
+    }
+
   function () public payable {}
 
 }
