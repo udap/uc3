@@ -67,14 +67,13 @@ contract PledgeService is Ownable {
      * @param _reqId uint request id
      * @param _approvedAmount credit approved by pledgee
      * @param _dataRef multihash to additional _dataRef
-     * @param _signatures signatures collected for this function
      */
-    function approve(uint _reqId, uint _approvedAmount, bytes _dataRef, bytes[] _signatures)
+    function approve(uint _reqId, uint _approvedAmount, bytes _dataRef)
         public onlyOwner returns(address) {
         require(_reqId < count);
         PledgeRequest memory req = reqs[_reqId];
         Pledge pledge = Pledge(pledges[_reqId]);
-        pledge.approve(_approvedAmount,_dataRef,_signatures);
+        pledge.approve(_approvedAmount,_dataRef);
         return address(pledge);
     }
 
@@ -99,7 +98,7 @@ contract PledgeService is Ownable {
      * @param _pledge address the address of the pledge to be EXECUTED
      * @param _signatures array of signatures for this function
      */
-    function execute(address _pledge, bytes[] _signatures) public onlyOwner {
+    function execute(address _pledge, bytes[2] _signatures) public onlyOwner {
       require(_pledge != address(0));
       Pledge(_pledge).execute(_signatures);
     }

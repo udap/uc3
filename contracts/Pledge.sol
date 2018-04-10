@@ -64,9 +64,8 @@ contract Pledge {
      * @dev approve this pledge (funds not transferred)
      * @param _approvedAmount funds to be credited to the pledgor
      * @param _dataRef additional data for the approval
-     * @param _sigs collected signatures
      */
-    function approve(uint _approvedAmount, bytes _dataRef, bytes[] _sigs) public onlyPledgee {
+    function approve(uint _approvedAmount, bytes _dataRef) public onlyPledgee {
         require(state == State.INITIATED);
         bytes32 _msgHash = keccak256(collateral,pledgor,pledgee);
 //        require(multiSig.isSigned(_msgHash, _sigs));
@@ -79,7 +78,7 @@ contract Pledge {
      * @dev execute the pledge and transfer funds to the pledgor
      * @param _sigs bytes signatures required by this function
      */
-    function execute(bytes[] _sigs) public onlyPledgee {
+    function execute(bytes[2] _sigs) public onlyPledgee {
         require(_sigs.length == 2);
         bool[] memory flags = new bool[](2);
         // ensure the signature is from the pledgee
