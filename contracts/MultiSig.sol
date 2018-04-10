@@ -37,7 +37,6 @@ contract MultiSig {
   /**
    * @dev constructor to create a MultiSig contract.
    * @param _threshold uint the number of required confirmation
-   * @param _owners a list of owners. duplicates are not allowed in the array.
    */
   function MultiSig(uint _threshold, address[] _signers)
     public validThreshold(_signers.length,_threshold) {
@@ -113,14 +112,14 @@ contract MultiSig {
     require(destination.call.value(value)(data));
   }
 
-  function getRsv(bytes signedString) public returns (bytes32,bytes32,byte){
+  function getRsv(bytes signedString) public returns (bytes32,bytes32,uint8){
       bytes32  r = bytesToBytes32(slice(signedString, 0, 32));
       bytes32  s = bytesToBytes32(slice(signedString, 32, 32));
       byte  v = slice(signedString, 64, 1)[0];
-      return (r,s,v);
+      return (r,s,uint8(v));
   }
 
-    function slice(bytes memory data, uint start, uint len) returns (bytes){
+    function slice(bytes memory data, uint start, uint len) public returns (bytes){
         bytes memory b = new bytes(len);
 
         for(uint i = 0; i < len; i++){
@@ -129,7 +128,7 @@ contract MultiSig {
 
         return b;
     }
-    function bytesToBytes32(bytes memory source) returns (bytes32 result) {
+    function bytesToBytes32(bytes memory source) public returns (bytes32 result) {
         assembly {
             result := mload(add(source, 32))
         }
