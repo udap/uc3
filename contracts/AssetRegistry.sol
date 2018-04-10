@@ -31,8 +31,8 @@ contract AssetRegistry is ReentrancyGuard {
       _;
   }
 
-  function AssetRegistry(address _owner) public {
-    owner = _owner;
+  function AssetRegistry() public {
+    owner = msg.sender;
   }
   /**
    * @dev create and register a new asset
