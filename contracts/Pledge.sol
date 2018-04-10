@@ -78,13 +78,13 @@ contract Pledge {
      * @dev execute the pledge and transfer funds to the pledgor
      * @param _sigs bytes signatures required by this function
      */
-    function execute(bytes[2] _sigs) public onlyPledgee {
+    function execute(bytes32[2] _sigs) public onlyPledgee {
         require(_sigs.length == 2);
         bool[] memory flags = new bool[](2);
         // ensure the signature is from the pledgee
         bytes32 _msgHash = keccak256(collateral,pledgor,pledgee,owingBalance);
         for (uint i=0 ;i<_sigs.length; i++) {
-            var (r,s,v) = multiSig.getRsv(_sigs[i]);
+            var (r,s,v) = multiSig.getRsv(bytes32ToBytes(_sigs[i]));
             address recovered = ecrecover(_msgHash, v, r, s);
             if (recovered == pledgee) {
                 flags[1] = true;
@@ -97,6 +97,20 @@ contract Pledge {
         require(pledgor.call.value(owingBalance)(pledgeRef));
         // update states
         state = State.EXECUTED;
+    }
+
+    function bytes32ToBytes(bytes32 data) internal pure returns (bytes) {
+        uint i = 0;
+        while (i < 32 && uint(data[i]) != 0) {
+            ++i;
+        }
+        bytes memory result = new bytes(i);
+        i = 0;
+        while (i < 32 && data[i] != 0) {
+            result[i] = data[i];
+            ++i;
+        }
+        return result;
     }
 
     /**

@@ -98,7 +98,7 @@ contract PledgeService is Ownable {
      * @param _pledge address the address of the pledge to be EXECUTED
      * @param _signatures array of signatures for this function
      */
-    function execute(address _pledge, bytes[2] _signatures) public onlyOwner {
+    function execute(address _pledge, bytes32[2] _signatures) public onlyOwner {
       require(_pledge != address(0));
       Pledge(_pledge).execute(_signatures);
     }
