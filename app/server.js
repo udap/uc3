@@ -8,7 +8,7 @@ const app = new Koa();
 const staticCtx = serve(path.join(__dirname));
 
 const main = ctx => {
-    ctx.response.redirect("home.html");
+    ctx.response.redirect("index.html");
 };
 
 app.use(route.get('/', main));

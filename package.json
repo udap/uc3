@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "dev": "webpack-dev-server --hot --port 8080",
-    "deploy": "node app/server.js"
+    "start": "webpack & node dist/server.js",
+    "deploy": "webpack"
   },
   "author": "",
   "license": "ISC",
