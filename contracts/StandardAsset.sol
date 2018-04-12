@@ -12,12 +12,13 @@ contract StandardAsset is AbstractAsset {
   // multisig support if transactions require multiple confirmations
   //MultiSig private multisig;
   function StandardAsset(address _issuer, uint _id, bytes32 _nsi, bool _transferrable,
-    bytes32 _mdRef) AbstractAsset(_id, _issuer, _issuer) public {
+    string data,bytes32 _mdRef) AbstractAsset(_id, _issuer, _issuer) public {
     md = Commons.MetaData({
         nsi:_nsi,
         issuer:_issuer,
         transferrable:_transferrable,
         fungible:false,
+        data:data,
         dataRef:_mdRef
     });
     AssetCreated(address(this),_id);

@@ -9,6 +9,7 @@ library Commons {
       address issuer;
       bool transferrable;
       bool fungible;
+      string data;
       bytes32 dataRef;
   }
 }

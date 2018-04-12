@@ -10,8 +10,8 @@ contract CompositeAsset is StandardAsset {
   // assetId array
   uint[] assetIds;
 
-  function CompositeAsset(address _issuer, uint _id, bytes32 _nsi, bool _transferrable, bytes32 _mdHash, address[] _assets)
-    StandardAsset(_issuer, _id, _nsi, _transferrable, _mdHash) public {
+  function CompositeAsset(address _issuer, uint _id, bytes32 _nsi, bool _transferrable,string data,bytes32 _mdHash, address[] _assets)
+    StandardAsset(_issuer, _id, _nsi, _transferrable,data,_mdHash) public {
     for(uint i=0;i<_assets.length; i++) {
       uint id = Asset(_assets[i]).getId();
       if (assets[i] != 0) {
