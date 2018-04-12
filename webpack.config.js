@@ -1,6 +1,8 @@
 const path = require('path');
 const Cleanwebpackplugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+
 
 module.exports = {
     entry: {
@@ -31,6 +33,11 @@ module.exports = {
 
                     }
                 ]
+            },
+            {
+                // iconfont
+                test: /\.(woff|woff2|svg|eot|ttf)\??.*$/,
+                loader: 'url-loader',
             }
         ]
     },
@@ -38,7 +45,11 @@ module.exports = {
         contentBase:"app" //the index.html dir
     },
     plugins: [
-        // new HtmlWebpackPlugin({template : './index.html'}),
-        new Cleanwebpackplugin(['dist'])
+        // new HtmlWebpackPlugin({template : './app/home-issue.html'}),
+        new Cleanwebpackplugin(['dist']),
+        new CopyWebpackPlugin([
+            { from: path.resolve(__dirname, 'app/'), to: path.resolve(__dirname, 'dist/'), ignore: [ path.resolve(__dirname, 'app/js/') ] }
+
+        ])
     ]
 };
