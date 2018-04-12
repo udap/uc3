@@ -12,7 +12,6 @@ contract AbstractAsset is Asset {
     require(msg.sender == owner);
     _;
   }
-
   modifier onlyIssuer {
     require(msg.sender == issuer);
     _;
