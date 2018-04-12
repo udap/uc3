@@ -42,7 +42,7 @@ module.exports = {
         ]
     },
     devServer:{
-        contentBase:"app" //the index.html dir
+        contentBase:"dist/" //the index.html dir
     },
     plugins: [
         // new HtmlWebpackPlugin({template : './app/home-issue.html'}),
