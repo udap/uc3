@@ -189,6 +189,8 @@ html,body{
   left: 0;
   top: 0;
   font-size: 12px;
+  text-align: right;
+  padding-right: 5px;
 }
 .input-group .title span {
   font-family: 'Microsoft Yahei', '微软雅黑';
