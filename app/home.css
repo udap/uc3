@@ -213,6 +213,14 @@ html,body{
   border: solid 1px #d5d9d8;
   text-indent: 6px;
 }
+.input-group .select input{
+  padding-left: 5px;
+  width: 60%;
+}
+.input-group .select select{
+  width: 38%;
+  cursor: pointer;
+}
 .input-group .module .error-msg {
   display: none;
   width: 100%;
