@@ -11,6 +11,7 @@ module.exports = {
     },
     output: {
         filename: "[name].js",
+        publicPath:"js/",
         path: path.resolve(__dirname, 'dist/js')
     },
     module: {
@@ -42,10 +43,10 @@ module.exports = {
         ]
     },
     devServer:{
-        contentBase:"dist/" //the index.html dir
+        contentBase:"app/" //the index.html dir
     },
     plugins: [
-        // new HtmlWebpackPlugin({template : './app/home-issue.html'}),
+        // new HtmlWebpackPlugin({template:'./app/index.html'}),
         new Cleanwebpackplugin(['dist']),
         new CopyWebpackPlugin([
             { from: path.resolve(__dirname, 'app/'), to: path.resolve(__dirname, 'dist/'), ignore: [ path.resolve(__dirname, 'app/js/') ] }

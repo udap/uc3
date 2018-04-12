@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "dev": "webpack-dev-server --port 8080",
+    "dev": "webpack-dev-server --hot --port 8080",
     "deploy": "node app/server.js"
   },
   "author": "",
