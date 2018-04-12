@@ -183,12 +183,12 @@ html,body{
   position: relative;
 }
 .input-group .title {
-  width: 120px;
+  width: 150px;
   line-height: 40px;
   position: absolute;
   left: 0;
   top: 0;
-  font-size: 14px;
+  font-size: 12px;
 }
 .input-group .title span {
   font-family: 'Microsoft Yahei', '微软雅黑';
@@ -202,9 +202,9 @@ html,body{
 }
 .input-group .module {
   min-height: 40px;
-  margin-left: 120px;
+  margin-left: 150px;
 }
-.input-group .module .input {
+.input-group .module .input,.input-group .module select {
   width: 100%;
   height: 40px;
   line-height: normal;
