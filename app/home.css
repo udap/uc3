@@ -13,6 +13,13 @@ html,body{
     font-size: 14px;
     margin:0 auto;
     padding-bottom: 50px;
+    font-family: Arial,'Times New Roman','Microsoft YaHei',SimHei; 
+}
+.issuer{
+  font-size: 12px;
+  line-height: 30px;
+  border-bottom: solid 1px #ccc;
+  font-weight: bold;
 }
 /* head */
 .head{
@@ -73,13 +80,13 @@ html,body{
 .element-title {
     width: auto;
     height: 40px;
-    background: #d8d8d8;
+    background: #e5e5e5;
     color: #000000;
     line-height: 40px;
     padding: 0px 5px;
 }
 .element-title-f {
-    font-size: 16px;
+    font-size: 14px;
     float: left;
 }
 .element-title-f a{
@@ -332,7 +339,7 @@ html,body{
 
 .detail form,.item{
   background-color: #fff;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 .detail ul{
   list-style-type: none;
@@ -401,8 +408,7 @@ html,body{
 @media screen and (max-width: 768px) {
   .empty-content .h3 {
       font-size: 29px;
-      margin: 0;
-      height: 55px;
+      margin-bottom: 20px;
   }
   .empty-content img {
       width: 60%;
@@ -419,6 +425,7 @@ html,body{
   .input-group .title {
       width: 100%;
       position: relative;
+      text-align: left;
     }
     .input-group .module {
       margin-left: 0;
