@@ -36,6 +36,10 @@ window.Issue = {
             document.getElementById("accountNum").innerText =account;
         });
     },
+    getData:function(){
+
+
+    },
     issue: function() {
         var self = this;
 
