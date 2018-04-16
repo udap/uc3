@@ -58,22 +58,27 @@ window.Issue = {
       let storageRoomCode = document.getElementById("storageRoomCode").value;
       let warehouseAddress = document.getElementById("warehouseAddress").value;
 
-      let aomunt = 0;
+      let amount = 0;
       for(let i = 0; i< weights.length - 1 ; i++){
           let weight = weights[i].value;
           let unit = units[i].value;
+          let numberOfPieces = numberOfPieceses[i].value;
           if(unit == "KG")
-              aomunt = aomunt + weight*2;
+              amount = amount + weight*numberOfPieces*2;
           else if (unit == "TON")
-              aomunt = aomunt + weight*2000;
+              amount = amount + weight*numberOfPieces*2000;
           else
-              aomunt = aomunt+ weight;
+              amount = amount+ weight*numberOfPieces;
       }
-      totalWeight = aomunt+"JIN";
+      totalWeight = amount+"JIN";
+      if(amount > 2000){
+          totalWeight = amount / 2000.0 +"TON";
+      }
+
 
 
       let warrant = new Warrant(productName,totalWeight,storageRoomCode,warehouseAddress,products);
-
+      console.log(warrant);
       return warrant;
   },
   issue: function () {
