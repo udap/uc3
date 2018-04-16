@@ -14,9 +14,9 @@ var AssetRegistry = contract(assetRegistry_artifacts)
 // The following code is simple to show off interacting with your contracts.
 // As your needs grow you will likely need to change its form and structure.
 // For application bootstrapping, check out window.addEventListener below.
-var accounts
-var account
-var assetRegistryAddress
+var accounts;
+var account;
+var assetRegistryAddress;
 
 window.Issue = {
   start: function () {
@@ -89,21 +89,25 @@ window.Issue = {
       
       let warrant = this.getData();
 
-
-
-    /*this.setStatus('Initiating transaction... (please wait)')
-
-      var meta
-      MetaCoin.deployed().then(function (instance) {
-          meta = instance
-          return meta.sendCoin(receiver, amount, {from: account})
-      }).then(function () {
+      let promise = "";
+      if(assetRegistryAddress){
+          promise = AssetRegistry.at(assetRegistryAddress);
+      }else{
+          promise = AssetRegistry.deployed();
+      }
+      console.log(promise)
+      let assetRegistry;
+      promise.then(function (instance) {
+          assetRegistryAddress = instance;
+          assetRegistry = instance;
+          console.log(instance)
+          return assetRegistry.createAsset('', true,false,JSON.stringify(warrant),"  ");
+      })/*.then(function () {
           self.setStatus('Transaction complete!')
           self.refreshBalance()
-      }).catch(function (e) {
+      })*/.catch(function (e) {
           console.log(e)
-          self.setStatus('Error sending coin; see log.')
-      })*/
+      })
   }
 }
 
