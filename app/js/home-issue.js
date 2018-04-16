@@ -8,7 +8,7 @@ import assetRegistry_artifacts from '../../build/contracts/AssetRegistry.json'
 import {Warrant,Product} from './warrant.js'
 
 // MetaCoin is our usable abstraction, which we'll use through the code below.
-var AssetRegistry = contract(assetRegistry_artifacts)
+var AssetRegistry = contract(assetRegistry_artifacts);
 
 
 // The following code is simple to show off interacting with your contracts.
@@ -20,9 +20,7 @@ var assetRegistryAddress;
 
 window.Issue = {
   start: function () {
-    var self = this
-
-    AssetRegistry.setProvider(web3.currentProvider)
+    var self = this;
 
     web3.eth.getAccounts(function (err, accs) {
       if (err != null) {
@@ -37,7 +35,8 @@ window.Issue = {
       accounts = accs
       account = accounts[0]
       document.getElementById('accountNum').innerText = account
-    })
+    });
+    AssetRegistry.setProvider(web3.currentProvider);
   },
   getData: function () {
       let skus = document.getElementsByName("sku");
@@ -87,21 +86,22 @@ window.Issue = {
       let owner = document.getElementById("owner");
       let supervise = document.getElementById("supervise");
       
-      let warrant = this.getData();
+      // let warrant = this.getData();
 
-      let promise = "";
+     let promise = "";
       if(assetRegistryAddress){
           promise = AssetRegistry.at(assetRegistryAddress);
       }else{
           promise = AssetRegistry.deployed();
       }
-      console.log(promise)
       let assetRegistry;
+
       promise.then(function (instance) {
-          assetRegistryAddress = instance;
+          assetRegistryAddress = instance.address;
           assetRegistry = instance;
-          console.log(instance)
-          return assetRegistry.createAsset('', true,false,JSON.stringify(warrant),"  ");
+          console.log("====instance==================")
+          console.log(instance.address)
+          return assetRegistry.createAsset(owner, true,false,JSON.stringify({}),"  ");
       })/*.then(function () {
           self.setStatus('Transaction complete!')
           self.refreshBalance()
@@ -118,7 +118,7 @@ window.addEventListener('load', function () {
         // Use Mist/MetaMask's provider
     window.web3 = new Web3(web3.currentProvider)
   } else {
-    console.info('No web3 detected. Falling back to http://127.0.0.1:9545')
+    console.info('No web3 detected. Falling back to http://127.0.0.1:8545')
         // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
     window.web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'))
   }
