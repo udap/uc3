@@ -6,6 +6,10 @@ a {
   text-decoration: none;
   color: #000;
 }
+.hideHeight{
+  height: 50px;
+  overflow: hidden;
+}
 html,body{
     min-width: 320px;
     max-width: 540px;
@@ -213,6 +217,7 @@ html,body{
   min-height: 40px;
   margin-left: 150px;
 }
+
 .input-group .module .input,.input-group .module select {
   width: 100%;
   height: 40px;
@@ -222,9 +227,18 @@ html,body{
   border: solid 1px #d5d9d8;
   text-indent: 6px;
 }
+
+.input-group .select {
+  height: 50px;
+  line-height: 50px;
+}
+
 .input-group .select input{
+  height: 40px;
+  line-height: 40px;
   padding-left: 5px;
   width: 60%;
+  border:solid 1px #d5d9d8;
 }
 .input-group .select select{
   width: 38%;
@@ -331,9 +345,11 @@ html,body{
   display: none;
 }
 .un-arrow{
+    right: 40px;
     background: url(img/ico-un-arrow.png) no-repeat center;
 }
 .up-arrow{
+    right: 40px;
     background: url(img/ico-un-arrow-up.png) no-repeat center;
 }
 
@@ -400,9 +416,8 @@ html,body{
       background: url(img/common-pro.png) no-repeat center;
       right: 0px;
 }
-.add{
-      right: 40px;
-      background: url(img/select-consulting.png) no-repeat center;
+.dir{
+      background: url(img/no-collect.png) no-repeat center;
 }
 
 @media screen and (max-width: 768px) {

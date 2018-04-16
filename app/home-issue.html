@@ -24,7 +24,7 @@
 					<div class="input-group">
 						<div class="title"><span>*</span>Owner</div>
 						<div class="module">
-							<input type="password" class="input" placeholder="Please fill in the Owner.">
+							<input type="text" name="owner" class="input" placeholder="Please fill in the Owner.">
 							<div class="error-msg">监管不可为空</div>
 						</div>
 					</div>
@@ -33,7 +33,7 @@
 					<div class="input-group">
 						<div class="title"><span>*</span>Supervise</div>
 						<div class="module">
-							<input type="password" class="input" placeholder="Please fill in the Supervise.">
+							<input type="text" name="supervise" class="input" placeholder="Please fill in the Supervise.">
 							<div class="error-msg">监管不可为空</div>
 						</div>
 					</div>
@@ -42,7 +42,7 @@
 					<div class="input-group">
 						<div class="title"><span>*</span>Product Name</div>
 						<div class="module">
-							<input type="password" class="input" placeholder="Please fill in the Product.">
+							<input type="text" name="productName" class="input" placeholder="Please fill in the Product.">
 							<div class="error-msg">产品不可为空</div>
 						</div>
 					</div>
@@ -51,7 +51,7 @@
 					<div class="input-group">
 						<div class="title"><span>*</span>Total Weight</div>
 						<div class="module">
-							<input type="text" class="input" placeholder="Please fill in the Total.">
+							<input type="text" name="totalWeight" class="input" placeholder="Please fill in the Total.">
 							<div class="error-msg">总重量不可为空</div>
 						</div>
 					</div>
@@ -60,7 +60,7 @@
 					<div class="input-group">
 						<div class="title"><span>*</span>StorageRoom Code</div>
 						<div class="module">
-							<input type="text" class="input" placeholder="Please fill in the Storehouse.">
+							<input type="text" name="storageRoomCode" class="input" placeholder="Please fill in the Storehouse.">
 							<div class="error-msg">仓储库房不可为空</div>
 						</div>
 					</div>
@@ -69,24 +69,29 @@
 					<div class="input-group">
 						<div class="title"><span>*</span>Warehouse Address</div>
 						<div class="module">
-							<input type="text" class="input" placeholder="Please fill in the Warehouse Address.">
+							<input type="text" name="warehouseAddress" class="input" placeholder="Please fill in the Warehouse Address.">
 							<div class="error-msg">仓储地址不可为空</div>
 						</div>
 					</div>
 				</li>
+				
+			</ul>
+		</form>
+		<form id="form2" name="form2" method="post"  action="">
+			<ul>
 				<li class="gray-row">
 					<div class="row-title">Add New Product</div>
-					<a class="un-arrow" href="javascript:;" id="psw"></a>
+					<a class="un-arrow" href="javascript:;" id="addNew"></a>
 				</li>
-				<li class="new"></li>
+				<li class="new" id="new"></li>
 				<li class="conceal">
 					<ul class="item">
-						<li><!-- <a class="arrow add" href="javascript:;"></a> --><a class="arrow delate" href="javascript:;"></a></li>
+						<li><a class="arrow dir" href="javascript:;"></a><a class="arrow display up-arrow" href="javascript:;"></a><a class="arrow delate" href="javascript:;"></a></li>
 						<li>
 						<div class="input-group">
 							<div class="title"><span>*</span>SKU</div>
 							<div class="module">
-								<input type="text" class="input" placeholder="Please fill in the SKU.">
+								<input type="text" name="sku" class="input" placeholder="Please fill in the SKU.">
 								<div class="error-msg">SKU不可为空</div>
 							</div>
 						</div>
@@ -95,7 +100,7 @@
 						<div class="input-group">
 							<div class="title"><span>*</span>Origin</div>
 							<div class="module">
-								<input type="text" class="input" placeholder="Please fill in the Origin.">
+								<input type="text" name="origin" class="input" placeholder="Please fill in the Origin.">
 								<div class="error-msg">产地不可为空</div>
 							</div>
 						</div>
@@ -104,7 +109,7 @@
 						<div class="input-group">
 							<div class="title"><span>*</span>Spec Name</div>
 							<div class="module">
-								<input type="text" class="input" placeholder="Please fill in the Spec Name.">
+								<input type="text" name="spacName" class="input" placeholder="Please fill in the Spec Name.">
 								<div class="error-msg">货物品名不可为空</div>
 							</div>
 						</div>
@@ -113,7 +118,7 @@
 						<div class="input-group">
 							<div class="title"><span>*</span>Number Of Pieces</div>
 							<div class="module">
-								<input type="text" class="input" placeholder="Please fill in the Number Of Pieces">
+								<input type="text" name="numberOfPieces" class="input" placeholder="Please fill in the Number Of Pieces">
 								<div class="error-msg">数量不可为空</div>
 							</div>
 						</div>
@@ -122,8 +127,8 @@
 						<div class="input-group">
 							<div class="title"><span>*</span>Unit Weight</div>
 							<div class="module select">
-								<input type="text" placeholder="Please fill in the Unit Weight">
-								<select name="" id="">
+								<input type="text" name="weight" placeholder="Please fill in the Unit Weight">
+								<select name="unit" id="unit">
 									<option value="JIN">JIN</option>
 									<option value="KG">KG</option>
 									<option value="TON">TON</option>
@@ -137,7 +142,7 @@
 		</form>
 		<div class="btns">
 			<a href="index.html" class="press cancel"><span>CANCEL</span></a>
-			<a href="javascript:;" class="press"><span>SUBMIT</span></a>
+			<a href="javascript:;" class="press" id="submit"><span>SUBMIT</span></a>
 		</div>
 	</div>
 	<!-- footer -->
@@ -150,9 +155,10 @@
 	<script>
 		$(function(){
 			var cont = $('.conceal').html();
-			$('#psw').click(function(){
-				$('.new').html($('.new').html()+cont);
+			$('body').on('click','#addNew',function(){
+				$('.new').append(cont);
 			})
+
 
 
 			$('body').on('click' , '.delate' , function(){ 
@@ -163,7 +169,55 @@
 
 
 
+			$('body').on('click' , '.display' , function(){ 
+				if($(this).hasClass('up-arrow')){
+					$(this).parent().siblings().hide();
+					$(this).removeClass('up-arrow').addClass('un-arrow');
+				}else{
+					$(this).parent().siblings().show();
+					$(this).removeClass('un-arrow').addClass('up-arrow');
+				}
+			});
 		})
 	</script>
+	<script>
+		
+		var names = ['owner','supervise','productName','totalWeight','storageRoomCode','warehouseAddress','productName'];
+		var names2 = ['sku','origin','specName','numberOfPieces','weight','unit'];
+		var sub =document.getElementById('submit');
+		var inputs = document.getElementsByTagName('input');
+		var items = document.getElementById('new').getElementsByClassName('item');
+		var jsonValues = {};
+
+		var productItem ={};
+	
+		sub.onclick = function(){
+		var products ={};
+			for (var i = 1; i < names.length; i++) {
+				if(inputs[i].name==names[i]){
+					jsonValues[names[i]]=inputs[i].value;
+				}
+			}
+	
+			for (var j = 0; j < items.length; j++) {
+				var Items ={};
+				for (var i = 0; i < names2.length; i++) {
+					if(names2[i]=='unit'){
+						var opt = items[j].getElementsByTagName('select')[0].options;
+						for (var index = 0; index < opt.length; index++) {
+							if(opt[index].selected ==true){
+								Items[names2[i]] = opt[index].value;
+							}
+						}
+					}else{
+						Items[names2[i]]=items[j].getElementsByTagName('input')[i].value;	
+					}
+				}
+				products[j]=Items;
+			}
+			jsonValues.product = products;
+			console.log("jsonValues",jsonValues);
+		}
+	</script>
 </body>
-</html>
+</html
