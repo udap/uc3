@@ -7,8 +7,8 @@ import './FungibleAsset.sol';
 contract AssetToken is FungibleAsset, BasicToken {
     event Minted(address indexed to, uint256 amount);
 
-  function AssetToken(address _issuer, bytes32 _mdHash, uint _amount, uint _tokens)
-    FungibleAsset(_issuer, uint(keccak256(_issuer, _mdHash)),'',true,_mdHash, _amount)
+  function AssetToken(address _issuer, bytes32 _mdHash,uint _amount, uint _tokens)
+    FungibleAsset(_issuer, uint(keccak256(_issuer, _mdHash)),'',true,"",_mdHash, _amount)
     public {
      totalSupply_ = _tokens;
      balances[_issuer] = totalSupply_;
