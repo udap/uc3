@@ -24,7 +24,7 @@
 					<div class="input-group">
 						<div class="title"><span>*</span>Owner</div>
 						<div class="module">
-							<input type="text" name="owner" class="input" placeholder="Please fill in the Owner.">
+							<input type="text" id="owner" class="input" placeholder="Please fill in the Owner.">
 							<div class="error-msg">监管不可为空</div>
 						</div>
 					</div>
@@ -33,7 +33,7 @@
 					<div class="input-group">
 						<div class="title"><span>*</span>Supervise</div>
 						<div class="module">
-							<input type="text" name="supervise" class="input" placeholder="Please fill in the Supervise.">
+							<input type="text" id="supervise" class="input" placeholder="Please fill in the Supervise.">
 							<div class="error-msg">监管不可为空</div>
 						</div>
 					</div>
@@ -42,7 +42,7 @@
 					<div class="input-group">
 						<div class="title"><span>*</span>Product Name</div>
 						<div class="module">
-							<input type="text" name="productName" class="input" placeholder="Please fill in the Product.">
+							<input type="text" id="productName" class="input" placeholder="Please fill in the Product.">
 							<div class="error-msg">产品不可为空</div>
 						</div>
 					</div>
@@ -51,7 +51,7 @@
 					<div class="input-group">
 						<div class="title"><span>*</span>Total Weight</div>
 						<div class="module">
-							<input type="text" name="totalWeight" class="input" placeholder="Please fill in the Total.">
+							<input type="text" id="totalWeight" class="input" placeholder="Please fill in the Total.">
 							<div class="error-msg">总重量不可为空</div>
 						</div>
 					</div>
@@ -60,7 +60,7 @@
 					<div class="input-group">
 						<div class="title"><span>*</span>StorageRoom Code</div>
 						<div class="module">
-							<input type="text" name="storageRoomCode" class="input" placeholder="Please fill in the Storehouse.">
+							<input type="text" id="storageRoomCode" class="input" placeholder="Please fill in the Storehouse.">
 							<div class="error-msg">仓储库房不可为空</div>
 						</div>
 					</div>
@@ -69,7 +69,7 @@
 					<div class="input-group">
 						<div class="title"><span>*</span>Warehouse Address</div>
 						<div class="module">
-							<input type="text" name="warehouseAddress" class="input" placeholder="Please fill in the Warehouse Address.">
+							<input type="text" id="warehouseAddress" class="input" placeholder="Please fill in the Warehouse Address.">
 							<div class="error-msg">仓储地址不可为空</div>
 						</div>
 					</div>
@@ -142,7 +142,7 @@
 		</form>
 		<div class="btns">
 			<a href="index.html" class="press cancel"><span>CANCEL</span></a>
-			<a href="javascript:;" class="press" id="submit"><span>SUBMIT</span></a>
+			<a href="javascript:Issue.getData();" class="press" id="submit" ><span>SUBMIT</span></a>
 		</div>
 	</div>
 	<!-- footer -->
@@ -182,42 +182,7 @@
 	</script>
 	<script>
 		
-		var names = ['owner','supervise','productName','totalWeight','storageRoomCode','warehouseAddress','productName'];
-		var names2 = ['sku','origin','specName','numberOfPieces','weight','unit'];
-		var sub =document.getElementById('submit');
-		var inputs = document.getElementsByTagName('input');
-		var items = document.getElementById('new').getElementsByClassName('item');
-		var jsonValues = {};
 
-		var productItem ={};
-	
-		sub.onclick = function(){
-		var products ={};
-			for (var i = 1; i < names.length; i++) {
-				if(inputs[i].name==names[i]){
-					jsonValues[names[i]]=inputs[i].value;
-				}
-			}
-	
-			for (var j = 0; j < items.length; j++) {
-				var Items ={};
-				for (var i = 0; i < names2.length; i++) {
-					if(names2[i]=='unit'){
-						var opt = items[j].getElementsByTagName('select')[0].options;
-						for (var index = 0; index < opt.length; index++) {
-							if(opt[index].selected ==true){
-								Items[names2[i]] = opt[index].value;
-							}
-						}
-					}else{
-						Items[names2[i]]=items[j].getElementsByTagName('input')[i].value;	
-					}
-				}
-				products[j]=Items;
-			}
-			jsonValues.product = products;
-			console.log("jsonValues",jsonValues);
-		}
 	</script>
 </body>
 </html

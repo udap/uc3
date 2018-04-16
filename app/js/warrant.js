@@ -1,4 +1,5 @@
-class Warrant{
+export class Warrant{
+
     constructor(productName,totalWeight,storageRoomCode,warehouseAddress,products){
         this.productName = productName;
         this.totalWeight = totalWeight;
@@ -9,7 +10,7 @@ class Warrant{
 
 }
 
-class Product{
+export class Product{
 
     constructor(sku,origin,specName,numberOfPieces,weight,unit){
         this.sku = sku;
