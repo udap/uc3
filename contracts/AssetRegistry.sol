@@ -11,11 +11,18 @@ contract AssetRegistry is ReentrancyGuard {
 
   // default namespace id
   bytes32 constant DEFAULT_NSI = "default";
-  address private owner;
+
+  address public owner;
+
   // number of assets in the registry
   uint256 private numOfAssets;
+
   // map asset addr to a bool
   mapping(address=>bool) private registeredAssets;
+
+  //Someone has a lot of assets
+  mapping(address=>address[]) private ownAssets;
+
   // index by namespace
   mapping(bytes32=>address[]) private assetsByNamespace;
   // indexed by id
@@ -48,15 +55,16 @@ contract AssetRegistry is ReentrancyGuard {
       _nsi = DEFAULT_NSI;
     }
     // generate a unique asset id
-    uint id = uint(keccak256(owner, _nsi, _metadataRef));
+    uint id = uint(keccak256(msg.sender, _nsi, data));
     Asset newAsset;
     if (_fungible) {
-      newAsset = new StandardAsset(owner, id, _nsi, _transferrable,data,_metadataRef);
+      newAsset = new StandardAsset(msg.sender, id, _nsi, _transferrable,data,_metadataRef);
     } else {
-      newAsset = new FungibleAsset(owner, id, _nsi, _transferrable,data,_metadataRef,0);
+      newAsset = new FungibleAsset(msg.sender, id, _nsi, _transferrable,data,_metadataRef,0);
     }
     registeredAssets[newAsset] = true;
     assetsByNamespace[_nsi].push(address(newAsset));
+    ownAssets[newAsset.getOwner()].push(address(newAsset));
     assetsById[id] = address(newAsset);
     return address(newAsset);
   }
@@ -69,6 +77,7 @@ contract AssetRegistry is ReentrancyGuard {
     registeredAssets[_asset] = true;
     assetsById[Asset(_asset).getId()] = _asset;
     assetsByNamespace[Asset(_asset).getNamespace()].push(_asset);
+    ownAssets[newAsset.getOwner()].push(address(_asset));
     numOfAssets++;
     AssetRegistered(_asset,Asset(_asset).getId());
   }
@@ -82,6 +91,10 @@ contract AssetRegistry is ReentrancyGuard {
 
   function getAsset(uint assetId) public view returns (address) {
       return assetsById[assetId];
+  }
+
+  function getOwnAssets() public view returns (address) {
+    return ownAssets[msg.sender];
   }
 
 }
