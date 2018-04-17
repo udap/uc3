@@ -84,9 +84,8 @@ window.Issue = {
     var self = this
 
       let owner = document.getElementById("owner");
-      let supervise = document.getElementById("supervise");
-      
-      // let warrant = this.getData();
+
+      let warrant = this.getData();
 
      let promise = "";
       if(assetRegistryAddress){
@@ -99,9 +98,8 @@ window.Issue = {
       promise.then(function (instance) {
           assetRegistryAddress = instance.address;
           assetRegistry = instance;
-          console.log("====instance==================")
-          console.log(instance.address)
-          return assetRegistry.createAsset(owner, true,false,JSON.stringify({}),"  ");
+          console.log("====instance==================",JSON.stringify(warrant));
+          return assetRegistry.createAsset('',true,false,JSON.stringify(warrant)," ");
       })/*.then(function () {
           self.setStatus('Transaction complete!')
           self.refreshBalance()
