@@ -77,7 +77,7 @@ contract AssetRegistry is ReentrancyGuard {
     registeredAssets[_asset] = true;
     assetsById[Asset(_asset).getId()] = _asset;
     assetsByNamespace[Asset(_asset).getNamespace()].push(_asset);
-    ownAssets[address(_asset).getOwner()].push(address(_asset));
+    ownAssets[Asset(_asset).getOwner()].push(address(_asset));
     numOfAssets++;
     AssetRegistered(_asset,Asset(_asset).getId());
   }
@@ -93,7 +93,7 @@ contract AssetRegistry is ReentrancyGuard {
       return assetsById[assetId];
   }
 
-  function getOwnAssets() public view returns (address) {
+  function getOwnAssets() public view returns (address[]) {
     return ownAssets[msg.sender];
   }
 
