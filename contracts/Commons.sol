@@ -9,7 +9,7 @@ library Commons {
       address issuer;
       bool transferrable;
       bool fungible;
-      string data;
+      string data;//JSON description of asset
       bytes32 dataRef;
   }
 }
