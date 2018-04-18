@@ -52,6 +52,7 @@ window.Issue = {
           products.push(product);
       }
 
+      let warrantCode = document.getElementById("warrantCode").value;
       let productName = document.getElementById("productName").value;
       let totalWeight = document.getElementById("totalWeight").value;
       let storageRoomCode = document.getElementById("storageRoomCode").value;
@@ -76,7 +77,7 @@ window.Issue = {
 
 
 
-      let warrant = new Warrant(productName,totalWeight,storageRoomCode,warehouseAddress,products);
+      let warrant = new Warrant(warrantCode,productName,totalWeight,storageRoomCode,warehouseAddress,products);
       console.log(warrant);
       return warrant;
   },

@@ -1,6 +1,7 @@
 export class Warrant{
 
-    constructor(productName,totalWeight,storageRoomCode,warehouseAddress,products){
+    constructor(warrantCode,productName,totalWeight,storageRoomCode,warehouseAddress,products){
+        this.warrantCode = warrantCode;
         this.productName = productName;
         this.totalWeight = totalWeight;
         this.storageRoomCode = storageRoomCode;
