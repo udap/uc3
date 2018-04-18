@@ -30,7 +30,7 @@
     "koa-route": "^3.2.0",
     "koa-static": "^4.0.2",
     "truffle-contract": "^3.0.4",
-    "web3": "^1.0.0-beta.33",
+    "web3": "^0.20.6",
     "zeppelin-solidity": "1.7.0"
   }
 }

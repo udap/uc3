@@ -42,6 +42,7 @@ module.exports = {
             }
         ]
     },
+    devtool: 'cheap-module-eval-source-map',//prod env use cheap-module-source-map
     devServer:{
         contentBase:"app/" //the index.html dir
     },

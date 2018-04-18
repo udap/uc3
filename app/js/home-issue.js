@@ -98,12 +98,10 @@ window.Issue = {
       promise.then(function (instance) {
           assetRegistryAddress = instance.address;
           assetRegistry = instance;
-          console.log("====instance==================",JSON.stringify(warrant));
-          return assetRegistry.createAsset('',true,false,JSON.stringify(warrant)," ");
-      })/*.then(function () {
-          self.setStatus('Transaction complete!')
-          self.refreshBalance()
-      })*/.catch(function (e) {
+          return assetRegistry.createAsset("",true,false,JSON.stringify(warrant),"",{from:account});
+      }).then(function (result) {
+          window.location.href="index.html";
+      }).catch(function (e) {
           console.log(e)
       })
   }
