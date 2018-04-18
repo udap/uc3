@@ -5,7 +5,7 @@ contract Asset {
   event AssetTransferred(address indexed _to, uint indexed _id);
   event AssetDestroyed(uint indexed _assetId);
 
-  function getMetaData() public view returns (bytes32,address,bool,bool,bytes32);
+  function getMetaData() public view returns (bytes32,address,bool,bool,string,bytes32);
   function getId() public view returns (uint);
   function getIssuer() public view returns (address);
   function getOwner() public view returns (address);

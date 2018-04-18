@@ -43,5 +43,8 @@ contract StandardAsset is AbstractAsset {
   function getDataRef() public view returns (bytes32) {
     return md.dataRef;
   }
+  function getData() public view returns (string) {
+        return md.data;
+  }
 
 }

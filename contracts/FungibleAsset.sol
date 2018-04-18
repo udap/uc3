@@ -23,8 +23,8 @@ contract FungibleAsset is AbstractAsset {
       amount = _amount;
   }
 
-  function getMetaData() public view returns (bytes32,address,bool,bool,bytes32) {
-    return (md.nsi, md.issuer, md.transferrable, md.fungible, md.dataRef);
+  function getMetaData() public view returns (bytes32,address,bool,bool,string,bytes32) {
+    return (md.nsi, md.issuer, md.transferrable, md.fungible,md.data,md.dataRef);
   }
 
   function getNamespace() public view returns (bytes32) {
