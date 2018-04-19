@@ -50,7 +50,7 @@ window.Show = {
                          return instance.getMetaData.call({from: account});
                      }).then(metaData => {
                          let data = metaData[4];
-                         container.innerHTML = self.oneWarrant(data);
+                         container.innerHTML = self.oneWarrant(JSON.parse(data));
 
                      });
                      console.log(index,item);
@@ -70,7 +70,7 @@ window.Show = {
     oneWarrant : function(warrant){
        return     `<div class='element'>
                         <div class='element-title'>
-                            <div class='element-title-f'>Warrant Code <a href='home-detail.html'>${warrant.warrantCode}</a></div>
+                            <div class='element-title-f'>Warrant Code : <a href='home-detail.html'>${warrant.warrantCode}</a></div>
                             <div class='element-title-r'>status&nbsp;:&nbsp;<span>pledge</span></div>
                         </div>
                         <div class='element-ul'>
