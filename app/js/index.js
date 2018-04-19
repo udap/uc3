@@ -75,12 +75,22 @@ window.Show = {
                         </div>
                         <div class='element-ul'>
                             <div class='element-li'>
-                                <div class='one'>${warrant.productName}</div>
-                                <div class='two'>${warrant.storageRoomCode}</div>
+                                <div class='one'>product</div>
+                                <div class='two'>${warrant.productName}</div>
                             </div>
                             <div class='element-li'>
                                 <div class='one'>Total</div>
                                 <div class='two'>${warrant.totalWeight}</div>
+                            </div>
+                        </div>
+                        <div class='element-ul'>
+                            <div class='element-li'>
+                                <div class='one'>Warehouse Address</div>
+                                <div class='two'>${warrant.warehouseAddress}</div>
+                            </div>
+                            <div class='element-li'>
+                                <div class='one'>StorageRoom Code</div>
+                                <div class='two'>${warrant.storageRoomCode}</div>
                             </div>
                         </div>
                     </div>`;
