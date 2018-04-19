@@ -44,15 +44,15 @@ window.Show = {
                  return assetRegistry.getOwnAssets.call({from: account});
              }).then(function (assetAddrs) {
 
-                 assetAddrs.forEach((item, index) => {
+                 assetAddrs.forEach((addr, index) => {
 
-                     StandardAsset.at(item).then( instance => {
+                     StandardAsset.at(addr).then( instance => {
                          return instance.getMetaData.call({from: account});
                      }).then(metaData => {
                          let data = metaData[4];
-                         container.appendChild(self.oneWarrant(JSON.parse(data)));
+                         container.appendChild(self.oneWarrant(JSON.parse(data),addr));
                      });
-                     console.log(index,item);
+                     console.log(index,addr);
 
                  })
 
@@ -66,12 +66,12 @@ window.Show = {
 
 
     },//warehouseAddress,products
-    oneWarrant : function(warrant){
+    oneWarrant : function(warrant,addr){
         let divNode = document.createElement("div");
         divNode.classList.add("element");
 
        let content = `<div class='element-title'>
-                            <div class='element-title-f'>Warrant Code : <a href='home-detail.html'>${warrant.warrantCode}</a></div>
+                            <div class='element-title-f'>Warrant Code : <a href='home-detail.html?assetAddr=${addr}'>${warrant.warrantCode}</a></div>
                             <div class='element-title-r'>status&nbsp;:&nbsp;<span>pledge</span></div>
                         </div>
                         <div class='element-ul'>
