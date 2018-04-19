@@ -50,8 +50,7 @@ window.Show = {
                          return instance.getMetaData.call({from: account});
                      }).then(metaData => {
                          let data = metaData[4];
-                         container.innerHTML = self.oneWarrant(JSON.parse(data));
-
+                         container.appendChild(self.oneWarrant(JSON.parse(data)));
                      });
                      console.log(index,item);
 
@@ -68,8 +67,10 @@ window.Show = {
 
     },//warehouseAddress,products
     oneWarrant : function(warrant){
-       return     `<div class='element'>
-                        <div class='element-title'>
+        let divNode = document.createElement("div");
+        divNode.classList.add("element");
+
+       let content = `<div class='element-title'>
                             <div class='element-title-f'>Warrant Code : <a href='home-detail.html'>${warrant.warrantCode}</a></div>
                             <div class='element-title-r'>status&nbsp;:&nbsp;<span>pledge</span></div>
                         </div>
@@ -92,9 +93,9 @@ window.Show = {
                                 <div class='one'>StorageRoom Code</div>
                                 <div class='two'>${warrant.storageRoomCode}</div>
                             </div>
-                        </div>
-                    </div>`;
-
+                        </div>`;
+        divNode.innerHTML = content;
+        return divNode;
     }
 
 
