@@ -66,6 +66,7 @@ contract AssetRegistry is ReentrancyGuard {
     assetsByNamespace[_nsi].push(address(newAsset));
     ownAssets[newAsset.getOwner()].push(address(newAsset));
     assetsById[id] = address(newAsset);
+    numOfAssets++;
     return address(newAsset);
   }
 
