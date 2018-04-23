@@ -16,19 +16,6 @@ module.exports = {
         rinkeby: {
             provider: new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/HUkrzYiEqgEioBDoT5Mq"),
             network_id: "*"
-        },
-        /*kovan: {
-            provider: function () {
-                mnemonics.kovan = process.env.MNEMONICS || mnemonics.kovan || prompt('network kovan mnemonic: ');
-                return new HDWalletProvider(mnemonics.kovan, "https://kovan.infura.io/");rinkeby.etherscan.io
-            },
-            gasPrice: 1000000000,
-            network_id: 42
-        },*/
-        test: {
-            host: "127.0.0.1",
-            port: 9545,
-            network_id: "*" // Match any network id
         }
     }
 
