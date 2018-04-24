@@ -5,7 +5,7 @@ import corn from '../img/corn.jpg'
 import walnut from '../img/walnut.jpg'
 import garlic from '../img/garlic.jpg'
 import getWeb3 from "../util/getWeb3"
-import { contract } from 'truffle-contract'
+import { default as contract } from 'truffle-contract'
 import assetRegistry_artifacts from '../../../build/contracts/AssetRegistry.json'
 import standardAsset_artifacts from '../../../build/contracts/StandardAsset.json'
 import {Warrant,Product} from '../data/warrant'
@@ -18,7 +18,7 @@ const products = {
   garlic
 }
 const data = [
-  {
+  /*{
     id: '1',
     warrantCode: 'W1803152',
     productName: 'corn',
@@ -59,23 +59,26 @@ const data = [
     productName: 'corn',
     status: 'pledge',
     totalWeight: '144kg'
-  }
+  }*/
 ]
 
 export default class extends React.Component {
 
-  componentWillMount () {
+  componentDidMount () {
     getWeb3.then(results => {
+
+        console.log('results=====',results);
         this.setState({
           web3: results.web3
         });
-        this.instantiateContract();
         this.initAccount();
-      }).catch(() => {
-        console.log('Error finding web3.')
+        this.instantiateContract();
+      }).catch((e) => {
+        console.log('Error finding web3.',e)
       })
   }
   initAccount(){
+      let self  = this;
       this.state.web3.eth.getAccounts(function (err, accs) {
           if (err != null) {
               alert('There was an error fetching your accounts.')
@@ -86,30 +89,32 @@ export default class extends React.Component {
               return
           }
           // this.setState({ accounts: accs })
-          this.setState({ account: accs[0] });
-          document.getElementById('accountNum').innerText = account;
+          self.setState({ account: accs[0] });
+          // document.getElementById('accountNum').innerText = account;
       });
   }
   instantiateContract() {
+      let self  = this;
       let AssetRegistry = contract(assetRegistry_artifacts);
       let StandardAsset = contract(standardAsset_artifacts);
       AssetRegistry.setProvider(this.state.web3.currentProvider);
       StandardAsset.setProvider(this.state.web3.currentProvider);
 
       AssetRegistry.deployed().then(function (instance) {
-          assetRegistry = instance;
-          return assetRegistry.getOwnAssets.call({from: this.state.account});
+          return instance.getOwnAssets.call({from: self.state.account});
       }).then(assetAddrs => {
           assetAddrs.forEach((addr, index) => {
               StandardAsset.at(addr).then( instance => {
-                  return instance.getMetaData.call({from: this.state.account});
+                  return instance.getMetaData.call({from: self.state.account});
               }).then(metaData => {
-                  let data = metaData[4];
-                  data.push(JSON.parse(data));
+                  // let data = metaData[4];
+                  data.push(JSON.parse(metaData[4]));
               });
               console.log(index,addr);
 
-          })
+          });
+          self.setState({ data: data });
+          console.log(data);
       });
   }
 
