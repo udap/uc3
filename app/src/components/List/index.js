@@ -9,13 +9,13 @@ const List = ({data, products}) => {
       <WhiteSpace size='lg' />
       <Card className='home-card'>
         <Card.Header
-          title={data.title}
-          thumb={mapPro[data.product]}
+          title={'Warehouse Receipt：' + data.warrantCode}
+          thumb={mapPro[data.productName]}
           extra={<span className='warn-text'>{data.status}</span>}
         />
         <Card.Body>
           <ul>
-            <li>Total:<strong>{data.total}</strong></li>
+            <li>Total:<strong>{data.totalWeight}</strong></li>
           </ul>
         </Card.Body>
         <Card.Footer content='' extra={<div>MORE</div>} />

@@ -13,70 +13,91 @@ const products = {
 const data = [
   {
     id: '1',
-    title: 'Warehouse Receipt：W1803152',
-    product: 'corn',
+    warrantCode: 'W1803152',
+    productName: 'corn',
     status: 'pledge',
-    total: '69kg'
+    totalWeight: '69kg'
   },
   {
     id: '2',
-    title: 'Warehouse Receipt：W1803151',
-    product: 'garlic',
+    warrantCode: 'W1803151',
+    productName: 'garlic',
     status: '',
-    total: '144kg'
+    totalWeight: '144kg'
   },
   {
     id: '3',
-    title: 'Warehouse Receipt：W1803153',
-    product: 'walnut',
+    warrantCode: 'W1803153',
+    productName: 'walnut',
     status: 'pledge',
-    total: '144kg'
+    totalWeight: '144kg'
   },
   {
     id: '4',
-    title: 'Warehouse Receipt：W1803152',
-    product: '',
+    warrantCode: 'W1803152',
+    productName: '',
     status: '',
-    total: '144kg'
+    totalWeight: '144kg'
   },
   {
     id: '5',
-    title: 'Warehouse Receipt：W1803151',
-    product: 'walnut',
+    warrantCode: 'W1803151',
+    productName: 'walnut',
     status: 'pledge',
-    total: '144kg'
+    totalWeight: '144kg'
   },
   {
     id: '6',
-    title: 'Warehouse Receipt：W1803153',
-    product: 'corn',
+    warrantCode: 'W1803153',
+    productName: 'corn',
     status: 'pledge',
-    total: '144kg'
+    totalWeight: '144kg'
   }
 ]
-const Home = ({ match }) => (
-  <div>
-    <NavBar mode='light'>WARRANT</NavBar>
-    <WhiteSpace size='lg' />
-    <WingBlank>
-      <Carousel className='my-carousel'
-        vertical
-        dots={false}
-        dragging={false}
-        swiping={false}
-        autoplay
-        infinite
-      >
-        {
-        data.map((data, index) => <NoticeBar key={index} marqueeProps={{ loop: false, style: { padding: '0 7.5px' } }}>{data.title}</NoticeBar>)
-      }
-      </Carousel>
-      {
-        data.map((data, index) => <List key={data.id} data={data} products={products} />)
-      }
-    </WingBlank>
-    <WhiteSpace size='lg' />
-  </div>
-)
 
-export default Home
+export default class extends React.Component {
+  componentWillMount () {
+    // Get network provider and web3 instance.
+    // See utils/getWeb3 for more info.
+
+   /* getWeb3
+    .then(results => {
+      this.setState({
+        web3: results.web3
+      })
+
+      // Instantiate contract once web3 provided.
+      this.instantiateContract()
+    })
+    .catch(() => {
+      console.log('Error finding web3.')
+    }) */
+  }
+
+  render () {
+    return (
+      <div>
+        <NavBar mode='light'>WARRANT</NavBar>
+        <WhiteSpace size='lg' />
+        <WingBlank>
+          <Carousel className='my-carousel'
+            vertical
+            dots={false}
+            dragging={false}
+            swiping={false}
+            autoplay
+            infinite
+            >
+            {
+              data.map((data, index) => <NoticeBar key={index} marqueeProps={{ loop: false, style: { padding: '0 7.5px' } }}>{data.warrantCode}</NoticeBar>)
+            }
+          </Carousel>
+          {
+              data.map((data, index) => <List key={data.id} data={data} products={products} />)
+            }
+        </WingBlank>
+        <WhiteSpace size='lg' />
+      </div>
+    )
+  }
+}
