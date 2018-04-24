@@ -4,6 +4,13 @@ import List from '../components/List'
 import corn from '../img/corn.jpg'
 import walnut from '../img/walnut.jpg'
 import garlic from '../img/garlic.jpg'
+import getWeb3 from "../util/getWeb3"
+import { contract } from 'truffle-contract'
+import assetRegistry_artifacts from '../../../build/contracts/AssetRegistry.json'
+import standardAsset_artifacts from '../../../build/contracts/StandardAsset.json'
+import {Warrant,Product} from '../data/warrant'
+
+
 
 const products = {
   walnut,
@@ -56,22 +63,54 @@ const data = [
 ]
 
 export default class extends React.Component {
+
   componentWillMount () {
-    // Get network provider and web3 instance.
-    // See utils/getWeb3 for more info.
-
-   /* getWeb3
-    .then(results => {
-      this.setState({
-        web3: results.web3
+    getWeb3.then(results => {
+        this.setState({
+          web3: results.web3
+        });
+        this.instantiateContract();
+        this.initAccount();
+      }).catch(() => {
+        console.log('Error finding web3.')
       })
+  }
+  initAccount(){
+      this.state.web3.eth.getAccounts(function (err, accs) {
+          if (err != null) {
+              alert('There was an error fetching your accounts.')
+              return
+          }
+          if (accs.length == 0) {
+              alert("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.")
+              return
+          }
+          // this.setState({ accounts: accs })
+          this.setState({ account: accs[0] });
+          document.getElementById('accountNum').innerText = account;
+      });
+  }
+  instantiateContract() {
+      let AssetRegistry = contract(assetRegistry_artifacts);
+      let StandardAsset = contract(standardAsset_artifacts);
+      AssetRegistry.setProvider(this.state.web3.currentProvider);
+      StandardAsset.setProvider(this.state.web3.currentProvider);
 
-      // Instantiate contract once web3 provided.
-      this.instantiateContract()
-    })
-    .catch(() => {
-      console.log('Error finding web3.')
-    }) */
+      AssetRegistry.deployed().then(function (instance) {
+          assetRegistry = instance;
+          return assetRegistry.getOwnAssets.call({from: this.state.account});
+      }).then(assetAddrs => {
+          assetAddrs.forEach((addr, index) => {
+              StandardAsset.at(addr).then( instance => {
+                  return instance.getMetaData.call({from: this.state.account});
+              }).then(metaData => {
+                  let data = metaData[4];
+                  data.push(JSON.parse(data));
+              });
+              console.log(index,addr);
+
+          })
+      });
   }
 
   render () {
