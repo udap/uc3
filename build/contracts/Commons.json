@@ -1,0 +1,605 @@
+{
+  "contractName": "Commons",
+  "abi": [],
+  "bytecode": "0x60606040523415600e57600080fd5b603580601b6000396000f3006060604052600080fd00a165627a7a723058209b920dcc9b8454b1eaecb1f3ebdb67fbdf00b6fd6ee366f7b3ec316198c8333f0029",
+  "deployedBytecode": "0x6060604052600080fd00a165627a7a723058209b920dcc9b8454b1eaecb1f3ebdb67fbdf00b6fd6ee366f7b3ec316198c8333f0029",
+  "sourceMap": "28:279:3:-;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "28:279:3:-;;;;;",
+  "source": "pragma solidity ^0.4.19;\r\n\r\nlibrary Commons {\r\n  byte constant HASH_ALG = 0x12;\r\n  byte constant HASH_LEN = 0x20;\r\n\r\n  struct MetaData {\r\n      bytes32 nsi;\r\n      address issuer;\r\n      bool transferrable;\r\n      bool fungible;\r\n      string data;//JSON description of asset\r\n      bytes32 dataRef;\r\n  }\r\n}\r\n",
+  "sourcePath": "G:\\GitRepository\\udap\\uc3\\contracts\\Commons.sol",
+  "ast": {
+    "absolutePath": "/G/GitRepository/udap/uc3/contracts/Commons.sol",
+    "exportedSymbols": {
+      "Commons": [
+        496
+      ]
+    },
+    "id": 497,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 476,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".19"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:3"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "library",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 496,
+        "linearizedBaseContracts": [
+          496
+        ],
+        "name": "Commons",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": true,
+            "id": 479,
+            "name": "HASH_ALG",
+            "nodeType": "VariableDeclaration",
+            "scope": 496,
+            "src": "49:29:3",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bytes1",
+              "typeString": "bytes1"
+            },
+            "typeName": {
+              "id": 477,
+              "name": "byte",
+              "nodeType": "ElementaryTypeName",
+              "src": "49:4:3",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bytes1",
+                "typeString": "bytes1"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "30783132",
+              "id": 478,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "74:4:3",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_18_by_1",
+                "typeString": "int_const 18"
+              },
+              "value": "0x12"
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": true,
+            "id": 482,
+            "name": "HASH_LEN",
+            "nodeType": "VariableDeclaration",
+            "scope": 496,
+            "src": "83:29:3",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bytes1",
+              "typeString": "bytes1"
+            },
+            "typeName": {
+              "id": 480,
+              "name": "byte",
+              "nodeType": "ElementaryTypeName",
+              "src": "83:4:3",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bytes1",
+                "typeString": "bytes1"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "30783230",
+              "id": 481,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "108:4:3",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_32_by_1",
+                "typeString": "int_const 32"
+              },
+              "value": "0x20"
+            },
+            "visibility": "internal"
+          },
+          {
+            "canonicalName": "Commons.MetaData",
+            "id": 495,
+            "members": [
+              {
+                "constant": false,
+                "id": 484,
+                "name": "nsi",
+                "nodeType": "VariableDeclaration",
+                "scope": 495,
+                "src": "144:11:3",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                },
+                "typeName": {
+                  "id": 483,
+                  "name": "bytes32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "144:7:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 486,
+                "name": "issuer",
+                "nodeType": "VariableDeclaration",
+                "scope": 495,
+                "src": "164:14:3",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 485,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "164:7:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 488,
+                "name": "transferrable",
+                "nodeType": "VariableDeclaration",
+                "scope": 495,
+                "src": "187:18:3",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 487,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "187:4:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 490,
+                "name": "fungible",
+                "nodeType": "VariableDeclaration",
+                "scope": 495,
+                "src": "214:13:3",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 489,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "214:4:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 492,
+                "name": "data",
+                "nodeType": "VariableDeclaration",
+                "scope": 495,
+                "src": "236:11:3",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string storage pointer"
+                },
+                "typeName": {
+                  "id": 491,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "236:6:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string storage pointer"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 494,
+                "name": "dataRef",
+                "nodeType": "VariableDeclaration",
+                "scope": 495,
+                "src": "283:15:3",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                },
+                "typeName": {
+                  "id": 493,
+                  "name": "bytes32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "283:7:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "MetaData",
+            "nodeType": "StructDefinition",
+            "scope": 496,
+            "src": "119:185:3",
+            "visibility": "public"
+          }
+        ],
+        "scope": 497,
+        "src": "28:279:3"
+      }
+    ],
+    "src": "0:309:3"
+  },
+  "legacyAST": {
+    "absolutePath": "/G/GitRepository/udap/uc3/contracts/Commons.sol",
+    "exportedSymbols": {
+      "Commons": [
+        496
+      ]
+    },
+    "id": 497,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 476,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".19"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:3"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "library",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 496,
+        "linearizedBaseContracts": [
+          496
+        ],
+        "name": "Commons",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": true,
+            "id": 479,
+            "name": "HASH_ALG",
+            "nodeType": "VariableDeclaration",
+            "scope": 496,
+            "src": "49:29:3",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bytes1",
+              "typeString": "bytes1"
+            },
+            "typeName": {
+              "id": 477,
+              "name": "byte",
+              "nodeType": "ElementaryTypeName",
+              "src": "49:4:3",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bytes1",
+                "typeString": "bytes1"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "30783132",
+              "id": 478,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "74:4:3",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_18_by_1",
+                "typeString": "int_const 18"
+              },
+              "value": "0x12"
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": true,
+            "id": 482,
+            "name": "HASH_LEN",
+            "nodeType": "VariableDeclaration",
+            "scope": 496,
+            "src": "83:29:3",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bytes1",
+              "typeString": "bytes1"
+            },
+            "typeName": {
+              "id": 480,
+              "name": "byte",
+              "nodeType": "ElementaryTypeName",
+              "src": "83:4:3",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bytes1",
+                "typeString": "bytes1"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "30783230",
+              "id": 481,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "108:4:3",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_32_by_1",
+                "typeString": "int_const 32"
+              },
+              "value": "0x20"
+            },
+            "visibility": "internal"
+          },
+          {
+            "canonicalName": "Commons.MetaData",
+            "id": 495,
+            "members": [
+              {
+                "constant": false,
+                "id": 484,
+                "name": "nsi",
+                "nodeType": "VariableDeclaration",
+                "scope": 495,
+                "src": "144:11:3",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                },
+                "typeName": {
+                  "id": 483,
+                  "name": "bytes32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "144:7:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 486,
+                "name": "issuer",
+                "nodeType": "VariableDeclaration",
+                "scope": 495,
+                "src": "164:14:3",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 485,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "164:7:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 488,
+                "name": "transferrable",
+                "nodeType": "VariableDeclaration",
+                "scope": 495,
+                "src": "187:18:3",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 487,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "187:4:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 490,
+                "name": "fungible",
+                "nodeType": "VariableDeclaration",
+                "scope": 495,
+                "src": "214:13:3",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 489,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "214:4:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 492,
+                "name": "data",
+                "nodeType": "VariableDeclaration",
+                "scope": 495,
+                "src": "236:11:3",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string storage pointer"
+                },
+                "typeName": {
+                  "id": 491,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "236:6:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string storage pointer"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 494,
+                "name": "dataRef",
+                "nodeType": "VariableDeclaration",
+                "scope": 495,
+                "src": "283:15:3",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                },
+                "typeName": {
+                  "id": 493,
+                  "name": "bytes32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "283:7:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "MetaData",
+            "nodeType": "StructDefinition",
+            "scope": 496,
+            "src": "119:185:3",
+            "visibility": "public"
+          }
+        ],
+        "scope": 497,
+        "src": "28:279:3"
+      }
+    ],
+    "src": "0:309:3"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.19+commit.c4cbbb05.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "2.0.0",
+  "updatedAt": "2018-04-23T05:50:10.022Z"
+}

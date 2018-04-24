@@ -1,0 +1,3348 @@
+{
+  "contractName": "StandardAsset",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_to",
+          "type": "address"
+        }
+      ],
+      "name": "transfer",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getIssuer",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getId",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "destroy",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getOwner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "_issuer",
+          "type": "address"
+        },
+        {
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "name": "_nsi",
+          "type": "bytes32"
+        },
+        {
+          "name": "_transferrable",
+          "type": "bool"
+        },
+        {
+          "name": "data",
+          "type": "string"
+        },
+        {
+          "name": "_mdRef",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_asset",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_id",
+          "type": "uint256"
+        }
+      ],
+      "name": "AssetCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_id",
+          "type": "uint256"
+        }
+      ],
+      "name": "AssetTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_assetId",
+          "type": "uint256"
+        }
+      ],
+      "name": "AssetDestroyed",
+      "type": "event"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getMetaData",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        },
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "bool"
+        },
+        {
+          "name": "",
+          "type": "bool"
+        },
+        {
+          "name": "",
+          "type": "string"
+        },
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getNamespace",
+      "outputs": [
+        {
+          "name": "nsi",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "isTransferrable",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "isFungible",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getDataRef",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getData",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x6060604052341561000f57600080fd5b604051610c07380380610c0783398101604052808051906020019091908051906020019091908051906020019091908051906020019091908051820191906020018051906020019091905050848687600073ffffffffffffffffffffffffffffffffffffffff168273ffffffffffffffffffffffffffffffffffffffff16141580156100c85750600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1614155b15156100d357600080fd5b8260008190555081600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555080600260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506000543073ffffffffffffffffffffffffffffffffffffffff167f20df459a0f7f1bc64a42346a9e6536111a3512be01de7a0f5327a4e13b33703860405160405180910390a350505060c060405190810160405280856000191681526020018773ffffffffffffffffffffffffffffffffffffffff1681526020018415158152602001600015158152602001838152602001826000191681525060036000820151816000019060001916905560208201518160010160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555060408201518160010160146101000a81548160ff02191690831515021790555060608201518160010160156101000a81548160ff02191690831515021790555060808201518160020190805190602001906102ab92919061030e565b5060a08201518160030190600019169055905050843073ffffffffffffffffffffffffffffffffffffffff167f20df459a0f7f1bc64a42346a9e6536111a3512be01de7a0f5327a4e13b33703860405160405180910390a35050505050506103b3565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061034f57805160ff191683800117855561037d565b8280016001018555821561037d579182015b8281111561037c578251825591602001919060010190610361565b5b50905061038a919061038e565b5090565b6103b091905b808211156103ac576000816000905550600101610394565b5090565b90565b610845806103c26000396000f3006060604052600436106100af576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806318e6b367146100b45780631a695230146100e157806327ac4b701461011a5780633bc5de301461014b57806352556421146101d95780635d1ca6311461022e57806383197ef014610257578063893d20e81461026c578063a89c2e5a146102c1578063c5178024146102ee578063d2786ba41461031f575b600080fd5b34156100bf57600080fd5b6100c7610414565b604051808215151515815260200191505060405180910390f35b34156100ec57600080fd5b610118600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061042e565b005b341561012557600080fd5b61012d610550565b60405180826000191660001916815260200191505060405180910390f35b341561015657600080fd5b61015e61055d565b6040518080602001828103825283818151815260200191508051906020019080838360005b8381101561019e578082015181840152602081019050610183565b50505050905090810190601f1680156101cb5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b34156101e457600080fd5b6101ec610608565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561023957600080fd5b610241610632565b6040518082815260200191505060405180910390f35b341561026257600080fd5b61026a61063b565b005b341561027757600080fd5b61027f610699565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b34156102cc57600080fd5b6102d46106c3565b604051808215151515815260200191505060405180910390f35b34156102f957600080fd5b6103016106dd565b60405180826000191660001916815260200191505060405180910390f35b341561032a57600080fd5b6103326106e9565b6040518087600019166000191681526020018673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018515151515815260200184151515158152602001806020018360001916600019168152602001828103825284818151815260200191508051906020019080838360005b838110156103d45780820151818401526020810190506103b9565b50505050905090810190601f1680156104015780820380516001836020036101000a031916815260200191505b5097505050505050505060405180910390f35b6000600360010160149054906101000a900460ff16905090565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561048a57600080fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141515156104c657600080fd5b80600260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506000548173ffffffffffffffffffffffffffffffffffffffff167fff67663330fcde57965a89e0eed2698c4f260f4f4dfa83e4d8a1c1db935fa23560405160405180910390a350565b6000600360000154905090565b610565610805565b60036002018054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156105fe5780601f106105d3576101008083540402835291602001916105fe565b820191906000526020600020905b8154815290600101906020018083116105e157829003601f168201915b5050505050905090565b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b60008054905090565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561069757600080fd5b565b6000600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b6000600360010160159054906101000a900460ff16905090565b60006003800154905090565b6000806000806106f7610805565b6000600360000154600360010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16600360010160149054906101000a900460ff16600360010160159054906101000a900460ff1660036002016003800154818054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156107ea5780601f106107bf576101008083540402835291602001916107ea565b820191906000526020600020905b8154815290600101906020018083116107cd57829003601f168201915b50505050509150955095509550955095509550909192939495565b6020604051908101604052806000815250905600a165627a7a7230582054358a893fe827913dc7352c8207cd0bde26b490e84cef9a3980b411549ebca80029",
+  "deployedBytecode": "0x6060604052600436106100af576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806318e6b367146100b45780631a695230146100e157806327ac4b701461011a5780633bc5de301461014b57806352556421146101d95780635d1ca6311461022e57806383197ef014610257578063893d20e81461026c578063a89c2e5a146102c1578063c5178024146102ee578063d2786ba41461031f575b600080fd5b34156100bf57600080fd5b6100c7610414565b604051808215151515815260200191505060405180910390f35b34156100ec57600080fd5b610118600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061042e565b005b341561012557600080fd5b61012d610550565b60405180826000191660001916815260200191505060405180910390f35b341561015657600080fd5b61015e61055d565b6040518080602001828103825283818151815260200191508051906020019080838360005b8381101561019e578082015181840152602081019050610183565b50505050905090810190601f1680156101cb5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b34156101e457600080fd5b6101ec610608565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561023957600080fd5b610241610632565b6040518082815260200191505060405180910390f35b341561026257600080fd5b61026a61063b565b005b341561027757600080fd5b61027f610699565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b34156102cc57600080fd5b6102d46106c3565b604051808215151515815260200191505060405180910390f35b34156102f957600080fd5b6103016106dd565b60405180826000191660001916815260200191505060405180910390f35b341561032a57600080fd5b6103326106e9565b6040518087600019166000191681526020018673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018515151515815260200184151515158152602001806020018360001916600019168152602001828103825284818151815260200191508051906020019080838360005b838110156103d45780820151818401526020810190506103b9565b50505050905090810190601f1680156104015780820380516001836020036101000a031916815260200191505b5097505050505050505060405180910390f35b6000600360010160149054906101000a900460ff16905090565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561048a57600080fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141515156104c657600080fd5b80600260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506000548173ffffffffffffffffffffffffffffffffffffffff167fff67663330fcde57965a89e0eed2698c4f260f4f4dfa83e4d8a1c1db935fa23560405160405180910390a350565b6000600360000154905090565b610565610805565b60036002018054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156105fe5780601f106105d3576101008083540402835291602001916105fe565b820191906000526020600020905b8154815290600101906020018083116105e157829003601f168201915b5050505050905090565b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b60008054905090565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561069757600080fd5b565b6000600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b6000600360010160159054906101000a900460ff16905090565b60006003800154905090565b6000806000806106f7610805565b6000600360000154600360010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16600360010160149054906101000a900460ff16600360010160159054906101000a900460ff1660036002016003800154818054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156107ea5780601f106107bf576101008083540402835291602001916107ea565b820191906000526020600020905b8154815290600101906020018083116107cd57829003601f168201915b50505050509150955095509550955095509550909192939495565b6020604051908101604052806000815250905600a165627a7a7230582054358a893fe827913dc7352c8207cd0bde26b490e84cef9a3980b411549ebca80029",
+  "sourceMap": "86:1268:11:-;;;329:396;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;461:3;466:7;475;444:1:0;425:21;;:7;:21;;;;:45;;;;;468:1;450:20;;:6;:20;;;;425:45;417:54;;;;;;;;483:3;478:2;:8;;;;502:7;493:6;;:16;;;;;;;;;;;;;;;;;;524:6;516:5;;:14;;;;;;;;;;;;;;;;;;564:2;;558:4;537:30;;;;;;;;;;;;337:236;;;503:178:11;;;;;;;;;535:4;503:178;;;;;;;557:7;503:178;;;;;;589:14;503:178;;;;;;623:5;503:178;;;;;;644:4;503:178;;;;667:6;503:178;;;;;;498:2;:183;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;715:3;709:4;688:31;;;;;;;;;;;;329:396;;;;;;86:1268;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;:::-;;;;;;;",
+  "deployedSourceMap": "86:1268:11:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1002:90;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;814:137:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;912:84:11;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1270:79;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:2;8:100;;;99:1;94:3;90;84:5;80:1;75:3;71;64:6;52:2;49:1;45:3;40:15;;8:100;;;12:14;3:109;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;731:77:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;579:66;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;957:44;;;;;;;;;;;;;;651:74;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1098:80:11;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1184:82;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;731:175;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:2;8:100;;;99:1;94:3;90;84:5;80:1;75:3;71;64:6;52:2;49:1;45:3;40:15;;8:100;;;12:14;3:109;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1002:90:11;1050:4;1070:2;:16;;;;;;;;;;;;1063:23;;1002:90;:::o;814:137:0:-;237:5;;;;;;;;;;;223:19;;:10;:19;;;215:28;;;;;;;;892:1;877:17;;:3;:17;;;;869:26;;;;;;;;910:3;902:5;;:11;;;;;;;;;;;;;;;;;;942:2;;937:3;920:25;;;;;;;;;;;;814:137;:::o;912:84:11:-;957:11;984:2;:6;;;977:13;;912:84;:::o;1270:79::-;1310:6;;:::i;:::-;1336:2;:7;;1329:14;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1270:79;:::o;731:77:0:-;773:7;796:6;;;;;;;;;;;789:13;;731:77;:::o;579:66::-;617:4;637:2;;630:9;;579:66;:::o;957:44::-;237:5;;;;;;;;;;;223:19;;:10;:19;;;215:28;;;;;;;;957:44::o;651:74::-;691:7;714:5;;;;;;;;;;;707:12;;651:74;:::o;1098:80:11:-;1141:4;1161:2;:11;;;;;;;;;;;;1154:18;;1098:80;:::o;1184:82::-;1227:7;1250:2;:10;;;1243:17;;1184:82;:::o;731:175::-;775:7;783;791:4;796;801:6;;:::i;:::-;808:7;832:2;:6;;;840:2;:9;;;;;;;;;;;;851:2;:16;;;;;;;;;;;;869:2;:11;;;;;;;;;;;;881:2;:7;;889:2;:10;;;824:76;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;731:175;;;;;;:::o;86:1268::-;;;;;;;;;;;;;;;:::o",
+  "source": "pragma solidity ^0.4.19;\r\n\r\nimport './Commons.sol';\r\nimport './AbstractAsset.sol';\r\n\r\ncontract StandardAsset is AbstractAsset {\r\n  using Commons for Commons.MetaData;\r\n\r\n  // asset metadata\r\n  Commons.MetaData private md;\r\n\r\n  // multisig support if transactions require multiple confirmations\r\n  //MultiSig private multisig;\r\n  function StandardAsset(address _issuer, uint _id, bytes32 _nsi, bool _transferrable,\r\n    string data,bytes32 _mdRef) AbstractAsset(_id, _issuer, _issuer) public {\r\n    md = Commons.MetaData({\r\n        nsi:_nsi,\r\n        issuer:_issuer,\r\n        transferrable:_transferrable,\r\n        fungible:false,\r\n        data:data,\r\n        dataRef:_mdRef\r\n    });\r\n    AssetCreated(address(this),_id);\r\n  }\r\n\r\n  function getMetaData() public view returns (bytes32,address,bool,bool,string,bytes32) {\r\n    return (md.nsi, md.issuer, md.transferrable, md.fungible,md.data,md.dataRef);\r\n  }\r\n\r\n  function getNamespace() public view returns (bytes32 nsi) {\r\n    return md.nsi;\r\n  }\r\n\r\n  function isTransferrable() public view returns (bool) {\r\n    return md.transferrable;\r\n  }\r\n\r\n  function isFungible() public view returns (bool) {\r\n    return md.fungible;\r\n  }\r\n\r\n  function getDataRef() public view returns (bytes32) {\r\n    return md.dataRef;\r\n  }\r\n  function getData() public view returns (string) {\r\n        return md.data;\r\n  }\r\n\r\n}\r\n",
+  "sourcePath": "G:\\GitRepository\\udap\\uc3\\contracts\\StandardAsset.sol",
+  "ast": {
+    "absolutePath": "/G/GitRepository/udap/uc3/contracts/StandardAsset.sol",
+    "exportedSymbols": {
+      "StandardAsset": [
+        2380
+      ]
+    },
+    "id": 2381,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 2255,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".19"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:11"
+      },
+      {
+        "absolutePath": "/G/GitRepository/udap/uc3/contracts/Commons.sol",
+        "file": "./Commons.sol",
+        "id": 2256,
+        "nodeType": "ImportDirective",
+        "scope": 2381,
+        "sourceUnit": 497,
+        "src": "28:23:11",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/G/GitRepository/udap/uc3/contracts/AbstractAsset.sol",
+        "file": "./AbstractAsset.sol",
+        "id": 2257,
+        "nodeType": "ImportDirective",
+        "scope": 2381,
+        "sourceUnit": 132,
+        "src": "53:29:11",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": [],
+            "baseName": {
+              "contractScope": null,
+              "id": 2258,
+              "name": "AbstractAsset",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 131,
+              "src": "112:13:11",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_AbstractAsset_$131",
+                "typeString": "contract AbstractAsset"
+              }
+            },
+            "id": 2259,
+            "nodeType": "InheritanceSpecifier",
+            "src": "112:13:11"
+          }
+        ],
+        "contractDependencies": [
+          131,
+          193
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 2380,
+        "linearizedBaseContracts": [
+          2380,
+          131,
+          193
+        ],
+        "name": "StandardAsset",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "id": 2262,
+            "libraryName": {
+              "contractScope": null,
+              "id": 2260,
+              "name": "Commons",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 496,
+              "src": "137:7:11",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Commons_$496",
+                "typeString": "library Commons"
+              }
+            },
+            "nodeType": "UsingForDirective",
+            "src": "131:35:11",
+            "typeName": {
+              "contractScope": null,
+              "id": 2261,
+              "name": "Commons.MetaData",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 495,
+              "src": "149:16:11",
+              "typeDescriptions": {
+                "typeIdentifier": "t_struct$_MetaData_$495_storage_ptr",
+                "typeString": "struct Commons.MetaData storage pointer"
+              }
+            }
+          },
+          {
+            "constant": false,
+            "id": 2264,
+            "name": "md",
+            "nodeType": "VariableDeclaration",
+            "scope": 2380,
+            "src": "193:27:11",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_struct$_MetaData_$495_storage",
+              "typeString": "struct Commons.MetaData storage ref"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 2263,
+              "name": "Commons.MetaData",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 495,
+              "src": "193:16:11",
+              "typeDescriptions": {
+                "typeIdentifier": "t_struct$_MetaData_$495_storage_ptr",
+                "typeString": "struct Commons.MetaData storage pointer"
+              }
+            },
+            "value": null,
+            "visibility": "private"
+          },
+          {
+            "body": {
+              "id": 2303,
+              "nodeType": "Block",
+              "src": "491:234:11",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 2294,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 2284,
+                      "name": "md",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2264,
+                      "src": "498:2:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                        "typeString": "struct Commons.MetaData storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "id": 2287,
+                          "name": "_nsi",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2270,
+                          "src": "535:4:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bytes32",
+                            "typeString": "bytes32"
+                          }
+                        },
+                        {
+                          "argumentTypes": null,
+                          "id": 2288,
+                          "name": "_issuer",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2266,
+                          "src": "557:7:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        {
+                          "argumentTypes": null,
+                          "id": 2289,
+                          "name": "_transferrable",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2272,
+                          "src": "589:14:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        {
+                          "argumentTypes": null,
+                          "hexValue": "66616c7365",
+                          "id": 2290,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "bool",
+                          "lValueRequested": false,
+                          "nodeType": "Literal",
+                          "src": "623:5:11",
+                          "subdenomination": null,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          },
+                          "value": "false"
+                        },
+                        {
+                          "argumentTypes": null,
+                          "id": 2291,
+                          "name": "data",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2274,
+                          "src": "644:4:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_string_memory_ptr",
+                            "typeString": "string memory"
+                          }
+                        },
+                        {
+                          "argumentTypes": null,
+                          "id": 2292,
+                          "name": "_mdRef",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2276,
+                          "src": "667:6:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bytes32",
+                            "typeString": "bytes32"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 2285,
+                          "name": "Commons",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 496,
+                          "src": "503:7:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_contract$_Commons_$496_$",
+                            "typeString": "type(library Commons)"
+                          }
+                        },
+                        "id": 2286,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "MetaData",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 495,
+                        "src": "503:16:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_struct$_MetaData_$495_storage_ptr_$",
+                          "typeString": "type(struct Commons.MetaData storage pointer)"
+                        }
+                      },
+                      "id": 2293,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "structConstructorCall",
+                      "lValueRequested": false,
+                      "names": [
+                        "nsi",
+                        "issuer",
+                        "transferrable",
+                        "fungible",
+                        "data",
+                        "dataRef"
+                      ],
+                      "nodeType": "FunctionCall",
+                      "src": "503:178:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_MetaData_$495_memory",
+                        "typeString": "struct Commons.MetaData memory"
+                      }
+                    },
+                    "src": "498:183:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                      "typeString": "struct Commons.MetaData storage ref"
+                    }
+                  },
+                  "id": 2295,
+                  "nodeType": "ExpressionStatement",
+                  "src": "498:183:11"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "id": 2298,
+                            "name": "this",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 2779,
+                            "src": "709:4:11",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_contract$_StandardAsset_$2380",
+                              "typeString": "contract StandardAsset"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_contract$_StandardAsset_$2380",
+                              "typeString": "contract StandardAsset"
+                            }
+                          ],
+                          "id": 2297,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "nodeType": "ElementaryTypeNameExpression",
+                          "src": "701:7:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_address_$",
+                            "typeString": "type(address)"
+                          },
+                          "typeName": "address"
+                        },
+                        "id": 2299,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "typeConversion",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "701:13:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2300,
+                        "name": "_id",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2268,
+                        "src": "715:3:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "id": 2296,
+                      "name": "AssetCreated",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 139,
+                      "src": "688:12:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_event_nonpayable$_t_address_$_t_uint256_$returns$__$",
+                        "typeString": "function (address,uint256)"
+                      }
+                    },
+                    "id": 2301,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "688:31:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 2302,
+                  "nodeType": "ExpressionStatement",
+                  "src": "688:31:11"
+                }
+              ]
+            },
+            "id": 2304,
+            "implemented": true,
+            "isConstructor": true,
+            "isDeclaredConst": false,
+            "modifiers": [
+              {
+                "arguments": [
+                  {
+                    "argumentTypes": null,
+                    "id": 2279,
+                    "name": "_id",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 2268,
+                    "src": "461:3:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  {
+                    "argumentTypes": null,
+                    "id": 2280,
+                    "name": "_issuer",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 2266,
+                    "src": "466:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  {
+                    "argumentTypes": null,
+                    "id": 2281,
+                    "name": "_issuer",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 2266,
+                    "src": "475:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  }
+                ],
+                "id": 2282,
+                "modifierName": {
+                  "argumentTypes": null,
+                  "id": 2278,
+                  "name": "AbstractAsset",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 131,
+                  "src": "447:13:11",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_type$_t_contract$_AbstractAsset_$131_$",
+                    "typeString": "type(contract AbstractAsset)"
+                  }
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "447:36:11"
+              }
+            ],
+            "name": "StandardAsset",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2277,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2266,
+                  "name": "_issuer",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2304,
+                  "src": "352:15:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2265,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "352:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2268,
+                  "name": "_id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2304,
+                  "src": "369:8:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2267,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "369:4:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2270,
+                  "name": "_nsi",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2304,
+                  "src": "379:12:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2269,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "379:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2272,
+                  "name": "_transferrable",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2304,
+                  "src": "393:19:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 2271,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "393:4:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2274,
+                  "name": "data",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2304,
+                  "src": "419:11:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string memory"
+                  },
+                  "typeName": {
+                    "id": 2273,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "419:6:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string storage pointer"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2276,
+                  "name": "_mdRef",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2304,
+                  "src": "431:14:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2275,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "431:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "351:95:11"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2283,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "491:0:11"
+            },
+            "scope": 2380,
+            "src": "329:396:11",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2333,
+              "nodeType": "Block",
+              "src": "817:89:11",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "components": [
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 2319,
+                          "name": "md",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2264,
+                          "src": "832:2:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                            "typeString": "struct Commons.MetaData storage ref"
+                          }
+                        },
+                        "id": 2320,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "nsi",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 484,
+                        "src": "832:6:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 2321,
+                          "name": "md",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2264,
+                          "src": "840:2:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                            "typeString": "struct Commons.MetaData storage ref"
+                          }
+                        },
+                        "id": 2322,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "issuer",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 486,
+                        "src": "840:9:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 2323,
+                          "name": "md",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2264,
+                          "src": "851:2:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                            "typeString": "struct Commons.MetaData storage ref"
+                          }
+                        },
+                        "id": 2324,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "transferrable",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 488,
+                        "src": "851:16:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 2325,
+                          "name": "md",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2264,
+                          "src": "869:2:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                            "typeString": "struct Commons.MetaData storage ref"
+                          }
+                        },
+                        "id": 2326,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "fungible",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 490,
+                        "src": "869:11:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 2327,
+                          "name": "md",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2264,
+                          "src": "881:2:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                            "typeString": "struct Commons.MetaData storage ref"
+                          }
+                        },
+                        "id": 2328,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "data",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 492,
+                        "src": "881:7:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_storage",
+                          "typeString": "string storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 2329,
+                          "name": "md",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2264,
+                          "src": "889:2:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                            "typeString": "struct Commons.MetaData storage ref"
+                          }
+                        },
+                        "id": 2330,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "dataRef",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 494,
+                        "src": "889:10:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      }
+                    ],
+                    "id": 2331,
+                    "isConstant": false,
+                    "isInlineArray": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "TupleExpression",
+                    "src": "831:69:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$_t_bytes32_$_t_address_$_t_bool_$_t_bool_$_t_string_storage_$_t_bytes32_$",
+                      "typeString": "tuple(bytes32,address,bool,bool,string storage ref,bytes32)"
+                    }
+                  },
+                  "functionReturnParameters": 2318,
+                  "id": 2332,
+                  "nodeType": "Return",
+                  "src": "824:76:11"
+                }
+              ]
+            },
+            "id": 2334,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getMetaData",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2305,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "751:2:11"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2318,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2307,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2334,
+                  "src": "775:7:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2306,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "775:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2309,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2334,
+                  "src": "783:7:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2308,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "783:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2311,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2334,
+                  "src": "791:4:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 2310,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "791:4:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2313,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2334,
+                  "src": "796:4:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 2312,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "796:4:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2315,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2334,
+                  "src": "801:6:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string memory"
+                  },
+                  "typeName": {
+                    "id": 2314,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "801:6:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string storage pointer"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2317,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2334,
+                  "src": "808:7:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2316,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "808:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "774:42:11"
+            },
+            "scope": 2380,
+            "src": "731:175:11",
+            "stateMutability": "view",
+            "superFunction": 164,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2342,
+              "nodeType": "Block",
+              "src": "970:26:11",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "expression": {
+                      "argumentTypes": null,
+                      "id": 2339,
+                      "name": "md",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2264,
+                      "src": "984:2:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                        "typeString": "struct Commons.MetaData storage ref"
+                      }
+                    },
+                    "id": 2340,
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "memberName": "nsi",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": 484,
+                    "src": "984:6:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "functionReturnParameters": 2338,
+                  "id": 2341,
+                  "nodeType": "Return",
+                  "src": "977:13:11"
+                }
+              ]
+            },
+            "id": 2343,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getNamespace",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2335,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "933:2:11"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2338,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2337,
+                  "name": "nsi",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2343,
+                  "src": "957:11:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2336,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "957:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "956:13:11"
+            },
+            "scope": 2380,
+            "src": "912:84:11",
+            "stateMutability": "view",
+            "superFunction": 184,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2351,
+              "nodeType": "Block",
+              "src": "1056:36:11",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "expression": {
+                      "argumentTypes": null,
+                      "id": 2348,
+                      "name": "md",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2264,
+                      "src": "1070:2:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                        "typeString": "struct Commons.MetaData storage ref"
+                      }
+                    },
+                    "id": 2349,
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "memberName": "transferrable",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": 488,
+                    "src": "1070:16:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 2347,
+                  "id": 2350,
+                  "nodeType": "Return",
+                  "src": "1063:23:11"
+                }
+              ]
+            },
+            "id": 2352,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "isTransferrable",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2344,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1026:2:11"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2347,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2346,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2352,
+                  "src": "1050:4:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 2345,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1050:4:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1049:6:11"
+            },
+            "scope": 2380,
+            "src": "1002:90:11",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2360,
+              "nodeType": "Block",
+              "src": "1147:31:11",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "expression": {
+                      "argumentTypes": null,
+                      "id": 2357,
+                      "name": "md",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2264,
+                      "src": "1161:2:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                        "typeString": "struct Commons.MetaData storage ref"
+                      }
+                    },
+                    "id": 2358,
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "memberName": "fungible",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": 490,
+                    "src": "1161:11:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 2356,
+                  "id": 2359,
+                  "nodeType": "Return",
+                  "src": "1154:18:11"
+                }
+              ]
+            },
+            "id": 2361,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "isFungible",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2353,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1117:2:11"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2356,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2355,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2361,
+                  "src": "1141:4:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 2354,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1141:4:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1140:6:11"
+            },
+            "scope": 2380,
+            "src": "1098:80:11",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2369,
+              "nodeType": "Block",
+              "src": "1236:30:11",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "expression": {
+                      "argumentTypes": null,
+                      "id": 2366,
+                      "name": "md",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2264,
+                      "src": "1250:2:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                        "typeString": "struct Commons.MetaData storage ref"
+                      }
+                    },
+                    "id": 2367,
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "memberName": "dataRef",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": 494,
+                    "src": "1250:10:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "functionReturnParameters": 2365,
+                  "id": 2368,
+                  "nodeType": "Return",
+                  "src": "1243:17:11"
+                }
+              ]
+            },
+            "id": 2370,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getDataRef",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2362,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1203:2:11"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2365,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2364,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2370,
+                  "src": "1227:7:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2363,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1227:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1226:9:11"
+            },
+            "scope": 2380,
+            "src": "1184:82:11",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2378,
+              "nodeType": "Block",
+              "src": "1318:31:11",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "expression": {
+                      "argumentTypes": null,
+                      "id": 2375,
+                      "name": "md",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2264,
+                      "src": "1336:2:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                        "typeString": "struct Commons.MetaData storage ref"
+                      }
+                    },
+                    "id": 2376,
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "memberName": "data",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": 492,
+                    "src": "1336:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage",
+                      "typeString": "string storage ref"
+                    }
+                  },
+                  "functionReturnParameters": 2374,
+                  "id": 2377,
+                  "nodeType": "Return",
+                  "src": "1329:14:11"
+                }
+              ]
+            },
+            "id": 2379,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getData",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2371,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1286:2:11"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2374,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2373,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2379,
+                  "src": "1310:6:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string memory"
+                  },
+                  "typeName": {
+                    "id": 2372,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1310:6:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string storage pointer"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1309:8:11"
+            },
+            "scope": 2380,
+            "src": "1270:79:11",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 2381,
+        "src": "86:1268:11"
+      }
+    ],
+    "src": "0:1356:11"
+  },
+  "legacyAST": {
+    "absolutePath": "/G/GitRepository/udap/uc3/contracts/StandardAsset.sol",
+    "exportedSymbols": {
+      "StandardAsset": [
+        2380
+      ]
+    },
+    "id": 2381,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 2255,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".19"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:11"
+      },
+      {
+        "absolutePath": "/G/GitRepository/udap/uc3/contracts/Commons.sol",
+        "file": "./Commons.sol",
+        "id": 2256,
+        "nodeType": "ImportDirective",
+        "scope": 2381,
+        "sourceUnit": 497,
+        "src": "28:23:11",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/G/GitRepository/udap/uc3/contracts/AbstractAsset.sol",
+        "file": "./AbstractAsset.sol",
+        "id": 2257,
+        "nodeType": "ImportDirective",
+        "scope": 2381,
+        "sourceUnit": 132,
+        "src": "53:29:11",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": [],
+            "baseName": {
+              "contractScope": null,
+              "id": 2258,
+              "name": "AbstractAsset",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 131,
+              "src": "112:13:11",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_AbstractAsset_$131",
+                "typeString": "contract AbstractAsset"
+              }
+            },
+            "id": 2259,
+            "nodeType": "InheritanceSpecifier",
+            "src": "112:13:11"
+          }
+        ],
+        "contractDependencies": [
+          131,
+          193
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 2380,
+        "linearizedBaseContracts": [
+          2380,
+          131,
+          193
+        ],
+        "name": "StandardAsset",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "id": 2262,
+            "libraryName": {
+              "contractScope": null,
+              "id": 2260,
+              "name": "Commons",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 496,
+              "src": "137:7:11",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Commons_$496",
+                "typeString": "library Commons"
+              }
+            },
+            "nodeType": "UsingForDirective",
+            "src": "131:35:11",
+            "typeName": {
+              "contractScope": null,
+              "id": 2261,
+              "name": "Commons.MetaData",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 495,
+              "src": "149:16:11",
+              "typeDescriptions": {
+                "typeIdentifier": "t_struct$_MetaData_$495_storage_ptr",
+                "typeString": "struct Commons.MetaData storage pointer"
+              }
+            }
+          },
+          {
+            "constant": false,
+            "id": 2264,
+            "name": "md",
+            "nodeType": "VariableDeclaration",
+            "scope": 2380,
+            "src": "193:27:11",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_struct$_MetaData_$495_storage",
+              "typeString": "struct Commons.MetaData storage ref"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 2263,
+              "name": "Commons.MetaData",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 495,
+              "src": "193:16:11",
+              "typeDescriptions": {
+                "typeIdentifier": "t_struct$_MetaData_$495_storage_ptr",
+                "typeString": "struct Commons.MetaData storage pointer"
+              }
+            },
+            "value": null,
+            "visibility": "private"
+          },
+          {
+            "body": {
+              "id": 2303,
+              "nodeType": "Block",
+              "src": "491:234:11",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 2294,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 2284,
+                      "name": "md",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2264,
+                      "src": "498:2:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                        "typeString": "struct Commons.MetaData storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "id": 2287,
+                          "name": "_nsi",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2270,
+                          "src": "535:4:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bytes32",
+                            "typeString": "bytes32"
+                          }
+                        },
+                        {
+                          "argumentTypes": null,
+                          "id": 2288,
+                          "name": "_issuer",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2266,
+                          "src": "557:7:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        {
+                          "argumentTypes": null,
+                          "id": 2289,
+                          "name": "_transferrable",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2272,
+                          "src": "589:14:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        {
+                          "argumentTypes": null,
+                          "hexValue": "66616c7365",
+                          "id": 2290,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "bool",
+                          "lValueRequested": false,
+                          "nodeType": "Literal",
+                          "src": "623:5:11",
+                          "subdenomination": null,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          },
+                          "value": "false"
+                        },
+                        {
+                          "argumentTypes": null,
+                          "id": 2291,
+                          "name": "data",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2274,
+                          "src": "644:4:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_string_memory_ptr",
+                            "typeString": "string memory"
+                          }
+                        },
+                        {
+                          "argumentTypes": null,
+                          "id": 2292,
+                          "name": "_mdRef",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2276,
+                          "src": "667:6:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bytes32",
+                            "typeString": "bytes32"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 2285,
+                          "name": "Commons",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 496,
+                          "src": "503:7:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_contract$_Commons_$496_$",
+                            "typeString": "type(library Commons)"
+                          }
+                        },
+                        "id": 2286,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "MetaData",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 495,
+                        "src": "503:16:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_struct$_MetaData_$495_storage_ptr_$",
+                          "typeString": "type(struct Commons.MetaData storage pointer)"
+                        }
+                      },
+                      "id": 2293,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "structConstructorCall",
+                      "lValueRequested": false,
+                      "names": [
+                        "nsi",
+                        "issuer",
+                        "transferrable",
+                        "fungible",
+                        "data",
+                        "dataRef"
+                      ],
+                      "nodeType": "FunctionCall",
+                      "src": "503:178:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_MetaData_$495_memory",
+                        "typeString": "struct Commons.MetaData memory"
+                      }
+                    },
+                    "src": "498:183:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                      "typeString": "struct Commons.MetaData storage ref"
+                    }
+                  },
+                  "id": 2295,
+                  "nodeType": "ExpressionStatement",
+                  "src": "498:183:11"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "id": 2298,
+                            "name": "this",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 2779,
+                            "src": "709:4:11",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_contract$_StandardAsset_$2380",
+                              "typeString": "contract StandardAsset"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_contract$_StandardAsset_$2380",
+                              "typeString": "contract StandardAsset"
+                            }
+                          ],
+                          "id": 2297,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "nodeType": "ElementaryTypeNameExpression",
+                          "src": "701:7:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_address_$",
+                            "typeString": "type(address)"
+                          },
+                          "typeName": "address"
+                        },
+                        "id": 2299,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "typeConversion",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "701:13:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2300,
+                        "name": "_id",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2268,
+                        "src": "715:3:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "id": 2296,
+                      "name": "AssetCreated",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 139,
+                      "src": "688:12:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_event_nonpayable$_t_address_$_t_uint256_$returns$__$",
+                        "typeString": "function (address,uint256)"
+                      }
+                    },
+                    "id": 2301,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "688:31:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 2302,
+                  "nodeType": "ExpressionStatement",
+                  "src": "688:31:11"
+                }
+              ]
+            },
+            "id": 2304,
+            "implemented": true,
+            "isConstructor": true,
+            "isDeclaredConst": false,
+            "modifiers": [
+              {
+                "arguments": [
+                  {
+                    "argumentTypes": null,
+                    "id": 2279,
+                    "name": "_id",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 2268,
+                    "src": "461:3:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  {
+                    "argumentTypes": null,
+                    "id": 2280,
+                    "name": "_issuer",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 2266,
+                    "src": "466:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  {
+                    "argumentTypes": null,
+                    "id": 2281,
+                    "name": "_issuer",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 2266,
+                    "src": "475:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  }
+                ],
+                "id": 2282,
+                "modifierName": {
+                  "argumentTypes": null,
+                  "id": 2278,
+                  "name": "AbstractAsset",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 131,
+                  "src": "447:13:11",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_type$_t_contract$_AbstractAsset_$131_$",
+                    "typeString": "type(contract AbstractAsset)"
+                  }
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "447:36:11"
+              }
+            ],
+            "name": "StandardAsset",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2277,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2266,
+                  "name": "_issuer",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2304,
+                  "src": "352:15:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2265,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "352:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2268,
+                  "name": "_id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2304,
+                  "src": "369:8:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2267,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "369:4:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2270,
+                  "name": "_nsi",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2304,
+                  "src": "379:12:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2269,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "379:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2272,
+                  "name": "_transferrable",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2304,
+                  "src": "393:19:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 2271,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "393:4:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2274,
+                  "name": "data",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2304,
+                  "src": "419:11:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string memory"
+                  },
+                  "typeName": {
+                    "id": 2273,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "419:6:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string storage pointer"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2276,
+                  "name": "_mdRef",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2304,
+                  "src": "431:14:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2275,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "431:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "351:95:11"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2283,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "491:0:11"
+            },
+            "scope": 2380,
+            "src": "329:396:11",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2333,
+              "nodeType": "Block",
+              "src": "817:89:11",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "components": [
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 2319,
+                          "name": "md",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2264,
+                          "src": "832:2:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                            "typeString": "struct Commons.MetaData storage ref"
+                          }
+                        },
+                        "id": 2320,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "nsi",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 484,
+                        "src": "832:6:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 2321,
+                          "name": "md",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2264,
+                          "src": "840:2:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                            "typeString": "struct Commons.MetaData storage ref"
+                          }
+                        },
+                        "id": 2322,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "issuer",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 486,
+                        "src": "840:9:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 2323,
+                          "name": "md",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2264,
+                          "src": "851:2:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                            "typeString": "struct Commons.MetaData storage ref"
+                          }
+                        },
+                        "id": 2324,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "transferrable",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 488,
+                        "src": "851:16:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 2325,
+                          "name": "md",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2264,
+                          "src": "869:2:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                            "typeString": "struct Commons.MetaData storage ref"
+                          }
+                        },
+                        "id": 2326,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "fungible",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 490,
+                        "src": "869:11:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 2327,
+                          "name": "md",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2264,
+                          "src": "881:2:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                            "typeString": "struct Commons.MetaData storage ref"
+                          }
+                        },
+                        "id": 2328,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "data",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 492,
+                        "src": "881:7:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_storage",
+                          "typeString": "string storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 2329,
+                          "name": "md",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2264,
+                          "src": "889:2:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                            "typeString": "struct Commons.MetaData storage ref"
+                          }
+                        },
+                        "id": 2330,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "dataRef",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 494,
+                        "src": "889:10:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      }
+                    ],
+                    "id": 2331,
+                    "isConstant": false,
+                    "isInlineArray": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "TupleExpression",
+                    "src": "831:69:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$_t_bytes32_$_t_address_$_t_bool_$_t_bool_$_t_string_storage_$_t_bytes32_$",
+                      "typeString": "tuple(bytes32,address,bool,bool,string storage ref,bytes32)"
+                    }
+                  },
+                  "functionReturnParameters": 2318,
+                  "id": 2332,
+                  "nodeType": "Return",
+                  "src": "824:76:11"
+                }
+              ]
+            },
+            "id": 2334,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getMetaData",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2305,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "751:2:11"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2318,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2307,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2334,
+                  "src": "775:7:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2306,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "775:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2309,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2334,
+                  "src": "783:7:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2308,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "783:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2311,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2334,
+                  "src": "791:4:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 2310,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "791:4:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2313,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2334,
+                  "src": "796:4:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 2312,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "796:4:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2315,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2334,
+                  "src": "801:6:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string memory"
+                  },
+                  "typeName": {
+                    "id": 2314,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "801:6:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string storage pointer"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2317,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2334,
+                  "src": "808:7:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2316,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "808:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "774:42:11"
+            },
+            "scope": 2380,
+            "src": "731:175:11",
+            "stateMutability": "view",
+            "superFunction": 164,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2342,
+              "nodeType": "Block",
+              "src": "970:26:11",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "expression": {
+                      "argumentTypes": null,
+                      "id": 2339,
+                      "name": "md",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2264,
+                      "src": "984:2:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                        "typeString": "struct Commons.MetaData storage ref"
+                      }
+                    },
+                    "id": 2340,
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "memberName": "nsi",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": 484,
+                    "src": "984:6:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "functionReturnParameters": 2338,
+                  "id": 2341,
+                  "nodeType": "Return",
+                  "src": "977:13:11"
+                }
+              ]
+            },
+            "id": 2343,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getNamespace",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2335,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "933:2:11"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2338,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2337,
+                  "name": "nsi",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2343,
+                  "src": "957:11:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2336,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "957:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "956:13:11"
+            },
+            "scope": 2380,
+            "src": "912:84:11",
+            "stateMutability": "view",
+            "superFunction": 184,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2351,
+              "nodeType": "Block",
+              "src": "1056:36:11",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "expression": {
+                      "argumentTypes": null,
+                      "id": 2348,
+                      "name": "md",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2264,
+                      "src": "1070:2:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                        "typeString": "struct Commons.MetaData storage ref"
+                      }
+                    },
+                    "id": 2349,
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "memberName": "transferrable",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": 488,
+                    "src": "1070:16:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 2347,
+                  "id": 2350,
+                  "nodeType": "Return",
+                  "src": "1063:23:11"
+                }
+              ]
+            },
+            "id": 2352,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "isTransferrable",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2344,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1026:2:11"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2347,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2346,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2352,
+                  "src": "1050:4:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 2345,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1050:4:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1049:6:11"
+            },
+            "scope": 2380,
+            "src": "1002:90:11",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2360,
+              "nodeType": "Block",
+              "src": "1147:31:11",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "expression": {
+                      "argumentTypes": null,
+                      "id": 2357,
+                      "name": "md",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2264,
+                      "src": "1161:2:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                        "typeString": "struct Commons.MetaData storage ref"
+                      }
+                    },
+                    "id": 2358,
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "memberName": "fungible",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": 490,
+                    "src": "1161:11:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 2356,
+                  "id": 2359,
+                  "nodeType": "Return",
+                  "src": "1154:18:11"
+                }
+              ]
+            },
+            "id": 2361,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "isFungible",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2353,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1117:2:11"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2356,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2355,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2361,
+                  "src": "1141:4:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 2354,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1141:4:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1140:6:11"
+            },
+            "scope": 2380,
+            "src": "1098:80:11",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2369,
+              "nodeType": "Block",
+              "src": "1236:30:11",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "expression": {
+                      "argumentTypes": null,
+                      "id": 2366,
+                      "name": "md",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2264,
+                      "src": "1250:2:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                        "typeString": "struct Commons.MetaData storage ref"
+                      }
+                    },
+                    "id": 2367,
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "memberName": "dataRef",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": 494,
+                    "src": "1250:10:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "functionReturnParameters": 2365,
+                  "id": 2368,
+                  "nodeType": "Return",
+                  "src": "1243:17:11"
+                }
+              ]
+            },
+            "id": 2370,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getDataRef",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2362,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1203:2:11"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2365,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2364,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2370,
+                  "src": "1227:7:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2363,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1227:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1226:9:11"
+            },
+            "scope": 2380,
+            "src": "1184:82:11",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2378,
+              "nodeType": "Block",
+              "src": "1318:31:11",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "expression": {
+                      "argumentTypes": null,
+                      "id": 2375,
+                      "name": "md",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2264,
+                      "src": "1336:2:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_MetaData_$495_storage",
+                        "typeString": "struct Commons.MetaData storage ref"
+                      }
+                    },
+                    "id": 2376,
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "memberName": "data",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": 492,
+                    "src": "1336:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage",
+                      "typeString": "string storage ref"
+                    }
+                  },
+                  "functionReturnParameters": 2374,
+                  "id": 2377,
+                  "nodeType": "Return",
+                  "src": "1329:14:11"
+                }
+              ]
+            },
+            "id": 2379,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getData",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2371,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1286:2:11"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2374,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2373,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2379,
+                  "src": "1310:6:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string memory"
+                  },
+                  "typeName": {
+                    "id": 2372,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1310:6:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string storage pointer"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1309:8:11"
+            },
+            "scope": 2380,
+            "src": "1270:79:11",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 2381,
+        "src": "86:1268:11"
+      }
+    ],
+    "src": "0:1356:11"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.19+commit.c4cbbb05.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "2.0.0",
+  "updatedAt": "2018-04-23T05:50:10.030Z"
+}
