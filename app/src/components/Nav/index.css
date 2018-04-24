@@ -1,0 +1,24 @@
+body{
+  position: relative;
+}
+.root {
+  background-color: #f5f5f5;
+  padding-top: 7px;
+  height: 50px;
+  position: fixed;
+  z-index: 50;
+  bottom: 0px;
+  width: 100%;
+  border-top: 1px solid #e7e7e7;
+}
+.rootLink{
+  color: #bbb;
+  text-align: center;
+  width: 100%;
+}
+.rootLink .text {
+  font-size: 0.1rem;
+}
+.nav-active{
+  color: #1abc9c;
+}

@@ -5,9 +5,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 
 module.exports = {
+    mode: 'development',
     entry: {
-        'home-issue':'./app/js/home-issue.js',
-        'index': './app/js/index.js',
+        'app': './app/src/index.js',
     },
     output: {
         filename: "[name].js",
@@ -39,12 +39,16 @@ module.exports = {
                 // iconfont
                 test: /\.(woff|woff2|svg|eot|ttf)\??.*$/,
                 loader: 'url-loader',
+            },
+            {
+                test: /\.(js|jsx)$/,
+                loader: 'babel-loader'
             }
         ]
     },
     devtool: 'cheap-module-eval-source-map',//prod env use cheap-module-source-map
     devServer:{
-        contentBase:"app/" //the index.html dir
+        contentBase:"app/public" //the index.html dir
     },
     plugins: [
         // new HtmlWebpackPlugin({template:'./app/index.html'}),
