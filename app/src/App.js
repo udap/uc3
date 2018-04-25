@@ -4,7 +4,7 @@ import {
   Route,
   Switch
 } from 'react-router-dom'
-
+import { NoticeBar, Toast } from 'antd-mobile'
 import {
   Home,
   My,
@@ -14,24 +14,73 @@ import {
   NoMatch
 } from './container'
 import {Nav} from './components'
+import getWeb3 from './util/getWeb3'
 
 import 'antd-mobile/dist/antd-mobile.css'
 
-const App = () => (
-  <Router>
-    <div>
-      <Nav />
-      <div className='container'>
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route path='/issue' component={ISSUE} />
-          <Route path='/warrant' component={Detail} />
-          <Route path='/pledge' component={Pledge} />
-          <Route path='/my' component={My} />
-          <Route component={NoMatch} />
-        </Switch>
-      </div>
-    </div>
-  </Router>
-)
-export default App
+if (window) {
+  window.web33 = null
+  window.account = null
+}
+export default class App extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      web3: null,
+      account: null
+    }
+  }
+  componentWillMount () {
+    getWeb3.then(results => {
+      console.log('results=====', results)
+      this.setState({
+        web3: results.web3
+      })
+      window.web33 = results.web3
+      this.initAccount()
+    }).catch((e) => {
+      console.log('Error finding web3.', e)
+    })
+  }
+
+  initAccount () {
+    let self = this
+    this.state.web3.eth.getAccounts(function (err, accs) {
+      if (err != null) {
+        Toast.offline('There was an error fetching your accounts!!!', 3)
+        return
+      }
+      if (accs.length == 0) {
+        Toast.fail('Could not get any accounts! Make sure your Ethereum client is configured correctly!!!', 3)
+        return
+      }
+          // this.setState({ accounts: accs })
+      self.setState({ account: accs[0] })
+      window.account = accs[0]
+          // document.getElementById('accountNum').innerText = account;
+    })
+  }
+
+  render () {
+    return (
+      <Router>
+        <div>
+          <Nav />
+          <NoticeBar className='account' mode='closable' icon={null} action={<span />}>{
+              this.state.account ? this.state.account : 'No Account'}
+          </NoticeBar>
+          <div className='container'>
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route path='/issue' component={ISSUE} />
+              <Route path='/warrant' component={Detail} />
+              <Route path='/pledge' component={Pledge} />
+              <Route path='/my' component={My} />
+              <Route component={NoMatch} />
+            </Switch>
+          </div>
+        </div>
+      </Router>
+    )
+  }
+}

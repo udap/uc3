@@ -12,7 +12,6 @@ body {
 
 }
 .container{
-  padding-top: 45px;
   margin: 0 auto;
   min-width: 320px;
   max-width: 540px;
@@ -23,6 +22,9 @@ body {
 /* home */
 .center{
   text-align: center;
+}
+.account{
+  margin-top: 55px;
 }
 .home-card img{
 	max-width: 64px;
