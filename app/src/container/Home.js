@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavBar, WhiteSpace, Carousel, WingBlank, NoticeBar} from 'antd-mobile'
+import { NavBar, WhiteSpace, Carousel, WingBlank, NoticeBar, Icon} from 'antd-mobile'
 import List from '../components/List'
 import corn from '../img/corn.jpg'
 import walnut from '../img/walnut.jpg'
@@ -20,15 +20,19 @@ export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      inited: false,
+      refreshing: false,
       addr: null,
       data: []
     }
   }
   componentDidMount () {
+    if (this.state.refreshing) return
     getWeb3.then(results => {
       console.log('results=====', results)
       this.setState({
-        web3: results.web3
+        web3: results.web3,
+        refreshing: true
       })
       this.initAccount()
       this.instantiateContract()
@@ -70,7 +74,9 @@ export default class extends React.Component {
           data.push(JSON.parse(metaData[4]))
           self.setState({
             data: data,
-            addr: addr
+            addr: addr,
+            inited: true,
+            refreshing: false
           })
         })
       })
@@ -81,14 +87,19 @@ export default class extends React.Component {
     return (
       <div>
         <NavBar mode='light'>WARRANT</NavBar>
-        <WhiteSpace size='lg' />
-        <WingBlank>
-          <NoticeBar mode='closable' icon={null} action={<span />}>{this.state.addr ? this.state.addr : 'No Account'}</NoticeBar>
-          {
-              this.state.data.map((data, index) => <List key={index} data={data} products={products} />)
-            }
-        </WingBlank>
-        <WhiteSpace size='lg' />
+        {
+          this.state.inited ? <div>
+            <WhiteSpace size='lg' />
+            <WingBlank>
+              <NoticeBar mode='closable' icon={null} action={<span />}>{this.state.addr ? this.state.addr : 'No Account'}</NoticeBar>
+              {
+                  this.state.data.map((data, index) => <List key={index} data={data} products={products} />)
+                }
+            </WingBlank>
+            <WhiteSpace size='lg' />
+          </div> : <div className='center'><Icon type='loading' /></div>
+        }
+
       </div>
     )
   }

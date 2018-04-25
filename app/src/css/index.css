@@ -21,6 +21,9 @@ body {
 	color:#f30;
 }
 /* home */
+.center{
+  text-align: center;
+}
 .home-card img{
 	max-width: 64px;
 	max-height: 64px;
