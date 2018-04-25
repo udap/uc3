@@ -23,6 +23,10 @@ body {
 .center{
   text-align: center;
 }
+.empty{
+  display: inline-block;
+  width: 100%;
+}
 .account{
   margin-top: 55px;
 }

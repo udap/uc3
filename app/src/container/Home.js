@@ -4,6 +4,7 @@ import List from '../components/List'
 import corn from '../img/corn.jpg'
 import walnut from '../img/walnut.jpg'
 import garlic from '../img/garlic.jpg'
+import empty from '../img/empty.png'
 import { default as contract } from 'truffle-contract'
 import assetRegistry_artifacts from '../../../build/contracts/AssetRegistry.json'
 import standardAsset_artifacts from '../../../build/contracts/StandardAsset.json'
@@ -67,7 +68,15 @@ export default class extends React.Component {
                 }
             </WingBlank>
             <WhiteSpace size='lg' />
-          </div> : <div className='center'><Icon type='loading' /></div>
+          </div>
+          : <WingBlank>
+            <WhiteSpace size='lg' />
+            {
+                  this.state.data.length == 0
+                   ? <img className='empty' src={empty} />
+                   : <div className='center'><Icon type='loading' /></div>
+                }
+          </WingBlank>
         }
 
       </div>

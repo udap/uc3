@@ -19,7 +19,6 @@ import getWeb3 from './util/getWeb3'
 import 'antd-mobile/dist/antd-mobile.css'
 
 if (window) {
-  window.web33 = null
   window.account = null
 }
 export default class App extends React.Component {
@@ -36,7 +35,6 @@ export default class App extends React.Component {
       this.setState({
         web3: results.web3
       })
-      window.web33 = results.web3
       this.initAccount()
     }).catch((e) => {
       console.log('Error finding web3.', e)
