@@ -49,9 +49,9 @@ class Issue extends Component {
 }
 
   handleTaskDelete=(taskId)=>{
-    let data = this.state.arrSku
+    let skus = this.state.arrSku
     this.setState({
-      arrSku: data.filter(task => task.id !== taskId)
+      arrSku: skus.filter(sku => sku.id !== taskId)
     })
   }
 
@@ -69,7 +69,7 @@ class Issue extends Component {
 
 
   onAddClick=(e)=> { 
-      let newItem = {
+      let newSku = {
         'id': this.generateUUID(),
         'sku': '',
         'origin': '',
@@ -79,10 +79,9 @@ class Issue extends Component {
         'weight': ''
       }
 
-      let data = this.state.arrSku
-      data = data.concat([newItem])
+      let skus = this.state.arrSku.concat([newSku])
       this.setState({
-        arrSku: data
+        arrSku: skus
       })
   } 
 
