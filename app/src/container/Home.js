@@ -30,6 +30,11 @@ export default class extends React.Component {
       this.instantiateContract()
     }
   }
+  componentWillUnmount = () => {
+      this.setState = (state,callback)=>{
+          return;
+      };
+  }
 
   instantiateContract () {
     let self = this
@@ -48,27 +53,29 @@ export default class extends React.Component {
           console.log(metaData)
           let data = []
           data.push(JSON.parse(metaData[4]))
-          self.setState({
-            data: data,
-            inited: true
-          })
+          self.setState({data: data , inited: true})
         })
-      })
+      });
+      if(assetAddrs.length == 0){
+          self.setState({inited: true});
+      }
     })
+
   }
 
-  noData () {
-    let img
-
-    if (this.state.data.length == 0) {
-      img = <img className='empty' src={empty} />
-    } else {
-      img = <div className='center'><Icon type='loading' /></div>
-    }
-    return <WingBlank><WhiteSpace size='lg' />{img}</WingBlank>
+  loading () {
+      console.log("执行了loading ()。。。。。。。。")
+    return <WingBlank>
+              <WhiteSpace size='lg' />
+                 <div className='center'><Icon type='loading' /></div>
+           </WingBlank>;
   }
 
   listData () {
+    console.log("执行了listData ()。。。。。。。。")
+    if (this.state.data.length == 0){
+      return <img className='empty' src={empty} />;
+    }
     let content = this.state.data.map((data, index) => <List key={index} data={data} products={products} />)
     return <div>
       <WhiteSpace size='lg' />
@@ -81,7 +88,7 @@ export default class extends React.Component {
     return (
       <div>
         <NavBar mode='light'>WARRANT</NavBar>
-        {this.state.inited ? this.listData() : this.noData()}
+        {this.state.inited ? this.listData() : this.loading()}
       </div>
     )
   }
