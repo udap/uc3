@@ -68,15 +68,15 @@ class Issue extends Component {
   }
 
 
-  onAddClick=(e)=> { 
+  onAddClick=(e)=> {
       let newSku = {
         'id': this.generateUUID(),
         'sku': '',
         'origin': '',
         'specName': '',
-        'number': '',
-        'unit': '',
-        'weight': ''
+        'numberOfPieces': '',
+        'weight': '',
+        'unit': ''
       }
 
       let skus = this.state.arrSku.concat([newSku])
