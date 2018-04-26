@@ -2,18 +2,16 @@ import React, { Component } from 'react'
 import { NavBar,List, Button, WhiteSpace, WingBlank,Modal,Toast} from 'antd-mobile';
 import IssueSKU from './IssueSKU';
 import validate from 'validate.js';
+import {Warrant} from "../data/warrant";
 
 class Issue extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      value: 0,
-      val:0,
       arrSku: [],
-      issue:{},
+      warrant:{},
       errorMsg:null,
       modal:false,
-      sku:[]
     }
   }
   componentWillMount () {
@@ -27,11 +25,11 @@ class Issue extends Component {
    Toast.success('Reset success !!!', 1);
  }
 
-   onClose = key => () => {
+  onClose = key => () => {
       this.setState({
         modal: false,
       });
-    }
+  }
   handleToggleComplete=(taskId,sku)=>{
     let data = this.state.arrSku
     console.log(typeof data,sku)
@@ -89,7 +87,7 @@ class Issue extends Component {
   } 
 
   handleChange = (e) => {
-      this.state.issue[e.target.name] = e.target.value;
+      this.state.warrant[e.target.name] = e.target.value;
       this.setState({
         modal:false
       })
@@ -104,7 +102,7 @@ class Issue extends Component {
           "code":{presence: {message:'^code is required'}},
           "address":{presence: {message:'^address is required'}}
         }
-      var issue = this.state.issue;
+      var issue = this.state.warrant;
       var attributes = {
           "owner":issue.owner,
           "supervise":issue.supervise,
@@ -147,28 +145,27 @@ class Issue extends Component {
           modal:true,
           errorMsg:errorMsg
         })
-    } else {
-        console.log("this.newIssue",this.newIssue);
     }
+  }
+  listProducts(){
+     return this.state.arrSku.map(
+         sku => <IssueSKU id={sku.id} key={sku.id} task={sku.sku} toggleComplete={this.handleToggleComplete}
+            deleteTask={this.handleTaskDelete} />
+      );
   }
 
   render(){
    return (
       <div className='issue'>
-         <NavBar
-            mode='light'
-          >ISSUE</NavBar>
+         <NavBar mode='light'>ISSUE</NavBar>
           <form>
-          <List
-            renderHeader={() => 'Basic Infor'}
-            className="basic"
-          >
+          <List renderHeader={() => 'Basic Infor'} className="basic" >
           <div className="am-list-item am-input-item am-list-item-middle">
             <label className="am-list-line" htmlFor="borring">
                 <span className="am-input-label am-input-label-5">Owner</span>
                 <div className="am-input-control">
                     <input id="borring" className="form-input" type="text" name="owner"
-                       value={this.state.issue.owner||''} 
+                       value={this.state.warrant.owner||''}
                        placeholder="owner is required" 
                        onChange={this.handleChange}/>
                 </div>
@@ -179,19 +176,30 @@ class Issue extends Component {
                 <span className="am-input-label am-input-label-5">Supervise</span>
                 <div className="am-input-control">
                     <input id="borring" className="form-input" type="text" name="supervise"
-                       value={this.state.issue.supervise||''} 
+                       value={this.state.warrant.supervise||''}
                        placeholder="supervise is required" 
                        onChange={this.handleChange}/>
                 </div>
             </label>
           </div>
           <div className="am-list-item am-input-item am-list-item-middle">
+              <label className="am-list-line" htmlFor="borring">
+                  <span className="am-input-label am-input-label-5">Warrant Code</span>
+                  <div className="am-input-control">
+                      <input id="borring" className="form-input" type="text" name="warrantCode"
+                             value={this.state.warrant.warrantCode||''}
+                             placeholder="Warrant Code is required"
+                             onChange={this.handleChange}/>
+                  </div>
+              </label>
+          </div>
+          <div className="am-list-item am-input-item am-list-item-middle">
             <label className="am-list-line" htmlFor="borring">
                 <span className="am-input-label am-input-label-5">Product Name</span>
                 <div className="am-input-control">
-                    <input id="borring" className="form-input" type="text" name="product"
-                       value={this.state.issue.product||''} 
-                       placeholder="product is required" 
+                    <input id="borring" className="form-input" type="text" name="productName"
+                       value={this.state.warrant.productName ||''}
+                       placeholder="Product Name is required"
                        onChange={this.handleChange}/>
                 </div>
             </label>
@@ -200,9 +208,9 @@ class Issue extends Component {
             <label className="am-list-line" htmlFor="borring">
                 <span className="am-input-label am-input-label-5">Total Weight</span>
                 <div className="am-input-control">
-                    <input id="borring" className="form-input" type="text" name="total"
-                       value={this.state.issue.total||''} 
-                       placeholder="total is required" 
+                    <input id="borring" className="form-input" type="text" name="totalWeight"
+                       value={this.state.warrant.totalWeight ||''}
+                       placeholder="Total Weight is required"
                        onChange={this.handleChange}/>
                 </div>
             </label>
@@ -211,9 +219,9 @@ class Issue extends Component {
             <label className="am-list-line" htmlFor="borring">
                 <span className="am-input-label am-input-label-5">StorageRoom Code</span>
                 <div className="am-input-control">
-                    <input id="borring" className="form-input" type="text" name="code"
-                       value={this.state.issue.code||''} 
-                       placeholder="code is required" 
+                    <input id="borring" className="form-input" type="text" name="storageRoomCode"
+                       value={this.state.warrant.storageRoomCode ||''}
+                       placeholder="StorageRoom code is required"
                        onChange={this.handleChange}/>
                 </div>
             </label>
@@ -222,9 +230,9 @@ class Issue extends Component {
             <label className="am-list-line" htmlFor="borring">
                 <span className="am-input-label am-input-label-5">Warehouse address</span>
                 <div className="am-input-control">
-                    <input id="borring" className="form-input" type="text" name="address"
-                       value={this.state.issue.address||''} 
-                       placeholder="address is required" 
+                    <input id="borring" className="form-input" type="text" name="warehouseAddress"
+                       value={this.state.warrant.warehouseAddress ||''}
+                       placeholder="Warehouse Address is required"
                        onChange={this.handleChange}/>
                 </div>
             </label>
@@ -239,16 +247,7 @@ class Issue extends Component {
            </WingBlank>
            <WhiteSpace/>
            <ul>
-             {
-              this.state.arrSku.map(sku =>
-              <IssueSKU id={sku.id}
-                key={sku.id}
-                task={sku.sku}
-                toggleComplete={this.handleToggleComplete}
-                deleteTask={this.handleTaskDelete}
-                 />
-               )
-            }
+              {this.listProducts()}
            </ul>
            <WhiteSpace/>
            <WingBlank>
@@ -264,13 +263,10 @@ class Issue extends Component {
           transparent
           maskClosable={false}
           onClose={this.onClose('modal')}
-          title="Title"
-          footer={[{ text: 'Ok', onPress: () => { this.onClose('modal')(); } }]}
-        >
+          title="error"
+          footer={[{ text: 'Ok', onPress: () => { this.onClose('modal')(); } }]} >
           <div style={{ height: 100, overflow: 'scroll' }}>
-            {
-             this.state.errorMsg
-            }
+            {this.state.errorMsg }
           </div>
         </Modal>
       </div>
