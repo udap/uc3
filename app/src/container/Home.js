@@ -74,7 +74,7 @@ export default class extends React.Component {
     if (this.state.warrants.length == 0){
       return <img className='empty' src={empty} />;
     }
-    let content = this.state.warrants.map((warrant, index) => <List key={index} warrant={warrant} />)
+    let content = this.state.warrants.map((warrant, index) => <List key={index} index={index} warrant={warrant} />)
     return <div>
       <WhiteSpace size='lg' />
       <WingBlank>{content}</WingBlank>

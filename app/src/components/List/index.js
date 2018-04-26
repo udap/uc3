@@ -2,11 +2,11 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import { WhiteSpace, Card} from 'antd-mobile'
 
-const List = ({warrant, key}) => {
-  let products=warrant.products;
+const List = ({warrant, index}) => {
+  let products = warrant.products
   const mapPro = {corn: products.corn, garlic: products.garlic, walnut: products.walnut}
   return (
-    <Link to={{pathname: '/warrant', state: warrant}} className={`cf last-no-border ${root}`}>
+    <Link key={index} to={{pathname: '/warrant', state: warrant}} className={`cf last-no-border ${root}`}>
       <WhiteSpace size='lg' />
       <Card className='home-card'>
         <Card.Header
