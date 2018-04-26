@@ -21,7 +21,7 @@ export default class extends React.Component {
     super(props)
     this.state = {
       inited: false,
-      data: []
+      warrants: []
     }
   }
 
@@ -51,9 +51,9 @@ export default class extends React.Component {
           return instance.getMetaData.call({from: account})
         }).then(metaData => {
           console.log(metaData)
-          let data = []
-          data.push(JSON.parse(metaData[4]))
-          self.setState({data: data , inited: true})
+          let warrants = []
+            warrants.push(JSON.parse(metaData[4]))
+          self.setState({warrants: warrants , inited: true})
         })
       });
       if(assetAddrs.length == 0){
@@ -70,11 +70,11 @@ export default class extends React.Component {
            </WingBlank>;
   }
 
-  listData () {
-    if (this.state.data.length == 0){
+    listWarrant () {
+    if (this.state.warrants.length == 0){
       return <img className='empty' src={empty} />;
     }
-    let content = this.state.data.map((data, index) => <List key={index} data={data} products={products} />)
+    let content = this.state.warrants.map((warrant, index) => <List key={index} data={warrant} products={products} />)
     return <div>
       <WhiteSpace size='lg' />
       <WingBlank>{content}</WingBlank>
@@ -86,7 +86,7 @@ export default class extends React.Component {
     return (
       <div>
         <NavBar mode='light'>WARRANT</NavBar>
-        {this.state.inited ? this.listData() : this.loading()}
+        {this.state.inited ? this.listWarrant() : this.loading()}
       </div>
     )
   }
