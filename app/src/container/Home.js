@@ -70,7 +70,7 @@ export default class extends React.Component {
            </WingBlank>;
   }
 
-    listWarrant () {
+  listWarrant () {
     if (this.state.warrants.length == 0){
       return <img className='empty' src={empty} />;
     }
