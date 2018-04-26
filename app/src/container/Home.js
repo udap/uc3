@@ -39,14 +39,16 @@ export default class extends React.Component {
     StandardAsset.setProvider(web3.currentProvider)
 
     AssetRegistry.deployed().then(function (instance) {
+        console.log("instantiateContract",addr);
       return instance.getOwnAssets.call({from: account})
     }).then(assetAddrs => {
       assetAddrs.forEach((addr, index) => {
-        StandardAsset.at(addr).then(instance => {
+
+          StandardAsset.at(addr).then(instance => {
           return instance.getMetaData.call({from: account})
         }).then(metaData => {
-          console.log(metaData)
-          let data = []
+            console.log(metaData);
+            let data = []
           data.push(JSON.parse(metaData[4]))
           self.setState({
             data: data,
@@ -57,31 +59,33 @@ export default class extends React.Component {
     })
   }
 
-  noData () {
-    let img
+  noData(){
+    let img;
 
-    if (this.state.data.length == 0) {
-      img = <img className='empty' src={empty} />
-    } else {
-      img = <div className='center'><Icon type='loading' /></div>
+    if(this.state.data.length == 0){
+        img = <img className='empty' src={empty} />;
+    }else{
+        img = <div className='center'><Icon type='loading' /></div>;
     }
-    return <WingBlank><WhiteSpace size='lg' />{img}</WingBlank>
+    return <WingBlank><WhiteSpace size='lg' />{img}</WingBlank>;
   }
 
-  listData () {
-    let content = this.state.data.map((data, index) => <List key={index} data={data} products={products} />)
-    return <div>
-      <WhiteSpace size='lg' />
-      <WingBlank>{content}</WingBlank>
-      <WhiteSpace size='lg' />
-    </div>
+  listData(){
+    let content = this.state.data.map((data, index) => <List key={index} data={data} products={products} />);
+      return <div>
+                <WhiteSpace size='lg' />
+                <WingBlank>{content}</WingBlank>
+                <WhiteSpace size='lg' />
+            </div>;
   }
+
+
 
   render () {
     return (
       <div>
         <NavBar mode='light'>WARRANT</NavBar>
-        {this.state.inited ? this.listData() : this.noData()}
+            {this.state.inited ?this.listData():this.noData()}
       </div>
     )
   }
