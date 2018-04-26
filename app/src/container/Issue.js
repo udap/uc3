@@ -20,7 +20,7 @@ class Issue extends Component {
   
   onReset = () => {
     this.setState({
-      issue:{}
+      warrant:{}
     })
    Toast.success('Reset success !!!', 1);
  }
@@ -102,14 +102,14 @@ class Issue extends Component {
           "code":{presence: {message:'^code is required'}},
           "address":{presence: {message:'^address is required'}}
         }
-      var issue = this.state.warrant;
+      var  warrant  = this.state.warrant;
       var attributes = {
-          "owner":issue.owner,
-          "supervise":issue.supervise,
-          "product":issue.product,
-          "total":issue.total,
-          "code":issue.code,
-          "address":issue.address
+          "owner":warrant.owner,
+          "supervise":warrant.supervise,
+          "product":warrant.product,
+          "total":warrant.total,
+          "code":warrant.code,
+          "address":warrant.address
       };
       var errors = validate(attributes,constraints);
       
@@ -122,17 +122,17 @@ class Issue extends Component {
           return (<div style={{textAlign:'left'}} dangerouslySetInnerHTML={{__html:result}}></div>)
       }
       this.handleToggleComplete();
-      var newIssue = {};
-      newIssue.owner = issue.owner;
-      newIssue.supervise = issue.supervise;
-      newIssue.product = issue.product;
-      newIssue.total = issue.total;
-      newIssue.code = issue.code;
-      newIssue.address = issue.address;
+      var newWarrant = {};
+      newWarrant.owner = warrant.owner;
+      newWarrant.supervise = warrant.supervise;
+      newWarrant.product = warrant.product;
+      newWarrant.total = warrant.total;
+      newWarrant.code = warrant.code;
+      newWarrant.address = warrant.address;
       if(!validate.isEmpty(this.state.arrSku)){
-        newIssue.arrSku = this.state.arrSku;       
+        newWarrant.arrSku = this.state.arrSku;
       }
-      this.newIssue = newIssue;
+      this.newWarrant = newWarrant;
       return false;
   }
 
