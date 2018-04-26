@@ -52,10 +52,8 @@ export default class App extends React.Component {
         Toast.fail('Could not get any accounts! Make sure your Ethereum client is configured correctly!!!', 3)
         return
       }
-          // this.setState({ accounts: accs })
       self.setState({ account: accs[0] })
       window.account = accs[0]
-          // document.getElementById('accountNum').innerText = account;
     })
   }
 
