@@ -64,7 +64,6 @@ export default class extends React.Component {
   }
 
   loading () {
-      console.log("执行了loading ()。。。。。。。。")
     return <WingBlank>
               <WhiteSpace size='lg' />
                  <div className='center'><Icon type='loading' /></div>
@@ -72,7 +71,6 @@ export default class extends React.Component {
   }
 
   listData () {
-    console.log("执行了listData ()。。。。。。。。")
     if (this.state.data.length == 0){
       return <img className='empty' src={empty} />;
     }
