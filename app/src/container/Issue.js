@@ -32,13 +32,12 @@ class Issue extends Component {
   }
   handleToggleComplete=(taskId,sku)=>{
     let data = this.state.arrSku
-    console.log(typeof data,sku)
     for (let item of data) {
       if (item.id === taskId) {
         item.sku=sku.sku;
         item.origin=sku.origin;
         item.specName=sku.specName;
-        item.number=sku.number;
+        item.numberOfPieces=sku.numberOfPieces;
         item.unit=sku.unit;
         item.weight=sku.weight;
       }
@@ -96,19 +95,21 @@ class Issue extends Component {
       var constraints = {
           "owner":{ presence: {message:'^owner is required'}},
           "supervise":{ presence: {message:'^supervise is required'}},
-          "product":{ presence: {message:'^product is required'}},
-          "total":{ presence: {message:'^total is required'}},
-          "code":{presence: {message:'^code is required'}},
-          "address":{presence: {message:'^address is required'}}
+          "warrantCode":{presence: {message:'^warrantCode is required'}},
+          "productName":{ presence: {message:'^productName is required'}},
+          "totalWeight":{ presence: {message:'^totalWeight is required'}},
+          "storageRoomCode":{ presence: {message:'^storageRoomCode is required'}},
+          "warehouseAddress":{presence: {message:'^warehouseAddress is required'}}
         }
       var  warrant  = this.state.warrant;
       var attributes = {
           "owner":warrant.owner,
           "supervise":warrant.supervise,
-          "product":warrant.product,
-          "total":warrant.total,
-          "code":warrant.code,
-          "address":warrant.address
+          "warrantCode":warrant.warrantCode,
+          "productName":warrant.productName,
+          "totalWeight":warrant.totalWeight,
+          "storageRoomCode":warrant.storageRoomCode,
+          "warehouseAddress":warrant.warehouseAddress
       };
       var errors = validate(attributes,constraints);
       
@@ -120,14 +121,14 @@ class Issue extends Component {
           result = result + "";
           return (<div style={{textAlign:'left'}} dangerouslySetInnerHTML={{__html:result}}></div>)
       }
-      this.handleToggleComplete();
       var newWarrant = {};
       newWarrant.owner = warrant.owner;
       newWarrant.supervise = warrant.supervise;
-      newWarrant.product = warrant.product;
-      newWarrant.total = warrant.total;
-      newWarrant.code = warrant.code;
-      newWarrant.address = warrant.address;
+      newWarrant.warrantCode = warrant.warrantCode;
+      newWarrant.productName = warrant.productName;
+      newWarrant.totalWeight = warrant.totalWeight;
+      newWarrant.storageRoomCode = warrant.storageRoomCode;
+      newWarrant.warehouseAddress = warrant.warehouseAddress;
       if(!validate.isEmpty(this.state.arrSku)){
         newWarrant.arrSku = this.state.arrSku;
       }
@@ -144,6 +145,8 @@ class Issue extends Component {
           modal:true,
           errorMsg:errorMsg
         })
+    }else{
+      console.log("this.newWarrant",this.newWarrant)
     }
   }
   listProducts(){

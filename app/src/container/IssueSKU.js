@@ -10,7 +10,7 @@ export default class IssueSKU extends Component {
         sku:undefined,
         origin:undefined,
         specName:undefined,
-        number:undefined,
+        numberOfPieces:undefined,
         weight:undefined,
         unit:'JIN',
         errorMsg:undefined,
@@ -41,7 +41,7 @@ export default class IssueSKU extends Component {
            "sku":{ presence: {message:'^sku is required'}},
            "origin":{ presence: {message:'^origin is required'}},
            "specName":{ presence: {message:'^specName is required'}},
-           "number":{ presence: {message:'^number is required'}},
+           "numberOfPieces":{ presence: {message:'^numberOfPieces is required'}},
            "weight":{presence: {message:'^weight is required'}},
          }
        //var sku = this.state.sku;
@@ -49,7 +49,7 @@ export default class IssueSKU extends Component {
            "sku":this.state.sku,
            "origin":this.state.origin,
            "specName":this.state.specName,
-           "number":this.state.number,
+           "numberOfPieces":this.state.numberOfPieces,
            "weight":this.state.weight,
        };
        var errors = validate(attributes,constraints);
@@ -65,7 +65,7 @@ export default class IssueSKU extends Component {
        newSku.sku = this.state.sku;
        newSku.origin = this.state.origin;
        newSku.specName = this.state.specName;
-       newSku.number = this.state.number;
+       newSku.numberOfPieces = this.state.numberOfPieces;
        newSku.weight = this.state.weight;
        newSku.unit = this.state.unit;
        this.newSku = newSku;
@@ -130,9 +130,9 @@ export default class IssueSKU extends Component {
                 <label className="am-list-line" htmlFor="borring">
                     <span className="am-input-label am-input-label-5">Number Of Pieces</span>
                     <div className="am-input-control">
-                        <input id="borring" className="form-input" type="text" name="number"
-                           value={this.state.number||''} 
-                           placeholder="number is required" 
+                        <input id="borring" className="form-input" type="text" name="numberOfPieces"
+                           value={this.state.numberOfPieces||''} 
+                           placeholder="numberOfPieces is required" 
                            onChange={this.handleChange}/>
                     </div>
                 </label>
