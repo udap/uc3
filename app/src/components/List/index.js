@@ -20,9 +20,8 @@ const List = ({warrant, index}) => {
             <li>Warehouse address:<strong>{warrant.warehouseAddress}</strong></li>
           </ul>
         </Card.Body>
-        <Link to={{pathname: '/warrant', state: warrant}} className={`cf last-no-border ${root}`}>
-          <Card.Footer content='' extra={<div>MORE</div>} />
-        </Link>
+        <Card.Footer content='' extra={<Link to={{pathname: '/warrant', state: warrant}} className={`cf last-no-border ${root}`}><div className='more'>MORE</div></Link>} />
+
       </Card>
       <WhiteSpace size='lg' />
     </div>

@@ -229,11 +229,13 @@ class Issue extends Component {
     let AssetRegistry = contract(assetRegistry_artifacts);
     AssetRegistry.setProvider(window.web3.currentProvider);
     AssetRegistry.deployed().then(function (instance) {
+        Toast.loading('Loading...',0);
         return instance.createAsset("",true,false,JSON.stringify(self.getData()),"",{from:window.account});
     }).then(function (result) {
-        self.props.history.pushState(null, '/');
+        Toast.hide()
+        self.props.history.push( '/',null)
     }).catch(function (e) {
-        console.log(e)
+        Toast.offline('There was an error fetching your accounts!!!', 3)
     });
 
   };

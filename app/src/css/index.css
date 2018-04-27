@@ -91,3 +91,10 @@ body {
     width: 130px;
 }
 
+.more{
+  text-decoration: underline;
+  cursor: pointer;
+  color: #ff5b05;
+  display: inline-block;
+  padding: 10px 0px;
+}
