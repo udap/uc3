@@ -221,17 +221,17 @@ class Issue extends Component {
              modal:true,
              errorMsg:errorMsgsku
            })
+         return;
         }
       }
-    console.log("this.state.warrant",this.state.warrant)
-      return;
+
     }
     let AssetRegistry = contract(assetRegistry_artifacts);
     AssetRegistry.setProvider(window.web3.currentProvider);
     AssetRegistry.deployed().then(function (instance) {
         return instance.createAsset("",true,false,JSON.stringify(self.getData()),"",{from:window.account});
     }).then(function (result) {
-        window.location.href="/";
+        self.props.history.pushState(null, '/');
     }).catch(function (e) {
         console.log(e)
     });

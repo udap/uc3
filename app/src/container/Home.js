@@ -46,15 +46,15 @@ export default class extends React.Component {
     AssetRegistry.deployed().then(function (instance) {
       return instance.getOwnAssets.call({from: account})
     }).then(assetAddrs => {
-      assetAddrs.forEach((addr, index) => {
-        StandardAsset.at(addr).then(instance => {
-          return instance.getMetaData.call({from: account})
-        }).then(metaData => {
-          console.log(metaData)
-          let warrants = []
-            warrants.push(JSON.parse(metaData[4]))
-          self.setState({warrants: warrants , inited: true})
-        })
+        let warrants = [];
+        assetAddrs.forEach((addr, index) => {
+          StandardAsset.at(addr).then(instance => {
+            return instance.getMetaData.call({from: account})
+          }).then(metaData => {
+            console.log(metaData)
+            warrants.push(JSON.parse(metaData[4]));
+            self.setState({warrants: warrants , inited: true})
+          })
       });
       if(assetAddrs.length == 0){
           self.setState({inited: true});
