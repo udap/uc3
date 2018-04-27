@@ -225,7 +225,7 @@ class Issue extends Component {
         }
       }
     }else{
-      Toast.info('Please Add New Product!!!', 3);
+      Toast.info('Please Add New Product!!!', 1);
       return;
     }
     let AssetRegistry = contract(assetRegistry_artifacts);
