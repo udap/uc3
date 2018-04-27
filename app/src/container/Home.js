@@ -1,20 +1,11 @@
 import React from 'react'
 import { NavBar, WhiteSpace, Carousel, WingBlank, Icon} from 'antd-mobile'
 import List from '../components/List'
-import corn from '../img/corn.jpg'
-import walnut from '../img/walnut.jpg'
-import garlic from '../img/garlic.jpg'
 import empty from '../img/empty.png'
 import { default as contract } from 'truffle-contract'
 import assetRegistry_artifacts from '../../../build/contracts/AssetRegistry.json'
 import standardAsset_artifacts from '../../../build/contracts/StandardAsset.json'
 import {Warrant, Product} from '../data/warrant'
-
-const products = {
-  walnut,
-  corn,
-  garlic
-}
 
 export default class extends React.Component {
   constructor (props) {
