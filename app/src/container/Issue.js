@@ -224,7 +224,9 @@ class Issue extends Component {
          return;
         }
       }
-
+    }else{
+      Toast.info('Please Add New Product!!!', 3);
+      return;
     }
     let AssetRegistry = contract(assetRegistry_artifacts);
     AssetRegistry.setProvider(window.web3.currentProvider);
