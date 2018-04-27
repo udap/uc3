@@ -16,7 +16,8 @@ const List = ({warrant, index}) => {
         />
         <Card.Body>
           <ul>
-            <li>Total:<strong>{warrant.totalWeight}</strong></li>
+            <li>Total Weight:<strong>{warrant.totalWeight}</strong></li>
+            <li>Warehouse address:<strong>{warrant.warehouseAddress}</strong></li>
           </ul>
         </Card.Body>
         <Card.Footer content='' extra={<div>MORE</div>} />
