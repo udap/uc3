@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { NavBar,List, Button, WhiteSpace, WingBlank,Modal,Toast,Accordion} from 'antd-mobile';
 import validate from 'validate.js';
 import {Warrant,Product} from "../data/warrant";
+import { default as contract } from 'truffle-contract';
 import assetRegistry_artifacts from '../../../build/contracts/AssetRegistry.json'
 
 class Issue extends Component {
