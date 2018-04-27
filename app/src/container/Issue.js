@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { NavBar,List, Button, WhiteSpace, WingBlank,Modal,Toast} from 'antd-mobile';
-import IssueSKU from './IssueSKU';
+import { NavBar,List, Button, WhiteSpace, WingBlank,Modal,Toast,Accordion} from 'antd-mobile';
 import validate from 'validate.js';
 import {Warrant} from "../data/warrant";
 
@@ -12,6 +11,7 @@ class Issue extends Component {
       warrant:{},
       errorMsg:null,
       modal:false,
+      skuMsg:null
     }
   }
   componentWillMount () {
@@ -30,16 +30,11 @@ class Issue extends Component {
         modal: false,
       });
   }
-  handleToggleComplete=(taskId,sku)=>{
+  handleToggleComplete=(taskId,name,value)=>{
     let data = this.state.arrSku
     for (let item of data) {
       if (item.id === taskId) {
-        item.sku=sku.sku;
-        item.origin=sku.origin;
-        item.specName=sku.specName;
-        item.numberOfPieces=sku.numberOfPieces;
-        item.unit=sku.unit;
-        item.weight=sku.weight;
+        item[name]=value;
       }
     }
     this.setState({
@@ -75,7 +70,7 @@ class Issue extends Component {
         'specName': '',
         'numberOfPieces': '',
         'weight': '',
-        'unit': ''
+        'unit': 'JIN'
       }
 
       let skus = this.state.arrSku.concat([newSku])
@@ -90,6 +85,72 @@ class Issue extends Component {
         modal:false
       })
   }
+  handleSkuChange = (id,e) => {
+      this.setState({
+        [e.target.name]:e.target.value,
+        modal:false
+      })
+      this.handleToggleComplete(id,e.target.name,e.target.value)
+  }
+
+  skuErrorMsg=(msg)=>{
+    this.setState({
+      modal:true,
+      skuMsg:msg
+    })
+  }
+
+  _validateSKU = (id) => {
+       var constraints = {
+           "sku":{presence: {allowEmpty: false}},
+           "origin":{presence: {allowEmpty: false}},
+           "specName":{presence: {allowEmpty: false}},
+           "numberOfPieces":{presence: {allowEmpty: false}},
+           "weight":{
+              presence: {allowEmpty: false},
+              numericality: {greaterThan: 0}
+            }
+         }
+       var arrSku = this.state.arrSku;
+       var sku = {};
+       for (let item of arrSku) {
+         if (item.id === id) {
+              sku.sku=item.sku;
+              sku.origin=item.origin;
+              sku.specName=item.specName;
+              sku.numberOfPieces=item.numberOfPieces;
+              sku.unit=item.unit;
+              sku.weight=item.weight;
+         }
+       }
+       var attributes = {
+           "sku":sku.sku,
+           "origin":sku.origin,
+           "specName":sku.specName,
+           "numberOfPieces":sku.numberOfPieces,
+           "weight":sku.weight,
+       };
+       var errors = validate(attributes,constraints);
+       if (errors) {
+           var result = "",attr;
+           for(attr in errors) {
+               result = result + "<li><span>"+errors[attr]+"</span></li>";
+           }
+           result = result + "";
+           return (<div style={{textAlign:'left'}} dangerouslySetInnerHTML={{__html:result}}></div>)
+       }
+       var newSku = {};
+       newSku.sku = this.state.sku;
+       newSku.origin = this.state.origin;
+       newSku.specName = this.state.specName;
+       newSku.numberOfPieces = this.state.numberOfPieces;
+       newSku.weight = this.state.weight;
+       newSku.unit = this.state.unit;
+       newSku.isValidate = true;
+       this.newSku = newSku;
+       return false;
+   }
+
 
    _validate = () => {
       var constraints = {
@@ -97,7 +158,10 @@ class Issue extends Component {
           "supervise":{ presence: {message:'^supervise is required'}},
           "warrantCode":{presence: {message:'^warrantCode is required'}},
           "productName":{ presence: {message:'^productName is required'}},
-          "totalWeight":{ presence: {message:'^totalWeight is required'}},
+          "totalWeight":{ 
+            presence: {message:'^totalWeight is required'},
+            numericality: {greaterThan: 0}
+          },
           "storageRoomCode":{ presence: {message:'^storageRoomCode is required'}},
           "warehouseAddress":{presence: {message:'^warehouseAddress is required'}}
         }
@@ -112,7 +176,6 @@ class Issue extends Component {
           "warehouseAddress":warrant.warehouseAddress
       };
       var errors = validate(attributes,constraints);
-      
       if (errors) {
           var result = "",attr;
           for(attr in errors) {
@@ -146,13 +209,100 @@ class Issue extends Component {
           errorMsg:errorMsg
         })
     }else{
-      console.log("this.newWarrant",this.newWarrant)
+      if(!validate.isEmpty(this.state.arrSku)){
+        for (let item of this.state.arrSku) {
+            var errorMsgsku = this._validateSKU(item.id);
+            if (errorMsgsku) {
+               this.setState({
+                 modal:true,
+                 errorMsg:errorMsgsku
+               })
+            }
+        }        
+        console.log("this.newWarrant",this.newWarrant)
+      }else{
+        console.log("this.newWarrant",this.newWarrant)
+      }
+          
+           
     }
   }
   listProducts(){
-     return this.state.arrSku.map(
-         sku => <IssueSKU id={sku.id} key={sku.id} task={sku.sku} toggleComplete={this.handleToggleComplete}
-            deleteTask={this.handleTaskDelete} />
+     return this.state.arrSku.map((sku,index)=> <div key={index} style={{ marginTop: 10, marginBottom: 10 }}>
+        <Accordion  defaultActiveKey="0" className="my-accordion" onChange={this.onChange}>
+          <Accordion.Panel header={`SKU`}>
+             
+              <div className="am-list-item am-input-item am-list-item-middle">
+                <label className="am-list-line" htmlFor="borring">
+                    <span className="am-input-label am-input-label-5">SKU</span>
+                    <div className="am-input-control">
+                        <input id="borring" className="form-input" type="text" name="sku"
+                           value={sku.sku||''} 
+                           placeholder="sku is required" 
+                           onChange={this.handleSkuChange.bind(this,sku.id)}/>
+                    </div>
+                </label>
+              </div>
+              <div className="am-list-item am-input-item am-list-item-middle">
+                <label className="am-list-line" htmlFor="borring">
+                    <span className="am-input-label am-input-label-5">Origin</span>
+                    <div className="am-input-control">
+                        <input id="borring" className="form-input" type="text" name="origin"
+                           value={sku.origin||''} 
+                           placeholder="origin is required" 
+                           onChange={this.handleSkuChange.bind(this,sku.id)}/>
+                    </div>
+                </label>
+              </div>
+              <div className="am-list-item am-input-item am-list-item-middle">
+                <label className="am-list-line" htmlFor="borring">
+                    <span className="am-input-label am-input-label-5">SpecName</span>
+                    <div className="am-input-control">
+                        <input id="borring" className="form-input" type="text" name="specName"
+                           value={sku.specName||''} 
+                           placeholder="specName is required" 
+                           onChange={this.handleSkuChange.bind(this,sku.id)}/>
+                    </div>
+                </label>
+              </div>
+              <div className="am-list-item am-input-item am-list-item-middle">
+                <label className="am-list-line" htmlFor="borring">
+                    <span className="am-input-label am-input-label-5">Number Of Pieces</span>
+                    <div className="am-input-control">
+                        <input id="borring" className="form-input" type="text" name="numberOfPieces"
+                           value={sku.numberOfPieces||''} 
+                           placeholder="numberOfPieces is required" 
+                           onChange={this.handleSkuChange.bind(this,sku.id)}/>
+                    </div>
+                </label>
+              </div>
+              <div className="am-list-item am-input-item am-list-item-middle">
+                <label className="am-list-line" htmlFor="borring">
+                    <span className="am-input-label am-input-label-5">Unit Weight</span>
+                    <div className="am-input-control">
+                        <input id="borring" className="form-input" type="text" name="weight"
+                           value={sku.weight||''} 
+                           placeholder="weight is required" 
+                           onChange={this.handleSkuChange.bind(this,sku.id)}/>
+                    </div>
+                    <div className="am-input-control">
+                        <select className="forss" name="unit" style={{textAlign:'center'}} value={sku.unit||''} 
+                            onChange={this.handleSkuChange.bind(this,sku.id)}>
+                        <option value='JIN'>&nbsp;&nbsp;JIN</option>
+                        <option value='KG'>&nbsp;&nbsp;KG</option>
+                        <option value='TON'>&nbsp;&nbsp;Ton</option>
+                    </select>
+                    </div>
+                </label>
+              </div>
+              <WingBlank style={{textAlign:'right'}}>
+                <Button type="warning" inline size="small"  onClick={this.handleTaskDelete.bind(this,sku.id)} >
+                  <i className="fa fa-remove" ></i>&nbsp;&nbsp;delate sku
+                </Button>
+              </WingBlank>
+              </Accordion.Panel>              
+        </Accordion>
+      </div>
       );
   }
 
@@ -268,7 +418,7 @@ class Issue extends Component {
           title="error"
           footer={[{ text: 'Ok', onPress: () => { this.onClose('modal')(); } }]} >
           <div style={{ height: 100, overflow: 'scroll' }}>
-            {this.state.errorMsg }
+            {this.state.errorMsg||this.state.skuMsg}
           </div>
         </Modal>
       </div>
