@@ -6,7 +6,7 @@ const List = ({warrant, index}) => {
   let products = warrant.products
   const mapPro = {corn: products.corn, garlic: products.garlic, walnut: products.walnut}
   return (
-    <Link key={index} to={{pathname: '/warrant', state: warrant}} className={`cf last-no-border ${root}`}>
+    <div key={index}>
       <WhiteSpace size='lg' />
       <Card className='home-card'>
         <Card.Header
@@ -20,10 +20,12 @@ const List = ({warrant, index}) => {
             <li>Warehouse address:<strong>{warrant.warehouseAddress}</strong></li>
           </ul>
         </Card.Body>
-        <Card.Footer content='' extra={<div>MORE</div>} />
+        <Link to={{pathname: '/warrant', state: warrant}} className={`cf last-no-border ${root}`}>
+          <Card.Footer content='' extra={<div>MORE</div>} />
+        </Link>
       </Card>
       <WhiteSpace size='lg' />
-    </Link>
+    </div>
   )
 }
 
