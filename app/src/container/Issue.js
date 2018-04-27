@@ -39,6 +39,7 @@ class Issue extends Component {
         item[name]=value;
       }
     }
+    this.state.warrant.arrSku = data;
     this.setState({
       arrSku: data
     })
@@ -177,23 +178,11 @@ class Issue extends Component {
           result = result + "";
           return (<div style={{textAlign:'left'}} dangerouslySetInnerHTML={{__html:result}}></div>)
       }
-      let newWarrant = {};
-      newWarrant.owner = warrant.owner;
-      newWarrant.supervise = warrant.supervise;
-      newWarrant.warrantCode = warrant.warrantCode;
-      newWarrant.productName = warrant.productName;
-      newWarrant.totalWeight = warrant.totalWeight;
-      newWarrant.storageRoomCode = warrant.storageRoomCode;
-      newWarrant.warehouseAddress = warrant.warehouseAddress;
-      if(!validate.isEmpty(this.state.arrSku)){
-        newWarrant.arrSku = this.state.arrSku;
-      }
-      this.newWarrant = newWarrant;
       return false;
   };
   getData =  () => {
         let amount = 0;
-        for(let i = 0; i< arrSku.length-1 ; i++){
+        for(let i = 0; i< this.state.arrSku.length-1 ; i++){
             // let product  = new Product(arrSku[i].sku,arrSku[i].origin,arrSku[i].specName,arrSku[i].numberOfPieces,arrSku[i].weight,arrSku[i].unit);
             let numberOfPieces = arrSku[i].value;
             let weight = arrSku[i].weight;
@@ -234,7 +223,7 @@ class Issue extends Component {
            })
         }
       }
-    console.log("this.newWarrant",this.newWarrant)
+    console.log("this.state.warrant",this.state.warrant)
       return;
     }
     let AssetRegistry = contract(assetRegistry_artifacts);
