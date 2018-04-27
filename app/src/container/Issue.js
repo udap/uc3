@@ -140,15 +140,6 @@ class Issue extends Component {
            result = result + "";
            return (<div style={{textAlign:'left'}} dangerouslySetInnerHTML={{__html:result}}></div>)
        }
-       let newSku = {};
-       newSku.sku = this.state.sku;
-       newSku.origin = this.state.origin;
-       newSku.specName = this.state.specName;
-       newSku.numberOfPieces = this.state.numberOfPieces;
-       newSku.weight = this.state.weight;
-       newSku.unit = this.state.unit;
-       newSku.isValidate = true;
-       this.newSku = newSku;
        return false;
    }
 
