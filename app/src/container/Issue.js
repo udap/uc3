@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { NavBar,List, Button, WhiteSpace, WingBlank,Modal,Toast,Accordion} from 'antd-mobile';
 import validate from 'validate.js';
-import {Warrant} from "../data/warrant";
+import {Warrant,Product} from "../data/warrant";
+import assetRegistry_artifacts from '../../../build/contracts/AssetRegistry.json'
 
 class Issue extends Component {
   constructor (props) {
@@ -50,10 +51,10 @@ class Issue extends Component {
   }
 
   generateUUID=()=>{ // 生成全局唯一标识符【固定算法】
-    var d = new Date().getTime()
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
+    let d = new Date().getTime()
+    let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
     function (c) {
-      var r = (d + Math.random() * 16) % 16 | 0
+      let r = (d + Math.random() * 16) % 16 | 0
       d = Math.floor(d / 16)
       return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16)
     }
@@ -101,7 +102,7 @@ class Issue extends Component {
   }
 
   _validateSKU = (id) => {
-       var constraints = {
+       let constraints = {
            "sku":{presence: {allowEmpty: false}},
            "origin":{presence: {allowEmpty: false}},
            "specName":{presence: {allowEmpty: false}},
@@ -111,8 +112,8 @@ class Issue extends Component {
               numericality: {greaterThan: 0}
             }
          }
-       var arrSku = this.state.arrSku;
-       var sku = {};
+       let arrSku = this.state.arrSku;
+       let sku = {};
        for (let item of arrSku) {
          if (item.id === id) {
               sku.sku=item.sku;
@@ -123,14 +124,14 @@ class Issue extends Component {
               sku.weight=item.weight;
          }
        }
-       var attributes = {
+       let attributes = {
            "sku":sku.sku,
            "origin":sku.origin,
            "specName":sku.specName,
            "numberOfPieces":sku.numberOfPieces,
            "weight":sku.weight,
        };
-       var errors = validate(attributes,constraints);
+       let errors = validate(attributes,constraints);
        if (errors) {
            var result = "",attr;
            for(attr in errors) {
@@ -139,7 +140,7 @@ class Issue extends Component {
            result = result + "";
            return (<div style={{textAlign:'left'}} dangerouslySetInnerHTML={{__html:result}}></div>)
        }
-       var newSku = {};
+       let newSku = {};
        newSku.sku = this.state.sku;
        newSku.origin = this.state.origin;
        newSku.specName = this.state.specName;
@@ -153,7 +154,7 @@ class Issue extends Component {
 
 
    _validate = () => {
-      var constraints = {
+      let constraints = {
           "owner":{ presence: {message:'^owner is required'}},
           "supervise":{ presence: {message:'^supervise is required'}},
           "warrantCode":{presence: {message:'^warrantCode is required'}},
@@ -165,8 +166,8 @@ class Issue extends Component {
           "storageRoomCode":{ presence: {message:'^storageRoomCode is required'}},
           "warehouseAddress":{presence: {message:'^warehouseAddress is required'}}
         }
-      var  warrant  = this.state.warrant;
-      var attributes = {
+      let  warrant  = this.state.warrant;
+      let attributes = {
           "owner":warrant.owner,
           "supervise":warrant.supervise,
           "warrantCode":warrant.warrantCode,
@@ -175,16 +176,16 @@ class Issue extends Component {
           "storageRoomCode":warrant.storageRoomCode,
           "warehouseAddress":warrant.warehouseAddress
       };
-      var errors = validate(attributes,constraints);
+       let errors = validate(attributes,constraints);
       if (errors) {
-          var result = "",attr;
+          let result = "",attr;
           for(attr in errors) {
               result = result + "<li><span>"+errors[attr]+"</span></li>";
           }
           result = result + "";
           return (<div style={{textAlign:'left'}} dangerouslySetInnerHTML={{__html:result}}></div>)
       }
-      var newWarrant = {};
+      let newWarrant = {};
       newWarrant.owner = warrant.owner;
       newWarrant.supervise = warrant.supervise;
       newWarrant.warrantCode = warrant.warrantCode;
@@ -197,10 +198,31 @@ class Issue extends Component {
       }
       this.newWarrant = newWarrant;
       return false;
-  }
-
+  };
+  getData =  () => {
+        let amount = 0;
+        for(let i = 0; i< arrSku.length-1 ; i++){
+            // let product  = new Product(arrSku[i].sku,arrSku[i].origin,arrSku[i].specName,arrSku[i].numberOfPieces,arrSku[i].weight,arrSku[i].unit);
+            let numberOfPieces = arrSku[i].value;
+            let weight = arrSku[i].weight;
+            if(unit == "KG")
+                amount += weight*numberOfPieces*2;
+            else if (unit == "TON")
+                amount +=  weight*numberOfPieces*2000;
+            else
+                amount +=  weight*numberOfPieces;
+        }
+        let totalWeight = amount+"JIN";
+        if(amount > 2000){
+            totalWeight = amount / 2000.0 +"TON";
+        }
+        let  warrant  = this.state.warrant;
+        let result = new Warrant(warrant.warrantCode,warrant.productName,warrant.totalWeight,warrant.storageRoomCode,warrant.warehouseAddress,this.state.arrSku);
+        return result;
+  };
 
   onSubmit = (e) => {
+    let self = this;
     e.preventDefault();
     var errorMsg = this._validate();
     if (errorMsg) {
@@ -208,25 +230,33 @@ class Issue extends Component {
           modal:true,
           errorMsg:errorMsg
         })
-    }else{
-      if(!validate.isEmpty(this.state.arrSku)){
-        for (let item of this.state.arrSku) {
-            var errorMsgsku = this._validateSKU(item.id);
-            if (errorMsgsku) {
-               this.setState({
-                 modal:true,
-                 errorMsg:errorMsgsku
-               })
-            }
-        }        
-        console.log("this.newWarrant",this.newWarrant)
-      }else{
-        console.log("this.newWarrant",this.newWarrant)
-      }
-          
-           
+    return ;
     }
-  }
+    if(!validate.isEmpty(this.state.arrSku)){
+      for (let item of this.state.arrSku) {
+        var errorMsgsku = this._validateSKU(item.id);
+        if (errorMsgsku) {
+           this.setState({
+             modal:true,
+             errorMsg:errorMsgsku
+           })
+        }
+      }
+    console.log("this.newWarrant",this.newWarrant)
+      return;
+    }
+    let AssetRegistry = contract(assetRegistry_artifacts);
+    AssetRegistry.setProvider(window.web3.currentProvider);
+    AssetRegistry.deployed().then(function (instance) {
+        return instance.createAsset("",true,false,JSON.stringify(self.getData()),"",{from:window.account});
+    }).then(function (result) {
+        window.location.href="/";
+    }).catch(function (e) {
+        console.log(e)
+    });
+
+  };
+
   listProducts(){
      return this.state.arrSku.map((sku,index)=> <div key={index} style={{ marginTop: 10, marginBottom: 10 }}>
         <Accordion  defaultActiveKey="0" className="my-accordion" onChange={this.onChange}>
