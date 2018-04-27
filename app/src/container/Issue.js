@@ -198,7 +198,7 @@ class Issue extends Component {
             totalWeight = amount / 2000.0 +"TON";
         }
         let  warrant  = this.state.warrant;
-        let result = new Warrant(warrant.warrantCode,warrant.productName,warrant.totalWeight,warrant.storageRoomCode,warrant.warehouseAddress,this.state.arrSku);
+        let result = new Warrant(warrant.warrantCode,warrant.productName,totalWeight,warrant.storageRoomCode,warrant.warehouseAddress,this.state.arrSku);
         return result;
   };
 
