@@ -1,0 +1,15 @@
+.fortest{
+	width: 80%;
+	max-width: 300px;
+}
+.fortest .am-popover-item-container{
+	display: inline!important;
+	line-height: 30px;
+	height: auto!important;
+	word-wrap: break-word;
+	padding: 0px!important;
+}
+.fortest .am-popover-arrow,.fortest .am-popover-item{
+	color:#f76a24;
+	background-color: #fefcec;
+}
