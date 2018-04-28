@@ -3,19 +3,27 @@ import { NavBar, List, Accordion, WhiteSpace, Modal, Button, WingBlank, Toast } 
 import {
   Link
 } from 'react-router-dom'
-
+import PopoverItem from '../components/PopoverItem'
 const Item = List.Item
 const prompt = Modal.prompt
+
 export default class Detail extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      data: props.location.state ? props.location.state : {}
+      data: props.location.state ? props.location.state : {},
+      visible:false
     }
   }
 
   componentWillMount () {
     window.scrollTo(0, 0)
+  }
+
+  handleVisibleChange = (visible) => {
+    this.setState({
+      visible,
+    });
   }
 
   render () {
@@ -27,9 +35,10 @@ export default class Detail extends React.Component {
           leftContent={<i className='fa fa-chevron-left' />}
           onLeftClick={() => { this.props.history.go(-1) }}
         >Detail</NavBar>
+       
         <List renderHeader={() => 'Basic Infor'} className='my-list basic'>
-          <Item wrap extra={'0xcD86431E62Bca1F4Fbef76669D3FB22B90fc83b1'}>Owner</Item>
-          <Item wrap extra={'0xcD86431E62Bca1F4Fbef76669D3FB22B90fc83b1'}>Supervise</Item>
+          <Item wrap extra={<PopoverItem visible={this.state.visible} value='0xcD86431E62Bca1F4Fbef76669D3FB22B90fc83b1' handleVisibleChange={this.handleVisibleChange}/>}>Owner</Item>
+          <Item wrap extra={<PopoverItem visible={this.state.visible} value='20xcD86431E62Bca1F4Fbef76669D3FB22B90fc83b1' handleVisibleChange={this.handleVisibleChange}/>}>Supervise</Item>
           <Item wrap extra={data.productName}>Product</Item>
           <Item wrap extra={''}>Number Of Pieces</Item>
           <Item wrap extra={data.totalWeight}>Total Weight</Item>

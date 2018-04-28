@@ -30,6 +30,9 @@ body {
 .account{
   margin-top: 55px;
 }
+.account .am-notice-bar-operation{
+  padding: 0px;
+}
 .home-card img{
 	max-width: 64px;
 	max-height: 64px;
