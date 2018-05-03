@@ -9,7 +9,7 @@ body {
   font-family: sans-serif;
   font-size:62.5%;
   margin-bottom: 70px!important;
-
+  margin-top: 55px!important;
 }
 .container{
   margin: 0 auto;
@@ -27,9 +27,9 @@ body {
   display: inline-block;
   width: 100%;
 }
-.account{
+/* .account{
   margin-top: 55px;
-}
+} */
 .account .am-notice-bar-operation{
   padding: 0px;
 }

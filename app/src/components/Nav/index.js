@@ -18,7 +18,6 @@ export default class Nav extends Component {
             pathUrl='/issue'
             icoName='fa-sticky-note-o'
             linkName='ISSUE'
-            badge
             index='false'
                 />
           {/* <Navs
