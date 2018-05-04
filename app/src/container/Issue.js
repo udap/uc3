@@ -12,10 +12,12 @@ class Issue extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      arrSku:[],
       warrant:{},
       errorMsg:null,
       modal:false,
-      addItem:false
+      addItem:false,
+      newSku:{}
     }
   }
   componentWillMount () {
@@ -27,16 +29,55 @@ class Issue extends Component {
         modal: false,
       });
   }
-  back=(warrant)=>{
+  handleTaskDelete=(taskId)=>{
+    let skus = this.state.arrSku
     this.setState({
-      warrant:warrant,
+      arrSku: skus.filter(sku => sku.id !== taskId)
+    })
+    this.state.warrant.arrSku = skus.filter(sku => sku.id !== taskId);
+  }
+  backIssue=()=>{
+   this.setState({
+     addItem:false
+   })
+  }
+
+  refreshSku=(sku)=>{
+   let skus = this.state.arrSku.concat([sku])
+    this.state.warrant.arrSku = skus;
+    this.setState({
+      arrSku:skus,
+      newSku:sku,
       addItem:false
     })
   }
 
+  generateUUID=()=>{ // 生成全局唯一标识符【固定算法】
+    let d = new Date().getTime()
+    let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
+    function (c) {
+      let r = (d + Math.random() * 16) % 16 | 0
+      d = Math.floor(d / 16)
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16)
+    }
+    )
+    return uuid
+  }
 
-  onAddClick=()=> {
+
+  onAddClick=(e)=> {
+      let newSku = {
+        'id': this.generateUUID(),
+        'sku': '',
+        'producedIn': '',
+        'specName': '',
+        'amount': '',
+        'weight': '',
+        'unit': 'JIN'
+      }
+
       this.setState({
+        newSku:newSku,
         addItem:true
       })
   } 
@@ -113,8 +154,10 @@ class Issue extends Component {
         })
     return ;
     }
-    console.log("warrant",this.state.warrant)
-    return;
+    if(validate.isEmpty(this.state.warrant.arrSku)){
+      Toast.info('Please click the upper right corner to add item!!!', 1);
+      return;
+    }
     let AssetRegistry = contract(assetRegistry_artifacts);
     AssetRegistry.setProvider(window.web3.currentProvider);
     AssetRegistry.deployed().then(function (instance) {
@@ -130,15 +173,19 @@ class Issue extends Component {
   };
 
   listProducts(){
-     return this.state.warrant.arrSku?this.state.warrant.arrSku.map((sku,index)=> <div key={index} style={{ marginTop: 10, marginBottom: 10 }}>
-        
-      <List renderHeader={() => 'Item#'+(index+1)} className='my-list basic'>
-        <AntdItem wrap extra={sku.sku}>SKU</AntdItem>
-        <AntdItem wrap extra={sku.producedIn}>Produced In</AntdItem>
-        <AntdItem wrap extra={sku.specName}>specName</AntdItem>
-        <AntdItem wrap extra={sku.amount}>amount</AntdItem>
-        <AntdItem wrap extra={sku.weight+sku.unit}>Total Weight</AntdItem>
-      </List>
+     return this.state.warrant.arrSku?this.state.warrant.arrSku.map((sku,index)=> 
+      <div key={index} style={{ marginTop: 10, marginBottom: 10 }}>
+       <Accordion accordion openAnimation={{}} className="my-accordion" onChange={this.onChange}>
+      <Accordion.Panel header={'Item#'+(index+1)} className="pad">
+        <List renderHeader={() => <i className="fa fa-remove text-delete" onClick={this.handleTaskDelete.bind(this,sku.id)}></i>} className='my-list basic'>
+          <AntdItem wrap extra={sku.sku}>SKU</AntdItem>
+          <AntdItem wrap extra={sku.producedIn}>Produced In</AntdItem>
+          <AntdItem wrap extra={sku.specName}>SpecName</AntdItem>
+          <AntdItem wrap extra={sku.amount}>Amount</AntdItem>
+          <AntdItem wrap extra={sku.weight+sku.unit}>Total Weight</AntdItem>
+        </List>
+      </Accordion.Panel>
+      </Accordion>
       </div>
       ):null;
   }
@@ -148,7 +195,9 @@ class Issue extends Component {
       <div>{
         this.state.addItem?<Item 
         warrant = {this.state.warrant}
-        back = {this.back}
+        refreshSku = {this.refreshSku}
+        backIssue = {this.backIssue}
+        newSku = {this.state.newSku}
          handleToggleComplete = {this.handleToggleComplete}
          >
          </Item>:
@@ -224,9 +273,9 @@ class Issue extends Component {
             </label>
           </div>  
           <WhiteSpace/>
-            <ul>
-               {this.listProducts()}
-            </ul>
+            <List renderHeader={() => 'Items'} className="basic">
+              {this.listProducts()}
+            </List>
           <WhiteSpace/>
           <WingBlank>
                 <Button type="primary" inline onClick={this.onSubmit}>Submit</Button>

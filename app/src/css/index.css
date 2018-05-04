@@ -9,7 +9,10 @@ body {
   font-family: sans-serif;
   font-size:62.5%;
   margin-bottom: 70px!important;
-  margin-top: 55px!important;
+  /* margin-top: 55px!important; */
+}
+i{
+  cursor: pointer;
 }
 .container{
   margin: 0 auto;
@@ -58,14 +61,18 @@ body {
   line-height: 47px;
 }
 
-.am-navbar{
+/* .am-navbar{
   position: fixed;
   left: 0;
   top:0;
   width: 100%;
   z-index: 100;
+} */
+.text-delete{
+  color: #f30;
+  display: block;
+  text-align: right;
 }
-
 .basic .am-list-item{
   min-height: 55px;
 }
