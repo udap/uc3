@@ -47,13 +47,13 @@ export default class Detail extends React.Component {
           <Item wrap extra={'-'}>Pledge</Item>
           <Item wrap extra={'2018-01-08'}>Creation date</Item>
         </List>
-        <List renderHeader={() => 'SKU Infor'} className='my-list' />
+        <List renderHeader={() => 'Items'} className='my-list' />
         <div style={{ marginTop: 10, marginBottom: 10 }}>
           <Accordion className='my-accordion' onChange={this.onChange}>
             {
-                  this.state.data.products.map((detail, index) => <Accordion.Panel key={index} header={'SKU' + (index + 1)} className='pad'>
+                  this.state.data.products.map((detail, index) => <Accordion.Panel key={index} header={'Item#' + (index + 1)} className='pad'>
                     <Item wrap extra={detail.sku}>SKU</Item>
-                    <Item wrap extra={detail.origin}>Origin</Item>
+                    <Item wrap extra={detail.origin}>Produced in</Item>
                     <Item wrap extra={detail.specName}>Spec Name</Item>
                     <Item wrap extra={detail.numberOfPieces}>Number Of Pieces</Item>
                     <Item wrap extra={detail.weight + detail.unit}>Total Weight</Item>
@@ -65,11 +65,11 @@ export default class Detail extends React.Component {
         <WhiteSpace size='lg' />
 
         <WingBlank>
-          <Link to={{pathname: '/pledge', state: data}}>
+          {/*<Link to={{pathname: '/pledge', state: data}}>
             <p className='btn'>PLEDGE</p>
-          </Link>
+          </Link>*/}
           <WhiteSpace size='lg' />
-          <Button type='primary' onClick={() => prompt('Transfer', 'please input Recipient address',
+          <Button type='primary' type="ghost" inline onClick={() => prompt('Transfer', 'please input Recipient address',
             [
               {
                 text: 'Close'

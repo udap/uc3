@@ -95,9 +95,13 @@ body {
 }
 
 .more{
-  text-decoration: underline;
   cursor: pointer;
-  color: #ff5b05;
+  color: #108ee9;
   display: inline-block;
   padding: 10px 0px;
+}
+.delete{
+    margin-right: 20px;
+    float: right;
+    margin-top: 12px;
 }

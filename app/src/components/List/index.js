@@ -14,8 +14,9 @@ const List = ({warrant, index, productsList}) => {
         />
         <Card.Body>
           <ul>
-            <li>Total Weight:<strong>{warrant.totalWeight}</strong></li>
-            <li>Warehouse address:<strong>{warrant.warehouseAddress}</strong></li>
+            <li>issue:<strong>{warrant.issue}</strong></li>
+            <li>owner:<strong>{warrant.owner}</strong></li>
+            <li>product:<strong>{warrant.productName}</strong></li>
           </ul>
         </Card.Body>
         <Card.Footer content='' extra={<Link to={{pathname: '/warrant', state: warrant}} className={`cf last-no-border ${root}`}><div className='more'>MORE</div></Link>} />

@@ -76,7 +76,7 @@ export default class extends React.Component {
   render () {
     return (
       <div>
-        <NavBar mode='light'>WARRANT</NavBar>
+        <NavBar mode='dark'>WARRANT</NavBar>
         {this.state.inited ? this.listWarrant() : this.loading()}
       </div>
     )

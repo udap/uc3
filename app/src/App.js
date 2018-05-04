@@ -63,9 +63,9 @@ export default class App extends React.Component {
         <div>
           <Nav />
           <div className='container'>
-            <NoticeBar className='account' mode='closable' icon={null} action={<span />}>{
+            {/* <NoticeBar className='account' mode='closable' icon={null} action={<span />}>{
                 this.state.account ? this.state.account : 'No Account'}
-            </NoticeBar>
+            </NoticeBar> */}
             <Switch>
               <Route exact path='/' component={Home} />
               <Route path='/issue' component={ISSUE} />
