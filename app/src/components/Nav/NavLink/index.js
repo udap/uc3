@@ -8,7 +8,7 @@ export default class Navs extends Component {
         {...rest}
         to={pathUrl}
         className={'rootLink'}
-        activeClassName='nav-active'
+        activeClassName={active}
       >
         <i className={'ico fa fa-2x ' + icoName} />
         <p className='text'>{linkName}</p>

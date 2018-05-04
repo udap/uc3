@@ -19,6 +19,6 @@ body{
 .rootLink .text {
   font-size: 0.1rem;
 }
-.nav-active{
+a[aria-current="true"]{
   color: #108ee9!important;
 }

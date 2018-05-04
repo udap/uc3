@@ -7,7 +7,6 @@ import {
 import { NoticeBar, Toast } from 'antd-mobile'
 import {
   Home,
-  My,
   ISSUE,
   Detail,
   Pledge,
@@ -71,7 +70,6 @@ export default class App extends React.Component {
               <Route path='/issue' component={ISSUE} />
               <Route path='/warrant' component={Detail} />
               <Route path='/pledge' component={Pledge} />
-              <Route path='/my' component={My} />
               <Route component={NoMatch} />
             </Switch>
           </div>

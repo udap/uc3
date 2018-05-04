@@ -9,23 +9,16 @@ export default class Nav extends Component {
       <div className='flex-container root'>
         <Flex justify='center' align='center'>
           <Navs
+            exact
             pathUrl='/'
             icoName={'fa-home'}
             linkName='Home'
-            index='true'
                 />
           <Navs
             pathUrl='/issue'
             icoName='fa-sticky-note-o'
             linkName='ISSUE'
-            index='false'
                 />
-          {/* <Navs
-            pathUrl='/my'
-            icoName='fa-user-o'
-            active={'navThree'}
-            linkName='MY'
-          /> */}
         </Flex>
       </div>
     )
