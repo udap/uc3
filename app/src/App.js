@@ -12,7 +12,6 @@ import {
   Pledge,
   NoMatch
 } from './container'
-import {Nav} from './components'
 import getWeb3 from './util/getWeb3'
 
 import 'antd-mobile/dist/antd-mobile.css'
@@ -60,7 +59,6 @@ export default class App extends React.Component {
     return (
       <Router>
         <div style={{height: '100%'}}>
-          <Nav />
           <div className='container'>
             {/* <NoticeBar className='account' mode='closable' icon={null} action={<span />}>{
                 this.state.account ? this.state.account : 'No Account'}
