@@ -1,6 +1,5 @@
 /* eslint no-dupe-keys: 0, no-mixed-operators: 0 */
 import React from 'react'
-import ReactDOM from 'react-dom'
 import List from '../components/List'
 import empty from '../img/empty.png'
 import { PullToRefresh, ListView, Button,NavBar,Icon,WingBlank,WhiteSpace, Carousel } from 'antd-mobile';
@@ -24,7 +23,6 @@ class Home extends React.Component {
       dataSource,
       refreshing: true,
       isLoading: true,
-      height: document.documentElement.clientHeight,
       useBodyScroll: true,
     };
   }
@@ -38,6 +36,10 @@ class Home extends React.Component {
   //   }
   // }
 
+  componentWillMount () {
+    window.scrollTo(0, 0)
+  }
+
   componentDidUpdate() {
     if (this.state.useBodyScroll) {
       document.body.style.overflow = 'auto';
@@ -50,6 +52,10 @@ class Home extends React.Component {
     if (window.web3) {
       this.instantiateContract()
     }
+  }
+  componentWillUnmount(){
+      if (this.timer)clearTimeout(this.timer);
+      if (this.timer2)clearTimeout(this.timer2);
   }
 
   genData=(pageIndex)=>{
@@ -86,13 +92,10 @@ class Home extends React.Component {
             //console.log(metaData)
             warrants.push(JSON.parse(metaData[4]));
             self.setState({warrants: warrants , inited: true})
-
-            const hei = this.state.height - ReactDOM.findDOMNode(this.lv).offsetTop;
-            setTimeout(() => {
+            this.timer=setTimeout(() => {
               this.rData = this.genData();
               this.setState({
                 dataSource: this.state.dataSource.cloneWithRows(this.genData()),
-                height: hei,
                 refreshing: false,
                 isLoading: false,
               });
@@ -129,7 +132,7 @@ class Home extends React.Component {
       return;
     }
     this.setState({ isLoading: true });
-    setTimeout(() => {
+    this.timer2 = setTimeout(() => {
       this.rData = [...this.rData, ...this.genData(++this.state.pageIndex)];
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(this.rData),
@@ -184,8 +187,7 @@ class Home extends React.Component {
               key={this.state.useBodyScroll ? '0' : '1'}
               ref={el => this.lv = el}
               dataSource={this.state.dataSource}
-              renderHeader={() => <span>Pull to refresh</span>}
-              renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
+              renderFooter={() => (<div style={{ padding: 15, textAlign: 'center' }}>
                 {this.state.isLoading ? 'Loading...' : 'Loaded'}
               </div>)}
               renderRow={row}

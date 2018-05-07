@@ -6,7 +6,7 @@ import './index.css'
 export default class Nav extends Component {
   render () {
     return (
-      <div className='flex-container root'>
+      <div className='root'>
         <Flex justify='center' align='center'>
           <Navs
             exact

@@ -183,6 +183,10 @@ export default class Item extends React.Component {
               >
                 <List.Item arrow="horizontal">Unit</List.Item>
               </Picker>
+               <WhiteSpace size="lg" />
+              <WingBlank>
+                    <Button type="primary" onClick={this.onSubmit}>Add Item</Button>
+              </WingBlank>   
       </div>
   }
 
@@ -191,7 +195,6 @@ export default class Item extends React.Component {
       <div className='issue'>
          <NavBar mode='dark'          
           leftContent={<i className='fa fa-chevron-left' />}
-            rightContent={<i  onClick={this.onSubmit}>Submit</i>}
             onLeftClick={this.props.backIssue}
       >Item</NavBar>
           <form>

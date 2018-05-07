@@ -9,7 +9,7 @@ const List = ({warrant, index, productsList}) => {
       <WhiteSpace size='lg' />
       <Card className='home-card'>
         <Card.Header
-          title={(parseInt(index) + 1) + '#Warrant Code：' + warrant.warrantCode}
+          title={'Warrant Code：' + warrant.warrantCode}
           extra={'status:' + `${warrant.status ? warrant.status : 'create'}`}
         />
         <Card.Body>

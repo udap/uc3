@@ -59,7 +59,7 @@ export default class App extends React.Component {
   render () {
     return (
       <Router>
-        <div>
+        <div style={{height: '100%'}}>
           <Nav />
           <div className='container'>
             {/* <NoticeBar className='account' mode='closable' icon={null} action={<span />}>{

@@ -192,7 +192,7 @@ class Issue extends Component {
 
   render(){
    return (
-      <div>{
+      <div id="issue">{
         this.state.addItem?<Item 
         warrant = {this.state.warrant}
         refreshSku = {this.refreshSku}
@@ -272,16 +272,16 @@ class Issue extends Component {
                 </div>
             </label>
           </div>  
+          </List> 
           <WhiteSpace/>
-            <List renderHeader={() => 'Items'} className="basic">
-              {this.listProducts()}
-            </List>
-          <WhiteSpace/>
-          <WingBlank>
-                <Button type="primary" inline onClick={this.onSubmit}>Submit</Button>
-          </WingBlank>    
-          </List>
-        </form>        
+            <List renderHeader={() => 'Items'} className="basic"></List>
+            {this.listProducts()}
+          <WhiteSpace/>  
+        </form>    
+         <WhiteSpace size="lg" />
+        <WingBlank>
+              <Button type="primary" onClick={this.onSubmit}>Submit</Button>
+        </WingBlank>     
         <Modal
           visible={this.state.modal}
           transparent

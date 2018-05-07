@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavBar, List, Accordion, WhiteSpace, Modal, Button, WingBlank, Toast } from 'antd-mobile'
+import { NavBar, List, Accordion, WhiteSpace, Modal, Button, WingBlank, Toast,Flex } from 'antd-mobile'
 import {
   Link
 } from 'react-router-dom'
@@ -49,6 +49,7 @@ export default class Detail extends React.Component {
           <Item wrap extra={'2018-01-08'}>Creation date</Item>
         </List>
         <List renderHeader={() => 'Items'} className='my-list'>
+        </List>
         <div style={{ marginTop: 10, marginBottom: 10 }}>
           <Accordion className='my-accordion' onChange={this.onChange}>
             {
@@ -62,15 +63,11 @@ export default class Detail extends React.Component {
                 }
           </Accordion>
         </div>
-        </List>
 
-        <WhiteSpace size='lg' />
 
-        <WingBlank>
           {/*<Link to={{pathname: '/pledge', state: data}}>
             <p className='btn'>PLEDGE</p>
           </Link>*/}
-          <WhiteSpace size='lg' />
           {
             data.status=='issue'?
           <Button type='primary' type="ghost" inline onClick={() => prompt('Transfer', 'please input Recipient address',
@@ -92,8 +89,9 @@ export default class Detail extends React.Component {
                 })
               }
             ], 'default', null, ['input your Recipient address'])}
-             >TRANSFER</Button>:<div>
-             <Button  type='primary' type="ghost" inline 
+             >TRANSFER</Button>:
+              <div className="flex-container"><Flex justify="center">
+              <Flex.Item><Button  type='primary'  
                  onClick={() =>
                    alert('Accept', 'Are you sure???', [
                      { text: 'Cancel', onPress: () => console.log('cancel') },
@@ -102,8 +100,8 @@ export default class Detail extends React.Component {
                  }
                >
                  accept
-               </Button>
-               <Button   type='primary' type="ghost" inline
+               </Button></Flex.Item>
+              <Flex.Item><Button   type='primary' 
                    onClick={() =>
                      alert('Reject', 'Are you sure???', [
                        { text: 'Cancel', onPress: () => console.log('cancel') },
@@ -112,8 +110,8 @@ export default class Detail extends React.Component {
                    }
                  >
                    reject
-                 </Button>
-                 <Button  type='warning' inline
+                 </Button></Flex.Item>
+                 <Flex.Item><Button  type='warning' 
                      onClick={() =>
                        alert('Delete', 'Are you sure???', [
                          { text: 'Cancel', onPress: () => console.log('cancel') },
@@ -122,12 +120,10 @@ export default class Detail extends React.Component {
                      }
                    >
                      delete
-                   </Button>
-             </div>
+                   </Button></Flex.Item>
+            </Flex></div>
         }
-        </WingBlank>
 
-        <WhiteSpace size='lg' />
       </div>
     )
   }
