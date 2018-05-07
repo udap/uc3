@@ -10,9 +10,6 @@ import standardAsset_artifacts from '../../../build/contracts/StandardAsset.json
 import {Warrant, Product} from '../data/warrant'
 
 let NUM_ROWS = 10;
-let pageIndex = 0;
-
-
 
 class Home extends React.Component {
   constructor(props) {
@@ -22,6 +19,7 @@ class Home extends React.Component {
     });
 
     this.state = {
+      pageIndex:0,
       hasMore:true,
       dataSource,
       refreshing: true,
@@ -61,6 +59,8 @@ class Home extends React.Component {
       this.setState({
         hasMore:false
       })
+    }else{
+      NUM_ROWS = 10;
     }
     for (let i = 0; i < NUM_ROWS; i++) {
       dataArr.push(`row - ${(pageIndex * NUM_ROWS) + i}`);
@@ -130,7 +130,7 @@ class Home extends React.Component {
     }
     this.setState({ isLoading: true });
     setTimeout(() => {
-      this.rData = [...this.rData, ...this.genData(++pageIndex)];
+      this.rData = [...this.rData, ...this.genData(++this.state.pageIndex)];
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(this.rData),
         isLoading: false,
@@ -208,9 +208,7 @@ class Home extends React.Component {
 
    }
 
-  render() {
-     console.log("warrants",this.state.warrants)
-   
+  render() {   
     return (<div>
       <NavBar mode='dark'>WARRANT</NavBar>
       {this.state.inited ? this.listWarrant() : this.loading()}
