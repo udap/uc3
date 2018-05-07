@@ -8,7 +8,6 @@ body {
   padding: 0;
   font-family: sans-serif;
   font-size:62.5%;
-  margin-bottom: 70px!important;
   /* margin-top: 55px!important; */
   background-color: none;
 }
@@ -30,7 +29,7 @@ i{
   min-width: 320px;
   max-width: 540px;
   min-height: 100%;
-  padding-bottom: 70px;
+  padding-bottom: 20px;
   background-color: #efefef;
 }
 .warn-text{
@@ -125,4 +124,17 @@ i{
     margin-right: 20px;
     float: right;
     margin-top: 12px;
+}
+.am-navbar-left{
+  font-size: 24px!important;
+}
+.am-navbar{
+  height: 83px!important;
+}
+.am-navbar-right i{
+  font-size: 22px;
+}
+.am-icon-md{
+  width: 32px!important;
+  height: 32px!important;
 }

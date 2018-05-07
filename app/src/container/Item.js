@@ -194,9 +194,10 @@ export default class Item extends React.Component {
    return (
       <div className='issue'>
          <NavBar mode='dark'          
-          leftContent={<i className='fa fa-chevron-left' />}
+          icon={<Icon type="left" />}
+          leftContent='Item'
             onLeftClick={this.props.backIssue}
-      >Item</NavBar>
+      ></NavBar>
           <form>
            <WhiteSpace/>
            <ul>

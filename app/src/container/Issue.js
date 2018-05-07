@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
-import { NavBar,List, Button, WhiteSpace, WingBlank,Modal,Toast,Accordion} from 'antd-mobile';
+import { NavBar,List, Button, WhiteSpace, WingBlank,Modal,Toast,Accordion,Icon} from 'antd-mobile';
 import validate from 'validate.js';
 import {Warrant,Product} from "../data/warrant";
 import { default as contract } from 'truffle-contract';
@@ -203,7 +203,10 @@ class Issue extends Component {
          </Item>:
         <div className='issue'>
          <NavBar mode='dark'
-         rightContent={<i className="fa fa-plus"  onClick={this.onAddClick} ></i>}>ISSUE</NavBar>
+         icon={<Icon type="left" />}
+         leftContent='Issue'
+         onLeftClick={() => { this.props.history.go(-1) }}
+         rightContent={<i className="fa fa-plus"  onClick={this.onAddClick} ></i>}></NavBar>
           <form>
           <List renderHeader={() => 'Basic Info'} className="basic" >
           <div className="am-list-item am-input-item am-list-item-middle">

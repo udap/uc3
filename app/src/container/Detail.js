@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavBar, List, Accordion, WhiteSpace, Modal, Button, WingBlank, Toast,Flex } from 'antd-mobile'
+import { NavBar, List, Accordion, WhiteSpace, Modal, Button, WingBlank, Toast,Flex,Icon } from 'antd-mobile'
 import {
   Link
 } from 'react-router-dom'
@@ -33,9 +33,10 @@ export default class Detail extends React.Component {
       <div className='detail'>
         <NavBar
           mode='dark'
-          leftContent={<i className='fa fa-chevron-left' />}
+          icon={<Icon type="left" />}
+          leftContent='Detail'
           onLeftClick={() => { this.props.history.go(-1) }}
-        >Detail</NavBar>
+        ></NavBar>
        
         <List renderHeader={() => 'Basic Infor'} className='my-list basic'>
           <Item wrap extra={<PopoverItem visible={this.state.visible} value='0xcD86431E62Bca1F4Fbef76669D3FB22B90fc83b1' handleVisibleChange={this.handleVisibleChange}/>}>Owner</Item>

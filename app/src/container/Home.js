@@ -1,5 +1,6 @@
 /* eslint no-dupe-keys: 0, no-mixed-operators: 0 */
 import React from 'react'
+import {Link} from 'react-router-dom'
 import List from '../components/List'
 import empty from '../img/empty.png'
 import { PullToRefresh, ListView, Button,NavBar,Icon,WingBlank,WhiteSpace, Carousel } from 'antd-mobile';
@@ -18,6 +19,8 @@ class Home extends React.Component {
     });
 
     this.state = {
+      inited:false,
+      warrants:[],
       pageIndex:0,
       hasMore:true,
       dataSource,
@@ -212,7 +215,14 @@ class Home extends React.Component {
 
   render() {   
     return (<div>
-      <NavBar mode='dark'>WARRANT</NavBar>
+      <NavBar mode='dark'
+      rightContent={
+        <Link to={{pathname: '/issue'}}>
+        <i className="fa fa-plus" style={{color:'#fff'}}></i>
+        </Link>
+      }
+      leftContent='Warrants'
+      ></NavBar>
       {this.state.inited ? this.listWarrant() : this.loading()}
     </div>);
   }

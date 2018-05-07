@@ -3,14 +3,16 @@ import {Link} from 'react-router-dom'
 import { WhiteSpace, Card} from 'antd-mobile'
 
 const List = ({warrant, index, productsList}) => {
+  const iconMap = {created: 'fa-calendar-o', accepted: 'fa-calendar-check-o', issued: 'fa-calendar-plus-o'}
   let products = warrant.products
+  let iconStatu = <i style={{color: '#f30'}} className={`fa ${iconMap['issued']}`} />
   return (
     <div key={index}>
       <WhiteSpace size='lg' />
       <Card className='home-card'>
         <Card.Header
-          title={'Warrant Code：' + warrant.warrantCode}
-          extra={'status:' + `${warrant.status ? warrant.status : 'create'}`}
+          title={'Code：' + warrant.warrantCode}
+          extra={iconStatu}
         />
         <Card.Body>
           <ul>
