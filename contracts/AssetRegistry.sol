@@ -48,7 +48,7 @@ contract AssetRegistry is ReentrancyGuard {
    * @param _fungible is the asset fungible?
    * @param _metadataRef a multihash of the metadata
    */
-  function createAsset(bytes32 _nsi, bool _transferrable, bool _fungible,string data,bytes32 _metadataRef)
+  function createAsset(address _owner,bytes32 _nsi, bool _transferrable, bool _fungible,string data,bytes32 _metadataRef)
     public returns (address) {
 
     if (_nsi == '') {
@@ -58,9 +58,9 @@ contract AssetRegistry is ReentrancyGuard {
     uint id = uint(keccak256(msg.sender, _nsi, data));
     Asset newAsset;
     if (_fungible) {
-      newAsset = new StandardAsset(msg.sender, id, _nsi, _transferrable,data,_metadataRef);
+      newAsset = new StandardAsset(msg.sender,_owner, id, _nsi, _transferrable,data,_metadataRef);
     } else {
-      newAsset = new FungibleAsset(msg.sender, id, _nsi, _transferrable,data,_metadataRef,0);
+      newAsset = new FungibleAsset(msg.sender,_owner, id, _nsi, _transferrable,data,_metadataRef,0);
     }
     registeredAssets[newAsset] = true;
     assetsByNamespace[_nsi].push(address(newAsset));
