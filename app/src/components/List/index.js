@@ -9,8 +9,8 @@ const List = ({warrant, index, productsList}) => {
       <WhiteSpace size='lg' />
       <Card className='home-card'>
         <Card.Header
-          title={'Warrant Code：' + warrant.warrantCode}
-          extra={<span className='warn-text'>{warrant.status}</span>}
+          title={(parseInt(index) + 1) + '#Warrant Code：' + warrant.warrantCode}
+          extra={'status:' + `${warrant.status ? warrant.status : 'create'}`}
         />
         <Card.Body>
           <ul>

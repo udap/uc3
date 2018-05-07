@@ -6,6 +6,7 @@ import {
 import PopoverItem from '../components/PopoverItem'
 const Item = List.Item
 const prompt = Modal.prompt
+const alert = Modal.alert;
 
 export default class Detail extends React.Component {
   constructor (props) {
@@ -47,7 +48,7 @@ export default class Detail extends React.Component {
           <Item wrap extra={'-'}>Pledge</Item>
           <Item wrap extra={'2018-01-08'}>Creation date</Item>
         </List>
-        <List renderHeader={() => 'Items'} className='my-list' />
+        <List renderHeader={() => 'Items'} className='my-list'>
         <div style={{ marginTop: 10, marginBottom: 10 }}>
           <Accordion className='my-accordion' onChange={this.onChange}>
             {
@@ -61,6 +62,7 @@ export default class Detail extends React.Component {
                 }
           </Accordion>
         </div>
+        </List>
 
         <WhiteSpace size='lg' />
 
@@ -69,6 +71,8 @@ export default class Detail extends React.Component {
             <p className='btn'>PLEDGE</p>
           </Link>*/}
           <WhiteSpace size='lg' />
+          {
+            data.status=='issue'?
           <Button type='primary' type="ghost" inline onClick={() => prompt('Transfer', 'please input Recipient address',
             [
               {
@@ -88,8 +92,39 @@ export default class Detail extends React.Component {
                 })
               }
             ], 'default', null, ['input your Recipient address'])}
-             >TRANSFER</Button>
-
+             >TRANSFER</Button>:<div>
+             <Button  type='primary' type="ghost" inline 
+                 onClick={() =>
+                   alert('Accept', 'Are you sure???', [
+                     { text: 'Cancel', onPress: () => console.log('cancel') },
+                     { text: 'Ok', onPress: () => console.log('ok') },
+                   ])
+                 }
+               >
+                 accept
+               </Button>
+               <Button   type='primary' type="ghost" inline
+                   onClick={() =>
+                     alert('Reject', 'Are you sure???', [
+                       { text: 'Cancel', onPress: () => console.log('cancel') },
+                       { text: 'Ok', onPress: () => console.log('ok') },
+                     ])
+                   }
+                 >
+                   reject
+                 </Button>
+                 <Button  type='warning' inline
+                     onClick={() =>
+                       alert('Delete', 'Are you sure???', [
+                         { text: 'Cancel', onPress: () => console.log('cancel') },
+                         { text: 'Ok', onPress: () => console.log('ok') },
+                       ])
+                     }
+                   >
+                     delete
+                   </Button>
+             </div>
+        }
         </WingBlank>
 
         <WhiteSpace size='lg' />
