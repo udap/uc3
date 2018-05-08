@@ -154,62 +154,64 @@ class Home extends React.Component {
   listWarrant () {
      if (this.state.warrants.length == 0){
        return <img className='empty' src={empty} />;
+     }else{
+      const warrants = this.state.warrants;
+      const separator = (sectionID, rowID) => (
+        <div
+          key={`${sectionID}-${rowID}`}
+          style={{
+            backgroundColor: '#F5F5F9',
+            height: 8,
+            borderTop: '1px solid #ECECED',
+            borderBottom: '1px solid #ECECED',
+          }}
+        />
+      );
+      const row = (rowData, sectionID, rowID) => {
+        if (rowID==warrants.length) {
+          return 'end';
+        }else{
+         return (
+           <div key={rowID}
+             style={{
+               padding: '0 15px',
+               backgroundColor: 'white',
+             }}
+           >
+              <List key={rowID} index={rowID} warrant={warrants[rowID]} />
+           </div>
+         );
+        }
+        
+      };
+       return (
+       <div>
+             <ListView
+               key={this.state.useBodyScroll ? '0' : '1'}
+               ref={el => this.lv = el}
+               dataSource={this.state.dataSource}
+               renderFooter={() => (<div style={{ padding: 15, textAlign: 'center' }}>
+                 {this.state.isLoading ? 'Loading...' : 'Loaded'}
+               </div>)}
+               renderRow={row}
+               renderSeparator={separator}
+               useBodyScroll={this.state.useBodyScroll}
+               style={this.state.useBodyScroll ? {} : {
+                 height: this.state.height,
+                 border: '1px solid #ddd',
+                 margin: '5px 0',
+               }}
+               pullToRefresh={<PullToRefresh
+                 refreshing={this.state.refreshing}
+                 onRefresh={this.onRefresh}
+               />}
+               onEndReached={this.onEndReached}
+               pageSize={NUM_ROWS}
+             />
+           </div>
+       )
      }
-     const warrants = this.state.warrants;
-     const separator = (sectionID, rowID) => (
-       <div
-         key={`${sectionID}-${rowID}`}
-         style={{
-           backgroundColor: '#F5F5F9',
-           height: 8,
-           borderTop: '1px solid #ECECED',
-           borderBottom: '1px solid #ECECED',
-         }}
-       />
-     );
-     const row = (rowData, sectionID, rowID) => {
-       if (rowID==warrants.length) {
-         return 'end';
-       }else{
-        return (
-          <div key={rowID}
-            style={{
-              padding: '0 15px',
-              backgroundColor: 'white',
-            }}
-          >
-             <List key={rowID} index={rowID} warrant={warrants[rowID]} />
-          </div>
-        );
-       }
-       
-     };
-      return (
-      <div>
-            <ListView
-              key={this.state.useBodyScroll ? '0' : '1'}
-              ref={el => this.lv = el}
-              dataSource={this.state.dataSource}
-              renderFooter={() => (<div style={{ padding: 15, textAlign: 'center' }}>
-                {this.state.isLoading ? 'Loading...' : 'Loaded'}
-              </div>)}
-              renderRow={row}
-              renderSeparator={separator}
-              useBodyScroll={this.state.useBodyScroll}
-              style={this.state.useBodyScroll ? {} : {
-                height: this.state.height,
-                border: '1px solid #ddd',
-                margin: '5px 0',
-              }}
-              pullToRefresh={<PullToRefresh
-                refreshing={this.state.refreshing}
-                onRefresh={this.onRefresh}
-              />}
-              onEndReached={this.onEndReached}
-              pageSize={NUM_ROWS}
-            />
-          </div>
-      )
+     
 
    }
 
