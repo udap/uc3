@@ -10,9 +10,9 @@ module.exports = {
         'app': './app/src/index.js',
     },
     output: {
-        filename: "[name].js",
-        publicPath:"js/",
-        path: path.resolve(__dirname, 'dist/js')
+        filename: "[name].[hash:5].js",
+        // publicPath:"js/", script src Prefix <script type="text/javascript" src="js/app.8aa23.js"></script></body>
+        path: path.resolve(__dirname, 'dist')
     },
     module: {
         rules: [
@@ -48,15 +48,14 @@ module.exports = {
         ]
     },
     devtool: 'cheap-module-eval-source-map',//prod env use cheap-module-source-map
-    devServer:{
+   /*devServer:{
         contentBase:"app/public" //the index.html dir
-    },
+    },*/
     plugins: [
-        // new HtmlWebpackPlugin({template:'./app/index.html'}),
-        new Cleanwebpackplugin(['dist']),
+        new HtmlWebpackPlugin({template:'./app/public/index.html'}),
+        new Cleanwebpackplugin(['dist'])/*,
         new CopyWebpackPlugin([
             { from: path.resolve(__dirname, 'app/'), to: path.resolve(__dirname, 'dist/'), ignore: [ path.resolve(__dirname, 'app/js/') ] }
-
-        ])
+        ])*/
     ]
 };
