@@ -138,3 +138,6 @@ i{
   width: 32px!important;
   height: 32px!important;
 }
+.am-list-item .am-input-control input{
+  font-size:13px;
+}

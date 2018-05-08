@@ -112,7 +112,6 @@ export default class Item extends React.Component {
  
               <div className="am-list-item am-input-item am-list-item-middle">
                 <label className="am-list-line" htmlFor="borring">
-                    <span className="am-input-label am-input-label-5">SKU</span>
                     <div className="am-input-control">
                         <input id="borring" className="form-input" type="text" name="sku"
                            value={this.state.newSku.sku||''} 
@@ -123,7 +122,6 @@ export default class Item extends React.Component {
               </div>
               <div className="am-list-item am-input-item am-list-item-middle">
                 <label className="am-list-line" htmlFor="borring">
-                    <span className="am-input-label am-input-label-5">Produced In</span>
                     <div className="am-input-control">
                         <input id="borring" className="form-input" type="text" name="producedIn"
                            value={this.state.newSku.producedIn||''} 
@@ -134,7 +132,6 @@ export default class Item extends React.Component {
               </div>
               <div className="am-list-item am-input-item am-list-item-middle">
                 <label className="am-list-line" htmlFor="borring">
-                    <span className="am-input-label am-input-label-5">SpecName</span>
                     <div className="am-input-control">
                         <input id="borring" className="form-input" type="text" name="specName"
                            value={this.state.newSku.specName||''} 
@@ -145,7 +142,6 @@ export default class Item extends React.Component {
               </div>
               <div className="am-list-item am-input-item am-list-item-middle">
                 <label className="am-list-line" htmlFor="borring">
-                    <span className="am-input-label am-input-label-5">Amount</span>
                     <div className="am-input-control">
                         <input id="borring" className="form-input" type="text" name="amount"
                            value={this.state.newSku.amount||''} 
@@ -156,22 +152,12 @@ export default class Item extends React.Component {
               </div>
               <div className="am-list-item am-input-item am-list-item-middle">
                 <label className="am-list-line" htmlFor="borring">
-                    <span className="am-input-label am-input-label-5">Unit Weight</span>
                     <div className="am-input-control">
                         <input id="borring" className="form-input" type="text" name="weight"
                            value={this.state.newSku.weight||''} 
                            placeholder="Please fill in weight " 
                            onChange={this.handleSkuChange.bind(this,this.state.newSku.id)}/>
-                    </div>
-                    {/*<div className="am-input-control">
-                        <select className="forss" name="unit" style={{textAlign:'center'}} value={this.state.newSku.unit||''} 
-                            onChange={this.handleSkuChange.bind(this,this.state.newSku.id)}>
-                        <option value='JIN'>&nbsp;&nbsp;JIN</option>
-                        <option value='KG'>&nbsp;&nbsp;KG</option>
-                        <option value='TON'>&nbsp;&nbsp;Ton</option>
-                    </select>
-                    </div>*/}
-                    
+                    </div>                    
                 </label>
               </div>
               <Picker
@@ -181,7 +167,7 @@ export default class Item extends React.Component {
                 value={this.state.uValue}
                 onChange={this.unitChange}
               >
-                <List.Item arrow="horizontal">Unit</List.Item>
+                <List.Item arrow="horizontal">&nbsp;</List.Item>
               </Picker>
                <WhiteSpace size="lg" />
               <WingBlank>

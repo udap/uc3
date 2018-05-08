@@ -211,7 +211,6 @@ class Issue extends Component {
           <List renderHeader={() => 'Basic Info'} className="basic" >
           <div className="am-list-item am-input-item am-list-item-middle">
             <label className="am-list-line" htmlFor="borring">
-                <span className="am-input-label am-input-label-5">Recipient</span>
                 <div className="am-input-control">
                     <input id="borring" className="form-input" type="text" name="recipient"
                        value={this.state.warrant.recipient||''}
@@ -222,7 +221,7 @@ class Issue extends Component {
           </div>
           <div className="am-list-item am-input-item am-list-item-middle">
               <label className="am-list-line" htmlFor="borring">
-                  <span className="am-input-label am-input-label-5">Warrant Code</span>
+
                   <div className="am-input-control">
                       <input id="borring" className="form-input" type="text" name="warrantCode"
                              value={this.state.warrant.warrantCode||''}
@@ -233,7 +232,6 @@ class Issue extends Component {
           </div>
           <div className="am-list-item am-input-item am-list-item-middle">
             <label className="am-list-line" htmlFor="borring">
-                <span className="am-input-label am-input-label-5">Product Name</span>
                 <div className="am-input-control">
                     <input id="borring" className="form-input" type="text" name="productName"
                        value={this.state.warrant.productName ||''}
@@ -244,7 +242,6 @@ class Issue extends Component {
           </div>
           <div className="am-list-item am-input-item am-list-item-middle">
             <label className="am-list-line" htmlFor="borring">
-                <span className="am-input-label am-input-label-5">Total Weight</span>
                 <div className="am-input-control">
                     <input id="borring" className="form-input" type="text" name="totalWeight"
                        value={this.state.warrant.totalWeight ||''}
@@ -255,7 +252,6 @@ class Issue extends Component {
           </div>
           <div className="am-list-item am-input-item am-list-item-middle">
             <label className="am-list-line" htmlFor="borring">
-                <span className="am-input-label am-input-label-5">StorageRoom Code</span>
                 <div className="am-input-control">
                     <input id="borring" className="form-input" type="text" name="storageRoomCode"
                        value={this.state.warrant.storageRoomCode ||''}
@@ -266,7 +262,6 @@ class Issue extends Component {
           </div>
           <div className="am-list-item am-input-item am-list-item-middle">
             <label className="am-list-line" htmlFor="borring">
-                <span className="am-input-label am-input-label-5">Warehouse address</span>
                 <div className="am-input-control">
                     <input id="borring" className="form-input" type="text" name="warehouseAddress"
                        value={this.state.warrant.warehouseAddress ||''}
