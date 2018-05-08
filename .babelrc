@@ -1,6 +1,3 @@
 {
-	"presets": ["env","react","stage-0"],
-	"plugins": [
-    	["import", { libraryName: "antd-mobile", style: "css" }]
-	]
+  "presets": ["env","react","stage-0"]
 }

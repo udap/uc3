@@ -13,6 +13,9 @@ import {
   NoMatch
 } from './container'
 import getWeb3 from './util/getWeb3'
+
+import 'antd-mobile/dist/antd-mobile.css'
+
 if (window) {
   window.account = null
 }
