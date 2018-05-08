@@ -2,9 +2,8 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import { WhiteSpace, Card} from 'antd-mobile'
 
-const List = ({warrant, index, productsList}) => {
+const List = ({warrant, index}) => {
   const iconMap = {created: 'fa-calendar-o', accepted: 'fa-calendar-check-o', issued: 'fa-calendar-plus-o'}
-  let products = warrant.products
   let iconStatu = <i style={{color: '#f30'}} className={`fa ${iconMap['issued']}`} />
   return (
     <div key={index}>
