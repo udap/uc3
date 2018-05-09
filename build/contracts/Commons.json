@@ -11,14 +11,14 @@
     "absolutePath": "/G/GitRepository/udap/uc3/contracts/Commons.sol",
     "exportedSymbols": {
       "Commons": [
-        544
+        549
       ]
     },
-    "id": 545,
+    "id": 550,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 524,
+        "id": 529,
         "literals": [
           "solidity",
           "^",
@@ -34,19 +34,19 @@
         "contractKind": "library",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 544,
+        "id": 549,
         "linearizedBaseContracts": [
-          544
+          549
         ],
         "name": "Commons",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": true,
-            "id": 527,
+            "id": 532,
             "name": "HASH_ALG",
             "nodeType": "VariableDeclaration",
-            "scope": 544,
+            "scope": 549,
             "src": "49:29:3",
             "stateVariable": true,
             "storageLocation": "default",
@@ -55,7 +55,7 @@
               "typeString": "bytes1"
             },
             "typeName": {
-              "id": 525,
+              "id": 530,
               "name": "byte",
               "nodeType": "ElementaryTypeName",
               "src": "49:4:3",
@@ -67,7 +67,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "30783132",
-              "id": 526,
+              "id": 531,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -86,10 +86,10 @@
           },
           {
             "constant": true,
-            "id": 530,
+            "id": 535,
             "name": "HASH_LEN",
             "nodeType": "VariableDeclaration",
-            "scope": 544,
+            "scope": 549,
             "src": "83:29:3",
             "stateVariable": true,
             "storageLocation": "default",
@@ -98,7 +98,7 @@
               "typeString": "bytes1"
             },
             "typeName": {
-              "id": 528,
+              "id": 533,
               "name": "byte",
               "nodeType": "ElementaryTypeName",
               "src": "83:4:3",
@@ -110,7 +110,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "30783230",
-              "id": 529,
+              "id": 534,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -129,14 +129,14 @@
           },
           {
             "canonicalName": "Commons.MetaData",
-            "id": 543,
+            "id": 548,
             "members": [
               {
                 "constant": false,
-                "id": 532,
+                "id": 537,
                 "name": "nsi",
                 "nodeType": "VariableDeclaration",
-                "scope": 543,
+                "scope": 548,
                 "src": "144:11:3",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -145,7 +145,7 @@
                   "typeString": "bytes32"
                 },
                 "typeName": {
-                  "id": 531,
+                  "id": 536,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
                   "src": "144:7:3",
@@ -159,10 +159,10 @@
               },
               {
                 "constant": false,
-                "id": 534,
+                "id": 539,
                 "name": "issuer",
                 "nodeType": "VariableDeclaration",
-                "scope": 543,
+                "scope": 548,
                 "src": "164:14:3",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -171,7 +171,7 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 533,
+                  "id": 538,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "164:7:3",
@@ -185,10 +185,10 @@
               },
               {
                 "constant": false,
-                "id": 536,
+                "id": 541,
                 "name": "transferrable",
                 "nodeType": "VariableDeclaration",
-                "scope": 543,
+                "scope": 548,
                 "src": "187:18:3",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -197,7 +197,7 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 535,
+                  "id": 540,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
                   "src": "187:4:3",
@@ -211,10 +211,10 @@
               },
               {
                 "constant": false,
-                "id": 538,
+                "id": 543,
                 "name": "fungible",
                 "nodeType": "VariableDeclaration",
-                "scope": 543,
+                "scope": 548,
                 "src": "214:13:3",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -223,7 +223,7 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 537,
+                  "id": 542,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
                   "src": "214:4:3",
@@ -237,10 +237,10 @@
               },
               {
                 "constant": false,
-                "id": 540,
+                "id": 545,
                 "name": "data",
                 "nodeType": "VariableDeclaration",
-                "scope": 543,
+                "scope": 548,
                 "src": "236:11:3",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -249,7 +249,7 @@
                   "typeString": "string storage pointer"
                 },
                 "typeName": {
-                  "id": 539,
+                  "id": 544,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
                   "src": "236:6:3",
@@ -263,10 +263,10 @@
               },
               {
                 "constant": false,
-                "id": 542,
+                "id": 547,
                 "name": "dataRef",
                 "nodeType": "VariableDeclaration",
-                "scope": 543,
+                "scope": 548,
                 "src": "283:15:3",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -275,7 +275,7 @@
                   "typeString": "bytes32"
                 },
                 "typeName": {
-                  "id": 541,
+                  "id": 546,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
                   "src": "283:7:3",
@@ -290,12 +290,12 @@
             ],
             "name": "MetaData",
             "nodeType": "StructDefinition",
-            "scope": 544,
+            "scope": 549,
             "src": "119:185:3",
             "visibility": "public"
           }
         ],
-        "scope": 545,
+        "scope": 550,
         "src": "28:279:3"
       }
     ],
@@ -305,14 +305,14 @@
     "absolutePath": "/G/GitRepository/udap/uc3/contracts/Commons.sol",
     "exportedSymbols": {
       "Commons": [
-        544
+        549
       ]
     },
-    "id": 545,
+    "id": 550,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 524,
+        "id": 529,
         "literals": [
           "solidity",
           "^",
@@ -328,19 +328,19 @@
         "contractKind": "library",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 544,
+        "id": 549,
         "linearizedBaseContracts": [
-          544
+          549
         ],
         "name": "Commons",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": true,
-            "id": 527,
+            "id": 532,
             "name": "HASH_ALG",
             "nodeType": "VariableDeclaration",
-            "scope": 544,
+            "scope": 549,
             "src": "49:29:3",
             "stateVariable": true,
             "storageLocation": "default",
@@ -349,7 +349,7 @@
               "typeString": "bytes1"
             },
             "typeName": {
-              "id": 525,
+              "id": 530,
               "name": "byte",
               "nodeType": "ElementaryTypeName",
               "src": "49:4:3",
@@ -361,7 +361,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "30783132",
-              "id": 526,
+              "id": 531,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -380,10 +380,10 @@
           },
           {
             "constant": true,
-            "id": 530,
+            "id": 535,
             "name": "HASH_LEN",
             "nodeType": "VariableDeclaration",
-            "scope": 544,
+            "scope": 549,
             "src": "83:29:3",
             "stateVariable": true,
             "storageLocation": "default",
@@ -392,7 +392,7 @@
               "typeString": "bytes1"
             },
             "typeName": {
-              "id": 528,
+              "id": 533,
               "name": "byte",
               "nodeType": "ElementaryTypeName",
               "src": "83:4:3",
@@ -404,7 +404,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "30783230",
-              "id": 529,
+              "id": 534,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -423,14 +423,14 @@
           },
           {
             "canonicalName": "Commons.MetaData",
-            "id": 543,
+            "id": 548,
             "members": [
               {
                 "constant": false,
-                "id": 532,
+                "id": 537,
                 "name": "nsi",
                 "nodeType": "VariableDeclaration",
-                "scope": 543,
+                "scope": 548,
                 "src": "144:11:3",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -439,7 +439,7 @@
                   "typeString": "bytes32"
                 },
                 "typeName": {
-                  "id": 531,
+                  "id": 536,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
                   "src": "144:7:3",
@@ -453,10 +453,10 @@
               },
               {
                 "constant": false,
-                "id": 534,
+                "id": 539,
                 "name": "issuer",
                 "nodeType": "VariableDeclaration",
-                "scope": 543,
+                "scope": 548,
                 "src": "164:14:3",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -465,7 +465,7 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 533,
+                  "id": 538,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "164:7:3",
@@ -479,10 +479,10 @@
               },
               {
                 "constant": false,
-                "id": 536,
+                "id": 541,
                 "name": "transferrable",
                 "nodeType": "VariableDeclaration",
-                "scope": 543,
+                "scope": 548,
                 "src": "187:18:3",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -491,7 +491,7 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 535,
+                  "id": 540,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
                   "src": "187:4:3",
@@ -505,10 +505,10 @@
               },
               {
                 "constant": false,
-                "id": 538,
+                "id": 543,
                 "name": "fungible",
                 "nodeType": "VariableDeclaration",
-                "scope": 543,
+                "scope": 548,
                 "src": "214:13:3",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -517,7 +517,7 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 537,
+                  "id": 542,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
                   "src": "214:4:3",
@@ -531,10 +531,10 @@
               },
               {
                 "constant": false,
-                "id": 540,
+                "id": 545,
                 "name": "data",
                 "nodeType": "VariableDeclaration",
-                "scope": 543,
+                "scope": 548,
                 "src": "236:11:3",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -543,7 +543,7 @@
                   "typeString": "string storage pointer"
                 },
                 "typeName": {
-                  "id": 539,
+                  "id": 544,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
                   "src": "236:6:3",
@@ -557,10 +557,10 @@
               },
               {
                 "constant": false,
-                "id": 542,
+                "id": 547,
                 "name": "dataRef",
                 "nodeType": "VariableDeclaration",
-                "scope": 543,
+                "scope": 548,
                 "src": "283:15:3",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -569,7 +569,7 @@
                   "typeString": "bytes32"
                 },
                 "typeName": {
-                  "id": 541,
+                  "id": 546,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
                   "src": "283:7:3",
@@ -584,12 +584,12 @@
             ],
             "name": "MetaData",
             "nodeType": "StructDefinition",
-            "scope": 544,
+            "scope": 549,
             "src": "119:185:3",
             "visibility": "public"
           }
         ],
-        "scope": 545,
+        "scope": 550,
         "src": "28:279:3"
       }
     ],
@@ -601,5 +601,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.0",
-  "updatedAt": "2018-05-09T02:56:19.948Z"
+  "updatedAt": "2018-05-09T09:24:18.309Z"
 }
