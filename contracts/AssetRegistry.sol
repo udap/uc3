@@ -58,9 +58,9 @@ contract AssetRegistry is ReentrancyGuard {
     uint id = uint(keccak256(msg.sender, _nsi, data));
     Asset newAsset;
     if (_fungible) {
-      newAsset = new StandardAsset(msg.sender,_owner, id, _nsi, _transferrable,data,_metadataRef);
-    } else {
       newAsset = new FungibleAsset(msg.sender,_owner, id, _nsi, _transferrable,data,_metadataRef,0);
+    } else {
+      newAsset = new StandardAsset(msg.sender,_owner, id, _nsi, _transferrable,data,_metadataRef);
     }
     registeredAssets[newAsset] = true;
     assetsByNamespace[_nsi].push(address(newAsset));

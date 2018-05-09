@@ -162,7 +162,7 @@ class Issue extends Component {
     AssetRegistry.setProvider(window.web3.currentProvider);
     AssetRegistry.deployed().then(function (instance) {
         Toast.loading('Loading...',0);
-        return instance.createAsset("",true,false,JSON.stringify(self.getData()),"",{from:window.account});
+        return instance.createAsset(self.state.warrant.recipient,"xinong",true,false,JSON.stringify(self.getData()),"",{from:window.account});
     }).then(function (result) {
         Toast.hide()
         self.props.history.push( '/',null)
