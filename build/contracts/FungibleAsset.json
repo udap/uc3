@@ -2,6 +2,20 @@
   "contractName": "FungibleAsset",
   "abi": [
     {
+      "constant": true,
+      "inputs": [],
+      "name": "getState",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "constant": false,
       "inputs": [
         {
@@ -27,6 +41,20 @@
       ],
       "payable": false,
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_state",
+          "type": "uint8"
+        }
+      ],
+      "name": "setState",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -60,6 +88,20 @@
         {
           "name": "",
           "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "state",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8"
         }
       ],
       "payable": false,
@@ -228,24 +270,24 @@
       "type": "function"
     }
   ],
-  "bytecode": "0x6060604052341561000f57600080fd5b604051610a34380380610a3483398101604052808051906020019091908051906020019091908051906020019091908051906020019091908051906020019091908051820191906020018051906020019091908051906020019091905050858888600073ffffffffffffffffffffffffffffffffffffffff168273ffffffffffffffffffffffffffffffffffffffff16141580156100da5750600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1614155b15156100e557600080fd5b8260008190555081600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555080600260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506000543073ffffffffffffffffffffffffffffffffffffffff167f20df459a0f7f1bc64a42346a9e6536111a3512be01de7a0f5327a4e13b33703860405160405180910390a350505060c060405190810160405280866000191681526020018973ffffffffffffffffffffffffffffffffffffffff1681526020018515158152602001600115158152602001848152602001836000191681525060036000820151816000019060001916905560208201518160010160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555060408201518160010160146101000a81548160ff02191690831515021790555060608201518160010160156101000a81548160ff02191690831515021790555060808201518160020190805190602001906102bd9291906102e5565b5060a0820151816003019060001916905590505080600781905550505050505050505061038a565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061032657805160ff1916838001178555610354565b82800160010185558215610354579182015b82811115610353578251825591602001919060010190610338565b5b5090506103619190610365565b5090565b61038791905b8082111561038357600081600090555060010161036b565b5090565b90565b61069b806103996000396000f300606060405260043610610099576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680631a6952301461009e57806327ac4b70146100d757806352556421146101085780635d1ca6311461015d57806383197ef014610186578063893d20e81461019b578063bf5a29e5146101f0578063d2786ba414610221578063d321fe2914610316575b600080fd5b34156100a957600080fd5b6100d5600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061033f565b005b34156100e257600080fd5b6100ea610461565b60405180826000191660001916815260200191505060405180910390f35b341561011357600080fd5b61011b61046e565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561016857600080fd5b610170610498565b6040518082815260200191505060405180910390f35b341561019157600080fd5b6101996104a1565b005b34156101a657600080fd5b6101ae6104ff565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b34156101fb57600080fd5b610203610529565b60405180826000191660001916815260200191505060405180910390f35b341561022c57600080fd5b610234610535565b6040518087600019166000191681526020018673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018515151515815260200184151515158152602001806020018360001916600019168152602001828103825284818151815260200191508051906020019080838360005b838110156102d65780820151818401526020810190506102bb565b50505050905090810190601f1680156103035780820380516001836020036101000a031916815260200191505b5097505050505050505060405180910390f35b341561032157600080fd5b610329610651565b6040518082815260200191505060405180910390f35b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561039b57600080fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141515156103d757600080fd5b80600260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506000548173ffffffffffffffffffffffffffffffffffffffff167fff67663330fcde57965a89e0eed2698c4f260f4f4dfa83e4d8a1c1db935fa23560405160405180910390a350565b6000600360000154905090565b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b60008054905090565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156104fd57600080fd5b565b6000600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b60006003800154905090565b60008060008061054361065b565b6000600360000154600360010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16600360010160149054906101000a900460ff16600360010160159054906101000a900460ff1660036002016003800154818054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156106365780601f1061060b57610100808354040283529160200191610636565b820191906000526020600020905b81548152906001019060200180831161061957829003601f168201915b50505050509150955095509550955095509550909192939495565b6000600754905090565b6020604051908101604052806000815250905600a165627a7a7230582095ddf4cb8827f72c5f246ed82fedb87249e8b834db336d11736f703e428fee0d0029",
-  "deployedBytecode": "0x606060405260043610610099576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680631a6952301461009e57806327ac4b70146100d757806352556421146101085780635d1ca6311461015d57806383197ef014610186578063893d20e81461019b578063bf5a29e5146101f0578063d2786ba414610221578063d321fe2914610316575b600080fd5b34156100a957600080fd5b6100d5600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061033f565b005b34156100e257600080fd5b6100ea610461565b60405180826000191660001916815260200191505060405180910390f35b341561011357600080fd5b61011b61046e565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561016857600080fd5b610170610498565b6040518082815260200191505060405180910390f35b341561019157600080fd5b6101996104a1565b005b34156101a657600080fd5b6101ae6104ff565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b34156101fb57600080fd5b610203610529565b60405180826000191660001916815260200191505060405180910390f35b341561022c57600080fd5b610234610535565b6040518087600019166000191681526020018673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018515151515815260200184151515158152602001806020018360001916600019168152602001828103825284818151815260200191508051906020019080838360005b838110156102d65780820151818401526020810190506102bb565b50505050905090810190601f1680156103035780820380516001836020036101000a031916815260200191505b5097505050505050505060405180910390f35b341561032157600080fd5b610329610651565b6040518082815260200191505060405180910390f35b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561039b57600080fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141515156103d757600080fd5b80600260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506000548173ffffffffffffffffffffffffffffffffffffffff167fff67663330fcde57965a89e0eed2698c4f260f4f4dfa83e4d8a1c1db935fa23560405160405180910390a350565b6000600360000154905090565b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b60008054905090565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156104fd57600080fd5b565b6000600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b60006003800154905090565b60008060008061054361065b565b6000600360000154600360010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16600360010160149054906101000a900460ff16600360010160159054906101000a900460ff1660036002016003800154818054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156106365780601f1061060b57610100808354040283529160200191610636565b820191906000526020600020905b81548152906001019060200180831161061957829003601f168201915b50505050509150955095509550955095509550909192939495565b6000600754905090565b6020604051908101604052806000815250905600a165627a7a7230582095ddf4cb8827f72c5f246ed82fedb87249e8b834db336d11736f703e428fee0d0029",
-  "sourceMap": "86:1031:4:-;;;251:427;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;419:3;424:7;433:6;444:1:0;425:21;;:7;:21;;;;:45;;;;;468:1;450:20;;:6;:20;;;;425:45;417:54;;;;;;;;483:3;478:2;:8;;;;502:7;493:6;;:16;;;;;;;;;;;;;;;;;;524:6;516:5;;:14;;;;;;;;;;;;;;;;;;564:2;;558:4;537:30;;;;;;;;;;;;337:236;;;455:192:4;;;;;;;;;489:4;455:192;;;;;;;513:7;455:192;;;;;;547:14;455:192;;;;;;583:4;455:192;;;;;;605:4;455:192;;;;630:7;455:192;;;;;;450:2;:197;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;665:7;656:6;:16;;;;251:427;;;;;;;;86:1031;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;:::-;;;;;;;",
-  "deployedSourceMap": "86:1031:4:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;814:137:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;865:80:4;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;731:77:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;579:66;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;957:44;;;;;;;;;;;;;;651:74;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;951:83:4;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;684:175;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:2;8:100;;;99:1;94:3;90;84:5;80:1;75:3;71;64:6;52:2;49:1;45:3;40:15;;8:100;;;12:14;3:109;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1040:74:4;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;814:137:0;237:5;;;;;;;;;;;223:19;;:10;:19;;;215:28;;;;;;;;892:1;877:17;;:3;:17;;;;869:26;;;;;;;;910:3;902:5;;:11;;;;;;;;;;;;;;;;;;942:2;;937:3;920:25;;;;;;;;;;;;814:137;:::o;865:80:4:-;910:7;933:2;:6;;;926:13;;865:80;:::o;731:77:0:-;773:7;796:6;;;;;;;;;;;789:13;;731:77;:::o;579:66::-;617:4;637:2;;630:9;;579:66;:::o;957:44::-;237:5;;;;;;;;;;;223:19;;:10;:19;;;215:28;;;;;;;;957:44::o;651:74::-;691:7;714:5;;;;;;;;;;;707:12;;651:74;:::o;951:83:4:-;995:7;1018:2;:10;;;1011:17;;951:83;:::o;684:175::-;728:7;736;744:4;749;754:6;;:::i;:::-;761:7;785:2;:6;;;793:2;:9;;;;;;;;;;;;804:2;:16;;;;;;;;;;;;822:2;:11;;;;;;;;;;;;834:2;:7;;842:2;:10;;;777:76;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;684:175;;;;;;:::o;1040:74::-;1082:4;1102:6;;1095:13;;1040:74;:::o;86:1031::-;;;;;;;;;;;;;;;:::o",
+  "bytecode": "0x6060604052341561000f57600080fd5b604051610c37380380610c3783398101604052808051906020019091908051906020019091908051906020019091908051906020019091908051906020019091908051820191906020018051906020019091908051906020019091905050858888600073ffffffffffffffffffffffffffffffffffffffff168273ffffffffffffffffffffffffffffffffffffffff16141580156100da5750600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1614155b15156100e557600080fd5b8260008190555081600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555080600260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506000543073ffffffffffffffffffffffffffffffffffffffff167f20df459a0f7f1bc64a42346a9e6536111a3512be01de7a0f5327a4e13b33703860405160405180910390a350505060c060405190810160405280866000191681526020018973ffffffffffffffffffffffffffffffffffffffff1681526020018515158152602001600115158152602001848152602001836000191681525060036000820151816000019060001916905560208201518160010160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555060408201518160010160146101000a81548160ff02191690831515021790555060608201518160010160156101000a81548160ff02191690831515021790555060808201518160020190805190602001906102bd9291906102e5565b5060a0820151816003019060001916905590505080600781905550505050505050505061038a565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061032657805160ff1916838001178555610354565b82800160010185558215610354579182015b82811115610353578251825591602001919060010190610338565b5b5090506103619190610365565b5090565b61038791905b8082111561038357600081600090555060010161036b565b5090565b90565b61089e806103996000396000f3006060604052600436106100ba576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680631865c57d146100bf5780631a695230146100f657806327ac4b701461012f578063525564211461016057806356de96db146101b55780635d1ca631146101db57806383197ef014610204578063893d20e814610219578063bf5a29e51461026e578063c19d93fb1461029f578063d2786ba4146102d6578063d321fe29146103cb575b600080fd5b34156100ca57600080fd5b6100d26103f4565b604051808260028111156100e257fe5b60ff16815260200191505060405180910390f35b341561010157600080fd5b61012d600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061040b565b005b341561013a57600080fd5b61014261052d565b60405180826000191660001916815260200191505060405180910390f35b341561016b57600080fd5b61017361053a565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b34156101c057600080fd5b6101d9600480803560ff16906020019091905050610564565b005b34156101e657600080fd5b6101ee61061a565b6040518082815260200191505060405180910390f35b341561020f57600080fd5b610217610623565b005b341561022457600080fd5b61022c6106ef565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561027957600080fd5b610281610719565b60405180826000191660001916815260200191505060405180910390f35b34156102aa57600080fd5b6102b2610725565b604051808260028111156102c257fe5b60ff16815260200191505060405180910390f35b34156102e157600080fd5b6102e9610738565b6040518087600019166000191681526020018673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018515151515815260200184151515158152602001806020018360001916600019168152602001828103825284818151815260200191508051906020019080838360005b8381101561038b578082015181840152602081019050610370565b50505050905090810190601f1680156103b85780820380516001836020036101000a031916815260200191505b5097505050505050505060405180910390f35b34156103d657600080fd5b6103de610854565b6040518082815260200191505060405180910390f35b6000600260149054906101000a900460ff16905090565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561046757600080fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141515156104a357600080fd5b80600260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506000548173ffffffffffffffffffffffffffffffffffffffff167fff67663330fcde57965a89e0eed2698c4f260f4f4dfa83e4d8a1c1db935fa23560405160405180910390a350565b6000600360000154905090565b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156105c057600080fd5b600060028111156105cd57fe5b600260149054906101000a900460ff1660028111156105e857fe5b1415156105f457600080fd5b80600260146101000a81548160ff0219169083600281111561061257fe5b021790555050565b60008054905090565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561067f57600080fd5b6001600281111561068c57fe5b600260149054906101000a900460ff1660028111156106a757fe5b141515156106b457600080fd5b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16ff5b6000600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b60006003800154905090565b600260149054906101000a900460ff1681565b60008060008061074661085e565b6000600360000154600360010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16600360010160149054906101000a900460ff16600360010160159054906101000a900460ff1660036002016003800154818054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156108395780601f1061080e57610100808354040283529160200191610839565b820191906000526020600020905b81548152906001019060200180831161081c57829003601f168201915b50505050509150955095509550955095509550909192939495565b6000600754905090565b6020604051908101604052806000815250905600a165627a7a72305820a8362eff94884d099bf690e1a6c162512c9974463bf4790498aa78d9737b912c0029",
+  "deployedBytecode": "0x6060604052600436106100ba576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680631865c57d146100bf5780631a695230146100f657806327ac4b701461012f578063525564211461016057806356de96db146101b55780635d1ca631146101db57806383197ef014610204578063893d20e814610219578063bf5a29e51461026e578063c19d93fb1461029f578063d2786ba4146102d6578063d321fe29146103cb575b600080fd5b34156100ca57600080fd5b6100d26103f4565b604051808260028111156100e257fe5b60ff16815260200191505060405180910390f35b341561010157600080fd5b61012d600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061040b565b005b341561013a57600080fd5b61014261052d565b60405180826000191660001916815260200191505060405180910390f35b341561016b57600080fd5b61017361053a565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b34156101c057600080fd5b6101d9600480803560ff16906020019091905050610564565b005b34156101e657600080fd5b6101ee61061a565b6040518082815260200191505060405180910390f35b341561020f57600080fd5b610217610623565b005b341561022457600080fd5b61022c6106ef565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561027957600080fd5b610281610719565b60405180826000191660001916815260200191505060405180910390f35b34156102aa57600080fd5b6102b2610725565b604051808260028111156102c257fe5b60ff16815260200191505060405180910390f35b34156102e157600080fd5b6102e9610738565b6040518087600019166000191681526020018673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018515151515815260200184151515158152602001806020018360001916600019168152602001828103825284818151815260200191508051906020019080838360005b8381101561038b578082015181840152602081019050610370565b50505050905090810190601f1680156103b85780820380516001836020036101000a031916815260200191505b5097505050505050505060405180910390f35b34156103d657600080fd5b6103de610854565b6040518082815260200191505060405180910390f35b6000600260149054906101000a900460ff16905090565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561046757600080fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141515156104a357600080fd5b80600260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506000548173ffffffffffffffffffffffffffffffffffffffff167fff67663330fcde57965a89e0eed2698c4f260f4f4dfa83e4d8a1c1db935fa23560405160405180910390a350565b6000600360000154905090565b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156105c057600080fd5b600060028111156105cd57fe5b600260149054906101000a900460ff1660028111156105e857fe5b1415156105f457600080fd5b80600260146101000a81548160ff0219169083600281111561061257fe5b021790555050565b60008054905090565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561067f57600080fd5b6001600281111561068c57fe5b600260149054906101000a900460ff1660028111156106a757fe5b141515156106b457600080fd5b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16ff5b6000600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b60006003800154905090565b600260149054906101000a900460ff1681565b60008060008061074661085e565b6000600360000154600360010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16600360010160149054906101000a900460ff16600360010160159054906101000a900460ff1660036002016003800154818054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156108395780601f1061080e57610100808354040283529160200191610839565b820191906000526020600020905b81548152906001019060200180831161081c57829003601f168201915b50505050509150955095509550955095509550909192939495565b6000600754905090565b6020604051908101604052806000815250905600a165627a7a72305820a8362eff94884d099bf690e1a6c162512c9974463bf4790498aa78d9737b912c0029",
+  "sourceMap": "86:1031:5:-;;;251:427;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;419:3;424:7;433:6;520:1:0;501:21;;:7;:21;;;;:45;;;;;544:1;526:20;;:6;:20;;;;501:45;493:54;;;;;;;;559:3;554:2;:8;;;;578:7;569:6;;:16;;;;;;;;;;;;;;;;;;600:6;592:5;;:14;;;;;;;;;;;;;;;;;;640:2;;634:4;613:30;;;;;;;;;;;;413:236;;;455:192:5;;;;;;;;;489:4;455:192;;;;;;;513:7;455:192;;;;;;547:14;455:192;;;;;;583:4;455:192;;;;;;605:4;455:192;;;;630:7;455:192;;;;;;450:2;:197;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;665:7;656:6;:16;;;;251:427;;;;;;;;86:1031;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;:::-;;;;;;;",
+  "deployedSourceMap": "86:1031:5:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;890:73:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1087:137;;;;;;;;;;;;;;;;;;;;;;;;;;;;865:80:5;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;807:77:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;969:112;;;;;;;;;;;;;;;;;;;;;;;;;;;;655:66;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1230:118;;;;;;;;;;;;;;727:74;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;951:83:5;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;240:18:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;684:175:5;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:2;8:100;;;99:1;94:3;90;84:5;80:1;75:3;71;64:6;52:2;49:1;45:3;40:15;;8:100;;;12:14;3:109;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1040:74:5;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;890:73:0;931:5;952;;;;;;;;;;;945:12;;890:73;:::o;1087:137::-;313:5;;;;;;;;;;;299:19;;:10;:19;;;291:28;;;;;;;;1165:1;1150:17;;:3;:17;;;;1142:26;;;;;;;;1183:3;1175:5;;:11;;;;;;;;;;;;;;;;;;1215:2;;1210:3;1193:25;;;;;;;;;;;;1087:137;:::o;865:80:5:-;910:7;933:2;:6;;;926:13;;865:80;:::o;807:77:0:-;849:7;872:6;;;;;;;;;;;865:13;;807:77;:::o;969:112::-;313:5;;;;;;;;;;;299:19;;:10;:19;;;291:28;;;;;;;;1041:12;1032:21;;;;;;;;:5;;;;;;;;;;;:21;;;;;;;;;1024:30;;;;;;;;1069:6;1061:5;;:14;;;;;;;;;;;;;;;;;;;;;;;;969:112;:::o;655:66::-;693:4;713:2;;706:9;;655:66;:::o;1230:118::-;313:5;;;;;;;;;;;299:19;;:10;:19;;;291:28;;;;;;;;1290:14;1281:23;;;;;;;;:5;;;;;;;;;;;:23;;;;;;;;;;1273:32;;;;;;;;1325:5;;;;;;;;;;;1312:19;;;727:74;767:7;790:5;;;;;;;;;;;783:12;;727:74;:::o;951:83:5:-;995:7;1018:2;:10;;;1011:17;;951:83;:::o;240:18:0:-;;;;;;;;;;;;;:::o;684:175:5:-;728:7;736;744:4;749;754:6;;:::i;:::-;761:7;785:2;:6;;;793:2;:9;;;;;;;;;;;;804:2;:16;;;;;;;;;;;;822:2;:11;;;;;;;;;;;;834:2;:7;;842:2;:10;;;777:76;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;684:175;;;;;;:::o;1040:74::-;1082:4;1102:6;;1095:13;;1040:74;:::o;86:1031::-;;;;;;;;;;;;;;;:::o",
   "source": "pragma solidity ^0.4.19;\r\n\r\nimport './Commons.sol';\r\nimport './AbstractAsset.sol';\r\n\r\ncontract FungibleAsset is AbstractAsset {\r\n  using Commons for Commons.MetaData;\r\n\r\n  // asset metadata\r\n  Commons.MetaData private md;\r\n  uint private amount;\r\n\r\n  function FungibleAsset(address _issuer,address _owner, uint _id, bytes32 _nsi, bool _transferrable,string data,bytes32 _mdHash, uint _amount)\r\n    public AbstractAsset(_id, _issuer, _owner) {\r\n      md = Commons.MetaData({\r\n          nsi:_nsi,\r\n          issuer:_issuer,\r\n          transferrable:_transferrable,\r\n          fungible:true,\r\n          data:data,\r\n          dataRef:_mdHash\r\n      });\r\n      amount = _amount;\r\n  }\r\n\r\n  function getMetaData() public view returns (bytes32,address,bool,bool,string,bytes32) {\r\n    return (md.nsi, md.issuer, md.transferrable, md.fungible,md.data,md.dataRef);\r\n  }\r\n\r\n  function getNamespace() public view returns (bytes32) {\r\n    return md.nsi;\r\n  }\r\n\r\n  function mdMultiHash() public view returns (bytes32) {\r\n    return md.dataRef;\r\n  }\r\n\r\n  function getAmount() public view returns (uint) {\r\n    return amount;\r\n  }\r\n}\r\n",
   "sourcePath": "G:\\GitRepository\\udap\\uc3\\contracts\\FungibleAsset.sol",
   "ast": {
     "absolutePath": "/G/GitRepository/udap/uc3/contracts/FungibleAsset.sol",
     "exportedSymbols": {
       "FungibleAsset": [
-        611
+        851
       ]
     },
-    "id": 612,
+    "id": 852,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 502,
+        "id": 742,
         "literals": [
           "solidity",
           "^",
@@ -253,27 +295,27 @@
           ".19"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:4"
+        "src": "0:24:5"
       },
       {
         "absolutePath": "/G/GitRepository/udap/uc3/contracts/Commons.sol",
         "file": "./Commons.sol",
-        "id": 503,
+        "id": 743,
         "nodeType": "ImportDirective",
-        "scope": 612,
-        "sourceUnit": 501,
-        "src": "28:23:4",
+        "scope": 852,
+        "sourceUnit": 545,
+        "src": "28:23:5",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
         "absolutePath": "/G/GitRepository/udap/uc3/contracts/AbstractAsset.sol",
         "file": "./AbstractAsset.sol",
-        "id": 504,
+        "id": 744,
         "nodeType": "ImportDirective",
-        "scope": 612,
-        "sourceUnit": 132,
-        "src": "53:29:4",
+        "scope": 852,
+        "sourceUnit": 176,
+        "src": "53:29:5",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -283,88 +325,88 @@
             "arguments": [],
             "baseName": {
               "contractScope": null,
-              "id": 505,
+              "id": 745,
               "name": "AbstractAsset",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 131,
-              "src": "112:13:4",
+              "referencedDeclaration": 175,
+              "src": "112:13:5",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_AbstractAsset_$131",
+                "typeIdentifier": "t_contract$_AbstractAsset_$175",
                 "typeString": "contract AbstractAsset"
               }
             },
-            "id": 506,
+            "id": 746,
             "nodeType": "InheritanceSpecifier",
-            "src": "112:13:4"
+            "src": "112:13:5"
           }
         ],
         "contractDependencies": [
-          131,
-          193
+          175,
+          237
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 611,
+        "id": 851,
         "linearizedBaseContracts": [
-          611,
-          131,
-          193
+          851,
+          175,
+          237
         ],
         "name": "FungibleAsset",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "id": 509,
+            "id": 749,
             "libraryName": {
               "contractScope": null,
-              "id": 507,
+              "id": 747,
               "name": "Commons",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 500,
-              "src": "137:7:4",
+              "referencedDeclaration": 544,
+              "src": "137:7:5",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Commons_$500",
+                "typeIdentifier": "t_contract$_Commons_$544",
                 "typeString": "library Commons"
               }
             },
             "nodeType": "UsingForDirective",
-            "src": "131:35:4",
+            "src": "131:35:5",
             "typeName": {
               "contractScope": null,
-              "id": 508,
+              "id": 748,
               "name": "Commons.MetaData",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 499,
-              "src": "149:16:4",
+              "referencedDeclaration": 543,
+              "src": "149:16:5",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_MetaData_$499_storage_ptr",
+                "typeIdentifier": "t_struct$_MetaData_$543_storage_ptr",
                 "typeString": "struct Commons.MetaData storage pointer"
               }
             }
           },
           {
             "constant": false,
-            "id": 511,
+            "id": 751,
             "name": "md",
             "nodeType": "VariableDeclaration",
-            "scope": 611,
-            "src": "193:27:4",
+            "scope": 851,
+            "src": "193:27:5",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_struct$_MetaData_$499_storage",
+              "typeIdentifier": "t_struct$_MetaData_$543_storage",
               "typeString": "struct Commons.MetaData storage ref"
             },
             "typeName": {
               "contractScope": null,
-              "id": 510,
+              "id": 750,
               "name": "Commons.MetaData",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 499,
-              "src": "193:16:4",
+              "referencedDeclaration": 543,
+              "src": "193:16:5",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_MetaData_$499_storage_ptr",
+                "typeIdentifier": "t_struct$_MetaData_$543_storage_ptr",
                 "typeString": "struct Commons.MetaData storage pointer"
               }
             },
@@ -373,11 +415,11 @@
           },
           {
             "constant": false,
-            "id": 513,
+            "id": 753,
             "name": "amount",
             "nodeType": "VariableDeclaration",
-            "scope": 611,
-            "src": "225:19:4",
+            "scope": 851,
+            "src": "225:19:5",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -385,10 +427,10 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 512,
+              "id": 752,
               "name": "uint",
               "nodeType": "ElementaryTypeName",
-              "src": "225:4:4",
+              "src": "225:4:5",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
@@ -399,28 +441,28 @@
           },
           {
             "body": {
-              "id": 553,
+              "id": 793,
               "nodeType": "Block",
-              "src": "441:237:4",
+              "src": "441:237:5",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 547,
+                    "id": 787,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 537,
+                      "id": 777,
                       "name": "md",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 511,
-                      "src": "450:2:4",
+                      "referencedDeclaration": 751,
+                      "src": "450:2:5",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_MetaData_$499_storage",
+                        "typeIdentifier": "t_struct$_MetaData_$543_storage",
                         "typeString": "struct Commons.MetaData storage ref"
                       }
                     },
@@ -431,12 +473,12 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "id": 540,
+                          "id": 780,
                           "name": "_nsi",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 521,
-                          "src": "489:4:4",
+                          "referencedDeclaration": 761,
+                          "src": "489:4:5",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bytes32",
                             "typeString": "bytes32"
@@ -444,12 +486,12 @@
                         },
                         {
                           "argumentTypes": null,
-                          "id": 541,
+                          "id": 781,
                           "name": "_issuer",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 515,
-                          "src": "513:7:4",
+                          "referencedDeclaration": 755,
+                          "src": "513:7:5",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
@@ -457,12 +499,12 @@
                         },
                         {
                           "argumentTypes": null,
-                          "id": 542,
+                          "id": 782,
                           "name": "_transferrable",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 523,
-                          "src": "547:14:4",
+                          "referencedDeclaration": 763,
+                          "src": "547:14:5",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bool",
                             "typeString": "bool"
@@ -471,14 +513,14 @@
                         {
                           "argumentTypes": null,
                           "hexValue": "74727565",
-                          "id": 543,
+                          "id": 783,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
                           "kind": "bool",
                           "lValueRequested": false,
                           "nodeType": "Literal",
-                          "src": "583:4:4",
+                          "src": "583:4:5",
                           "subdenomination": null,
                           "typeDescriptions": {
                             "typeIdentifier": "t_bool",
@@ -488,12 +530,12 @@
                         },
                         {
                           "argumentTypes": null,
-                          "id": 544,
+                          "id": 784,
                           "name": "data",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 525,
-                          "src": "605:4:4",
+                          "referencedDeclaration": 765,
+                          "src": "605:4:5",
                           "typeDescriptions": {
                             "typeIdentifier": "t_string_memory_ptr",
                             "typeString": "string memory"
@@ -501,12 +543,12 @@
                         },
                         {
                           "argumentTypes": null,
-                          "id": 545,
+                          "id": 785,
                           "name": "_mdHash",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 527,
-                          "src": "630:7:4",
+                          "referencedDeclaration": 767,
+                          "src": "630:7:5",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bytes32",
                             "typeString": "bytes32"
@@ -517,32 +559,32 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 538,
+                          "id": 778,
                           "name": "Commons",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 500,
-                          "src": "455:7:4",
+                          "referencedDeclaration": 544,
+                          "src": "455:7:5",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_Commons_$500_$",
+                            "typeIdentifier": "t_type$_t_contract$_Commons_$544_$",
                             "typeString": "type(library Commons)"
                           }
                         },
-                        "id": 539,
+                        "id": 779,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "MetaData",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 499,
-                        "src": "455:16:4",
+                        "referencedDeclaration": 543,
+                        "src": "455:16:5",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_struct$_MetaData_$499_storage_ptr_$",
+                          "typeIdentifier": "t_type$_t_struct$_MetaData_$543_storage_ptr_$",
                           "typeString": "type(struct Commons.MetaData storage pointer)"
                         }
                       },
-                      "id": 546,
+                      "id": 786,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -557,38 +599,38 @@
                         "dataRef"
                       ],
                       "nodeType": "FunctionCall",
-                      "src": "455:192:4",
+                      "src": "455:192:5",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_MetaData_$499_memory",
+                        "typeIdentifier": "t_struct$_MetaData_$543_memory",
                         "typeString": "struct Commons.MetaData memory"
                       }
                     },
-                    "src": "450:197:4",
+                    "src": "450:197:5",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_MetaData_$499_storage",
+                      "typeIdentifier": "t_struct$_MetaData_$543_storage",
                       "typeString": "struct Commons.MetaData storage ref"
                     }
                   },
-                  "id": 548,
+                  "id": 788,
                   "nodeType": "ExpressionStatement",
-                  "src": "450:197:4"
+                  "src": "450:197:5"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 551,
+                    "id": 791,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 549,
+                      "id": 789,
                       "name": "amount",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 513,
-                      "src": "656:6:4",
+                      "referencedDeclaration": 753,
+                      "src": "656:6:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -598,30 +640,30 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 550,
+                      "id": 790,
                       "name": "_amount",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 529,
-                      "src": "665:7:4",
+                      "referencedDeclaration": 769,
+                      "src": "665:7:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       }
                     },
-                    "src": "656:16:4",
+                    "src": "656:16:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "id": 552,
+                  "id": 792,
                   "nodeType": "ExpressionStatement",
-                  "src": "656:16:4"
+                  "src": "656:16:5"
                 }
               ]
             },
-            "id": 554,
+            "id": 794,
             "implemented": true,
             "isConstructor": true,
             "isDeclaredConst": false,
@@ -630,12 +672,12 @@
                 "arguments": [
                   {
                     "argumentTypes": null,
-                    "id": 532,
+                    "id": 772,
                     "name": "_id",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 519,
-                    "src": "419:3:4",
+                    "referencedDeclaration": 759,
+                    "src": "419:3:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -643,12 +685,12 @@
                   },
                   {
                     "argumentTypes": null,
-                    "id": 533,
+                    "id": 773,
                     "name": "_issuer",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 515,
-                    "src": "424:7:4",
+                    "referencedDeclaration": 755,
+                    "src": "424:7:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -656,49 +698,49 @@
                   },
                   {
                     "argumentTypes": null,
-                    "id": 534,
+                    "id": 774,
                     "name": "_owner",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 517,
-                    "src": "433:6:4",
+                    "referencedDeclaration": 757,
+                    "src": "433:6:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   }
                 ],
-                "id": 535,
+                "id": 775,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 531,
+                  "id": 771,
                   "name": "AbstractAsset",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 131,
-                  "src": "405:13:4",
+                  "referencedDeclaration": 175,
+                  "src": "405:13:5",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_type$_t_contract$_AbstractAsset_$131_$",
+                    "typeIdentifier": "t_type$_t_contract$_AbstractAsset_$175_$",
                     "typeString": "type(contract AbstractAsset)"
                   }
                 },
                 "nodeType": "ModifierInvocation",
-                "src": "405:35:4"
+                "src": "405:35:5"
               }
             ],
             "name": "FungibleAsset",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 530,
+              "id": 770,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 515,
+                  "id": 755,
                   "name": "_issuer",
                   "nodeType": "VariableDeclaration",
-                  "scope": 554,
-                  "src": "274:15:4",
+                  "scope": 794,
+                  "src": "274:15:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -706,10 +748,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 514,
+                    "id": 754,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "274:7:4",
+                    "src": "274:7:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -720,11 +762,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 517,
+                  "id": 757,
                   "name": "_owner",
                   "nodeType": "VariableDeclaration",
-                  "scope": 554,
-                  "src": "290:14:4",
+                  "scope": 794,
+                  "src": "290:14:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -732,10 +774,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 516,
+                    "id": 756,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "290:7:4",
+                    "src": "290:7:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -746,11 +788,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 519,
+                  "id": 759,
                   "name": "_id",
                   "nodeType": "VariableDeclaration",
-                  "scope": 554,
-                  "src": "306:8:4",
+                  "scope": 794,
+                  "src": "306:8:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -758,10 +800,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 518,
+                    "id": 758,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "306:4:4",
+                    "src": "306:4:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -772,11 +814,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 521,
+                  "id": 761,
                   "name": "_nsi",
                   "nodeType": "VariableDeclaration",
-                  "scope": 554,
-                  "src": "316:12:4",
+                  "scope": 794,
+                  "src": "316:12:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -784,10 +826,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 520,
+                    "id": 760,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "316:7:4",
+                    "src": "316:7:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -798,11 +840,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 523,
+                  "id": 763,
                   "name": "_transferrable",
                   "nodeType": "VariableDeclaration",
-                  "scope": 554,
-                  "src": "330:19:4",
+                  "scope": 794,
+                  "src": "330:19:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -810,10 +852,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 522,
+                    "id": 762,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "330:4:4",
+                    "src": "330:4:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -824,11 +866,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 525,
+                  "id": 765,
                   "name": "data",
                   "nodeType": "VariableDeclaration",
-                  "scope": 554,
-                  "src": "350:11:4",
+                  "scope": 794,
+                  "src": "350:11:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -836,10 +878,10 @@
                     "typeString": "string memory"
                   },
                   "typeName": {
-                    "id": 524,
+                    "id": 764,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "350:6:4",
+                    "src": "350:6:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string storage pointer"
@@ -850,11 +892,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 527,
+                  "id": 767,
                   "name": "_mdHash",
                   "nodeType": "VariableDeclaration",
-                  "scope": 554,
-                  "src": "362:15:4",
+                  "scope": 794,
+                  "src": "362:15:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -862,10 +904,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 526,
+                    "id": 766,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "362:7:4",
+                    "src": "362:7:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -876,11 +918,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 529,
+                  "id": 769,
                   "name": "_amount",
                   "nodeType": "VariableDeclaration",
-                  "scope": 554,
-                  "src": "379:12:4",
+                  "scope": 794,
+                  "src": "379:12:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -888,10 +930,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 528,
+                    "id": 768,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "379:4:4",
+                    "src": "379:4:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -901,26 +943,26 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "273:119:4"
+              "src": "273:119:5"
             },
             "payable": false,
             "returnParameters": {
-              "id": 536,
+              "id": 776,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "441:0:4"
+              "src": "441:0:5"
             },
-            "scope": 611,
-            "src": "251:427:4",
+            "scope": 851,
+            "src": "251:427:5",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 583,
+              "id": 823,
               "nodeType": "Block",
-              "src": "770:89:4",
+              "src": "770:89:5",
               "statements": [
                 {
                   "expression": {
@@ -930,26 +972,26 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 569,
+                          "id": 809,
                           "name": "md",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 511,
-                          "src": "785:2:4",
+                          "referencedDeclaration": 751,
+                          "src": "785:2:5",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_MetaData_$499_storage",
+                            "typeIdentifier": "t_struct$_MetaData_$543_storage",
                             "typeString": "struct Commons.MetaData storage ref"
                           }
                         },
-                        "id": 570,
+                        "id": 810,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "nsi",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 488,
-                        "src": "785:6:4",
+                        "referencedDeclaration": 532,
+                        "src": "785:6:5",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
                           "typeString": "bytes32"
@@ -959,26 +1001,26 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 571,
+                          "id": 811,
                           "name": "md",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 511,
-                          "src": "793:2:4",
+                          "referencedDeclaration": 751,
+                          "src": "793:2:5",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_MetaData_$499_storage",
+                            "typeIdentifier": "t_struct$_MetaData_$543_storage",
                             "typeString": "struct Commons.MetaData storage ref"
                           }
                         },
-                        "id": 572,
+                        "id": 812,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "issuer",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 490,
-                        "src": "793:9:4",
+                        "referencedDeclaration": 534,
+                        "src": "793:9:5",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -988,26 +1030,26 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 573,
+                          "id": 813,
                           "name": "md",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 511,
-                          "src": "804:2:4",
+                          "referencedDeclaration": 751,
+                          "src": "804:2:5",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_MetaData_$499_storage",
+                            "typeIdentifier": "t_struct$_MetaData_$543_storage",
                             "typeString": "struct Commons.MetaData storage ref"
                           }
                         },
-                        "id": 574,
+                        "id": 814,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "transferrable",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 492,
-                        "src": "804:16:4",
+                        "referencedDeclaration": 536,
+                        "src": "804:16:5",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
                           "typeString": "bool"
@@ -1017,26 +1059,26 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 575,
+                          "id": 815,
                           "name": "md",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 511,
-                          "src": "822:2:4",
+                          "referencedDeclaration": 751,
+                          "src": "822:2:5",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_MetaData_$499_storage",
+                            "typeIdentifier": "t_struct$_MetaData_$543_storage",
                             "typeString": "struct Commons.MetaData storage ref"
                           }
                         },
-                        "id": 576,
+                        "id": 816,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "fungible",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 494,
-                        "src": "822:11:4",
+                        "referencedDeclaration": 538,
+                        "src": "822:11:5",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
                           "typeString": "bool"
@@ -1046,26 +1088,26 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 577,
+                          "id": 817,
                           "name": "md",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 511,
-                          "src": "834:2:4",
+                          "referencedDeclaration": 751,
+                          "src": "834:2:5",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_MetaData_$499_storage",
+                            "typeIdentifier": "t_struct$_MetaData_$543_storage",
                             "typeString": "struct Commons.MetaData storage ref"
                           }
                         },
-                        "id": 578,
+                        "id": 818,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "data",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 496,
-                        "src": "834:7:4",
+                        "referencedDeclaration": 540,
+                        "src": "834:7:5",
                         "typeDescriptions": {
                           "typeIdentifier": "t_string_storage",
                           "typeString": "string storage ref"
@@ -1075,53 +1117,53 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 579,
+                          "id": 819,
                           "name": "md",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 511,
-                          "src": "842:2:4",
+                          "referencedDeclaration": 751,
+                          "src": "842:2:5",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_MetaData_$499_storage",
+                            "typeIdentifier": "t_struct$_MetaData_$543_storage",
                             "typeString": "struct Commons.MetaData storage ref"
                           }
                         },
-                        "id": 580,
+                        "id": 820,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "dataRef",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 498,
-                        "src": "842:10:4",
+                        "referencedDeclaration": 542,
+                        "src": "842:10:5",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
                           "typeString": "bytes32"
                         }
                       }
                     ],
-                    "id": 581,
+                    "id": 821,
                     "isConstant": false,
                     "isInlineArray": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "nodeType": "TupleExpression",
-                    "src": "784:69:4",
+                    "src": "784:69:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$_t_bytes32_$_t_address_$_t_bool_$_t_bool_$_t_string_storage_$_t_bytes32_$",
                       "typeString": "tuple(bytes32,address,bool,bool,string storage ref,bytes32)"
                     }
                   },
-                  "functionReturnParameters": 568,
-                  "id": 582,
+                  "functionReturnParameters": 808,
+                  "id": 822,
                   "nodeType": "Return",
-                  "src": "777:76:4"
+                  "src": "777:76:5"
                 }
               ]
             },
-            "id": 584,
+            "id": 824,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -1129,23 +1171,23 @@
             "name": "getMetaData",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 555,
+              "id": 795,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "704:2:4"
+              "src": "704:2:5"
             },
             "payable": false,
             "returnParameters": {
-              "id": 568,
+              "id": 808,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 557,
+                  "id": 797,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 584,
-                  "src": "728:7:4",
+                  "scope": 824,
+                  "src": "728:7:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1153,10 +1195,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 556,
+                    "id": 796,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "728:7:4",
+                    "src": "728:7:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1167,11 +1209,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 559,
+                  "id": 799,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 584,
-                  "src": "736:7:4",
+                  "scope": 824,
+                  "src": "736:7:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1179,10 +1221,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 558,
+                    "id": 798,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "736:7:4",
+                    "src": "736:7:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -1193,11 +1235,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 561,
+                  "id": 801,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 584,
-                  "src": "744:4:4",
+                  "scope": 824,
+                  "src": "744:4:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1205,10 +1247,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 560,
+                    "id": 800,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "744:4:4",
+                    "src": "744:4:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -1219,11 +1261,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 563,
+                  "id": 803,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 584,
-                  "src": "749:4:4",
+                  "scope": 824,
+                  "src": "749:4:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1231,10 +1273,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 562,
+                    "id": 802,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "749:4:4",
+                    "src": "749:4:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -1245,11 +1287,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 565,
+                  "id": 805,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 584,
-                  "src": "754:6:4",
+                  "scope": 824,
+                  "src": "754:6:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1257,10 +1299,10 @@
                     "typeString": "string memory"
                   },
                   "typeName": {
-                    "id": 564,
+                    "id": 804,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "754:6:4",
+                    "src": "754:6:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string storage pointer"
@@ -1271,11 +1313,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 567,
+                  "id": 807,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 584,
-                  "src": "761:7:4",
+                  "scope": 824,
+                  "src": "761:7:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1283,10 +1325,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 566,
+                    "id": 806,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "761:7:4",
+                    "src": "761:7:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1296,58 +1338,58 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "727:42:4"
+              "src": "727:42:5"
             },
-            "scope": 611,
-            "src": "684:175:4",
+            "scope": 851,
+            "src": "684:175:5",
             "stateMutability": "view",
-            "superFunction": 164,
+            "superFunction": 208,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 592,
+              "id": 832,
               "nodeType": "Block",
-              "src": "919:26:4",
+              "src": "919:26:5",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
                     "expression": {
                       "argumentTypes": null,
-                      "id": 589,
+                      "id": 829,
                       "name": "md",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 511,
-                      "src": "933:2:4",
+                      "referencedDeclaration": 751,
+                      "src": "933:2:5",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_MetaData_$499_storage",
+                        "typeIdentifier": "t_struct$_MetaData_$543_storage",
                         "typeString": "struct Commons.MetaData storage ref"
                       }
                     },
-                    "id": 590,
+                    "id": 830,
                     "isConstant": false,
                     "isLValue": true,
                     "isPure": false,
                     "lValueRequested": false,
                     "memberName": "nsi",
                     "nodeType": "MemberAccess",
-                    "referencedDeclaration": 488,
-                    "src": "933:6:4",
+                    "referencedDeclaration": 532,
+                    "src": "933:6:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
                     }
                   },
-                  "functionReturnParameters": 588,
-                  "id": 591,
+                  "functionReturnParameters": 828,
+                  "id": 831,
                   "nodeType": "Return",
-                  "src": "926:13:4"
+                  "src": "926:13:5"
                 }
               ]
             },
-            "id": 593,
+            "id": 833,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -1355,23 +1397,23 @@
             "name": "getNamespace",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 585,
+              "id": 825,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "886:2:4"
+              "src": "886:2:5"
             },
             "payable": false,
             "returnParameters": {
-              "id": 588,
+              "id": 828,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 587,
+                  "id": 827,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 593,
-                  "src": "910:7:4",
+                  "scope": 833,
+                  "src": "910:7:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1379,10 +1421,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 586,
+                    "id": 826,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "910:7:4",
+                    "src": "910:7:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1392,58 +1434,58 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "909:9:4"
+              "src": "909:9:5"
             },
-            "scope": 611,
-            "src": "865:80:4",
+            "scope": 851,
+            "src": "865:80:5",
             "stateMutability": "view",
-            "superFunction": 184,
+            "superFunction": 228,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 601,
+              "id": 841,
               "nodeType": "Block",
-              "src": "1004:30:4",
+              "src": "1004:30:5",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
                     "expression": {
                       "argumentTypes": null,
-                      "id": 598,
+                      "id": 838,
                       "name": "md",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 511,
-                      "src": "1018:2:4",
+                      "referencedDeclaration": 751,
+                      "src": "1018:2:5",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_MetaData_$499_storage",
+                        "typeIdentifier": "t_struct$_MetaData_$543_storage",
                         "typeString": "struct Commons.MetaData storage ref"
                       }
                     },
-                    "id": 599,
+                    "id": 839,
                     "isConstant": false,
                     "isLValue": true,
                     "isPure": false,
                     "lValueRequested": false,
                     "memberName": "dataRef",
                     "nodeType": "MemberAccess",
-                    "referencedDeclaration": 498,
-                    "src": "1018:10:4",
+                    "referencedDeclaration": 542,
+                    "src": "1018:10:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
                     }
                   },
-                  "functionReturnParameters": 597,
-                  "id": 600,
+                  "functionReturnParameters": 837,
+                  "id": 840,
                   "nodeType": "Return",
-                  "src": "1011:17:4"
+                  "src": "1011:17:5"
                 }
               ]
             },
-            "id": 602,
+            "id": 842,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -1451,23 +1493,23 @@
             "name": "mdMultiHash",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 594,
+              "id": 834,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "971:2:4"
+              "src": "971:2:5"
             },
             "payable": false,
             "returnParameters": {
-              "id": 597,
+              "id": 837,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 596,
+                  "id": 836,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 602,
-                  "src": "995:7:4",
+                  "scope": 842,
+                  "src": "995:7:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1475,10 +1517,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 595,
+                    "id": 835,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "995:7:4",
+                    "src": "995:7:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1488,42 +1530,42 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "994:9:4"
+              "src": "994:9:5"
             },
-            "scope": 611,
-            "src": "951:83:4",
+            "scope": 851,
+            "src": "951:83:5",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 609,
+              "id": 849,
               "nodeType": "Block",
-              "src": "1088:26:4",
+              "src": "1088:26:5",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 607,
+                    "id": 847,
                     "name": "amount",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 513,
-                    "src": "1102:6:4",
+                    "referencedDeclaration": 753,
+                    "src": "1102:6:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "functionReturnParameters": 606,
-                  "id": 608,
+                  "functionReturnParameters": 846,
+                  "id": 848,
                   "nodeType": "Return",
-                  "src": "1095:13:4"
+                  "src": "1095:13:5"
                 }
               ]
             },
-            "id": 610,
+            "id": 850,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -1531,23 +1573,23 @@
             "name": "getAmount",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 603,
+              "id": 843,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1058:2:4"
+              "src": "1058:2:5"
             },
             "payable": false,
             "returnParameters": {
-              "id": 606,
+              "id": 846,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 605,
+                  "id": 845,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 610,
-                  "src": "1082:4:4",
+                  "scope": 850,
+                  "src": "1082:4:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1555,10 +1597,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 604,
+                    "id": 844,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1082:4:4",
+                    "src": "1082:4:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1568,33 +1610,33 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1081:6:4"
+              "src": "1081:6:5"
             },
-            "scope": 611,
-            "src": "1040:74:4",
+            "scope": 851,
+            "src": "1040:74:5",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 612,
-        "src": "86:1031:4"
+        "scope": 852,
+        "src": "86:1031:5"
       }
     ],
-    "src": "0:1119:4"
+    "src": "0:1119:5"
   },
   "legacyAST": {
     "absolutePath": "/G/GitRepository/udap/uc3/contracts/FungibleAsset.sol",
     "exportedSymbols": {
       "FungibleAsset": [
-        611
+        851
       ]
     },
-    "id": 612,
+    "id": 852,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 502,
+        "id": 742,
         "literals": [
           "solidity",
           "^",
@@ -1602,27 +1644,27 @@
           ".19"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:4"
+        "src": "0:24:5"
       },
       {
         "absolutePath": "/G/GitRepository/udap/uc3/contracts/Commons.sol",
         "file": "./Commons.sol",
-        "id": 503,
+        "id": 743,
         "nodeType": "ImportDirective",
-        "scope": 612,
-        "sourceUnit": 501,
-        "src": "28:23:4",
+        "scope": 852,
+        "sourceUnit": 545,
+        "src": "28:23:5",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
         "absolutePath": "/G/GitRepository/udap/uc3/contracts/AbstractAsset.sol",
         "file": "./AbstractAsset.sol",
-        "id": 504,
+        "id": 744,
         "nodeType": "ImportDirective",
-        "scope": 612,
-        "sourceUnit": 132,
-        "src": "53:29:4",
+        "scope": 852,
+        "sourceUnit": 176,
+        "src": "53:29:5",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -1632,88 +1674,88 @@
             "arguments": [],
             "baseName": {
               "contractScope": null,
-              "id": 505,
+              "id": 745,
               "name": "AbstractAsset",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 131,
-              "src": "112:13:4",
+              "referencedDeclaration": 175,
+              "src": "112:13:5",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_AbstractAsset_$131",
+                "typeIdentifier": "t_contract$_AbstractAsset_$175",
                 "typeString": "contract AbstractAsset"
               }
             },
-            "id": 506,
+            "id": 746,
             "nodeType": "InheritanceSpecifier",
-            "src": "112:13:4"
+            "src": "112:13:5"
           }
         ],
         "contractDependencies": [
-          131,
-          193
+          175,
+          237
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 611,
+        "id": 851,
         "linearizedBaseContracts": [
-          611,
-          131,
-          193
+          851,
+          175,
+          237
         ],
         "name": "FungibleAsset",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "id": 509,
+            "id": 749,
             "libraryName": {
               "contractScope": null,
-              "id": 507,
+              "id": 747,
               "name": "Commons",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 500,
-              "src": "137:7:4",
+              "referencedDeclaration": 544,
+              "src": "137:7:5",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Commons_$500",
+                "typeIdentifier": "t_contract$_Commons_$544",
                 "typeString": "library Commons"
               }
             },
             "nodeType": "UsingForDirective",
-            "src": "131:35:4",
+            "src": "131:35:5",
             "typeName": {
               "contractScope": null,
-              "id": 508,
+              "id": 748,
               "name": "Commons.MetaData",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 499,
-              "src": "149:16:4",
+              "referencedDeclaration": 543,
+              "src": "149:16:5",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_MetaData_$499_storage_ptr",
+                "typeIdentifier": "t_struct$_MetaData_$543_storage_ptr",
                 "typeString": "struct Commons.MetaData storage pointer"
               }
             }
           },
           {
             "constant": false,
-            "id": 511,
+            "id": 751,
             "name": "md",
             "nodeType": "VariableDeclaration",
-            "scope": 611,
-            "src": "193:27:4",
+            "scope": 851,
+            "src": "193:27:5",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_struct$_MetaData_$499_storage",
+              "typeIdentifier": "t_struct$_MetaData_$543_storage",
               "typeString": "struct Commons.MetaData storage ref"
             },
             "typeName": {
               "contractScope": null,
-              "id": 510,
+              "id": 750,
               "name": "Commons.MetaData",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 499,
-              "src": "193:16:4",
+              "referencedDeclaration": 543,
+              "src": "193:16:5",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_MetaData_$499_storage_ptr",
+                "typeIdentifier": "t_struct$_MetaData_$543_storage_ptr",
                 "typeString": "struct Commons.MetaData storage pointer"
               }
             },
@@ -1722,11 +1764,11 @@
           },
           {
             "constant": false,
-            "id": 513,
+            "id": 753,
             "name": "amount",
             "nodeType": "VariableDeclaration",
-            "scope": 611,
-            "src": "225:19:4",
+            "scope": 851,
+            "src": "225:19:5",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1734,10 +1776,10 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 512,
+              "id": 752,
               "name": "uint",
               "nodeType": "ElementaryTypeName",
-              "src": "225:4:4",
+              "src": "225:4:5",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
@@ -1748,28 +1790,28 @@
           },
           {
             "body": {
-              "id": 553,
+              "id": 793,
               "nodeType": "Block",
-              "src": "441:237:4",
+              "src": "441:237:5",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 547,
+                    "id": 787,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 537,
+                      "id": 777,
                       "name": "md",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 511,
-                      "src": "450:2:4",
+                      "referencedDeclaration": 751,
+                      "src": "450:2:5",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_MetaData_$499_storage",
+                        "typeIdentifier": "t_struct$_MetaData_$543_storage",
                         "typeString": "struct Commons.MetaData storage ref"
                       }
                     },
@@ -1780,12 +1822,12 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "id": 540,
+                          "id": 780,
                           "name": "_nsi",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 521,
-                          "src": "489:4:4",
+                          "referencedDeclaration": 761,
+                          "src": "489:4:5",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bytes32",
                             "typeString": "bytes32"
@@ -1793,12 +1835,12 @@
                         },
                         {
                           "argumentTypes": null,
-                          "id": 541,
+                          "id": 781,
                           "name": "_issuer",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 515,
-                          "src": "513:7:4",
+                          "referencedDeclaration": 755,
+                          "src": "513:7:5",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
@@ -1806,12 +1848,12 @@
                         },
                         {
                           "argumentTypes": null,
-                          "id": 542,
+                          "id": 782,
                           "name": "_transferrable",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 523,
-                          "src": "547:14:4",
+                          "referencedDeclaration": 763,
+                          "src": "547:14:5",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bool",
                             "typeString": "bool"
@@ -1820,14 +1862,14 @@
                         {
                           "argumentTypes": null,
                           "hexValue": "74727565",
-                          "id": 543,
+                          "id": 783,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
                           "kind": "bool",
                           "lValueRequested": false,
                           "nodeType": "Literal",
-                          "src": "583:4:4",
+                          "src": "583:4:5",
                           "subdenomination": null,
                           "typeDescriptions": {
                             "typeIdentifier": "t_bool",
@@ -1837,12 +1879,12 @@
                         },
                         {
                           "argumentTypes": null,
-                          "id": 544,
+                          "id": 784,
                           "name": "data",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 525,
-                          "src": "605:4:4",
+                          "referencedDeclaration": 765,
+                          "src": "605:4:5",
                           "typeDescriptions": {
                             "typeIdentifier": "t_string_memory_ptr",
                             "typeString": "string memory"
@@ -1850,12 +1892,12 @@
                         },
                         {
                           "argumentTypes": null,
-                          "id": 545,
+                          "id": 785,
                           "name": "_mdHash",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 527,
-                          "src": "630:7:4",
+                          "referencedDeclaration": 767,
+                          "src": "630:7:5",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bytes32",
                             "typeString": "bytes32"
@@ -1866,32 +1908,32 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 538,
+                          "id": 778,
                           "name": "Commons",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 500,
-                          "src": "455:7:4",
+                          "referencedDeclaration": 544,
+                          "src": "455:7:5",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_Commons_$500_$",
+                            "typeIdentifier": "t_type$_t_contract$_Commons_$544_$",
                             "typeString": "type(library Commons)"
                           }
                         },
-                        "id": 539,
+                        "id": 779,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "MetaData",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 499,
-                        "src": "455:16:4",
+                        "referencedDeclaration": 543,
+                        "src": "455:16:5",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_struct$_MetaData_$499_storage_ptr_$",
+                          "typeIdentifier": "t_type$_t_struct$_MetaData_$543_storage_ptr_$",
                           "typeString": "type(struct Commons.MetaData storage pointer)"
                         }
                       },
-                      "id": 546,
+                      "id": 786,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -1906,38 +1948,38 @@
                         "dataRef"
                       ],
                       "nodeType": "FunctionCall",
-                      "src": "455:192:4",
+                      "src": "455:192:5",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_MetaData_$499_memory",
+                        "typeIdentifier": "t_struct$_MetaData_$543_memory",
                         "typeString": "struct Commons.MetaData memory"
                       }
                     },
-                    "src": "450:197:4",
+                    "src": "450:197:5",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_MetaData_$499_storage",
+                      "typeIdentifier": "t_struct$_MetaData_$543_storage",
                       "typeString": "struct Commons.MetaData storage ref"
                     }
                   },
-                  "id": 548,
+                  "id": 788,
                   "nodeType": "ExpressionStatement",
-                  "src": "450:197:4"
+                  "src": "450:197:5"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 551,
+                    "id": 791,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 549,
+                      "id": 789,
                       "name": "amount",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 513,
-                      "src": "656:6:4",
+                      "referencedDeclaration": 753,
+                      "src": "656:6:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -1947,30 +1989,30 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 550,
+                      "id": 790,
                       "name": "_amount",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 529,
-                      "src": "665:7:4",
+                      "referencedDeclaration": 769,
+                      "src": "665:7:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       }
                     },
-                    "src": "656:16:4",
+                    "src": "656:16:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "id": 552,
+                  "id": 792,
                   "nodeType": "ExpressionStatement",
-                  "src": "656:16:4"
+                  "src": "656:16:5"
                 }
               ]
             },
-            "id": 554,
+            "id": 794,
             "implemented": true,
             "isConstructor": true,
             "isDeclaredConst": false,
@@ -1979,12 +2021,12 @@
                 "arguments": [
                   {
                     "argumentTypes": null,
-                    "id": 532,
+                    "id": 772,
                     "name": "_id",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 519,
-                    "src": "419:3:4",
+                    "referencedDeclaration": 759,
+                    "src": "419:3:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1992,12 +2034,12 @@
                   },
                   {
                     "argumentTypes": null,
-                    "id": 533,
+                    "id": 773,
                     "name": "_issuer",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 515,
-                    "src": "424:7:4",
+                    "referencedDeclaration": 755,
+                    "src": "424:7:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -2005,49 +2047,49 @@
                   },
                   {
                     "argumentTypes": null,
-                    "id": 534,
+                    "id": 774,
                     "name": "_owner",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 517,
-                    "src": "433:6:4",
+                    "referencedDeclaration": 757,
+                    "src": "433:6:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   }
                 ],
-                "id": 535,
+                "id": 775,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 531,
+                  "id": 771,
                   "name": "AbstractAsset",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 131,
-                  "src": "405:13:4",
+                  "referencedDeclaration": 175,
+                  "src": "405:13:5",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_type$_t_contract$_AbstractAsset_$131_$",
+                    "typeIdentifier": "t_type$_t_contract$_AbstractAsset_$175_$",
                     "typeString": "type(contract AbstractAsset)"
                   }
                 },
                 "nodeType": "ModifierInvocation",
-                "src": "405:35:4"
+                "src": "405:35:5"
               }
             ],
             "name": "FungibleAsset",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 530,
+              "id": 770,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 515,
+                  "id": 755,
                   "name": "_issuer",
                   "nodeType": "VariableDeclaration",
-                  "scope": 554,
-                  "src": "274:15:4",
+                  "scope": 794,
+                  "src": "274:15:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2055,10 +2097,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 514,
+                    "id": 754,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "274:7:4",
+                    "src": "274:7:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -2069,11 +2111,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 517,
+                  "id": 757,
                   "name": "_owner",
                   "nodeType": "VariableDeclaration",
-                  "scope": 554,
-                  "src": "290:14:4",
+                  "scope": 794,
+                  "src": "290:14:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2081,10 +2123,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 516,
+                    "id": 756,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "290:7:4",
+                    "src": "290:7:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -2095,11 +2137,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 519,
+                  "id": 759,
                   "name": "_id",
                   "nodeType": "VariableDeclaration",
-                  "scope": 554,
-                  "src": "306:8:4",
+                  "scope": 794,
+                  "src": "306:8:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2107,10 +2149,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 518,
+                    "id": 758,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "306:4:4",
+                    "src": "306:4:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -2121,11 +2163,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 521,
+                  "id": 761,
                   "name": "_nsi",
                   "nodeType": "VariableDeclaration",
-                  "scope": 554,
-                  "src": "316:12:4",
+                  "scope": 794,
+                  "src": "316:12:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2133,10 +2175,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 520,
+                    "id": 760,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "316:7:4",
+                    "src": "316:7:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -2147,11 +2189,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 523,
+                  "id": 763,
                   "name": "_transferrable",
                   "nodeType": "VariableDeclaration",
-                  "scope": 554,
-                  "src": "330:19:4",
+                  "scope": 794,
+                  "src": "330:19:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2159,10 +2201,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 522,
+                    "id": 762,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "330:4:4",
+                    "src": "330:4:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -2173,11 +2215,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 525,
+                  "id": 765,
                   "name": "data",
                   "nodeType": "VariableDeclaration",
-                  "scope": 554,
-                  "src": "350:11:4",
+                  "scope": 794,
+                  "src": "350:11:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2185,10 +2227,10 @@
                     "typeString": "string memory"
                   },
                   "typeName": {
-                    "id": 524,
+                    "id": 764,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "350:6:4",
+                    "src": "350:6:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string storage pointer"
@@ -2199,11 +2241,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 527,
+                  "id": 767,
                   "name": "_mdHash",
                   "nodeType": "VariableDeclaration",
-                  "scope": 554,
-                  "src": "362:15:4",
+                  "scope": 794,
+                  "src": "362:15:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2211,10 +2253,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 526,
+                    "id": 766,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "362:7:4",
+                    "src": "362:7:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -2225,11 +2267,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 529,
+                  "id": 769,
                   "name": "_amount",
                   "nodeType": "VariableDeclaration",
-                  "scope": 554,
-                  "src": "379:12:4",
+                  "scope": 794,
+                  "src": "379:12:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2237,10 +2279,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 528,
+                    "id": 768,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "379:4:4",
+                    "src": "379:4:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -2250,26 +2292,26 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "273:119:4"
+              "src": "273:119:5"
             },
             "payable": false,
             "returnParameters": {
-              "id": 536,
+              "id": 776,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "441:0:4"
+              "src": "441:0:5"
             },
-            "scope": 611,
-            "src": "251:427:4",
+            "scope": 851,
+            "src": "251:427:5",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 583,
+              "id": 823,
               "nodeType": "Block",
-              "src": "770:89:4",
+              "src": "770:89:5",
               "statements": [
                 {
                   "expression": {
@@ -2279,26 +2321,26 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 569,
+                          "id": 809,
                           "name": "md",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 511,
-                          "src": "785:2:4",
+                          "referencedDeclaration": 751,
+                          "src": "785:2:5",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_MetaData_$499_storage",
+                            "typeIdentifier": "t_struct$_MetaData_$543_storage",
                             "typeString": "struct Commons.MetaData storage ref"
                           }
                         },
-                        "id": 570,
+                        "id": 810,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "nsi",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 488,
-                        "src": "785:6:4",
+                        "referencedDeclaration": 532,
+                        "src": "785:6:5",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
                           "typeString": "bytes32"
@@ -2308,26 +2350,26 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 571,
+                          "id": 811,
                           "name": "md",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 511,
-                          "src": "793:2:4",
+                          "referencedDeclaration": 751,
+                          "src": "793:2:5",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_MetaData_$499_storage",
+                            "typeIdentifier": "t_struct$_MetaData_$543_storage",
                             "typeString": "struct Commons.MetaData storage ref"
                           }
                         },
-                        "id": 572,
+                        "id": 812,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "issuer",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 490,
-                        "src": "793:9:4",
+                        "referencedDeclaration": 534,
+                        "src": "793:9:5",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -2337,26 +2379,26 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 573,
+                          "id": 813,
                           "name": "md",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 511,
-                          "src": "804:2:4",
+                          "referencedDeclaration": 751,
+                          "src": "804:2:5",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_MetaData_$499_storage",
+                            "typeIdentifier": "t_struct$_MetaData_$543_storage",
                             "typeString": "struct Commons.MetaData storage ref"
                           }
                         },
-                        "id": 574,
+                        "id": 814,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "transferrable",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 492,
-                        "src": "804:16:4",
+                        "referencedDeclaration": 536,
+                        "src": "804:16:5",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
                           "typeString": "bool"
@@ -2366,26 +2408,26 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 575,
+                          "id": 815,
                           "name": "md",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 511,
-                          "src": "822:2:4",
+                          "referencedDeclaration": 751,
+                          "src": "822:2:5",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_MetaData_$499_storage",
+                            "typeIdentifier": "t_struct$_MetaData_$543_storage",
                             "typeString": "struct Commons.MetaData storage ref"
                           }
                         },
-                        "id": 576,
+                        "id": 816,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "fungible",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 494,
-                        "src": "822:11:4",
+                        "referencedDeclaration": 538,
+                        "src": "822:11:5",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
                           "typeString": "bool"
@@ -2395,26 +2437,26 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 577,
+                          "id": 817,
                           "name": "md",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 511,
-                          "src": "834:2:4",
+                          "referencedDeclaration": 751,
+                          "src": "834:2:5",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_MetaData_$499_storage",
+                            "typeIdentifier": "t_struct$_MetaData_$543_storage",
                             "typeString": "struct Commons.MetaData storage ref"
                           }
                         },
-                        "id": 578,
+                        "id": 818,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "data",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 496,
-                        "src": "834:7:4",
+                        "referencedDeclaration": 540,
+                        "src": "834:7:5",
                         "typeDescriptions": {
                           "typeIdentifier": "t_string_storage",
                           "typeString": "string storage ref"
@@ -2424,53 +2466,53 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 579,
+                          "id": 819,
                           "name": "md",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 511,
-                          "src": "842:2:4",
+                          "referencedDeclaration": 751,
+                          "src": "842:2:5",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_MetaData_$499_storage",
+                            "typeIdentifier": "t_struct$_MetaData_$543_storage",
                             "typeString": "struct Commons.MetaData storage ref"
                           }
                         },
-                        "id": 580,
+                        "id": 820,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "dataRef",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 498,
-                        "src": "842:10:4",
+                        "referencedDeclaration": 542,
+                        "src": "842:10:5",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
                           "typeString": "bytes32"
                         }
                       }
                     ],
-                    "id": 581,
+                    "id": 821,
                     "isConstant": false,
                     "isInlineArray": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "nodeType": "TupleExpression",
-                    "src": "784:69:4",
+                    "src": "784:69:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$_t_bytes32_$_t_address_$_t_bool_$_t_bool_$_t_string_storage_$_t_bytes32_$",
                       "typeString": "tuple(bytes32,address,bool,bool,string storage ref,bytes32)"
                     }
                   },
-                  "functionReturnParameters": 568,
-                  "id": 582,
+                  "functionReturnParameters": 808,
+                  "id": 822,
                   "nodeType": "Return",
-                  "src": "777:76:4"
+                  "src": "777:76:5"
                 }
               ]
             },
-            "id": 584,
+            "id": 824,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -2478,23 +2520,23 @@
             "name": "getMetaData",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 555,
+              "id": 795,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "704:2:4"
+              "src": "704:2:5"
             },
             "payable": false,
             "returnParameters": {
-              "id": 568,
+              "id": 808,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 557,
+                  "id": 797,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 584,
-                  "src": "728:7:4",
+                  "scope": 824,
+                  "src": "728:7:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2502,10 +2544,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 556,
+                    "id": 796,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "728:7:4",
+                    "src": "728:7:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -2516,11 +2558,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 559,
+                  "id": 799,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 584,
-                  "src": "736:7:4",
+                  "scope": 824,
+                  "src": "736:7:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2528,10 +2570,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 558,
+                    "id": 798,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "736:7:4",
+                    "src": "736:7:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -2542,11 +2584,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 561,
+                  "id": 801,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 584,
-                  "src": "744:4:4",
+                  "scope": 824,
+                  "src": "744:4:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2554,10 +2596,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 560,
+                    "id": 800,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "744:4:4",
+                    "src": "744:4:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -2568,11 +2610,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 563,
+                  "id": 803,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 584,
-                  "src": "749:4:4",
+                  "scope": 824,
+                  "src": "749:4:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2580,10 +2622,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 562,
+                    "id": 802,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "749:4:4",
+                    "src": "749:4:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -2594,11 +2636,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 565,
+                  "id": 805,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 584,
-                  "src": "754:6:4",
+                  "scope": 824,
+                  "src": "754:6:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2606,10 +2648,10 @@
                     "typeString": "string memory"
                   },
                   "typeName": {
-                    "id": 564,
+                    "id": 804,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "754:6:4",
+                    "src": "754:6:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string storage pointer"
@@ -2620,11 +2662,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 567,
+                  "id": 807,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 584,
-                  "src": "761:7:4",
+                  "scope": 824,
+                  "src": "761:7:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2632,10 +2674,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 566,
+                    "id": 806,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "761:7:4",
+                    "src": "761:7:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -2645,58 +2687,58 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "727:42:4"
+              "src": "727:42:5"
             },
-            "scope": 611,
-            "src": "684:175:4",
+            "scope": 851,
+            "src": "684:175:5",
             "stateMutability": "view",
-            "superFunction": 164,
+            "superFunction": 208,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 592,
+              "id": 832,
               "nodeType": "Block",
-              "src": "919:26:4",
+              "src": "919:26:5",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
                     "expression": {
                       "argumentTypes": null,
-                      "id": 589,
+                      "id": 829,
                       "name": "md",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 511,
-                      "src": "933:2:4",
+                      "referencedDeclaration": 751,
+                      "src": "933:2:5",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_MetaData_$499_storage",
+                        "typeIdentifier": "t_struct$_MetaData_$543_storage",
                         "typeString": "struct Commons.MetaData storage ref"
                       }
                     },
-                    "id": 590,
+                    "id": 830,
                     "isConstant": false,
                     "isLValue": true,
                     "isPure": false,
                     "lValueRequested": false,
                     "memberName": "nsi",
                     "nodeType": "MemberAccess",
-                    "referencedDeclaration": 488,
-                    "src": "933:6:4",
+                    "referencedDeclaration": 532,
+                    "src": "933:6:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
                     }
                   },
-                  "functionReturnParameters": 588,
-                  "id": 591,
+                  "functionReturnParameters": 828,
+                  "id": 831,
                   "nodeType": "Return",
-                  "src": "926:13:4"
+                  "src": "926:13:5"
                 }
               ]
             },
-            "id": 593,
+            "id": 833,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -2704,23 +2746,23 @@
             "name": "getNamespace",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 585,
+              "id": 825,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "886:2:4"
+              "src": "886:2:5"
             },
             "payable": false,
             "returnParameters": {
-              "id": 588,
+              "id": 828,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 587,
+                  "id": 827,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 593,
-                  "src": "910:7:4",
+                  "scope": 833,
+                  "src": "910:7:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2728,10 +2770,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 586,
+                    "id": 826,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "910:7:4",
+                    "src": "910:7:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -2741,58 +2783,58 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "909:9:4"
+              "src": "909:9:5"
             },
-            "scope": 611,
-            "src": "865:80:4",
+            "scope": 851,
+            "src": "865:80:5",
             "stateMutability": "view",
-            "superFunction": 184,
+            "superFunction": 228,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 601,
+              "id": 841,
               "nodeType": "Block",
-              "src": "1004:30:4",
+              "src": "1004:30:5",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
                     "expression": {
                       "argumentTypes": null,
-                      "id": 598,
+                      "id": 838,
                       "name": "md",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 511,
-                      "src": "1018:2:4",
+                      "referencedDeclaration": 751,
+                      "src": "1018:2:5",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_MetaData_$499_storage",
+                        "typeIdentifier": "t_struct$_MetaData_$543_storage",
                         "typeString": "struct Commons.MetaData storage ref"
                       }
                     },
-                    "id": 599,
+                    "id": 839,
                     "isConstant": false,
                     "isLValue": true,
                     "isPure": false,
                     "lValueRequested": false,
                     "memberName": "dataRef",
                     "nodeType": "MemberAccess",
-                    "referencedDeclaration": 498,
-                    "src": "1018:10:4",
+                    "referencedDeclaration": 542,
+                    "src": "1018:10:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
                     }
                   },
-                  "functionReturnParameters": 597,
-                  "id": 600,
+                  "functionReturnParameters": 837,
+                  "id": 840,
                   "nodeType": "Return",
-                  "src": "1011:17:4"
+                  "src": "1011:17:5"
                 }
               ]
             },
-            "id": 602,
+            "id": 842,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -2800,23 +2842,23 @@
             "name": "mdMultiHash",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 594,
+              "id": 834,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "971:2:4"
+              "src": "971:2:5"
             },
             "payable": false,
             "returnParameters": {
-              "id": 597,
+              "id": 837,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 596,
+                  "id": 836,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 602,
-                  "src": "995:7:4",
+                  "scope": 842,
+                  "src": "995:7:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2824,10 +2866,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 595,
+                    "id": 835,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "995:7:4",
+                    "src": "995:7:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -2837,42 +2879,42 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "994:9:4"
+              "src": "994:9:5"
             },
-            "scope": 611,
-            "src": "951:83:4",
+            "scope": 851,
+            "src": "951:83:5",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 609,
+              "id": 849,
               "nodeType": "Block",
-              "src": "1088:26:4",
+              "src": "1088:26:5",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 607,
+                    "id": 847,
                     "name": "amount",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 513,
-                    "src": "1102:6:4",
+                    "referencedDeclaration": 753,
+                    "src": "1102:6:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "functionReturnParameters": 606,
-                  "id": 608,
+                  "functionReturnParameters": 846,
+                  "id": 848,
                   "nodeType": "Return",
-                  "src": "1095:13:4"
+                  "src": "1095:13:5"
                 }
               ]
             },
-            "id": 610,
+            "id": 850,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -2880,23 +2922,23 @@
             "name": "getAmount",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 603,
+              "id": 843,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1058:2:4"
+              "src": "1058:2:5"
             },
             "payable": false,
             "returnParameters": {
-              "id": 606,
+              "id": 846,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 605,
+                  "id": 845,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 610,
-                  "src": "1082:4:4",
+                  "scope": 850,
+                  "src": "1082:4:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2904,10 +2946,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 604,
+                    "id": 844,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1082:4:4",
+                    "src": "1082:4:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -2917,20 +2959,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1081:6:4"
+              "src": "1081:6:5"
             },
-            "scope": 611,
-            "src": "1040:74:4",
+            "scope": 851,
+            "src": "1040:74:5",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 612,
-        "src": "86:1031:4"
+        "scope": 852,
+        "src": "86:1031:5"
       }
     ],
-    "src": "0:1119:4"
+    "src": "0:1119:5"
   },
   "compiler": {
     "name": "solc",
@@ -2938,5 +2980,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.0",
-  "updatedAt": "2018-05-07T04:16:23.673Z"
+  "updatedAt": "2018-05-09T02:56:19.952Z"
 }

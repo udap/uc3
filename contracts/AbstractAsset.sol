@@ -3,10 +3,14 @@ pragma solidity ^0.4.19;
 import './Asset.sol';
 
 contract AbstractAsset is Asset {
+  enum State {
+    ISSUED, APPROVED, REJECTED
+  }
   // a unique asset id
   uint private id;
   address private issuer;
   address private owner;
+  State public state;
 
   modifier onlyOwner {
     require(msg.sender == owner);
@@ -37,6 +41,15 @@ contract AbstractAsset is Asset {
     return issuer;
   }
 
+  function getState() public view returns (State) {
+    return state;
+  }
+
+  function setState(State _state) public onlyOwner{
+    require(state == State.ISSUED);
+    state = _state;
+  }
+
   function transfer(address _to) public onlyOwner {
     require(_to != address(0));
     owner = _to;
@@ -44,7 +57,8 @@ contract AbstractAsset is Asset {
   }
 
   function destroy() public onlyOwner {
-
+    require(state != State.APPROVED);
+    selfdestruct(owner); // destroy
   }
 
 }

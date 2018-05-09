@@ -7,8 +7,8 @@ import './FungibleAsset.sol';
 contract AssetToken is FungibleAsset, BasicToken {
     event Minted(address indexed to, uint256 amount);
 
-  function AssetToken(address _issuer, bytes32 _mdHash,uint _amount, uint _tokens)
-    FungibleAsset(_issuer, uint(keccak256(_issuer, _mdHash)),'',true,"",_mdHash, _amount)
+  function AssetToken(address _issuer,address _owner, bytes32 _mdHash,uint _amount, uint _tokens)
+    FungibleAsset(_issuer,_owner, uint(keccak256(_issuer, _mdHash)),'',true,"",_mdHash, _amount)
     public {
      totalSupply_ = _tokens;
      balances[_issuer] = totalSupply_;
@@ -28,7 +28,7 @@ contract AssetToken is FungibleAsset, BasicToken {
 contract Minter {
     function mint(address _asset, address _to, uint _tokens) public returns (address) {
         require(_asset != address(0) && tx.origin == Asset(_asset).getOwner());
-        AssetToken token = new AssetToken(FungibleAsset(_asset).getOwner(),FungibleAsset(_asset).mdMultiHash(),FungibleAsset(_asset).getAmount(),_tokens);
+        AssetToken token = new AssetToken(FungibleAsset(_asset).getIssuer(),FungibleAsset(_asset).getOwner(),FungibleAsset(_asset).mdMultiHash(),FungibleAsset(_asset).getAmount(),_tokens);
         return address(token);
     }
 }
