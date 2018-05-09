@@ -26,6 +26,7 @@ contract AbstractAsset is Asset {
     id = _id;
     issuer = _issuer;
     owner = _owner;
+    state = State.ISSUED;
     AssetCreated(address(this),id);
   }
 
