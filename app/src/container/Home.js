@@ -31,11 +31,11 @@ class Home extends React.Component {
 
   componentDidMount () {
     if (window.web3) {
-      this.instantiateContract()
+      // this.instantiateContract()
     }
   }
 
-  instantiateContract () {
+ /* instantiateContract () {
     let self = this
     let AssetRegistry = contract(assetRegistry_artifacts)
     let StandardAsset = contract(standardAsset_artifacts)
@@ -59,6 +59,44 @@ class Home extends React.Component {
         self.setState({inited: true})
       }
     })
+  }*/
+  getData () {
+        let self = this;
+        let AssetRegistry = contract(assetRegistry_artifacts);
+        let StandardAsset = contract(standardAsset_artifacts);
+        AssetRegistry.setProvider(web3.currentProvider);
+        StandardAsset.setProvider(web3.currentProvider);
+
+        AssetRegistry.deployed().then(function (instance) {
+            return instance.getOwnAssets.call({from: account})
+        }).then(assetAddrs => {
+            let warrants = [];
+            assetAddrs.forEach((addr, index) => {
+                self.getWarrant(addr).then(warrant => {
+                    warrants.push(warrant);
+                    self.setState({warrants: warrants})
+                })
+            });
+        });
+    }
+
+  getWarrant(addr){
+      let warrant;
+      return StandardAsset.at(addr).then(instance => {
+              return instance.getData.call({from: account})
+          }).then(metaData => {
+              warrant = JSON.parse(metaData);
+              return instance.getOwner.call({from: account})
+          }).then(owner => {
+              warrant.owner = owner;
+              return instance.getIssuer.call({from: account})
+          }).then(issuer => {
+              warrant.issuer = issuer;
+              return instance.getState.call({from: account})
+          }).then(state => {
+              warrant.state = state;
+              return warrant;
+          })
   }
 
   handleScroll=(e)=>{
