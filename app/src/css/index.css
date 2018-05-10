@@ -141,3 +141,12 @@ i{
 .am-list-item .am-input-control input{
   font-size:13px;
 }
+
+.pcShow{
+  display: none;
+}
+@media screen and (min-width: 540px) {
+  .pcShow{
+    display: block;
+  }
+}

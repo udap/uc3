@@ -167,7 +167,7 @@ class Issue extends Component {
         Toast.hide()
         self.props.history.push( '/',null)
     }).catch(function (e) {
-        Toast.offline('There was an error fetching your accounts!!!', 3)
+        console.log(e)
     });
 
   };
