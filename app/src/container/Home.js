@@ -77,10 +77,11 @@ class Home extends React.Component {
       }
     })
   }*/
-  getData (lastIndex,size,pc) {
-        Toast.loading('Loading...',0);
+  getData (lastIndex,size,loading,pc) {
+        if(loading){
+          Toast.loading('Loading...',0);          
+        }
         let self = this;
-        if(pc) self.oldWarrantsList = [];
         let AssetRegistry = contract(assetRegistry_artifacts);
         AssetRegistry.setProvider(web3.currentProvider);
 
@@ -90,17 +91,18 @@ class Home extends React.Component {
             maxNum = assetAddrs.length;
             let endNumd;
             endNumd = (lastIndex + size)>maxNum?maxNum:(lastIndex + size);
-           
-           if(pc){
-              self.oldWarrantsList=assetAddrs.slice(lastIndex,endNumd)
-           }else{
-              for (var i = lastIndex; i < endNumd; i++) {
-                self.oldWarrantsList.push(assetAddrs[i])
-              }
-           }
+            let lists = [];
+           for (var i = lastIndex; i < endNumd; i++) {
+              self.oldWarrantsList.push(assetAddrs[i])
+            }
+            if(pc){
+                 lists=assetAddrs.slice(lastIndex,endNumd)
+             }else{
+                 lists = self.oldWarrantsList;
+             }
             lastIndex = self.oldWarrantsList.length;
             let warrants = [];
-            self.oldWarrantsList.forEach((addr, index) => {
+            lists.forEach((addr, index) => {
                self.getWarrant(addr).then(warrant => {
                     warrants.push(warrant);
                     self.setState({
@@ -149,7 +151,7 @@ class Home extends React.Component {
       inited:false
     })
     this.oldWarrantsList=[];
-    this.getData(0,this.state.pageSize,true);                
+    this.getData(0,this.state.pageSize,false,true);                
   }
 
   handleScroll=(e)=>{
@@ -185,11 +187,11 @@ class Home extends React.Component {
   selectPage = (page)=> {
       if (this.state.selectedPage != page) {
           this.state.selectedPage = page;
-          this.oldWarrantsList=[];
           if(page==1){
+            this.oldWarrantsList=[];
             this.getData(0,this.state.pageSize,true);                
           }else{
-            this.getData(this.state.selectedPage,this.state.selectedPage*this.state.pageSize,true);
+            this.getData((this.state.selectedPage-1)*this.state.pageSize,this.state.pageSize,true,true);
           }
       }
      this.setState({})
