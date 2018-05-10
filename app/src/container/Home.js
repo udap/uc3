@@ -187,7 +187,7 @@ class Home extends React.Component {
           this.state.selectedPage = page;
           this.oldWarrantsList=[];
           if(page==1){
-            this.onRefresh();
+            this.getData(0,this.state.pageSize,true);                
           }else{
             this.getData(this.state.selectedPage,this.state.selectedPage*this.state.pageSize,true);
           }
@@ -219,7 +219,7 @@ class Home extends React.Component {
             {content}
           </PullToRefresh>
           <Pagination className="pcShow" 
-              total={parseInt(maxNum/this.state.pageSize)+1} 
+              total={parseInt((maxNum-1)/this.state.pageSize)+1} 
               current={this.state.selectedPage} 
               locale={locale} 
               onChange={this.selectPage}
