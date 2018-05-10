@@ -90,8 +90,11 @@ class Issue extends Component {
   }
 
    _validate = () => {
+
       let constraints = {
-          "recipient":{ presence: {message:'^recipient is required'}},
+          "recipient":{ 
+            presence: {message:'^recipient is required'}
+          },
           "warrantCode":{presence: {message:'^warrantCode is required'}},
           "productName":{ presence: {message:'^productName is required'}},
           "totalWeight":{ 
@@ -111,11 +114,13 @@ class Issue extends Component {
           "warehouseAddress":warrant.warehouseAddress
       };
        let errors = validate(attributes,constraints);
-      if (errors) {
+       let recipient = window.web3.isAddress(warrant.recipient);
+      if (errors||!recipient) {
           let result = "",attr;
           for(attr in errors) {
               result = result + "<li><span>"+errors[attr]+"</span></li>";
           }
+          if (!recipient) result = result + "<li><span>Please enter the correct 42 bit of recipient!</span></li>";
           result = result + "";
           return (<div style={{textAlign:'left'}} dangerouslySetInnerHTML={{__html:result}}></div>)
       }
