@@ -3,8 +3,7 @@ import {Link} from 'react-router-dom'
 import { WhiteSpace, Card,List} from 'antd-mobile'
 import PopoverItem from '../PopoverItem'
 
-
-const iconMap = {created: 'fa-calendar-o', accepted: 'fa-calendar-check-o', issued: 'fa-calendar-plus-o'}
+const iconMap = {'0': 'fa-calendar-minus-o', '1': 'fa-calendar-check-o', '2': 'fa-calendar-times-o'}
 export default class Lists extends React.Component {
   constructor (props) {
     super(props)
@@ -27,8 +26,10 @@ export default class Lists extends React.Component {
   }
 
   render(){
-    let iconStatu = <i style={{color: '#f30'}} className={`fa ${iconMap['issued']}`} />
+
     let warrant = this.state.warrant;
+    let state = warrant.state.toString();
+    let iconStatu = <i style={{color: '#f30'}} className={`fa ${iconMap[state]}`} />
     return (
       <div key={this.state.index}>
         <WhiteSpace size='lg' />

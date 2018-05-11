@@ -24,12 +24,14 @@ export default class PopoverItem extends React.Component {
         overlay={[(<Popover.Item key='4' value={this.props.value} data-seed='logId'>{this.props.value}</Popover.Item>)]}
         onVisibleChange={this.handleVisibleChange}
         >
-        <div style={{
+        <div style={{/*
           overflow: 'hidden',
           whiteSpace: 'nowrap',
-          textOverflow: 'ellipsis'
-        }}>
-        {this.props.value}
+          textOverflow: 'ellipsis',
+          maxWidth:'150px',
+          float:'right'
+        */}}>
+        {this.props.value.substring(0,5)}...{this.props.value.substring(this.props.value.length-5)}
         </div>
       </Popover>
     )
