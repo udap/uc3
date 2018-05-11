@@ -18,6 +18,7 @@ class Home extends React.Component {
   constructor (props) {
     super(props)
     this.oldWarrantsList = [];
+    this.beforeList=[];
     this.state = {
       inited: false,
       warrants: [],
@@ -95,18 +96,20 @@ class Home extends React.Component {
            for (var i = lastIndex; i < endNumd; i++) {
               self.oldWarrantsList.push(assetAddrs[i])
             }
-            if(pc){
+            /*if(pc){
                  lists=assetAddrs.slice(lastIndex,endNumd)
              }else{
                  lists = self.oldWarrantsList;
-             }
+             }*/
+            lists=assetAddrs.slice(lastIndex,endNumd)
             lastIndex = self.oldWarrantsList.length;
             let warrants = [];
             lists.forEach((addr, index) => {
                self.getWarrant(addr).then(warrant => {
                     warrants.push(warrant);
+                    this.beforeList.push(warrant);
                     self.setState({
-                      warrants: warrants, 
+                      warrants: pc?warrants:this.beforeList, 
                       lastIndex:lastIndex,
                       inited: true
                     }, ()=> {
@@ -151,6 +154,7 @@ class Home extends React.Component {
       inited:false
     })
     this.oldWarrantsList=[];
+    this.beforeList=[];
     this.getData(0,this.state.pageSize,false,true);                
   }
 
@@ -168,8 +172,9 @@ class Home extends React.Component {
   }
 
   onRefresh=() => {
-    if(this.state.down){
+    if(this.state.down){//pull up
       if(this.oldWarrantsList.length!==0){
+        this.beforeList=[];
         this.oldWarrantsList=[];
         this.getData(0,this.state.lastIndex);        
       }else{
@@ -177,6 +182,7 @@ class Home extends React.Component {
       }
     }else{
       if (this.state.lastIndex >= maxNum) {
+         this.beforeList=[];
          Toast.info('All load has been completed!!!', 2);
           return;
       }
@@ -189,7 +195,7 @@ class Home extends React.Component {
           this.state.selectedPage = page;
           if(page==1){
             this.oldWarrantsList=[];
-            this.getData(0,this.state.pageSize,true);                
+            this.getData(0,this.state.pageSize,true,true);                
           }else{
             this.getData((this.state.selectedPage-1)*this.state.pageSize,this.state.pageSize,true,true);
           }
@@ -203,6 +209,7 @@ class Home extends React.Component {
       <div className='center'><Icon type='loading' /></div>
     </WingBlank>
   }
+
   listData () {
     if (this.state.warrants.length == 0) {
       return <img className='empty' src={empty} />
