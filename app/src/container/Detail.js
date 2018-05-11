@@ -7,7 +7,11 @@ import PopoverItem from '../components/PopoverItem'
 const Item = List.Item
 const prompt = Modal.prompt
 const alert = Modal.alert;
-
+const stateObj = {
+  0:'ISSUED',
+  1:'APPROVED',
+  2:'REJECTED'
+}
 export default class Detail extends React.Component {
   constructor (props) {
     super(props)
@@ -27,8 +31,36 @@ export default class Detail extends React.Component {
     });
   }
 
+  accept=()=>{
+    console.log("accept")
+  }
+  reject=()=>{
+    console.log("reject")
+  }
+  delete=()=>{
+    console.log("delete")
+  }
+
   render () {
-    const data = this.state.data
+    let newData = Object.entries(this.state.data);
+    let arrList = [];
+    let products = []
+    let state = {}
+    for(var [key, val] of newData) {
+      if(key=="products"){
+        products = val;
+        continue;
+      }
+      if(key=="addr"){
+        continue;
+      }
+      if(key=="state"){
+        state=stateObj[val.toString()];
+        arrList.push({key:key, val:state});
+        continue;
+      }
+      arrList.push({key:key, val:val});
+    }
     return (
       <div className='detail'>
         <NavBar
@@ -39,39 +71,60 @@ export default class Detail extends React.Component {
         ></NavBar>
        
         <List renderHeader={() => 'Basic Infor'} className='my-list basic'>
-          <Item wrap extra={<PopoverItem visible={this.state.visible} value='0xcD86431E62Bca1F4Fbef76669D3FB22B90fc83b1' handleVisibleChange={this.handleVisibleChange}/>}>Owner</Item>
-          <Item wrap extra={<PopoverItem visible={this.state.visible} value='20xcD86431E62Bca1F4Fbef76669D3FB22B90fc83b1' handleVisibleChange={this.handleVisibleChange}/>}>Supervise</Item>
-          <Item wrap extra={data.productName}>Product</Item>
-          <Item wrap extra={''}>Number Of Pieces</Item>
-          <Item wrap extra={data.totalWeight}>Total Weight</Item>
-          <Item wrap extra={data.storageRoomCode}>StorageRoom Code</Item>
-          <Item wrap extra={data.warehouseAddress}>Warehouse address Code</Item>
-          <Item wrap extra={'-'}>Pledge</Item>
-          <Item wrap extra={'2018-01-08'}>Creation date</Item>
+          {
+            arrList.map((obj,index)=> <Item key={index} wrap extra={(obj.key=='issuer'||obj.key=='owner')?
+            <PopoverItem visible={this.state.visible} value={obj.val} 
+              handleVisibleChange={this.handleVisibleChange}/>:obj.val}>
+              {obj.key}
+              </Item>)
+          }
         </List>
         <List renderHeader={() => 'Items'} className='my-list'>
         </List>
         <div style={{ marginTop: 10, marginBottom: 10 }}>
           <Accordion className='my-accordion' onChange={this.onChange}>
             {
-                  this.state.data.products.map((detail, index) => <Accordion.Panel key={index} header={'Item#' + (index + 1)} className='pad'>
-                    <Item wrap extra={detail.sku}>SKU</Item>
-                    <Item wrap extra={detail.origin}>Produced in</Item>
-                    <Item wrap extra={detail.specName}>Spec Name</Item>
-                    <Item wrap extra={detail.numberOfPieces}>Number Of Pieces</Item>
-                    <Item wrap extra={detail.weight + detail.unit}>Total Weight</Item>
+                  products.map((detail, index) => <Accordion.Panel key={index} header={'Item#' + (index + 1)} className='pad'>
+                    <Item wrap extra={detail.sku}>sku</Item>
+                    <Item wrap extra={detail.producedIn}>producedIn</Item>
+                    <Item wrap extra={detail.specName}>specName</Item>
+                    <Item wrap extra={detail.amount}>amount</Item>
+                    <Item wrap extra={detail.weight + detail.unit}>totalWeight</Item>
                   </Accordion.Panel>)
                 }
           </Accordion>
         </div>
-
-
           {/*<Link to={{pathname: '/pledge', state: data}}>
             <p className='btn'>PLEDGE</p>
           </Link>*/}
           {
-            data.status=='issue'?
-          <Button type='primary' type="ghost" inline onClick={() => prompt('Transfer', 'please input Recipient address',
+            state==stateObj[0]?
+              <div className="flex-container"><Flex justify="center">
+              <Flex.Item>
+              <Button  type='primary'  
+                 onClick={() =>
+                   alert('Accept', 'Are you sure???', [
+                     { text: 'Cancel', onPress: () => console.log('cancel') },
+                     { text: 'Ok', onPress: () => this.accept() },
+                   ])
+                 }
+               >
+                 accept
+               </Button>
+              </Flex.Item>
+              <Flex.Item>
+              <Button   type='primary' 
+                   onClick={() =>
+                     alert('Reject', 'Are you sure???', [
+                       { text: 'Cancel', onPress: () => console.log('cancel') },
+                       { text: 'Ok', onPress: () => this.reject() },
+                     ])
+                   }
+                 >
+                   reject
+                 </Button></Flex.Item></Flex>
+          </div>:(state==stateObj[1]?
+          <Flex.Item><Button type='primary' onClick={() => prompt('Transfer', 'please input Recipient address',
             [
               {
                 text: 'Close'
@@ -90,39 +143,17 @@ export default class Detail extends React.Component {
                 })
               }
             ], 'default', null, ['input your Recipient address'])}
-             >TRANSFER</Button>:
-              <div className="flex-container"><Flex justify="center">
-              <Flex.Item><Button  type='primary'  
-                 onClick={() =>
-                   alert('Accept', 'Are you sure???', [
-                     { text: 'Cancel', onPress: () => console.log('cancel') },
-                     { text: 'Ok', onPress: () => console.log('ok') },
-                   ])
-                 }
-               >
-                 accept
-               </Button></Flex.Item>
-              <Flex.Item><Button   type='primary' 
-                   onClick={() =>
-                     alert('Reject', 'Are you sure???', [
-                       { text: 'Cancel', onPress: () => console.log('cancel') },
-                       { text: 'Ok', onPress: () => console.log('ok') },
-                     ])
-                   }
-                 >
-                   reject
-                 </Button></Flex.Item>
+             >TRANSFER</Button></Flex.Item>:
                  <Flex.Item><Button  type='warning' 
                      onClick={() =>
                        alert('Delete', 'Are you sure???', [
                          { text: 'Cancel', onPress: () => console.log('cancel') },
-                         { text: 'Ok', onPress: () => console.log('ok') },
+                         { text: 'Ok', onPress: () => this.delete() },
                        ])
                      }
                    >
                      delete
-                   </Button></Flex.Item>
-            </Flex></div>
+                   </Button></Flex.Item>)
         }
 
       </div>
