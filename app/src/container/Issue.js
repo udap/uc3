@@ -43,7 +43,16 @@ class Issue extends Component {
   }
 
   refreshSku=(sku)=>{
-   let skus = this.state.arrSku.concat([sku])
+    let item = {
+    'sku': sku.sku,
+    'producedIn': sku.producedIn,
+    'specName': sku.specName,
+    'amount': sku.amount,
+    'weight': sku.weight,
+    'unit': sku.unit
+    }
+    sku.item = item;
+    let skus = this.state.arrSku.concat([sku])
     this.state.warrant.arrSku = skus;
     this.setState({
       arrSku:skus,
@@ -128,23 +137,27 @@ class Issue extends Component {
   };
   getData =  () => {
         let amount = 0;
-        for(let i = 0; i< this.state.warrant.arrSku.length-1 ; i++){
+        let arrSku = this.state.warrant.arrSku;
+        let newProducts = [];
+        for(let i = 0; i< arrSku.length; i++){
             // let product  = new Product(arrSku[i].sku,arrSku[i].producedIn,arrSku[i].specName,arrSku[i].amount,arrSku[i].weight,arrSku[i].unit);
-            let amount = arrSku[i].value;
-            let weight = arrSku[i].weight;
-            if(unit == "KG")
-                amount += weight*amount*2;
-            else if (unit == "TON")
-                amount +=  weight*amount*2000;
+            let proAmount = arrSku[i].amount;
+            let proWeight = arrSku[i].weight;
+            let proUnit = arrSku[i].unit;
+            if(proUnit == "KG")
+                amount += proWeight*proAmount*2;
+            else if (proUnit == "TON")
+                amount +=  proWeight*proAmount*2000;
             else
-                amount +=  weight*amount;
+                amount +=  proWeight*proAmount;
+            newProducts.push(arrSku[i].item);
         }
         let totalWeight = amount+"JIN";
         if(amount > 2000){
             totalWeight = amount / 2000.0 +"TON";
         }
         let  warrant  = this.state.warrant;
-        let result = new Warrant(warrant.warrantCode,warrant.productName,totalWeight,warrant.storageRoomCode,warrant.warehouseAddress,this.state.warrant.arrSku);
+        let result = new Warrant(warrant.warrantCode,warrant.productName,totalWeight,warrant.storageRoomCode,warrant.warehouseAddress,newProducts);
         return result;
   };
 
