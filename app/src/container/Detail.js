@@ -4,6 +4,10 @@ import {
   Link
 } from 'react-router-dom'
 import PopoverItem from '../components/PopoverItem'
+
+import standardAsset_artifacts from '../../../build/contracts/StandardAsset.json'
+import { default as contract } from 'truffle-contract';
+
 const Item = List.Item
 const prompt = Modal.prompt
 const alert = Modal.alert;
@@ -12,6 +16,13 @@ const stateObj = {
   1:'APPROVED',
   2:'REJECTED'
 }
+const stateToNum = {
+    'ISSUED':0,
+    'APPROVED':1,
+    'REJECTED':2
+}
+const StandardAsset = contract(standardAsset_artifacts);
+StandardAsset.setProvider(web3.currentProvider);
 export default class Detail extends React.Component {
   constructor (props) {
     super(props)
@@ -31,11 +42,34 @@ export default class Detail extends React.Component {
     });
   }
 
-  accept=()=>{
-    console.log("accept")
+  accept=()=> {
+      StandardAsset.at(this.state.data.addr).then(instance => {
+          return instance.setState(stateToNum['APPROVED'], {from: account})
+      }).then(result => {
+          console.log(result);
+      });
   }
   reject=()=>{
-    console.log("reject")
+      StandardAsset.at(this.state.data.addr).then(instance => {
+          return instance.setState(stateToNum['REJECTED'], {from: account})
+      }).then(result => {
+          console.log(result);
+      });
+  }
+  transfer(){
+      prompt('Transfer', 'please input Recipient address',[ {text: 'Close'},{text: 'Submit',
+                  onPress: value => new Promise((resolve, reject) => {
+                      if (value) {
+                          resolve(value)
+                          console.log(`value:${value}`)
+                      } else {
+                          reject()
+                          Toast.info('Recipient address is required !!!', 1)
+                          return false
+                      }
+                  })
+              }
+          ], 'default', null, ['input your Recipient address'])
   }
   delete=()=>{
     console.log("delete")
@@ -124,26 +158,8 @@ export default class Detail extends React.Component {
                    reject
                  </Button></Flex.Item></Flex>
           </div>:(state==stateObj[1]?
-          <Flex.Item><Button type='primary' onClick={() => prompt('Transfer', 'please input Recipient address',
-            [
-              {
-                text: 'Close'
-              },
-              {
-                text: 'Submit',
-                onPress: value => new Promise((resolve, reject) => {
-                  if (value) {
-                    resolve(value)
-                    console.log(`value:${value}`)
-                  } else {
-                    reject()
-                    Toast.info('Recipient address is required !!!', 1)
-                    return false
-                  }
-                })
-              }
-            ], 'default', null, ['input your Recipient address'])}
-             >TRANSFER</Button></Flex.Item>:
+          <Flex.Item><Button type='primary' onClick={this.transfer()}>TRANSFER</Button>
+          </Flex.Item>:
                  <Flex.Item><Button  type='warning' 
                      onClick={() =>
                        alert('Delete', 'Are you sure???', [
