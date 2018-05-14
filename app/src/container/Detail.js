@@ -56,6 +56,7 @@ export default class Detail extends React.Component {
       });
   }
   reject=()=>{
+      let self = this;
       StandardAsset.at(this.state.data.addr).then(instance => {
           return instance.setState(stateToNum['REJECTED'], {from: account})
       }).then(result => {
