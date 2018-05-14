@@ -67,9 +67,8 @@ export default class Detail extends React.Component {
           Toast.fail(e.toString());
       });
   }
-  transfer(){
-      prompt('Transfer', 'please input Recipient address',[ {text: 'Close'},{text: 'Submit',
-                  onPress: value => new Promise((resolve, reject) => {
+  transfer = () =>{
+      prompt('Transfer', 'please input Recipient address',[ {text: 'Close'},{text: 'Submit',onPress: value => new Promise((resolve, reject) => {
                       if (value) {
                           resolve(value)
                           console.log(`value:${value}`)
@@ -80,10 +79,48 @@ export default class Detail extends React.Component {
                       }
                   })
               }
-          ], 'default', null, ['input your Recipient address'])
+          ], 'default', null, ['input your Recipient address']);
   }
   delete=()=>{
     console.log("delete")
+  }
+  renderButtons(state){
+      let buttons = "";
+      if (state==stateObj[0]){
+          buttons = <div className="flex-container"><Flex justify="center">
+              <Flex.Item>
+                  <Button  type='primary' onClick={() =>alert('Accept', 'Are you sure???', [
+                      { text: 'Cancel', onPress: () => console.log('cancel') },
+                      { text: 'Ok', onPress: () => this.accept() },
+                  ])}>
+                      accept
+                  </Button>
+              </Flex.Item>
+              <Flex.Item>
+                  <Button   type='primary'
+                            onClick={() =>
+                                alert('Reject', 'Are you sure???', [
+                                    { text: 'Cancel', onPress: () => console.log('cancel') },
+                                    { text: 'Ok', onPress: () => this.reject() },
+                                ])
+                            }>
+                      reject
+                  </Button></Flex.Item></Flex>
+          </div>;
+
+      }else if (state==stateObj[1]){
+          buttons = <Flex.Item><Button type='primary' onClick={this.transfer}>TRANSFER</Button></Flex.Item>;
+      }else {
+          buttons = <Flex.Item>
+                      <Button  type='warning' onClick={() => alert('Delete', 'Are you sure???', [
+                          { text: 'Cancel', onPress: () => console.log('cancel') },
+                          { text: 'Ok', onPress: () => this.delete() },
+                      ])} >
+                          delete
+                      </Button>
+                  </Flex.Item>;
+      }
+      return buttons;
   }
 
   render () {
@@ -106,6 +143,7 @@ export default class Detail extends React.Component {
       }
       arrList.push({key:key, val:val});
     }
+
     return (
       <div className='detail'>
         <NavBar
@@ -139,50 +177,7 @@ export default class Detail extends React.Component {
                 }
           </Accordion>
         </div>
-          {/*<Link to={{pathname: '/pledge', state: data}}>
-            <p className='btn'>PLEDGE</p>
-          </Link>*/}
-          {
-            state==stateObj[0]?
-              <div className="flex-container"><Flex justify="center">
-              <Flex.Item>
-              <Button  type='primary'  
-                 onClick={() =>
-                   alert('Accept', 'Are you sure???', [
-                     { text: 'Cancel', onPress: () => console.log('cancel') },
-                     { text: 'Ok', onPress: () => this.accept() },
-                   ])
-                 }
-               >
-                 accept
-               </Button>
-              </Flex.Item>
-              <Flex.Item>
-              <Button   type='primary' 
-                   onClick={() =>
-                     alert('Reject', 'Are you sure???', [
-                       { text: 'Cancel', onPress: () => console.log('cancel') },
-                       { text: 'Ok', onPress: () => this.reject() },
-                     ])
-                   }
-                 >
-                   reject
-                 </Button></Flex.Item></Flex>
-          </div>:(state==stateObj[1]?
-          <Flex.Item><Button type='primary' onClick={this.transfer()}>TRANSFER</Button>
-          </Flex.Item>:
-                 <Flex.Item><Button  type='warning' 
-                     onClick={() =>
-                       alert('Delete', 'Are you sure???', [
-                         { text: 'Cancel', onPress: () => console.log('cancel') },
-                         { text: 'Ok', onPress: () => this.delete() },
-                       ])
-                     }
-                   >
-                     delete
-                   </Button></Flex.Item>)
-        }
-
+          {this.renderButtons(state)}
       </div>
     )
   }
