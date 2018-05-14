@@ -50,39 +50,60 @@ export default class Detail extends React.Component {
       }).then(result => {
           Toast.hide();
           self.props.history.push( '/',null);
-      }).catch(function (e) {
+      }).catch(e => {
           Toast.hide();
-          Toast.fail(e.toString());
+          Toast.fail(e.name);
       });
   }
   reject=()=>{
       let self = this;
       StandardAsset.at(this.state.data.addr).then(instance => {
+          Toast.loading('Loading...',0);
           return instance.setState(stateToNum['REJECTED'], {from: account})
       }).then(result => {
           Toast.hide();
           self.props.history.push( '/',null);
-      }).catch(function (e) {
+      }).catch(e => {
           Toast.hide();
-          Toast.fail(e.toString());
+          Toast.fail(e.name,5);
       });
   }
   transfer = () =>{
+      let self = this;
       prompt('Transfer', 'please input Recipient address',[ {text: 'Close'},{text: 'Submit',onPress: value => new Promise((resolve, reject) => {
-                      if (value) {
-                          resolve(value)
-                          console.log(`value:${value}`)
+
+                      if (value && web3.isAddress(value)){
+                          StandardAsset.at(self.state.data.addr).then(instance => {
+                              Toast.loading('Loading...',0);
+                              return instance.transfer(value, {from: account});
+                          }).then(result => {
+                              Toast.hide();
+                              self.props.history.push( '/',null);
+                              resolve(value)
+                          }).catch(e => {
+                              Toast.hide();
+                              Toast.fail(e.name,2);
+                              reject()
+                          });
                       } else {
+                          Toast.info('Please enter the correct address', 1);
                           reject()
-                          Toast.info('Recipient address is required !!!', 1)
-                          return false
                       }
                   })
               }
           ], 'default', null, ['input your Recipient address']);
   }
   delete=()=>{
-    console.log("delete")
+      let self = this;
+      StandardAsset.at(this.state.data.addr).then(instance => {
+          return instance.destroy({from: account})
+      }).then(result => {
+          Toast.hide();
+          self.props.history.push( '/',null);
+      }).catch(e => {
+          Toast.hide();
+          Toast.fail(e.name,5);
+      });
   }
   renderButtons(state){
       let buttons = "";
