@@ -43,17 +43,27 @@ export default class Detail extends React.Component {
   }
 
   accept=()=> {
+      let self = this;
       StandardAsset.at(this.state.data.addr).then(instance => {
+          Toast.loading('Loading...',0);
           return instance.setState(stateToNum['APPROVED'], {from: account})
       }).then(result => {
-          console.log(result);
+          Toast.hide();
+          self.props.history.push( '/',null);
+      }).catch(function (e) {
+          Toast.hide();
+          Toast.fail(e.toString());
       });
   }
   reject=()=>{
       StandardAsset.at(this.state.data.addr).then(instance => {
           return instance.setState(stateToNum['REJECTED'], {from: account})
       }).then(result => {
-          console.log(result);
+          Toast.hide();
+          self.props.history.push( '/',null);
+      }).catch(function (e) {
+          Toast.hide();
+          Toast.fail(e.toString());
       });
   }
   transfer(){
