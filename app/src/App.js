@@ -4,7 +4,7 @@ import {
   Route,
   Switch
 } from 'react-router-dom'
-import { NoticeBar, Toast } from 'antd-mobile'
+import { NoticeBar, Modal } from 'antd-mobile'
 import {
   Home,
   ISSUE,
@@ -24,7 +24,9 @@ export default class App extends React.Component {
     super(props)
     this.state = {
       web3: null,
-      account: null
+      account: null,
+      modal: false,
+      text: null
     }
   }
   componentWillMount () {
@@ -39,15 +41,27 @@ export default class App extends React.Component {
     })
   }
 
+  onClose =() => {
+      this.setState({
+        modal: false,
+      });
+    }
+
   initAccount () {
     let self = this
     this.state.web3.eth.getAccounts(function (err, accs) {
       if (err != null) {
-        Toast.offline('There was an error fetching your accounts!!!', 3)
+        self.setState({
+          modal:true,
+          text:'There was an error fetching your accounts!!!'
+        })
         return
       }
       if (accs.length == 0) {
-        Toast.fail('Could not get any accounts! Make sure your Ethereum client is configured correctly!!!', 3)
+        self.setState({
+          modal:true,
+          text:'Could not get any accounts! Make sure your Ethereum client is configured correctly!!!'
+        })
         return
       }
       self.setState({ account: accs[0] })
@@ -63,6 +77,19 @@ export default class App extends React.Component {
             {/* <NoticeBar className='account' mode='closable' icon={null} action={<span />}>{
                 this.state.account ? this.state.account : 'No Account'}
             </NoticeBar> */}
+            {
+              this.state.modal?<Modal
+                visible={this.state.modal}
+                transparent
+                maskClosable={false}
+                title="Prompt"
+                footer={[{ text: 'Ok', onPress: () => {this.onClose()} }]}
+              >
+                <div style={{ height: 100}}>
+                  {this.state.text}
+                </div>
+              </Modal>:null
+            }
             <Switch>
               <Route exact path='/' component={Home} />
               <Route path='/issue' component={ISSUE} />
@@ -70,6 +97,7 @@ export default class App extends React.Component {
               <Route path='/pledge' component={Pledge} />
               <Route component={NoMatch} />
             </Switch>
+            
           </div>
         </div>
       </Router>
