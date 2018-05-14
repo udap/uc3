@@ -96,6 +96,7 @@ export default class Detail extends React.Component {
   delete=()=>{
       let self = this;
       StandardAsset.at(this.state.data.addr).then(instance => {
+          Toast.loading('Loading...',0);
           return instance.destroy({from: account})
       }).then(result => {
           Toast.hide();
