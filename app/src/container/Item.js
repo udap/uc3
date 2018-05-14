@@ -49,15 +49,15 @@ export default class Item extends React.Component {
   }
 
   handleSkuChange = (id,e) => {
-    this.state.newSku[e.target.name]=e.target.value
+    this.state.newSku[e.target.name]=(e.target.name=="amount"||e.target.name=="weight")?parseFloat(e.target.value):e.target.value
       this.setState({
         modal:false
       })
   }
   unitChange=(val)=>{
-    this.state.newSku.unit = val;
+    this.state.newSku.unit = val[0];
     this.setState({
-       uValue: val 
+       uValue: val
      })
   }
 
