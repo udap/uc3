@@ -106,10 +106,6 @@ class Issue extends Component {
           },
           "warrantCode":{presence: {message:'^warrantCode is required'}},
           "productName":{ presence: {message:'^productName is required'}},
-          "totalWeight":{ 
-            presence: {message:'^totalWeight is required'},
-            numericality: {greaterThan: 0}
-          },
           "storageRoomCode":{ presence: {message:'^storageRoomCode is required'}},
           "warehouseAddress":{presence: {message:'^warehouseAddress is required'}}
         }
@@ -118,7 +114,6 @@ class Issue extends Component {
           "recipient":warrant.recipient,
           "warrantCode":warrant.warrantCode,
           "productName":warrant.productName,
-          "totalWeight":warrant.totalWeight,
           "storageRoomCode":warrant.storageRoomCode,
           "warehouseAddress":warrant.warehouseAddress
       };
@@ -254,16 +249,6 @@ class Issue extends Component {
                     <input id="borring" className="form-input" type="text" name="productName"
                        value={this.state.warrant.productName ||''}
                        placeholder="Please fill in Product Name"
-                       onChange={this.handleChange}/>
-                </div>
-            </label>
-          </div>
-          <div className="am-list-item am-input-item am-list-item-middle">
-            <label className="am-list-line" htmlFor="borring">
-                <div className="am-input-control">
-                    <input id="borring" className="form-input" type="text" name="totalWeight"
-                       value={this.state.warrant.totalWeight ||''}
-                       placeholder="Please fill in Total Weight"
                        onChange={this.handleChange}/>
                 </div>
             </label>
