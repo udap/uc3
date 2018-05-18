@@ -1,50 +1,38 @@
 pragma solidity ^0.4.19;
 
-import './Commons.sol';
-import './AbstractAsset.sol';
+import 'openzeppelin-solidity/contracts/token/ERC721/ERC721Token.sol';
 
-contract StandardAsset is AbstractAsset {
-  using Commons for Commons.MetaData;
+contract StandardAsset is ERC721Token {
 
-  // asset metadata
-  Commons.MetaData private md;
+     uint256 internal tokenId_;
 
-  // multisig support if transactions require multiple confirmations
-  //MultiSig private multisig;
-  function StandardAsset(address _issuer,address _owner, uint _id, bytes32 _nsi, bool _transferrable,
-    string data,bytes32 _mdRef) AbstractAsset(_id, _issuer, _owner) public {
-    md = Commons.MetaData({
-        nsi:_nsi,
-        issuer:_issuer,
-        transferrable:_transferrable,
-        fungible:false,
-        data:data,
-        dataRef:_mdRef
-    });
-    AssetCreated(address(this),_id);
-  }
+    /**
+   * @dev Constructor function
+   */
+    constructor(string _name, string _symbol) public ERC721Token(_name,_symbol) {
 
-  function getMetaData() public view returns (bytes32,address,bool,bool,string,bytes32) {
-    return (md.nsi, md.issuer, md.transferrable, md.fungible,md.data,md.dataRef);
-  }
+    }
 
-  function getNamespace() public view returns (bytes32 nsi) {
-    return md.nsi;
-  }
+    /**
+       * @dev create a new token
+       * @dev Reverts if the given token ID already exists
+       * @param _to address the beneficiary that will own the minted token
+       * @param _tokenId uint256 ID of the token to be minted by the msg.sender
+       */
+    function createAsset(address _to,string _uri) public {
+        tokenId_ ++ ;
+        super._mint(_to, tokenId_);
+        super._setTokenURI(tokenId_,_uri);
+    }
 
-  function isTransferrable() public view returns (bool) {
-    return md.transferrable;
-  }
-
-  function isFungible() public view returns (bool) {
-    return md.fungible;
-  }
-
-  function getDataRef() public view returns (bytes32) {
-    return md.dataRef;
-  }
-  function getData() public view returns (string) {
-        return md.data;
-  }
+    /**
+   * @dev  burn a specific token
+   * @dev Reverts if the token does not exist
+   * @param _owner owner of the token to burn
+   * @param _tokenId uint256 ID of the token being burned by the msg.sender
+   */
+    function _burn(address _owner, uint256 _tokenId) canTransfer(_tokenId) public {
+        super._burn(_owner, _tokenId);
+    }
 
 }
