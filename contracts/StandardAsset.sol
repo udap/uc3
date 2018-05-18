@@ -31,7 +31,7 @@ contract StandardAsset is ERC721Token {
    * @param _owner owner of the token to burn
    * @param _tokenId uint256 ID of the token being burned by the msg.sender
    */
-    function _burn(address _owner, uint256 _tokenId) canTransfer(_tokenId) public {
+    function destory(address _owner, uint256 _tokenId) canTransfer(_tokenId) public {
         super._burn(_owner, _tokenId);
     }
 
