@@ -29,7 +29,7 @@ contract StandardAsset is ERC721Token {
        * @param _to address the beneficiary that will own the minted token
        * @param _uri token uri
        */
-    function createAsset(address _to,string _uri) public {
+    function issue(address _to,string _uri) public {
         uint256 tokenId = tokenId_ ++ ;
         require(!exists(tokenId));
         super._mint(_to, tokenId);
