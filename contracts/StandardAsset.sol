@@ -11,10 +11,10 @@ contract StandardAsset is ERC721Token {
      uint256 internal tokenId_;
 
     // Mapping from token ID to issuer
-    mapping (uint256 => address) internal tokenIssuer;
+    mapping (uint256 => address) internal tokenIssuers;
 
     // Mapping from token ID to State
-    mapping (uint256 => State) internal tokenState;
+    mapping (uint256 => State) internal tokenStates;
 
     /**
    * @dev Constructor function
@@ -34,8 +34,8 @@ contract StandardAsset is ERC721Token {
         require(!exists(tokenId));
         super._mint(_to, tokenId);
         super._setTokenURI(tokenId,_uri);
-        tokenIssuer[tokenId] = msg.sender;
-        tokenState[tokenId] = State.ISSUED;
+        tokenIssuers[tokenId] = msg.sender;
+        tokenStates[tokenId] = State.ISSUED;
     }
 
     /**
@@ -47,8 +47,8 @@ contract StandardAsset is ERC721Token {
     function destory(address _owner, uint256 _tokenId) public {
 //        require(tokenState[_tokenId] != State.APPROVED);
         super._burn(_owner, _tokenId);
-        delete tokenIssuer[_tokenId];
-        delete tokenState[_tokenId];
+        delete tokenIssuers[_tokenId];
+        delete tokenStates[_tokenId];
     }
 
     /**
@@ -58,9 +58,31 @@ contract StandardAsset is ERC721Token {
   * @param _state new  State
   */
     function setTokenState(uint256 _tokenId, State _state) public onlyOwnerOf(_tokenId) {
-        require(tokenState[_tokenId] == State.ISSUED);
+        require(tokenStates[_tokenId] == State.ISSUED);
         require(exists(_tokenId));
-        tokenState[_tokenId] = _state;
+        tokenStates[_tokenId] = _state;
     }
+
+    /**
+   * @dev Returns issuer for a given token ID
+   * @dev Throws if the token ID does not exist.
+   * @param _tokenId uint256 ID of the token to query
+   */
+    function tokenIssuer(uint256 _tokenId) public view returns (address) {
+        require(exists(_tokenId));
+        return tokenIssuers[_tokenId];
+    }
+
+    /**
+       * @dev Returns state for a given token ID
+       * @dev Throws if the token ID does not exist.
+       * @param _tokenId uint256 ID of the token to query
+       */
+    function tokenState(uint256 _tokenId) public view returns (State) {
+        require(exists(_tokenId));
+        return tokenStates[_tokenId];
+    }
+
+
 
 }
