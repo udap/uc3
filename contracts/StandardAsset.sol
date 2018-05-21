@@ -27,7 +27,7 @@ contract StandardAsset is ERC721Token {
        * @dev create a new token
        * @dev Reverts if the given token ID already exists
        * @param _to address the beneficiary that will own the minted token
-       * @param _tokenId uint256 ID of the token to be minted by the msg.sender
+       * @param _uri token uri
        */
     function createAsset(address _to,string _uri) public {
         uint256 tokenId = tokenId_ ++ ;
