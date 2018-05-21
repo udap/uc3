@@ -31,6 +31,7 @@ contract StandardAsset is ERC721Token {
        */
     function createAsset(address _to,string _uri) public {
         uint256 tokenId = tokenId_ ++ ;
+        require(!exists(tokenId));
         super._mint(_to, tokenId);
         super._setTokenURI(tokenId,_uri);
         tokenIssuer[tokenId] = msg.sender;
