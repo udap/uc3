@@ -1,101 +1,76 @@
 pragma solidity ^0.4.19;
 
-import './Asset.sol';
 import './StandardAsset.sol';
-import './FungibleAsset.sol';
 
-import 'zeppelin-solidity/contracts/ReentrancyGuard.sol';
 
-contract AssetRegistry is ReentrancyGuard {
-  event AssetRegistered(address indexed asset, uint indexed assetId);
+contract AssetRegistry{
 
-  // default namespace id
-  bytes32 constant DEFAULT_NSI = "default";
+  event AssetTypeRegistered(address indexed asset);
 
-  address public owner;
+  event AssetTypeCreated(address indexed asset);
 
-  // number of assets in the registry
-  uint256 private numOfAssets;
-
-  // map asset addr to a bool
-  mapping(address=>bool) private registeredAssets;
-
-  //Someone has a lot of assets
-  mapping(address=>address[]) private ownAssets;
-
-  // index by namespace
-  mapping(bytes32=>address[]) private assetsByNamespace;
-  // indexed by id
-  mapping(uint=>address) private assetsById;
-
-  modifier assetNotRegistered(address _asset) {
-      require(!registeredAssets[_asset]);
-      _;
+  struct AssetType{
+    string name;
+    string symbol;
+    address owner;
+    address assetAddr;
   }
 
-  modifier onlyOwner() {
-      require(msg.sender == owner);
-      _;
+  // Array with all token Types
+  AssetType[] internal allTypes;
+
+
+  // Mapping from id  to bool. Indicates that the id is registered
+  mapping(uint=>bool) private idRegistered;
+
+  // Mapping from name to  symbol  to  asset Address
+  mapping(uint=> AssetType) private idTypes;
+
+
+  constructor() public{
+
   }
 
-  function AssetRegistry() public {
-    owner = msg.sender;
-  }
-  /**
-   * @dev create and register a new asset
-   * @param _nsi the namespace identifier
-   * @param _transferrable is the asset transferrable?
-   * @param _fungible is the asset fungible?
-   * @param _metadataRef a multihash of the metadata
-   */
-  function createAsset(address _owner,bytes32 _nsi, bool _transferrable, bool _fungible,string data,bytes32 _metadataRef)
-    public returns (address) {
+  function createType(string _name,string _symbol) public returns(address){
+    uint id = uint(keccak256(_name, _symbol));
+    require(idRegistered[id] != true);
 
-    if (_nsi == '') {
-      _nsi = DEFAULT_NSI;
-    }
-    // generate a unique asset id
-    uint id = uint(keccak256(msg.sender, _nsi, data));
-    Asset newAsset;
-    if (_fungible) {
-      newAsset = new FungibleAsset(msg.sender,_owner, id, _nsi, _transferrable,data,_metadataRef,0);
-    } else {
-      newAsset = new StandardAsset(msg.sender,_owner, id, _nsi, _transferrable,data,_metadataRef);
-    }
-    registeredAssets[newAsset] = true;
-    assetsByNamespace[_nsi].push(address(newAsset));
-    ownAssets[newAsset.getOwner()].push(address(newAsset));
-    assetsById[id] = address(newAsset);
-    numOfAssets++;
+    StandardAsset newAsset = new StandardAsset(_name,_symbol);
+    idRegistered[id] = true;
+    AssetType memory astype = AssetType({
+        name:_name,
+        symbol:_symbol,
+        owner:msg.sender,
+        assetAddr:address(newAsset)
+      });
+    idTypes[id] = astype;
+    allTypes.push(astype);
+    emit AssetTypeCreated(newAsset);
     return address(newAsset);
   }
 
-  /**
-   * @dev register an asset
-   * @param _asset the address of the asset to be registered
-   */
-  function register(address _asset) public nonReentrant assetNotRegistered(_asset) {
-    registeredAssets[_asset] = true;
-    assetsById[Asset(_asset).getId()] = _asset;
-    assetsByNamespace[Asset(_asset).getNamespace()].push(_asset);
-    ownAssets[Asset(_asset).getOwner()].push(address(_asset));
-    numOfAssets++;
-    AssetRegistered(_asset,Asset(_asset).getId());
+  function register(address _asset) public{
+    StandardAsset stdAsset = StandardAsset(_asset);
+    string memory name = stdAsset.name();
+    string memory symbol = stdAsset.symbol();
+    uint id = uint(keccak256(name, symbol));
+    require(idRegistered[id] != true);
+
+    idRegistered[id] = true;
+    AssetType memory asType = AssetType({
+      name:name,
+      symbol:symbol,
+      owner:msg.sender,
+      assetAddr:address(stdAsset)
+      });
+    idTypes[id] = asType;
+    allTypes.push(asType);
+    emit AssetTypeRegistered(_asset);
   }
 
-  /**
-   * @dev return number of assets
-   */
-  function getCount() public view onlyOwner returns (uint) {
-    return numOfAssets;
-  }
-
-  function getAsset(uint assetId) public view returns (address) {
-      return assetsById[assetId];
-  }
-
-  function getOwnAssets() public view returns (address[]) {
-    return ownAssets[msg.sender];
+  function getIdTypes(string _name,string _symbol) public returns(uint,bool,address){
+    uint id = uint(keccak256(_name, _symbol));
+    return (id,idRegistered[id],idTypes[id].assetAddr);
   }
 
 }
