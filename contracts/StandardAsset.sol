@@ -4,7 +4,17 @@ import 'openzeppelin-solidity/contracts/token/ERC721/ERC721Token.sol';
 
 contract StandardAsset is ERC721Token {
 
+    enum State {
+        ISSUED, APPROVED, REJECTED
+    }
+
      uint256 internal tokenId_;
+
+    // Mapping from token ID to issuer
+    mapping (uint256 => address) internal tokenIssuer;
+
+    // Mapping from token ID to State
+    mapping (uint256 => State) internal tokenState;
 
     /**
    * @dev Constructor function
@@ -20,9 +30,11 @@ contract StandardAsset is ERC721Token {
        * @param _tokenId uint256 ID of the token to be minted by the msg.sender
        */
     function createAsset(address _to,string _uri) public {
-        tokenId_ ++ ;
-        super._mint(_to, tokenId_);
-        super._setTokenURI(tokenId_,_uri);
+        uint256 tokenId = tokenId_ ++ ;
+        super._mint(_to, tokenId);
+        super._setTokenURI(tokenId,_uri);
+        tokenIssuer[tokenId] = msg.sender;
+        tokenState[tokenId] = State.ISSUED;
     }
 
     /**
@@ -31,8 +43,23 @@ contract StandardAsset is ERC721Token {
    * @param _owner owner of the token to burn
    * @param _tokenId uint256 ID of the token being burned by the msg.sender
    */
-    function destory(address _owner, uint256 _tokenId) canTransfer(_tokenId) public {
+    function destory(address _owner, uint256 _tokenId) public {
+//        require(tokenState[_tokenId] != State.APPROVED);
         super._burn(_owner, _tokenId);
+        delete tokenIssuer[_tokenId];
+        delete tokenState[_tokenId];
+    }
+
+    /**
+  * @dev set the token State for a given token
+  * @dev Reverts if the token ID does not exist
+  * @param _tokenId uint256 ID of the token to set its State
+  * @param _state new  State
+  */
+    function setTokenState(uint256 _tokenId, State _state) public onlyOwnerOf(_tokenId) {
+        require(tokenState[_tokenId] == State.ISSUED);
+        require(exists(_tokenId));
+        tokenState[_tokenId] = _state;
     }
 
 }
