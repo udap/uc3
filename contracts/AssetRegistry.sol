@@ -31,8 +31,13 @@ contract AssetRegistry{
 
   }
 
+  /**
+  * @dev create AssetType
+  * @param _name token name
+  * @param _symbol token symbol
+  */
   function createType(string _name,string _symbol) public returns(address){
-    uint id = uint(keccak256(_name, _symbol));
+    uint id = getId(_name, _symbol);
     require(idRegistered[id] != true);
 
     StandardAsset newAsset = new StandardAsset(_name,_symbol);
@@ -49,11 +54,15 @@ contract AssetRegistry{
     return address(newAsset);
   }
 
-  function register(address _asset) public{
+  /**
+  * @dev register AssetType
+  * @param _asset 'StandardAsset''s   address
+  */
+  function registerType(address _asset) public{
     StandardAsset stdAsset = StandardAsset(_asset);
     string memory name = stdAsset.name();
     string memory symbol = stdAsset.symbol();
-    uint id = uint(keccak256(name, symbol));
+    uint id = getId(name, symbol);
     require(idRegistered[id] != true);
 
     idRegistered[id] = true;
@@ -68,9 +77,25 @@ contract AssetRegistry{
     emit AssetTypeRegistered(_asset);
   }
 
-  function getIdTypes(string _name,string _symbol) public returns(uint,bool,address){
-    uint id = uint(keccak256(_name, _symbol));
-    return (id,idRegistered[id],idTypes[id].assetAddr);
+  /**
+  * @dev global id of AssetType
+  * @param _name AssetType name
+  * @param _symbol AssetType symbol
+  */
+  function getId(string _name,string _symbol) internal pure returns(uint){
+    uint id = uint(keccak256(abi.encodePacked(_name, _symbol)));
+    return id;
   }
+
+  /**
+  * @param _name AssetType name
+  * @param _symbol AssetType symbol
+  */
+  function getAssetType(string _name,string _symbol) public view returns(address,address){
+    uint id = getId(_name,_symbol);
+    return (idTypes[id].owner,idTypes[id].assetAddr);
+  }
+
+
 
 }
