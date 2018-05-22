@@ -82,6 +82,17 @@ contract StandardAsset is ERC721Token {
         require(exists(_tokenId));
         return tokenStates[_tokenId];
     }
+    /**
+   * @dev Returns token IDs of owner
+   * @param _owner token owner
+   */
+    function getOwnedTokens(address _owner)public view returns(uint256[]){
+        return ownedTokens[_owner];
+    }
+
+
+
+
 
 
 
