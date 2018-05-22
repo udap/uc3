@@ -16,10 +16,6 @@ contract AssetRegistry{
     address assetAddr;
   }
 
-  // Array with all token Types
-  AssetType[] internal allTypes;
-
-
   // Mapping from id  to bool. Indicates that the id is registered
   mapping(uint=>bool) private idRegistered;
 
@@ -49,7 +45,6 @@ contract AssetRegistry{
         assetAddr:address(newAsset)
       });
     idTypes[id] = astype;
-    allTypes.push(astype);
     emit AssetTypeCreated(newAsset);
     return address(newAsset);
   }
@@ -73,7 +68,6 @@ contract AssetRegistry{
       assetAddr:address(stdAsset)
       });
     idTypes[id] = asType;
-    allTypes.push(asType);
     emit AssetTypeRegistered(_asset);
   }
 
