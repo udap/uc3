@@ -5,9 +5,9 @@ import './StandardAsset.sol';
 
 contract AssetRegistry{
 
-  event AssetTypeRegistered(address indexed asset);
+  event AssetTypeRegistered(address indexed creator,address indexed asset);
 
-  event AssetTypeCreated(address indexed asset);
+  event AssetTypeCreated(address indexed creator,address indexed asset);
 
   struct AssetType{
     string name;
@@ -45,7 +45,7 @@ contract AssetRegistry{
         assetAddr:address(newAsset)
       });
     idTypes[id] = astype;
-    emit AssetTypeCreated(newAsset);
+    emit AssetTypeCreated(msg.sender,newAsset);
     return address(newAsset);
   }
 
@@ -68,7 +68,7 @@ contract AssetRegistry{
       assetAddr:address(stdAsset)
       });
     idTypes[id] = asType;
-    emit AssetTypeRegistered(_asset);
+    emit AssetTypeRegistered(msg.sender,_asset);
   }
 
   /**
