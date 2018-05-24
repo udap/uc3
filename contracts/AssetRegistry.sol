@@ -17,7 +17,7 @@ contract AssetRegistry{
   }
 
   // Mapping from id  to bool. Indicates that the id is registered
-  mapping(uint=>bool) private idRegistered;
+  mapping(uint=>bool) public idRegistered;
 
   // Mapping from name to  symbol  to  asset Address
   mapping(uint=> AssetType) private idTypes;
