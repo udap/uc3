@@ -6,7 +6,7 @@ contract AssetType {
     string public name;
     string public symbol;
     string public uri;
-    constructor(string _name, string _symbol,string _uri){
+    constructor(string _name, string _symbol,string _uri) public {
         name = _name;
         symbol = _symbol;
         uri = _uri;
@@ -33,7 +33,7 @@ contract StandardAsset is ERC721Token {
        * @dev create a new token
        * @dev Reverts if the given token ID already exists
        * @param _to address the beneficiary that will own the minted token
-       * @param _uri token uri
+       * @param _tokenURI token uri
        */
     function mint(address _to,string _tokenURI) public {
         uint256 tokenId = id_ ++ ;
