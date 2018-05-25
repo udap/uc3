@@ -3,9 +3,16 @@ pragma solidity ^0.4.19;
 import 'openzeppelin-solidity/contracts/token/ERC721/ERC721Token.sol';
 
 contract AssetType {
+
+    // Asset type name
     string public name;
+
+    // Asset type symbol
     string public symbol;
+
+    // Asset type metadata uri,Pointing to a json file
     string public uri;
+
     constructor(string _name, string _symbol,string _uri) public {
         name = _name;
         symbol = _symbol;
