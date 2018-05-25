@@ -1,95 +1,49 @@
 pragma solidity ^0.4.19;
 
 import './StandardAsset.sol';
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
+
+contract AssetRegistry is Ownable {
+
+    event StandardAssetCreated(StandardAsset indexed asset,uint indexed id);
 
 
-contract AssetRegistry{
-
-  event AssetTypeRegistered(address indexed creator,address indexed asset);
-
-  event AssetTypeCreated(address indexed creator,address indexed asset);
-
-  struct AssetType{
-    string name;
-    string symbol;
-    address owner;
-    address assetAddr;
-  }
-
-  // Mapping from id  to bool. Indicates that the id is registered
-  mapping(uint=>bool) public idRegistered;
-
-  // Mapping from name to  symbol  to  asset Address
-  mapping(uint=> AssetType) private idTypes;
+    // Mapping from contract ID to StandardAsset
+    mapping(uint=>StandardAsset) public idAssets;
 
 
-  constructor() public{
 
-  }
+    constructor() public {
 
-  /**
-  * @dev create AssetType
-  * @param _name token name
-  * @param _symbol token symbol
-  */
-  function createType(string _name,string _symbol) public returns(address){
-    uint id = getId(_name, _symbol);
-    require(idRegistered[id] != true);
+    }
 
-    StandardAsset newAsset = new StandardAsset(_name,_symbol);
-    idRegistered[id] = true;
-    AssetType memory astype = AssetType({
-        name:_name,
-        symbol:_symbol,
-        owner:msg.sender,
-        assetAddr:address(newAsset)
-      });
-    idTypes[id] = astype;
-    emit AssetTypeCreated(msg.sender,newAsset);
-    return address(newAsset);
-  }
+    function registerAssetClass(string _name,string _symbol) onlyOwner public returns(uint){
+        return register(_name,_symbol,"");
+    }
 
-  /**
-  * @dev register AssetType
-  * @param _asset 'StandardAsset''s   address
-  */
-  function registerType(address _asset) public{
-    StandardAsset stdAsset = StandardAsset(_asset);
-    string memory name = stdAsset.name();
-    string memory symbol = stdAsset.symbol();
-    uint id = getId(name, symbol);
-    require(idRegistered[id] != true);
+    function registerAssetClass(string _name,string _symbol,string _uri) onlyOwner public returns(uint){
+        return register(_name,_symbol,_uri);
+    }
 
-    idRegistered[id] = true;
-    AssetType memory asType = AssetType({
-      name:name,
-      symbol:symbol,
-      owner:msg.sender,
-      assetAddr:address(stdAsset)
-      });
-    idTypes[id] = asType;
-    emit AssetTypeRegistered(msg.sender,_asset);
-  }
+    function register(string _name,string _symbol,string _uri) internal returns(uint){
+        uint id = getId(_name, _symbol,_uri);
+        if(idAssets[id] != address(0x0)){
+            return id;
+        }
+        StandardAsset asset = new StandardAsset(_name, _symbol,_uri);
+        idAssets[id] = asset;
+        emit StandardAssetCreated(asset,id);
+        return id;
+    }
 
-  /**
-  * @dev global id of AssetType
-  * @param _name AssetType name
-  * @param _symbol AssetType symbol
-  */
-  function getId(string _name,string _symbol) internal pure returns(uint){
-    uint id = uint(keccak256(abi.encodePacked(_name, _symbol)));
-    return id;
-  }
+    function getAssetClass(uint id) public view returns(StandardAsset){
+        return idAssets[id];
+    }
 
-  /**
-  * @param _name AssetType name
-  * @param _symbol AssetType symbol
-  */
-  function getAssetType(string _name,string _symbol) public view returns(address,address){
-    uint id = getId(_name,_symbol);
-    return (idTypes[id].owner,idTypes[id].assetAddr);
-  }
-
+    function getId(string _name,string _symbol,string _uri) internal pure returns(uint){
+        uint id = uint(keccak256(abi.encodePacked(_name, _symbol,_uri)));
+        return id;
+    }
 
 
 }

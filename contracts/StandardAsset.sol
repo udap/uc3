@@ -79,6 +79,10 @@ contract StandardAsset is ERC721Token {
         return ownedTokens[_owner];
     }
 
+    function getAssetType() public view returns(AssetType){
+        return assetType;
+    }
+
 
 
 
