@@ -22,7 +22,7 @@ contract AssetRegistry is Ownable {
     * @param _name AssetType name
     * @param _symbol AssetType symbol
     */
-    function registerAssetClass(string _name,string _symbol) onlyOwner public returns(uint){
+    function registerAssetContract(string _name,string _symbol) onlyOwner public returns(uint){
         return register(_name,_symbol,"");
     }
 
@@ -32,7 +32,7 @@ contract AssetRegistry is Ownable {
     * @param _symbol AssetType symbol
     * @param _uri AssetType metadata uri
     */
-    function registerAssetClass(string _name,string _symbol,string _uri) onlyOwner public returns(uint){
+    function registerAssetContract(string _name,string _symbol,string _uri) onlyOwner public returns(uint){
         return register(_name,_symbol,_uri);
     }
 
@@ -57,7 +57,7 @@ contract AssetRegistry is Ownable {
     * @dev Query asset by id
     * @param _id 'AssetType''s id
     */
-    function getAssetClass(uint _id) public view returns(StandardAsset){
+    function getAssetContract(uint _id) public view returns(StandardAsset){
         return idAssets[_id];
     }
 
