@@ -1,6 +1,14 @@
 pragma solidity ^0.4.19;
 
-contract TokenSendAgent {
+contract Escrow {
+
+    address public buyer;
+
+    address public seller;
+
+    address private escrow;
+
+
 
     //token addresses-->tokenId-->from
     mapping (address => mapping (uint256 => address)) public tokenFrom;
@@ -14,6 +22,9 @@ contract TokenSendAgent {
 
     //token addresses-->to---->tokenIds
     mapping (address => mapping (address => uint256[])) public toTokens;
+
+
+
 
 
 
