@@ -44,27 +44,16 @@ contract AssetRegistry is Ownable {
     */
     function register(string _name,string _symbol,string _uri) internal returns(uint){
         uint id = getId(_name, _symbol,_uri);
-        if(idAssets[id] != address(0x0)){
-            return id;
-        }
+        require(idAssets[id] == address(0x0));
         StandardAsset asset = new StandardAsset(_name, _symbol,_uri);
         idAssets[id] = asset;
         emit StandardAssetCreated(asset,id);
-        return id;
-    }
-
-    /**
-    * @dev Query asset by id
-    * @param _id 'AssetType''s id
-    */
-    function getAssetContract(uint _id) public view returns(StandardAsset){
-        return idAssets[_id];
     }
 
     /**
     * @dev id generator
     */
-    function getId(string _name,string _symbol,string _uri) internal pure returns(uint){
+    function getId(string _name,string _symbol,string _uri) public pure returns(uint){
         uint id = uint(keccak256(abi.encodePacked(_name, _symbol,_uri)));
         return id;
     }
