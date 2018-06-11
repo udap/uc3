@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "antd-mobile": "^2.1.8",
+    "ipfs-api": "^22.0.1",
     "koa": "^2.5.0",
     "koa-route": "^3.2.0",
     "koa-static": "^4.0.2",
