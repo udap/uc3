@@ -8,6 +8,10 @@ import assetRegistry_artifacts from '../../../build/contracts/AssetRegistry.json
 import standardAsset_artifacts from '../../../build/contracts/StandardAsset.json'
 import {Warrant, Product} from '../data/warrant'
 
+let tokenName = "cangdan";
+let tokenSymbol = "CD";
+let tokenUri = "";
+
 let maxNum;
 let lastIndex;
 const locale = {
@@ -86,9 +90,17 @@ class Home extends React.Component {
         let AssetRegistry = contract(assetRegistry_artifacts);
         AssetRegistry.setProvider(web3.currentProvider);
 
+        let assetRegistryInstance;
         AssetRegistry.deployed().then(function (instance) {
-            return instance.getOwnAssets.call({from: account})
+            assetRegistryInstance = instance;
+            return instance.getId.call(tokenName,tokenSymbol,tokenUri,{from: account});
+        }).then(id => {
+            return assetRegistryInstance.idAssets.call(id,{from: account});
         }).then(assetAddrs => {
+            if (assetAddrs == 0x0){
+                Toast.info('The contract has not yet been created !!', 10);
+                throw 'The contract has not yet been created !!';
+            }
             maxNum = assetAddrs.length;
             let endNumd;
             endNumd = (lastIndex + size)>maxNum?maxNum:(lastIndex + size);
@@ -121,7 +133,7 @@ class Home extends React.Component {
               self.setState({inited: true})
               Toast.hide()
             }
-        });
+        }).catch(error => console.log(error));
         this.setState({})
     }
 
