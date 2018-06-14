@@ -13,8 +13,6 @@ let tokenName = "cangdan";
 let tokenSymbol = "CD";
 let tokenUri = "";
 
-let maxNum;
-let lastIndex;
 const locale = {
   prevText: 'Prev',
   nextText: 'Next',
@@ -22,15 +20,15 @@ const locale = {
 class Home extends React.Component {
   constructor (props) {
     super(props)
-    this.oldWarrantsList = [];
-    this.beforeList=[];
+    this.idList = [];
+    this.oldList = [];
     this.state = {
       inited: false,
       warrants: [],
       down: true,
       pageSize:2,
-      lastIndex:null,
-      selectedPage:1
+      selectedPage:1,
+      totalPage:0
     }
   }
 
@@ -48,7 +46,7 @@ class Home extends React.Component {
   componentDidMount () {
     if (window.web3) {
       // this.instantiateContract()
-      this.getData(0,this.state.pageSize)
+      this.getData(1,true)
     }
   }
   componentshouldupdate(){
@@ -83,11 +81,14 @@ class Home extends React.Component {
       }
     })
   }*/
-  getData (lastIndex,size,loading,pc) {
-        if(loading){
-          Toast.loading('Loading...',0);          
-        }
+  getData (selectedPage,hideLoading,isList,hasList) {
         let self = this;
+        if(!selectedPage){
+          selectedPage = self.state.selectedPage;
+        }
+        if(!hideLoading){
+            Toast.loading('Loading...',0);                
+        }
         let AssetRegistry = contract(assetRegistry_artifacts);
         AssetRegistry.setProvider(web3.currentProvider);
 
@@ -102,54 +103,45 @@ class Home extends React.Component {
                 Toast.info('The contract has not yet been created !!', 10);
                 throw 'The contract has not yet been created !!';
             }
-            let pageNo = self.state.selectedPage;
+            self.addr = assetAddr;
             let pageSize = self.state.pageSize;
-            let totalPage = 0;
+            let totalPage = self.state.totalPage;
+            let startIndex,endIndex;
             this.getAssertIds(assetAddr).then(assertIds =>{
-                 totalPage = pagerhelper.calcTotalPage(pageSize,assertIds.length);
-                 assertIds.forEach((id, index) => {
-                     self.getWarrant(assetAddr,assertIds);
-                 });
-            });
-
-
-
-
-            maxNum = assetAddrs.length;
-            let endNumd;
-            endNumd = (lastIndex + size)>maxNum?maxNum:(lastIndex + size);
-            let lists = [];
-           for (var i = lastIndex; i < endNumd; i++) {
-              self.oldWarrantsList.push(assetAddrs[i])
-            }
-            /*if(pc){
-                 lists=assetAddrs.slice(lastIndex,endNumd)
-             }else{
-                 lists = self.oldWarrantsList;
-             }*/
-            lists=assetAddrs.slice(lastIndex,endNumd)
-            lastIndex = self.oldWarrantsList.length;
-            let warrants = [];
-            lists.forEach((addr, index) => {
-               self.getWarrant(addr).then(warrant => {
-                    warrants.push(warrant);
-                    this.beforeList.push(warrant);
-                    self.setState({
-                      warrants: pc?warrants:this.beforeList, 
-                      lastIndex:lastIndex,
-                      inited: true
-                    }, ()=> {
-                        Toast.hide()
+                totalPage = pagerhelper.calcTotalPage(pageSize,assertIds.length);
+                startIndex = pagerhelper.calcStart(selectedPage,pageSize);
+                endIndex = hasList?this.oldList.length:pageSize+startIndex;
+                this.idList = assertIds;
+                 this.setState({
+                    totalPage:totalPage
+                 })
+                let lists = [];
+                let newWarrants = [];
+                if(hasList){
+                  this.oldList = [];
+                }
+                for (var i = startIndex; i < endIndex; i++) {
+                  if(assertIds[i]){
+                    lists.push(assertIds[i]);
+                  }
+                }                
+                lists.forEach((id, index) => {
+                   self.getWarrant(assetAddr,id).then(warrant => {
+                        newWarrants.push(warrant);
+                        self.oldList.push(warrant);
+                        self.setState({
+                          warrants: isList?this.oldList:newWarrants,
+                          inited: true
+                        }, ()=> {
+                            Toast.hide()
+                        })
                     })
-                })
+                });
             });
-            if (self.oldWarrantsList.length == 0) {
-              self.setState({inited: true})
-              Toast.hide()
-            }
         }).catch(error => console.log(error));
         this.setState({})
     }
+
   getAssertIds(addr){
       let StandardAsset = contract(standardAsset_artifacts);
       StandardAsset.setProvider(web3.currentProvider);
@@ -166,7 +158,6 @@ class Home extends React.Component {
               assetInstance = instance;
               return instance.tokenURI.call(assertId,{from: account})
           }).then(tokenURI => {
-              warrant = JSON.parse(metaData);
               warrant.tokenURI = tokenURI;
               warrant.metaData = this.getMetaData(tokenURI);
               return assetInstance.ownerOf.call(assertId,{from: account})
@@ -175,6 +166,7 @@ class Home extends React.Component {
               return assetInstance.tokenIssuer.call(assertId,{from: account})
           }).then(issuer => {
               warrant.issuer = issuer;
+              return warrant;
           })
   }
   getMetaData(tokenURI){
@@ -200,9 +192,8 @@ class Home extends React.Component {
     this.setState({
       inited:false
     })
-    this.oldWarrantsList=[];
-    this.beforeList=[];
-    this.getData(0,this.state.pageSize,false,true);                
+    this.oldList = [];
+    this.getData(1,true)
   }
 
   handleScroll=(e)=>{
@@ -220,33 +211,26 @@ class Home extends React.Component {
 
   onRefresh=() => {
     if(this.state.down){//pull up
-      if(this.oldWarrantsList.length!==0){
-        this.beforeList=[];
-        this.oldWarrantsList=[];
-        this.getData(0,this.state.lastIndex);        
-      }else{
-        this.getData(0,this.state.pageSize);                
-      }
+        if(this.state.warrants.length!=0){
+          this.getData(1,false,true,true);  
+        }else{
+          this.getData(1,false,true);                
+        }
     }else{
-      if (this.state.lastIndex >= maxNum) {
-         this.beforeList=[];
-         Toast.info('All load has been completed!!!', 2);
+      if (this.state.warrants.length >= this.idList.length) {
+         Toast.info('All load has been completed!!!', 3);
           return;
       }
-      this.getData(this.state.lastIndex,this.state.pageSize);
+      let selectedNum = parseInt(this.state.warrants.length/this.state.pageSize)+1;
+      this.getData(selectedNum,false,true);
     }
   }
 
   selectPage = (page)=> {
-      if (this.state.selectedPage != page) {
-          this.state.selectedPage = page;
-          if(page==1){
-            this.oldWarrantsList=[];
-            this.getData(0,this.state.pageSize,true,true);                
-          }else{
-            this.getData((this.state.selectedPage-1)*this.state.pageSize,this.state.pageSize,true,true);
-          }
-      }
+    if (this.state.selectedPage != page) {
+        this.state.selectedPage = page;
+        this.getData();
+    }
      this.setState({})
 };
 
@@ -261,7 +245,7 @@ class Home extends React.Component {
     if (this.state.warrants.length == 0) {
       return <img className='empty' src={empty} />
     }
-    let content = this.state.warrants.map((warrant, index) => <Lists key={index} index={warrant.addr} warrant={warrant} />)
+    let content = this.state.warrants.map((warrant, index) => <Lists key={index} index={warrant.assertId} warrant={warrant} />)
     return <div>
       <WhiteSpace size='lg' />
       <WingBlank>
@@ -275,7 +259,7 @@ class Home extends React.Component {
             {content}
           </PullToRefresh>
           <Pagination className="pcShow" 
-              total={parseInt((maxNum-1)/this.state.pageSize)+1} 
+              total={this.state.totalPage} 
               current={this.state.selectedPage} 
               locale={locale} 
               onChange={this.selectPage}
