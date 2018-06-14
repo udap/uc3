@@ -174,7 +174,7 @@ class Issue extends Component {
       Toast.info('Please click the upper right corner to add item!!!', 1);
       return;
     }
-
+    Toast.loading('Loading...',0); 
     getAssertAddr.then(addr => {
         let StandardAsset = contract(standardAsset_artifacts);
         StandardAsset.setProvider(web3.currentProvider);
