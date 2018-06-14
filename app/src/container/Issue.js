@@ -4,8 +4,11 @@ import { NavBar,List, Button, WhiteSpace, WingBlank,Modal,Toast,Accordion,Icon} 
 import validate from 'validate.js';
 import {Warrant,Product} from "../data/warrant";
 import { default as contract } from 'truffle-contract';
-import assetRegistry_artifacts from '../../../build/contracts/AssetRegistry.json'
+import getAssertAddr from '../util/getAssertAddr';
 import Item from './Item'
+import tokenConfig from "../data/token";
+import standardAsset_artifacts from '../../../build/contracts/StandardAsset.json'
+
 
 const AntdItem = List.Item
 class Issue extends Component {
@@ -171,19 +174,28 @@ class Issue extends Component {
       Toast.info('Please click the upper right corner to add item!!!', 1);
       return;
     }
-    let AssetRegistry = contract(assetRegistry_artifacts);
-    AssetRegistry.setProvider(window.web3.currentProvider);
-    AssetRegistry.deployed().then(function (instance) {
-        Toast.loading('Loading...',0);
-        return instance.createAsset(self.state.warrant.recipient,"xinong",true,false,JSON.stringify(self.getData()),"",{from:window.account});
-    }).then(function (result) {
-        Toast.hide()
-        self.props.history.push( '/',null)
+
+    getAssertAddr.then(addr => {
+        let StandardAsset = contract(standardAsset_artifacts);
+        StandardAsset.setProvider(web3.currentProvider);
+
+        StandardAsset.at(addr).then(instance => {
+            let uri = self.saveMetadata();
+            return instance.mint(self.state.warrant.recipient,uri,{from:window.account});
+        }).then(result =>{
+            Toast.hide()
+            self.props.history.push( '/',null)
+        })
     }).catch(function (e) {
         console.log(e)
     });
 
   };
+  saveMetadata(){
+      let metadata = JSON.stringify(this.getData());
+      //IPFS upload
+      return "uri";
+  }
 
   listProducts(){
      return this.state.warrant.arrSku?this.state.warrant.arrSku.map((sku,index)=> 

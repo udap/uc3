@@ -13,11 +13,11 @@ export class Warrant{
 
 export class Product{
 
-    constructor(sku,origin,specName,numberOfPieces,weight,unit){
+    constructor(sku,producedIn,specName,amount,weight,unit){
         this.sku = sku;
-        this.origin = origin;
+        this.producedIn = producedIn;
         this.specName = specName;
-        this.numberOfPieces = numberOfPieces;
+        this.amount = amount;
         this.weight = weight;
         this.unit = unit;
     }

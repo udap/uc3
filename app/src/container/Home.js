@@ -4,14 +4,9 @@ import Lists from '../components/List'
 import empty from '../img/empty.png'
 import { Button, NavBar, Icon, WingBlank, WhiteSpace, PullToRefresh,Toast,Pagination} from 'antd-mobile'
 import { default as contract } from 'truffle-contract'
-import assetRegistry_artifacts from '../../../build/contracts/AssetRegistry.json'
 import standardAsset_artifacts from '../../../build/contracts/StandardAsset.json'
-import {Warrant, Product} from '../data/warrant'
 import pagerhelper from '../util/pagerhelper'
-
-let tokenName = "cangdan";
-let tokenSymbol = "CD";
-let tokenUri = "";
+import getAssertAddr from '../util/getAssertAddr'
 
 const locale = {
   prevText: 'Prev',
@@ -89,58 +84,46 @@ class Home extends React.Component {
         if(!hideLoading){
             Toast.loading('Loading...',0);                
         }
-        let AssetRegistry = contract(assetRegistry_artifacts);
-        AssetRegistry.setProvider(web3.currentProvider);
-
-        let assetRegistryInstance;
-        AssetRegistry.deployed().then(function (instance) {
-            assetRegistryInstance = instance;
-            return instance.getId.call(tokenName,tokenSymbol,tokenUri,{from: account});
-        }).then(id => {
-            return assetRegistryInstance.idAssets.call(id,{from: account});
-        }).then(assetAddr => {
-            if (assetAddr == 0x0){
-                Toast.info('The contract has not yet been created !!', 10);
-                throw 'The contract has not yet been created !!';
-            }
-            self.addr = assetAddr;
-            let pageSize = self.state.pageSize;
-            let totalPage = self.state.totalPage;
-            let startIndex,endIndex;
-            this.getAssertIds(assetAddr).then(assertIds =>{
-                totalPage = pagerhelper.calcTotalPage(pageSize,assertIds.length);
-                startIndex = pagerhelper.calcStart(selectedPage,pageSize);
-                endIndex = hasList?this.oldList.length:pageSize+startIndex;
-                this.idList = assertIds;
-                 this.setState({
-                    totalPage:totalPage
-                 })
-                let lists = [];
-                let newWarrants = [];
-                if(hasList){
+      getAssertAddr.then(assetAddr => {
+          self.addr = assetAddr;
+          let pageSize = self.state.pageSize;
+          let totalPage = self.state.totalPage;
+          let startIndex,endIndex;
+          this.getAssertIds(assetAddr).then(assertIds =>{
+              totalPage = pagerhelper.calcTotalPage(pageSize,assertIds.length);
+              startIndex = pagerhelper.calcStart(selectedPage,pageSize);
+              endIndex = hasList?this.oldList.length:pageSize+startIndex;
+              this.idList = assertIds;
+              this.setState({
+                  totalPage:totalPage
+              })
+              let lists = [];
+              let newWarrants = [];
+              if(hasList){
                   this.oldList = [];
-                }
-                for (var i = startIndex; i < endIndex; i++) {
+              }
+              for (var i = startIndex; i < endIndex; i++) {
                   if(assertIds[i]){
-                    lists.push(assertIds[i]);
+                      lists.push(assertIds[i]);
                   }
-                }                
-                lists.forEach((id, index) => {
-                   self.getWarrant(assetAddr,id).then(warrant => {
-                        newWarrants.push(warrant);
-                        self.oldList.push(warrant);
-                        self.setState({
+              }
+              lists.forEach((id, index) => {
+                  self.getWarrant(assetAddr,id).then(warrant => {
+                      newWarrants.push(warrant);
+                      self.oldList.push(warrant);
+                      self.setState({
                           warrants: isList?this.oldList:newWarrants,
                           inited: true
-                        }, ()=> {
-                            Toast.hide()
-                        })
-                    })
-                });
-            });
-        }).catch(error => console.log(error));
-        this.setState({})
-    }
+                      }, ()=> {
+                          Toast.hide()
+                      })
+                  })
+              });
+          });
+          this.setState({});
+      })
+
+  }
 
   getAssertIds(addr){
       let StandardAsset = contract(standardAsset_artifacts);
@@ -178,9 +161,9 @@ class Home extends React.Component {
           warehouseAddress:"北京市北京市朝阳区五里桥",
           products:[{
               sku:"171004100000000",
-              origin:"通辽",
+              producedIn:"通辽",
               specName:"A级一等粮(霉变<=2%)",
-              numberOfPieces:"10",
+              amount:"10",
               weight:"10",
               unit:"TON"
           }]
