@@ -34,11 +34,13 @@ class Home extends React.Component {
   }
 
    componentWillUnmount() {
-     window.removeEventListener('scroll', this.handleScroll);
-     window.removeEventListener('resize', this.onResize);
+      this._isMounted = false;
+      window.removeEventListener('scroll', this.handleScroll);
+      window.removeEventListener('resize', this.onResize);     
    }
 
   componentDidMount () {
+    this._isMounted = true;
     if (window.web3) {
       // this.instantiateContract()
       this.getData(1,true)
@@ -94,9 +96,6 @@ class Home extends React.Component {
               startIndex = pagerhelper.calcStart(selectedPage,pageSize);
               endIndex = hasList?this.oldList.length:pageSize+startIndex;
               this.idList = assertIds;
-              this.setState({
-                  totalPage:totalPage
-              })
               let lists = [];
               let newWarrants = [];
               if(hasList){
@@ -111,16 +110,19 @@ class Home extends React.Component {
                   self.getWarrant(assetAddr,id).then(warrant => {
                       newWarrants.push(warrant);
                       self.oldList.push(warrant);
-                      self.setState({
-                          warrants: isList?this.oldList:newWarrants,
-                          inited: true
-                      }, ()=> {
-                          Toast.hide()
-                      })
+                      if(this._isMounted){
+                        self.setState({
+                            totalPage:totalPage,
+                            warrants: isList?this.oldList:newWarrants,
+                            inited: true
+                        }, ()=> {
+                            Toast.hide()
+                        })
+                      }
+                      
                   })
               });
           });
-          this.setState({});
       })
 
   }
