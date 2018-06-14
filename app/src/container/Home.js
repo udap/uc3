@@ -7,6 +7,7 @@ import { default as contract } from 'truffle-contract'
 import assetRegistry_artifacts from '../../../build/contracts/AssetRegistry.json'
 import standardAsset_artifacts from '../../../build/contracts/StandardAsset.json'
 import {Warrant, Product} from '../data/warrant'
+import pagerhelper from '../util/pagerhelper'
 
 let tokenName = "cangdan";
 let tokenSymbol = "CD";
@@ -96,11 +97,24 @@ class Home extends React.Component {
             return instance.getId.call(tokenName,tokenSymbol,tokenUri,{from: account});
         }).then(id => {
             return assetRegistryInstance.idAssets.call(id,{from: account});
-        }).then(assetAddrs => {
-            if (assetAddrs == 0x0){
+        }).then(assetAddr => {
+            if (assetAddr == 0x0){
                 Toast.info('The contract has not yet been created !!', 10);
                 throw 'The contract has not yet been created !!';
             }
+            let pageNo = self.state.selectedPage;
+            let pageSize = self.state.pageSize;
+            let totalPage = 0;
+            this.getAssertIds(assetAddr).then(assertIds =>{
+                 totalPage = pagerhelper.calcTotalPage(pageSize,assertIds.length);
+                 assertIds.forEach((id, index) => {
+                     self.getWarrant(assetAddr,assertIds);
+                 });
+            });
+
+
+
+
             maxNum = assetAddrs.length;
             let endNumd;
             endNumd = (lastIndex + size)>maxNum?maxNum:(lastIndex + size);
@@ -136,29 +150,50 @@ class Home extends React.Component {
         }).catch(error => console.log(error));
         this.setState({})
     }
-
-  getWarrant(addr){
-      let warrant={};
+  getAssertIds(addr){
       let StandardAsset = contract(standardAsset_artifacts);
       StandardAsset.setProvider(web3.currentProvider);
-      let data = {}
       return StandardAsset.at(addr).then(instance => {
-              data.instance = instance;
-              return instance.getData.call({from: account})
-          }).then(metaData => {
+          return instance.getOwnedTokens.call(account,{from: account})
+      });
+  }
+  getWarrant(addr,assertId){
+      let warrant={assertId:assertId};
+      let StandardAsset = contract(standardAsset_artifacts);
+      StandardAsset.setProvider(web3.currentProvider);
+      let assetInstance;
+      return StandardAsset.at(addr).then(instance => {
+              assetInstance = instance;
+              return instance.tokenURI.call(assertId,{from: account})
+          }).then(tokenURI => {
               warrant = JSON.parse(metaData);
-              warrant.addr = addr
-              return data.instance.getOwner.call({from: account})
+              warrant.tokenURI = tokenURI;
+              warrant.metaData = this.getMetaData(tokenURI);
+              return assetInstance.ownerOf.call(assertId,{from: account})
           }).then(owner => {
               warrant.owner = owner;
-              return data.instance.getIssuer.call({from: account})
+              return assetInstance.tokenIssuer.call(assertId,{from: account})
           }).then(issuer => {
               warrant.issuer = issuer;
-              return data.instance.getState.call({from: account})
-          }).then(state => {
-              warrant.state = state;
-              return warrant;
           })
+  }
+  getMetaData(tokenURI){
+      let warrant = {
+          warrantCode : "W1803151",
+          productName:"玉米",
+          totalWeight:"100TON",
+          storageRoomCode:"TZQ1002-B1",
+          warehouseAddress:"北京市北京市朝阳区五里桥",
+          products:[{
+              sku:"171004100000000",
+              origin:"通辽",
+              specName:"A级一等粮(霉变<=2%)",
+              numberOfPieces:"10",
+              weight:"10",
+              unit:"TON"
+          }]
+      }
+      return warrant;
   }
 
   onResize=(e)=>{
