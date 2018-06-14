@@ -5,8 +5,12 @@ const calcTotalPage = ( pageSize, totalCount) => {
 
     let pageCount = totalCount % pageSize == 0 ? page : page + 1;
 
-    //总页数有可能为0
+    //calc TotalPage
     return pageCount;
 };
 
-module.exports  = { calcTotalPage:calcTotalPage };
+const calcStart = (pageNo,pageSize) => {
+    return (pageNo - 1) * pageSize;//calc start no
+};
+
+module.exports  = { calcTotalPage:calcTotalPage,calcStart:calcStart };
