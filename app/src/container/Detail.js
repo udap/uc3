@@ -34,8 +34,7 @@ export default class Detail extends React.Component {
   }
   transfer = () =>{
       let self = this;
-      prompt('Transfer', 'please input Recipient address',[ {text: 'Close'},{text: 'Submit',onPress: recipient => new Promise((resolve, reject) => {
-
+       const promptInstance = prompt('Transfer', 'please input Recipient address',[ {text: 'Close'},{text: 'Submit',onPress: recipient => new Promise((resolve, reject) => {
                       if (recipient && web3.isAddress(recipient)){
                           getAssertAddr.then(addr =>{
                               StandardAsset.at(addr).then(instance => {
@@ -43,15 +42,15 @@ export default class Detail extends React.Component {
                                   return instance.transferFrom(account,recipient,self.state.data.assertId,{from: account});
                               }).then(result => {
                                   Toast.hide();
+                                  promptInstance.close();
                                   self.props.history.push( '/',null);
                                   resolve(value)
                               }).catch(e => {
-                                  Toast.hide();
-                                  Toast.fail(e.name,2);
+                                 Toast.hide();
+                                 Toast.fail(e.name,2);
                                   reject()
                               });
                           });
-
                       } else {
                           Toast.info('Please enter the correct address', 1);
                           reject()
@@ -62,31 +61,33 @@ export default class Detail extends React.Component {
   }
   burn=()=>{
       let self = this;
-      getAssertAddr.then(addr => {
-          StandardAsset.at(addr).then(instance => {
-              Toast.loading('Loading...',0);
-              return instance.burn(account,self.state.data.assertId,{from: account})
-          }).then(result => {
-              Toast.hide();
-              self.props.history.push( '/',null);
-          }).catch(e => {
-              Toast.hide();
-              Toast.fail(e.name,5);
-          });
-      });
-
+      const alertInstance = alert('BURN', 'Are you sure???', [
+        { text: 'Cancel', onPress: () => console.log('cancel') },
+        { text: 'Ok', onPress: () =>new Promise((resolve) => {
+                getAssertAddr.then(addr => {
+                    StandardAsset.at(addr).then(instance => {
+                        Toast.loading('Loading...',0);
+                        return instance.burn(account,self.state.data.assertId,{from: account})
+                    }).then(result => {
+                        alertInstance.close();
+                        Toast.hide();
+                        self.props.history.push( '/',null);
+                    }).catch(e => {
+                        Toast.hide();
+                        Toast.fail(e.name,2);
+                    });
+                });
+          })
+        },
+    ]);
   }
+
   renderButtons(){
       let buttons = "";
       buttons = <Flex.Item>
           <Button type='primary' onClick={this.transfer}>TRANSFER</Button>
           <WhiteSpace size='lg' />
-          <Button  type='warning' onClick={() => alert('burn', 'Are you sure???', [
-                          { text: 'Cancel', onPress: () => console.log('cancel') },
-                          { text: 'Ok', onPress: () => this.burn },
-                      ])} >
-                          BURN
-                      </Button>
+          <Button  type='warning' onClick={this.burn}>BURN</Button>
       </Flex.Item>;
       return buttons;
   }

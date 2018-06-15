@@ -72,12 +72,15 @@ export default class App extends React.Component {
             if (web3.eth.accounts[0] !== account) {
                 window.account = web3.eth.accounts[0];
                 alert("change account");
+                window.location.reload();
+
             }
             let newNetwork = web3.version.network;
             if (newNetwork != 'loading'){
                 if(newNetwork != 'loading' && newNetwork !== network){
                     window.network = newNetwork;
                     alert("change network");
+                    window.location.reload();
                 }else{
                     network = newNetwork;
                 }
