@@ -81,7 +81,7 @@ export default class Detail extends React.Component {
       buttons = <Flex.Item>
           <Button type='primary' onClick={this.transfer}>TRANSFER</Button>
           <WhiteSpace size='lg' />
-          <Button  type='warning' onClick={() => alert('Delete', 'Are you sure???', [
+          <Button  type='warning' onClick={() => alert('burn', 'Are you sure???', [
                           { text: 'Cancel', onPress: () => console.log('cancel') },
                           { text: 'Ok', onPress: () => this.burn },
                       ])} >
