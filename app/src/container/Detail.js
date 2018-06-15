@@ -40,7 +40,7 @@ export default class Detail extends React.Component {
                           getAssertAddr.then(addr =>{
                               StandardAsset.at(addr).then(instance => {
                                   Toast.loading('Loading...',0);
-                                  return instance.transfer(recipient, {from: account});
+                                  return instance.transferFrom(account,recipient,self.state.data.assertId,{from: account});
                               }).then(result => {
                                   Toast.hide();
                                   self.props.history.push( '/',null);
