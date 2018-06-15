@@ -17,7 +17,7 @@ module.exports = {
             //adderss 0xcabe9a163b96865308605bde13233fd1a0610931
             //private key 816a873c934de69b966d34a2bd464be55de47aea11deeb554de23d2b8b8b8f93
             provider: new HDWalletProvider(mnemonic, "https://ropsten.infura.io/HUkrzYiEqgEioBDoT5Mq"),
-            network_id: "*"
+            network_id: 3
         }
     }
 
