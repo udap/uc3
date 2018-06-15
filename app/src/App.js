@@ -66,7 +66,24 @@ export default class App extends React.Component {
       }
       self.setState({ account: accs[0] })
       window.account = accs[0]
-    })
+      window.network = web3.version.network;
+
+      web3.currentProvider.publicConfigStore.on('update', ()=>{
+            if (web3.eth.accounts[0] !== account) {
+                window.account = web3.eth.accounts[0];
+                alert("change account");
+            }
+            let newNetwork = web3.version.network;
+            if (newNetwork != 'loading'){
+                if(newNetwork != 'loading' && newNetwork !== network){
+                    window.network = newNetwork;
+                    alert("change network");
+                }else{
+                    network = newNetwork;
+                }
+            }
+        });
+    });
   }
 
   render () {
