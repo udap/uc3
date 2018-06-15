@@ -7,6 +7,7 @@ import PopoverItem from '../components/PopoverItem'
 
 import standardAsset_artifacts from '../../../build/contracts/StandardAsset.json'
 import { default as contract } from 'truffle-contract';
+import getAssertAddr from '../util/getAssertAddr';
 
 const Item = List.Item
 const prompt = Modal.prompt
@@ -33,21 +34,24 @@ export default class Detail extends React.Component {
   }
   transfer = () =>{
       let self = this;
-      prompt('Transfer', 'please input Recipient address',[ {text: 'Close'},{text: 'Submit',onPress: value => new Promise((resolve, reject) => {
+      prompt('Transfer', 'please input Recipient address',[ {text: 'Close'},{text: 'Submit',onPress: recipient => new Promise((resolve, reject) => {
 
-                      if (value && web3.isAddress(value)){
-                          StandardAsset.at(self.state.data.assertId).then(instance => {
-                              Toast.loading('Loading...',0);
-                              return instance.transfer(value, {from: account});
-                          }).then(result => {
-                              Toast.hide();
-                              self.props.history.push( '/',null);
-                              resolve(value)
-                          }).catch(e => {
-                              Toast.hide();
-                              Toast.fail(e.name,2);
-                              reject()
+                      if (recipient && web3.isAddress(recipient)){
+                          getAssertAddr.then(addr =>{
+                              StandardAsset.at(addr).then(instance => {
+                                  Toast.loading('Loading...',0);
+                                  return instance.transfer(recipient, {from: account});
+                              }).then(result => {
+                                  Toast.hide();
+                                  self.props.history.push( '/',null);
+                                  resolve(value)
+                              }).catch(e => {
+                                  Toast.hide();
+                                  Toast.fail(e.name,2);
+                                  reject()
+                              });
                           });
+
                       } else {
                           Toast.info('Please enter the correct address', 1);
                           reject()
@@ -56,29 +60,32 @@ export default class Detail extends React.Component {
               }
           ], 'default', null, ['input your Recipient address']);
   }
-  delete=()=>{
+  burn=()=>{
       let self = this;
-      StandardAsset.at(this.state.data.assertId).then(instance => {
-          Toast.loading('Loading...',0);
-          return instance.destroy({from: account})
-      }).then(result => {
-          Toast.hide();
-          self.props.history.push( '/',null);
-      }).catch(e => {
-          Toast.hide();
-          Toast.fail(e.name,5);
+      getAssertAddr.then(addr => {
+          StandardAsset.at(addr).then(instance => {
+              Toast.loading('Loading...',0);
+              return instance.burn(account,self.state.data.assertId,{from: account})
+          }).then(result => {
+              Toast.hide();
+              self.props.history.push( '/',null);
+          }).catch(e => {
+              Toast.hide();
+              Toast.fail(e.name,5);
+          });
       });
+
   }
-  renderButtons(state){
+  renderButtons(){
       let buttons = "";
       buttons = <Flex.Item>
           <Button type='primary' onClick={this.transfer}>TRANSFER</Button>
           <WhiteSpace size='lg' />
           <Button  type='warning' onClick={() => alert('Delete', 'Are you sure???', [
                           { text: 'Cancel', onPress: () => console.log('cancel') },
-                          { text: 'Ok', onPress: () => this.delete() },
+                          { text: 'Ok', onPress: () => this.burn },
                       ])} >
-                          DELETE
+                          BURN
                       </Button>
       </Flex.Item>;
       return buttons;
@@ -88,7 +95,6 @@ export default class Detail extends React.Component {
     let newData = Object.entries(this.state.data.metaData);
     let arrList = [];
     let products = []
-    let state = {}
     arrList.push({key:'owner', val:this.state.data.owner});
     arrList.push({key:'issuer', val:this.state.data.issuer});
     for(var [key, val] of newData) {
@@ -132,7 +138,7 @@ export default class Detail extends React.Component {
                 }
           </Accordion>
         </div>
-          {this.renderButtons(state)}
+          {this.renderButtons()}
       </div>
     )
   }
