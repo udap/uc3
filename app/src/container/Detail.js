@@ -11,16 +11,6 @@ import { default as contract } from 'truffle-contract';
 const Item = List.Item
 const prompt = Modal.prompt
 const alert = Modal.alert;
-const stateObj = {
-  0:'ISSUED',
-  1:'APPROVED',
-  2:'REJECTED'
-}
-const stateToNum = {
-    'ISSUED':0,
-    'APPROVED':1,
-    'REJECTED':2
-}
 const StandardAsset = contract(standardAsset_artifacts);
 StandardAsset.setProvider(web3.currentProvider);
 export default class Detail extends React.Component {
@@ -41,39 +31,12 @@ export default class Detail extends React.Component {
       visible,
     });
   }
-
-  accept=()=> {
-      let self = this;
-      StandardAsset.at(this.state.data.addr).then(instance => {
-          Toast.loading('Loading...',0);
-          return instance.setState(stateToNum['APPROVED'], {from: account})
-      }).then(result => {
-          Toast.hide();
-          self.props.history.push( '/',null);
-      }).catch(e => {
-          Toast.hide();
-          Toast.fail(e.name);
-      });
-  }
-  reject=()=>{
-      let self = this;
-      StandardAsset.at(this.state.data.addr).then(instance => {
-          Toast.loading('Loading...',0);
-          return instance.setState(stateToNum['REJECTED'], {from: account})
-      }).then(result => {
-          Toast.hide();
-          self.props.history.push( '/',null);
-      }).catch(e => {
-          Toast.hide();
-          Toast.fail(e.name,5);
-      });
-  }
   transfer = () =>{
       let self = this;
       prompt('Transfer', 'please input Recipient address',[ {text: 'Close'},{text: 'Submit',onPress: value => new Promise((resolve, reject) => {
 
                       if (value && web3.isAddress(value)){
-                          StandardAsset.at(self.state.data.addr).then(instance => {
+                          StandardAsset.at(self.state.data.assertId).then(instance => {
                               Toast.loading('Loading...',0);
                               return instance.transfer(value, {from: account});
                           }).then(result => {
@@ -95,7 +58,7 @@ export default class Detail extends React.Component {
   }
   delete=()=>{
       let self = this;
-      StandardAsset.at(this.state.data.addr).then(instance => {
+      StandardAsset.at(this.state.data.assertId).then(instance => {
           Toast.loading('Loading...',0);
           return instance.destroy({from: account})
       }).then(result => {
@@ -108,59 +71,29 @@ export default class Detail extends React.Component {
   }
   renderButtons(state){
       let buttons = "";
-      if (state==stateObj[0]){
-          buttons = <div className="flex-container"><Flex justify="center">
-              <Flex.Item>
-                  <Button  type='primary' onClick={() =>alert('Accept', 'Are you sure???', [
-                      { text: 'Cancel', onPress: () => console.log('cancel') },
-                      { text: 'Ok', onPress: () => this.accept() },
-                  ])}>
-                      accept
-                  </Button>
-              </Flex.Item>
-              <Flex.Item>
-                  <Button   type='primary'
-                            onClick={() =>
-                                alert('Reject', 'Are you sure???', [
-                                    { text: 'Cancel', onPress: () => console.log('cancel') },
-                                    { text: 'Ok', onPress: () => this.reject() },
-                                ])
-                            }>
-                      reject
-                  </Button></Flex.Item></Flex>
-          </div>;
-
-      }else if (state==stateObj[1]){
-          buttons = <Flex.Item><Button type='primary' onClick={this.transfer}>TRANSFER</Button></Flex.Item>;
-      }else {
-          buttons = <Flex.Item>
-                      <Button  type='warning' onClick={() => alert('Delete', 'Are you sure???', [
+      buttons = <Flex.Item>
+          <Button type='primary' onClick={this.transfer}>TRANSFER</Button>
+          <WhiteSpace size='lg' />
+          <Button  type='warning' onClick={() => alert('Delete', 'Are you sure???', [
                           { text: 'Cancel', onPress: () => console.log('cancel') },
                           { text: 'Ok', onPress: () => this.delete() },
                       ])} >
-                          delete
+                          DELETE
                       </Button>
-                  </Flex.Item>;
-      }
+      </Flex.Item>;
       return buttons;
   }
 
   render () {
-    let newData = Object.entries(this.state.data);
+    let newData = Object.entries(this.state.data.metaData);
     let arrList = [];
     let products = []
     let state = {}
+    arrList.push({key:'owner', val:this.state.data.owner});
+    arrList.push({key:'issuer', val:this.state.data.issuer});
     for(var [key, val] of newData) {
       if(key=="products"){
         products = val;
-        continue;
-      }
-      if(key=="addr"){
-        continue;
-      }
-      if(key=="state"){
-        state=stateObj[val.toString()];
-        arrList.push({key:key, val:state});
         continue;
       }
       arrList.push({key:key, val:val});

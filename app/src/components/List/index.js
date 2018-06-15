@@ -42,7 +42,7 @@ export default class Lists extends React.Component {
               <List.Item wrap extra={<PopoverItem visible={this.state.visible} value={`${warrant.owner ? warrant.owner : '-'}`} handleVisibleChange={this.handleVisibleChange} />}>issuer</List.Item>
               <List.Item wrap extra={warrant.productName ? warrant.productName : '-'}>product</List.Item>
           </Card.Body>
-          <Card.Footer content='' extra={<Link to={{pathname: '/warrant', state: warrant.metaData}} className={`cf last-no-border ${root}`}><div className='more'>MORE</div></Link>} />
+          <Card.Footer content='' extra={<Link to={{pathname: '/warrant', state: warrant}} className={`cf last-no-border ${root}`}><div className='more'>MORE</div></Link>} />
 
         </Card>
         <WhiteSpace size='lg' />
