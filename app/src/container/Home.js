@@ -92,7 +92,14 @@ class Home extends React.Component {
           let totalPage = self.state.totalPage;
           let startIndex,endIndex;
           this.getAssertIds(assetAddr).then(assertIds =>{
-              totalPage = pagerhelper.calcTotalPage(pageSize,assertIds.length);
+             if(this._isMounted&&assertIds.length==0){
+                self.setState({
+                  inited:true,
+                  warrants:[]
+                })
+                return;
+             }
+             totalPage = pagerhelper.calcTotalPage(pageSize,assertIds.length);
               startIndex = pagerhelper.calcStart(selectedPage,pageSize);
               endIndex = hasList?this.oldList.length:pageSize+startIndex;
               this.idList = assertIds;
