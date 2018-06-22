@@ -71,7 +71,6 @@ export default class App extends React.Component {
       web3.currentProvider.publicConfigStore.on('update', ()=>{
             if (web3.eth.accounts[0] !== account) {
                 window.account = web3.eth.accounts[0];
-                alert("change account");
                 window.location.reload();
 
             }
@@ -79,7 +78,6 @@ export default class App extends React.Component {
             if (newNetwork != 'loading'){
                 if(newNetwork != 'loading' && newNetwork !== network){
                     window.network = newNetwork;
-                    alert("change network");
                     window.location.reload();
                 }else{
                     network = newNetwork;
