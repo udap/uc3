@@ -9,6 +9,10 @@ import Item from './Item'
 import tokenConfig from "../data/token";
 import standardAsset_artifacts from '../../../build/contracts/StandardAsset.json'
 
+const ipfsConfig = require("../config/ipfsConfig") ;
+const ipfsAPI = require('ipfs-api');
+
+
 
 const AntdItem = List.Item
 class Issue extends Component {
@@ -180,9 +184,11 @@ class Issue extends Component {
         StandardAsset.setProvider(web3.currentProvider);
 
         StandardAsset.at(addr).then(instance => {
-            let uri = self.saveMetadata();
-            return instance.mint(self.state.warrant.recipient,uri,{from:window.account});
-        }).then(result =>{
+            self.saveMetadata().then(cid => {
+                let uri =ipfsConfig+cid.toBaseEncodedString();
+                return instance.mint(self.state.warrant.recipient,uri,{from:window.account});
+            });
+        }).then(() =>{
             Toast.hide()
             self.props.history.push( '/',null)
         })
@@ -193,8 +199,8 @@ class Issue extends Component {
   };
   saveMetadata(){
       let metadata = JSON.stringify(this.getData());
-      //IPFS upload
-      return "uri";
+      let ipfs = ipfsAPI(ipfsConfig.host,ipfsConfig.port,{protocol:ipfsConfig.protocol});
+      return ipfs.dag.put(User, { format: 'dag-cbor', hashAlg: 'sha2-256' });
   }
 
   listProducts(){
