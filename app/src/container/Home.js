@@ -140,7 +140,7 @@ class Home extends React.Component {
           return ;
       if (!tokenURI.toString().startsWith("http"))
           return ;
-      request.get(tokenURI.toString())
+      request.get(tokenURI.toString().replace("ipfs.io","ipfs.infura.io"))
           .then( res => {
               warrant.metaData = JSON.parse(res.body);
           })
