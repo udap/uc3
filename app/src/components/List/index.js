@@ -35,7 +35,7 @@ export default class Lists extends React.Component {
         <WhiteSpace size='lg' />
         <Card className='home-card'>
           <Card.Header
-            title={`Code:${warrant.metaData.warrantCode ? warrant.metaData.warrantCode : '-'}`}
+            title={`Code:${warrant.metaData? warrant.metaData.warrantCode : '-'}`}
           />
           <Card.Body>
               <List.Item wrap extra={<PopoverItem visible={this.state.visible} value={`${warrant.issuer ? warrant.issuer : '-'}`} handleVisibleChange={this.handleVisibleChange} />}>owner</List.Item>

@@ -185,12 +185,12 @@ class Issue extends Component {
 
         StandardAsset.at(addr).then(instance => {
             self.saveMetadata().then(cid => {
-                let uri =ipfsConfig+cid.toBaseEncodedString();
+                let uri =ipfsConfig.protocol+cid.toBaseEncodedString();
                 return instance.mint(self.state.warrant.recipient,uri,{from:window.account});
+            }).then(() =>{
+                Toast.hide()
+                self.props.history.push( '/',null)
             });
-        }).then(() =>{
-            Toast.hide()
-            self.props.history.push( '/',null)
         })
     }).catch(function (e) {
         console.log(e)
@@ -200,7 +200,7 @@ class Issue extends Component {
   saveMetadata(){
       let metadata = JSON.stringify(this.getData());
       let ipfs = ipfsAPI(ipfsConfig.host,ipfsConfig.port,{protocol:ipfsConfig.protocol});
-      return ipfs.dag.put(User, { format: 'dag-cbor', hashAlg: 'sha2-256' });
+      return ipfs.dag.put(metadata, { format: 'dag-cbor', hashAlg: 'sha2-256' });
   }
 
   listProducts(){

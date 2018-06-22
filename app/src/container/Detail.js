@@ -93,18 +93,18 @@ export default class Detail extends React.Component {
   }
 
   render () {
-    let newData = Object.entries(this.state.data.metaData);
     let arrList = [];
     let products = []
-    arrList.push({key:'owner', val:this.state.data.owner});
-    arrList.push({key:'issuer', val:this.state.data.issuer});
+    let newData = Object.entries(this.state.data);
     for(var [key, val] of newData) {
-      if(key=="products"){
-        products = val;
-        continue;
+        if(key=='assertId'||key=='tokenURI'){
+          continue;
+        }
+        arrList.push({
+          key:key, 
+          val:val
+        });
       }
-      arrList.push({key:key, val:val});
-    }
 
     return (
       <div className='detail'>
@@ -129,13 +129,13 @@ export default class Detail extends React.Component {
         <div style={{ marginTop: 10, marginBottom: 10 }}>
           <Accordion className='my-accordion' onChange={this.onChange}>
             {
-                  products.map((detail, index) => <Accordion.Panel key={index} header={'Item#' + (index + 1)} className='pad'>
+                  arrList.products?arrList.products.map((detail, index) => <Accordion.Panel key={index} header={'Item#' + (index + 1)} className='pad'>
                     <Item wrap extra={detail.sku}>sku</Item>
                     <Item wrap extra={detail.producedIn}>producedIn</Item>
                     <Item wrap extra={detail.specName}>specName</Item>
                     <Item wrap extra={detail.amount}>amount</Item>
                     <Item wrap extra={detail.weight + detail.unit}>totalWeight</Item>
-                  </Accordion.Panel>)
+                  </Accordion.Panel>):null
                 }
           </Accordion>
         </div>

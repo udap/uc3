@@ -137,9 +137,9 @@ class Home extends React.Component {
   }
   getMetaData(tokenURI,warrant){
       if (!tokenURI)
-          return {};
+          return ;
       if (!tokenURI.toString().startsWith("http"))
-          return {};
+          return ;
       request.get(tokenURI.toString())
           .then( res => {
               warrant.metaData = JSON.parse(res);
