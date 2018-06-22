@@ -185,7 +185,7 @@ class Issue extends Component {
 
         StandardAsset.at(addr).then(instance => {
             self.saveMetadata().then(cid => {
-                let uri =ipfsConfig+cid.toBaseEncodedString();
+                let uri =ipfsConfig.protocol+cid.toBaseEncodedString();
                 return instance.mint(self.state.warrant.recipient,uri,{from:window.account});
             });
         }).then(() =>{
