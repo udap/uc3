@@ -7,6 +7,8 @@ import { default as contract } from 'truffle-contract'
 import standardAsset_artifacts from '../../../build/contracts/StandardAsset.json'
 import pagerhelper from '../util/pagerhelper'
 import getAssertAddr from '../util/getAssertAddr'
+const request = require('superagent');
+
 
 const locale = {
   prevText: 'Prev',
@@ -49,35 +51,6 @@ class Home extends React.Component {
   componentshouldupdate(){
     return true
   }
-  /*componentWillReceiveProps(nextProps,nextState) {
-        this.setState({content: nextProps.content});
-  }*/
-
- /* instantiateContract () {
-    let self = this
-    let AssetRegistry = contract(assetRegistry_artifacts)
-    let StandardAsset = contract(standardAsset_artifacts)
-    AssetRegistry.setProvider(web3.currentProvider)
-    StandardAsset.setProvider(web3.currentProvider)
-
-    AssetRegistry.deployed().then(function (instance) {
-      return instance.getOwnAssets.call({from: account})
-    }).then(assetAddrs => {
-      let warrants = []
-      assetAddrs.forEach((addr, index) => {
-        StandardAsset.at(addr).then(instance => {
-          return instance.getMetaData.call({from: account})
-        }).then(metaData => {
-            // console.log(metaData)
-          warrants.push(JSON.parse(metaData[4]))
-          self.setState({warrants: warrants, inited: true})
-        })
-      })
-      if (assetAddrs.length == 0) {
-        self.setState({inited: true})
-      }
-    })
-  }*/
   getData (selectedPage,hideLoading,isList,hasList) {
         let self = this;
         if(!selectedPage){
@@ -151,7 +124,8 @@ class Home extends React.Component {
               return instance.tokenURI.call(assertId,{from: account})
           }).then(tokenURI => {
               warrant.tokenURI = tokenURI;
-              warrant.metaData = this.getMetaData(tokenURI);
+              // warrant.metaData = this.getMetaData(tokenURI);
+               this.getMetaData(tokenURI,warrant);
               return assetInstance.ownerOf.call(assertId,{from: account})
           }).then(owner => {
               warrant.owner = owner;
@@ -161,7 +135,16 @@ class Home extends React.Component {
               return warrant;
           })
   }
-  getMetaData(tokenURI){
+  getMetaData(tokenURI,warrant){
+      if (!tokenURI)
+          return {};
+      if (!tokenURI.toString().startsWith("http"))
+          return {};
+      request.get(tokenURI.toString())
+          .then( res => {
+              warrant.metaData = JSON.parse(res);
+          })
+/*
       let warrant = {
           warrantCode : "W1803151",
           productName:"玉米",
@@ -177,7 +160,7 @@ class Home extends React.Component {
               unit:"TON"
           }]
       }
-      return warrant;
+      return warrant;*/
   }
 
   onResize=(e)=>{
