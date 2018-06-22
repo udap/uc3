@@ -97,7 +97,7 @@ export default class Detail extends React.Component {
     let products = []
     let newData = Object.entries(this.state.data);
     for(var [key, val] of newData) {
-        if(key=='assertId'||key=='tokenURI'){
+        if(key=='assertId'||key=='tokenURI'||key=="metaData"){
           continue;
         }
         arrList.push({
@@ -105,6 +105,20 @@ export default class Detail extends React.Component {
           val:val
         });
       }
+      if(this.state.data.metaData){
+        let metaData = Object.entries(this.state.data.metaData);
+        for(let [key, val] of metaData) {
+            if(key=='products'){
+              products = val;
+              continue;
+            }
+            arrList.push({
+              key:key, 
+              val:val
+            });
+          }
+      }
+      
 
     return (
       <div className='detail'>
@@ -129,7 +143,7 @@ export default class Detail extends React.Component {
         <div style={{ marginTop: 10, marginBottom: 10 }}>
           <Accordion className='my-accordion' onChange={this.onChange}>
             {
-                  arrList.products?arrList.products.map((detail, index) => <Accordion.Panel key={index} header={'Item#' + (index + 1)} className='pad'>
+                  products?products.map((detail, index) => <Accordion.Panel key={index} header={'Item#' + (index + 1)} className='pad'>
                     <Item wrap extra={detail.sku}>sku</Item>
                     <Item wrap extra={detail.producedIn}>producedIn</Item>
                     <Item wrap extra={detail.specName}>specName</Item>
