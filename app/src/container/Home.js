@@ -142,7 +142,7 @@ class Home extends React.Component {
           return ;
       request.get(tokenURI.toString())
           .then( res => {
-              warrant.metaData = JSON.parse(res);
+              warrant.metaData = JSON.parse(res.body);
           })
 /*
       let warrant = {
