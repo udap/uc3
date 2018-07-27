@@ -45,7 +45,7 @@
     "validate.js": "^0.12.0",
     "web3": "^0.20.6",
 
-    //web server dependencies
+
     "koa": "^2.5.0",
     "koa-body": "^2.6.0",
     "koa-mount": "^3.0.0",
