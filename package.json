@@ -4,7 +4,6 @@
   "description": "",
   "scripts": {
     "dev": "webpack-dev-server --hot --port 8080 --mode=development",
-//    "start": "webpack & node dist/server.js",
     "start": "server/server.js",
     "deploy": "webpack"
   },
