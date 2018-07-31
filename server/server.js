@@ -4,7 +4,7 @@ const route = require('koa-router')();
 const koaBody = require('koa-body');
 const staticHandler = require('koa-static');
 const mount = require('koa-mount');
-
+const standardAssetService = require('./handler/standardAssetService');
 
 const app = new Koa();
 
@@ -34,6 +34,9 @@ app.use(staticHandler(path.join(__dirname,"view")));
 
 //root path
 route.get('/', main);
+route.get('/loadErc721',koaBody(),standardAssetService.loadErc721);
+
+
 
 app.use(route.routes())
     .use(route.allowedMethods());
