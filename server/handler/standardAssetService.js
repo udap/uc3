@@ -1,7 +1,8 @@
 const contract = require('truffle-contract');
 const standardAsset_artifacts = require('../../build/contracts/StandardAsset.json');
 const StandardAsset = contract(standardAsset_artifacts);
-let ethereumCfg = require('../config/ethereumCfg');
+const ethereumCfg = require('../config/ethereumCfg');
+const result = require('../common/result');
 
 const Web3 = require('web3');
 const web3 = new Web3();
@@ -47,12 +48,8 @@ const loadErc721 =async (ctx) => {
         ctx.throw(err.message);
     });
 
-    //响应
-    ctx.response.body = {
-        code: 1,
-        message: "success",
-        content:content
-    };
+    //response
+    ctx.response.body = result.success(content);
 };
 
 module.exports  = { loadErc721:loadErc721};

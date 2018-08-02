@@ -5,6 +5,7 @@ const koaBody = require('koa-body');
 const staticHandler = require('koa-static');
 const mount = require('koa-mount');
 const standardAssetService = require('./handler/standardAssetService');
+const result = require('./common/result');
 
 const app = new Koa();
 
@@ -17,10 +18,7 @@ const errorHandler = async (ctx, next) => {
         await next();
     } catch (err) {
         ctx.response.status = 200;
-        ctx.response.body = {
-            code: 0,
-            message: err.message
-        };
+        ctx.response.body = result.fail();
     }
 };
 
