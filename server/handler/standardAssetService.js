@@ -40,6 +40,9 @@ const loadErc721 =async (ctx) => {
         return instance.symbol.call({from: from})
     }).then(symbol => {
         content.symbol = symbol;
+        return instance.balanceOf.call(from,{from: from})
+    }).then(balance => {
+        content.balance = balance;
     }).catch( err => {
         ctx.throw(err.message);
     });
