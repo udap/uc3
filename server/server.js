@@ -33,7 +33,7 @@ app.use(staticHandler(path.join(__dirname,"view")));
 //root path
 route.get('/', main);
 route.get('/erc721/load',koaBody(),standardAssetService.loadErc721);
-route.get('/erc721/tokenByIndex',koaBody(),standardAssetService.tokenByIndex);
+route.get('/erc721/tokenOfOwnerByIndex',koaBody(),standardAssetService.tokenOfOwnerByIndex);
 route.get('/erc721/tokenInfo',koaBody(),standardAssetService.tokenInfo);
 
 

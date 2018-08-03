@@ -48,7 +48,7 @@ const loadErc721 =async (ctx) => {
     ctx.response.body = result.success(content);
 };
 
-const tokenByIndex =async (ctx) => {
+const tokenOfOwnerByIndex =async (ctx) => {
 
     let fields = ctx.query;
 
@@ -139,4 +139,4 @@ const tokenInfo = async (ctx) => {
 
 
 
-module.exports  = { loadErc721:loadErc721,tokenByIndex:tokenByIndex,tokenInfo:tokenInfo};
+module.exports  = { loadErc721:loadErc721,tokenOfOwnerByIndex:tokenOfOwnerByIndex,tokenInfo:tokenInfo};
