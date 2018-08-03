@@ -18,7 +18,7 @@ const errorHandler = async (ctx, next) => {
         await next();
     } catch (err) {
         ctx.response.status = 200;
-        ctx.response.body = result.fail();
+        ctx.response.body = result.fail(err.message);
     }
 };
 
@@ -32,7 +32,11 @@ app.use(staticHandler(path.join(__dirname,"view")));
 
 //root path
 route.get('/', main);
-route.get('/loadErc721',koaBody(),standardAssetService.loadErc721);
+route.get('/erc721/load',koaBody(),standardAssetService.loadErc721);
+route.get('/erc721/tokenByIndex',koaBody(),standardAssetService.tokenByIndex);
+route.get('/erc721/tokenInfo',koaBody(),standardAssetService.tokenInfo);
+
+
 
 
 
