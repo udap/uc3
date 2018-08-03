@@ -24,8 +24,8 @@ const loadErc721 =async (ctx) => {
     let erc721Addr = fields.erc721Addr;
     let from = fields.from;
 
-    udapValidator.checkErc721Addr(erc721Addr);
-    udapValidator.checkFromAddr(from);
+    udapValidator.checkErc721Addr(ctx,erc721Addr);
+    udapValidator.checkFromAddr(ctx,from);
 
     let content = {};
     let instance;
@@ -60,8 +60,8 @@ const tokenOfOwnerByIndex =async (ctx) => {
     let erc721Addr = fields.erc721Addr;
 
 
-    udapValidator.checkErc721Addr(erc721Addr);
-    udapValidator.checkFromAddr(from);
+    udapValidator.checkErc721Addr(ctx,erc721Addr);
+    udapValidator.checkFromAddr(ctx,from);
 
     if (!index || index.length == 0)
         ctx.throw("'index' param can not be empty");
