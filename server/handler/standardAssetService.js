@@ -27,23 +27,21 @@ const loadErc721 =async (ctx) => {
     udapValidator.checkErc721Addr(ctx,erc721Addr);
     udapValidator.checkFromAddr(ctx,from);
 
-    let content = {};
-    let instance;
-    await StandardAsset.at(erc721Addr).then(inst => {
-        instance = inst;
-        return instance.name.call({from: from})
-    }).then(name => {
-        content.name = name;
-        return instance.symbol.call({from: from})
-    }).then(symbol => {
-        content.symbol = symbol;
-        return instance.balanceOf.call(from,{from: from})
-    }).then(balance => {
-        content.balance = balance;
-    }).catch( err => {
+
+    let instance = await StandardAsset.at(erc721Addr);
+
+    let allPromise =[instance.name.call({from: from}),
+            instance.symbol.call({from: from}),
+            instance.balanceOf.call(from,{from: from})];
+
+    let [name,symbol,balance] = await Promise.all(allPromise).catch( err => {
         ctx.throw(err.message);
     });
-
+    let content = {
+        name:name,
+        symbol:symbol,
+        balance:balance
+    };
     //response
     ctx.response.body = result.success(content);
 };
