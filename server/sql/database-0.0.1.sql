@@ -1,5 +1,5 @@
 
-CREATE TABLE `app` (
+CREATE TABLE `app_registry` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'auto-generated primary key',
   `gid` int(11) NOT NULL COMMENT '前端产生的全局id',
   `desc` varchar(128) NOT NULL COMMENT '应用描述',
