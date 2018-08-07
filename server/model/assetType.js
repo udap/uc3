@@ -27,7 +27,7 @@ const assetType = sequelize.define('asset_type', {
         type: Sequelize.STRING,
         field: 'symbol'
     }
-},{freezeTableName:true,createdAt: true,updatedAt:true});
+},{freezeTableName:true,createdAt: 'create_time',updatedAt:'update_time'});
 
 module.exports = Airdrop;
 

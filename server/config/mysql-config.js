@@ -1,5 +1,5 @@
 var config = {
-    dbname: 'test',
+    dbname: 'udap',
     uname: 'root',
     upwd: '123456',
     host: 'localhost',

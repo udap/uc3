@@ -50,6 +50,7 @@
     "koa-static": "^4.0.2",
     "sequelize": "^4.37.10",
     "validator": "^10.2.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.2",
+    "mysql2": "^1.5.3"
   }
 }

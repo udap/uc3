@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const mysqlConfig = require('../configs/mysql-config');
+const mysqlConfig = require('../config/mysql-config');
 
 
 const sequelize = new Sequelize(mysqlConfig.dbname, mysqlConfig.uname, mysqlConfig.upwd, {

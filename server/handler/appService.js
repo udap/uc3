@@ -8,11 +8,11 @@ const Result = require('../common/result');
 
 const register =async (ctx) => {
 
-    let fields = ctx.request.body.fields;
+    let body = ctx.request.body;
 
-    if (!fields) ctx.throw("Please fill in the data");
-    let id = fields.id;
-    let desc = fields.desc;
+    if (!body) ctx.throw("Please fill in the data");
+    let id = body.id;
+    let desc = body.desc;
 
     if (!id || !validator.isLength(id,{min:1, max: 64}))
         ctx.throw("id cannot be empty and the max length is 64");
