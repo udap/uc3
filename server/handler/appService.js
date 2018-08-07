@@ -1,5 +1,3 @@
-
-const Sequelize = require('sequelize');
 const validator = require('validator');
 const AppRegistry = require('../model/appRegistry');
 const Result = require('../common/result');
