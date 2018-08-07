@@ -5,7 +5,8 @@ const koaBody = require('koa-body');
 const staticHandler = require('koa-static');
 const mount = require('koa-mount');
 const standardAssetService = require('./handler/standardAssetService');
-const result = require('./common/result');
+const appService = require('./handler/appService');
+const Result = require('./common/result');
 
 const app = new Koa();
 
@@ -18,7 +19,7 @@ const errorHandler = async (ctx, next) => {
         await next();
     } catch (err) {
         ctx.response.status = 200;
-        ctx.response.body = result.fail(err.message);
+        ctx.response.body = Result.fail(err.message);
     }
 };
 
@@ -32,7 +33,8 @@ app.use(staticHandler(path.join(__dirname,"view")));
 
 //root path
 route.get('/', main);
-route.get('/erc721/load',koaBody(),standardAssetService.loadErc721);
+route.post('/apps',koaBody(),appService.register);
+
 route.get('/erc721/tokenOfOwnerByIndex',koaBody(),standardAssetService.tokenOfOwnerByIndex);
 route.get('/erc721/tokenInfo',koaBody(),standardAssetService.tokenInfo);
 
