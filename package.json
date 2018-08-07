@@ -47,6 +47,9 @@
     "koa-body": "^2.6.0",
     "koa-mount": "^3.0.0",
     "koa-router": "^7.4.0",
-    "koa-static": "^4.0.2"
+    "koa-static": "^4.0.2",
+    "sequelize": "^4.37.10",
+    "validator": "^10.2.0",
+    "request-promise": "^4.2.2"
   }
 }
