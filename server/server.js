@@ -6,6 +6,7 @@ const staticHandler = require('koa-static');
 const mount = require('koa-mount');
 const standardAssetService = require('./handler/standardAssetService');
 const appService = require('./handler/appService');
+const assetTypeService = require('./handler/assetTypeService');
 const Result = require('./common/result');
 
 const app = new Koa();
@@ -34,6 +35,9 @@ app.use(staticHandler(path.join(__dirname,"view")));
 //root path
 route.get('/', main);
 route.post('/apps',koaBody(),appService.register);
+route.post('/types',koaBody({ multipart: true}),assetTypeService.create);
+
+
 
 route.get('/erc721/tokenOfOwnerByIndex',koaBody(),standardAssetService.tokenOfOwnerByIndex);
 route.get('/erc721/tokenInfo',koaBody(),standardAssetService.tokenInfo);
