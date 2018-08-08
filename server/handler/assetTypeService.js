@@ -58,6 +58,17 @@ const create =async (ctx) => {
     if (count = 0)
         ctx.throw("appid not registered");
 
+    let typeCount = await AssetType.count({
+        where: {
+            name:name,
+            symbol:symbol
+        }
+    }).catch((err) => {
+        ctx.throw(err.message);
+    });
+    if (typeCount > 0)
+        ctx.throw("AssetType already exists");
+
     //upload file to ipfs
     let buff = fs.readFileSync(icon.path);
     // let iconHash = await ipfsUtil.addFile(buff);
