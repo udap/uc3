@@ -26,6 +26,14 @@ const assetType = sequelize.define('asset_type', {
     symbol: {
         type: Sequelize.STRING,
         field: 'symbol'
+    },
+    txHash: {
+        type: Sequelize.STRING,
+        field: 'tx_hash'
+    },
+    status: {
+        type: Sequelize.INTEGER,
+        field: 'status'
     }
 },{freezeTableName:true,createdAt: 'create_time',updatedAt:'update_time'});
 

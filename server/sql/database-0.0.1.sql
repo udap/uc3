@@ -11,11 +11,13 @@ CREATE TABLE `app_registry` (
 
 CREATE TABLE `asset_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'auto-generated primary key',
-  `gid` varchar(64) NOT NULL COMMENT '前端产生的全局id',
-  `address` varchar(45) NOT NULL COMMENT 'asset type的合约地址',
+  `gid` varchar(64) DEFAULT NULL COMMENT '前端产生的全局id',
+  `address` varchar(45) DEFAULT NULL COMMENT 'asset type的合约地址',
   `icon` text  DEFAULT NULL COMMENT 'asset type的logo',
   `name` varchar(45) DEFAULT NULL COMMENT 'asset type的name',
   `symbol` varchar(45) DEFAULT NULL COMMENT 'asset type的symbol',
+  `tx_hash` varchar(128) DEFAULT NULL COMMENT '创建asset type的transaction hash',
+  `status` tinyint(1) DEFAULT NULL COMMENT 'transaction hash 的 status(0 fail、1 success、2 pending)',
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),

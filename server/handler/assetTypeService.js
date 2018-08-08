@@ -1,7 +1,7 @@
 const Tx = require('ethereumjs-tx');
 const ethereumCfg = require('../config/ethereumCfg');
 const validator = require('validator');
-const AppRegistry = require('../model/appRegistry');
+const AssetType = require('../model/assetType');
 const Web3 = require('web3');
 const web3 = new Web3(new Web3.providers.HttpProvider(ethereumCfg.provider));
 const ipfsUtil = require('../util/ipfsUtil');
@@ -12,13 +12,15 @@ const StandardAsset_artifacts = require('../../build/contracts/StandardAsset.jso
 const StandardAsset = contract(StandardAsset_artifacts);
 
 
+const ethereumUtil = require('../util/ethereumUtil');
+
+
 const Result = require('../common/result');
 
 let privateKey = new Buffer(ethereumCfg.privateKey, 'hex');
 
 
 const create =async (ctx) => {
-
 
     let fields = ctx.request.body.fields;
     if (!fields) ctx.throw("Please fill in the data");
@@ -58,67 +60,28 @@ const create =async (ctx) => {
 
     //upload file to ipfs
     let buff = fs.readFileSync(icon.path);
-    let iconHash = await ipfsUtil.addFile(buff);
+    // let iconHash = await ipfsUtil.addFile(buff);
     let assetTypeUri = await ipfsUtil.addJson({
         desc:desc,
-        icon:iconHash
+        icon:icon.toString("base64")
     });
+    let txHash = await ethereumUtil.newStandAssert(name,symbol,assetTypeUri);
 
-    StandardAsset.new
+    //address param need web3.eth.getTransactionReceipt success
+    let receipt = web3.eth.getTransactionReceipt(txHash);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    let body = ctx.request.body;
-
-    if (!body) ctx.throw("Please fill in the data");
-    let id = body.id;
-    let desc = body.desc;
-
-    if (!id || !validator.isLength(id,{min:1, max: 64}))
-        ctx.throw("id cannot be empty and the max length is 64");
-    if (desc && !validator.isLength(id,{max: 128}))
-        ctx.throw("desc max length is 128");
-
-
-    let count = await AppRegistry.count({
-        where: {
-            gid:id
-        }
-    }).catch((err) => {
-        ctx.throw(err.message);
-    });
-    if (count > 0){
-        ctx.response.body = Result.other(2,"app already exists");
-        return;
-    }
-
-    //save app
-    let app = {
-        gid: id
+    let type = {
+        gid:appid,
+        address:receipt.contractAddress,
+        icon:icon.toString("base64"),
+        name:name,
+        symbol:symbol,
+        txHash:txHash,
+        status:parseInt(receipt.status,16)
     };
     if (desc)
         app.desc = desc;
-    await AppRegistry.create(app).catch((err) => {
+    await AssetType.create(type).catch((err) => {
         ctx.throw(err.message);
     });
 
