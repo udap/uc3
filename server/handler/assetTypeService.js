@@ -2,6 +2,7 @@ const Tx = require('ethereumjs-tx');
 const ethereumCfg = require('../config/ethereumCfg');
 const validator = require('validator');
 const AssetType = require('../model/assetType');
+const AppRegistry = require('../model/appRegistry');
 const Web3 = require('web3');
 const web3 = new Web3(new Web3.providers.HttpProvider(ethereumCfg.provider));
 const ipfsUtil = require('../util/ipfsUtil');
@@ -60,6 +61,7 @@ const create =async (ctx) => {
 
     let typeCount = await AssetType.count({
         where: {
+            gid:appid,
             name:name,
             symbol:symbol
         }
@@ -74,7 +76,7 @@ const create =async (ctx) => {
     // let iconHash = await ipfsUtil.addFile(buff);
     let assetTypeUri = await ipfsUtil.addJson({
         desc:desc,
-        icon:icon.toString("base64")
+        icon:buff.toString("base64")
     });
     let txHash = await ethereumUtil.newStandAssert(name,symbol,assetTypeUri);
 
@@ -84,14 +86,12 @@ const create =async (ctx) => {
     let type = {
         gid:appid,
         address:receipt.contractAddress,
-        icon:icon.toString("base64"),
+        icon:buff.toString("base64"),
         name:name,
         symbol:symbol,
         txHash:txHash,
         status:parseInt(receipt.status,16)
     };
-    if (desc)
-        app.desc = desc;
     await AssetType.create(type).catch((err) => {
         ctx.throw(err.message);
     });

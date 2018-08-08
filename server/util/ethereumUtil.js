@@ -3,7 +3,7 @@ const web3 = new Web3();
 const Tx = require('ethereumjs-tx');
 const ethereumCfg = require('../config/ethereumCfg');
 const privateKey = new Buffer(ethereumCfg.privateKey, 'hex');
-const standardAsset_artifacts = require('..\\build\\contracts\\StandardAsset.json');
+const standardAsset_artifacts = require('../../build/contracts/StandardAsset.json');
 web3.setProvider(new web3.providers.HttpProvider(ethereumCfg.provider));
 
 

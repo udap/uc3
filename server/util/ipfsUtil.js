@@ -1,6 +1,6 @@
 const ipfsAPI = require('ipfs-api');
 const ipfsCfg = require("../config/ipfsCfg");
-let ipfs = ipfsAPI(ipfsConfig.host,ipfsConfig.port,{protocol:ipfsConfig.protocol});
+let ipfs = ipfsAPI(ipfsCfg.host,ipfsCfg.port,{protocol:ipfsCfg.protocol});
 const request = require('superagent');
 
 const addFile = (buffer) =>{

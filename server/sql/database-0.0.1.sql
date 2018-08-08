@@ -13,7 +13,7 @@ CREATE TABLE `asset_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'auto-generated primary key',
   `gid` varchar(64) DEFAULT NULL COMMENT '前端产生的全局id',
   `address` varchar(45) DEFAULT NULL COMMENT 'asset type的合约地址',
-  `icon` text  DEFAULT NULL COMMENT 'asset type的logo',
+  `icon` LONGTEXT  DEFAULT NULL COMMENT 'asset type的logo',
   `name` varchar(45) DEFAULT NULL COMMENT 'asset type的name',
   `symbol` varchar(45) DEFAULT NULL COMMENT 'asset type的symbol',
   `tx_hash` varchar(128) DEFAULT NULL COMMENT '创建asset type的transaction hash',
