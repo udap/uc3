@@ -24,7 +24,7 @@ const isContractAddr = (address,message) => {
     if (!typeAddr || !web3.isAddress(address))
         throw message;
     let byteCode = web3.eth.getCode(address);//byteCode
-    if(byteCode === '0x') throw message;;
+    if(byteCode === '0x') throw message;
 };
 
 module.exports  = { appidRegistered:appidRegistered,isContractAddr:isContractAddr};
