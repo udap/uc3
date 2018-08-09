@@ -58,7 +58,7 @@ const importType =async (ctx) => {
 
     let allPromise =[assetInstance.name.call({from: owner}).catch((err) => {}),
         assetInstance.symbol.call({from: owner}).catch((err) => {})];
-    if (web3.eth.getCode(typeAddr) == StandardAsset_artifacts.bytecode){ //standardAsset
+    if (web3.eth.getCode(typeAddr) == StandardAsset_artifacts.deployedBytecode){ //standardAsset
         allPromise.push(assetInstance.getAssetType.call({from: owner}));
     }
     let [name,symbol,typeContractAddr] = await Promise.all(allPromise).catch( err => {
@@ -145,13 +145,17 @@ const create =async (ctx) => {
 
     let type = {
         gid:appid,
-        address:receipt.contractAddress,
         icon:buff.toString("base64"),
         name:name,
         symbol:symbol,
-        txHash:txHash,
-        status:parseInt(receipt.status,16)
+        txHash:txHash
     };
+    if(receipt.contractAddress)
+        type.address = receipt.contractAddress;
+    if(receipt.status)
+        type.status = parseInt(receipt.status,16);
+    else
+        type.status = 2;
     await AssetType.create(type).catch((err) => {
         ctx.throw(err.message);
     });
