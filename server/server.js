@@ -36,6 +36,7 @@ app.use(staticHandler(path.join(__dirname,"view")));
 route.get('/', main);
 route.post('/apps',koaBody(),appService.register);
 route.post('/types',koaBody({ multipart: true}),assetTypeService.create);
+route.get('/types',koaBody(),assetTypeService.getAll);
 
 
 

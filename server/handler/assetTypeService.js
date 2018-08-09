@@ -14,11 +14,8 @@ const StandardAsset_artifacts = require('../../build/contracts/StandardAsset.jso
 const StandardAsset = contract(StandardAsset_artifacts);
 const AssetType_artifacts = require('../../build/contracts/AssetType.json');
 const AssetTypeContract = contract(AssetType_artifacts);
-
-
+const udapValidator = require('../common/udapValidator');
 const ethereumUtil = require('../util/ethereumUtil');
-
-
 const Result = require('../common/result');
 
 let privateKey = new Buffer(ethereumCfg.privateKey, 'hex');
@@ -33,23 +30,10 @@ const importType =async (ctx) => {
     let typeAddr = fields.addr;
     let owner = fields.owner;
     let appid = fields.appid;
-    if (!typeAddr || !web3.isAddress(typeAddr))
-        ctx.throw("'typeAddr' param isn't an address");
-    let byteCode = web3.eth.getCode(typeAddr);//byteCode
-    if(byteCode === '0x') ctx.throw("'typeAddr' not a contract address");
+    udapValidator.isContractAddr(typeAddr,"'typeAddr' param must be a contract address");
     if (!owner || !web3.isAddress(owner))
         ctx.throw("'owner' param isn't an address");
-    if(!appid)
-        ctx.throw("'appid' param cannot be empty");
-    let count = await AppRegistry.count({
-        where: {
-            gid:appid
-        }
-    }).catch((err) => {
-        ctx.throw(err.message);
-    });
-    if (count = 0)
-        ctx.throw("appid not registered");
+    await udapValidator.appidRegistered(appid);
 
     let typeCount = await AssetType.count({
         where: {
@@ -74,18 +58,20 @@ const importType =async (ctx) => {
 
     let allPromise =[assetInstance.name.call({from: owner}).catch((err) => {}),
         assetInstance.symbol.call({from: owner}).catch((err) => {})];
-    if (byteCode == StandardAsset_artifacts.bytecode){ //standardAsset
+    if (web3.eth.getCode(typeAddr) == StandardAsset_artifacts.bytecode){ //standardAsset
         allPromise.push(assetInstance.getAssetType.call({from: owner}));
     }
-    let [name,symbol,typeAddr] = await Promise.all(allPromise).catch( err => {
+    let [name,symbol,typeContractAddr] = await Promise.all(allPromise).catch( err => {
         ctx.throw(err.message);
     });
     if (name)
         type.name = name;
     if (symbol)
         type.symbol = symbol;
-    if (typeAddr){
-        let uri = await AssetTypeContract.uri.call({from: owner}).catch( err => {
+    if (typeContractAddr){
+        let assetTypeContractInstance = await AssetTypeContract.at(typeContractAddr);
+
+        let uri = assetTypeContractInstance.uri.call({from: owner}).catch( err => {
             ctx.throw(err.message);
         });
         if (uri.startsWith("http:") || uri.startsWith("https:")){
@@ -131,17 +117,7 @@ const create =async (ctx) => {
         ctx.throw("'owner' param isn't an address");
     if (!icon || Array.isArray(icon))
         ctx.throw("'icon' param error");
-    if(!appid)
-        ctx.throw("'appid' param cannot be empty");
-    let count = await AppRegistry.count({
-        where: {
-            gid:appid
-        }
-    }).catch((err) => {
-        ctx.throw(err.message);
-    });
-    if (count = 0)
-        ctx.throw("appid not registered");
+    await udapValidator.appidRegistered(appid);
 
     let typeCount = await AssetType.count({
         where: {
@@ -183,4 +159,30 @@ const create =async (ctx) => {
     ctx.response.body = Result.success();
 };
 
-module.exports  = { create:create};
+const getAll =async (ctx) => {
+
+    let fields = ctx.query;
+
+
+    if (!fields){
+        ctx.throw("Param error");
+    }
+    let appid = fields.appid;
+    let owner = fields.owner;
+
+    await udapValidator.appidRegistered(appid);
+    if (!owner || !web3.isAddress(owner))
+        ctx.throw("'owner' param isn't an address");
+
+    let where = {appid:appid};
+    //query data
+    let typeList = await AssetType.findAll(
+        { where: where }
+    ).catch(function (err) {
+        ctx.throw(err.message);
+    });
+    //response
+    ctx.response.body = result.success(typeList);
+};
+
+module.exports  = { create:create,getAll:getAll};
