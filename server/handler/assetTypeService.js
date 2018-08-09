@@ -7,10 +7,13 @@ const Web3 = require('web3');
 const web3 = new Web3(new Web3.providers.HttpProvider(ethereumCfg.provider));
 const ipfsUtil = require('../util/ipfsUtil');
 const fs = require('fs');
+const request = require('superagent');
 
 const contract = require('truffle-contract');
 const StandardAsset_artifacts = require('../../build/contracts/StandardAsset.json');
 const StandardAsset = contract(StandardAsset_artifacts);
+const AssetType_artifacts = require('../../build/contracts/AssetType.json');
+const AssetTypeContract = contract(AssetType_artifacts);
 
 
 const ethereumUtil = require('../util/ethereumUtil');
@@ -19,6 +22,85 @@ const ethereumUtil = require('../util/ethereumUtil');
 const Result = require('../common/result');
 
 let privateKey = new Buffer(ethereumCfg.privateKey, 'hex');
+
+
+const importType =async (ctx) => {
+
+    let fields = ctx.request.body.fields;
+    if (!fields) ctx.throw("Please fill in the data");
+
+    // valid data
+    let typeAddr = fields.addr;
+    let owner = fields.owner;
+    let appid = fields.appid;
+    if (!typeAddr || !web3.isAddress(typeAddr))
+        ctx.throw("'typeAddr' param isn't an address");
+    let byteCode = web3.eth.getCode(typeAddr);//byteCode
+    if(byteCode === '0x') ctx.throw("'typeAddr' not a contract address");
+    if (!owner || !web3.isAddress(owner))
+        ctx.throw("'owner' param isn't an address");
+    if(!appid)
+        ctx.throw("'appid' param cannot be empty");
+    let count = await AppRegistry.count({
+        where: {
+            gid:appid
+        }
+    }).catch((err) => {
+        ctx.throw(err.message);
+    });
+    if (count = 0)
+        ctx.throw("appid not registered");
+
+    let typeCount = await AssetType.count({
+        where: {
+            gid:appid,
+            address:typeAddr
+        }
+    }).catch((err) => {
+        ctx.throw(err.message);
+    });
+    if (typeCount > 0)
+        ctx.throw("Asset Type already exists");
+
+
+    // request type info
+    let type = {
+        gid:appid,
+        address:typeAddr,
+        status:1
+    };
+
+    let assetInstance = await StandardAsset.at(typeAddr);
+
+    let allPromise =[assetInstance.name.call({from: owner}).catch((err) => {}),
+        assetInstance.symbol.call({from: owner}).catch((err) => {})];
+    if (byteCode == StandardAsset_artifacts.bytecode){ //standardAsset
+        allPromise.push(assetInstance.getAssetType.call({from: owner}));
+    }
+    let [name,symbol,typeAddr] = await Promise.all(allPromise).catch( err => {
+        ctx.throw(err.message);
+    });
+    if (name)
+        type.name = name;
+    if (symbol)
+        type.symbol = symbol;
+    if (typeAddr){
+        let uri = await AssetTypeContract.uri.call({from: owner}).catch( err => {
+            ctx.throw(err.message);
+        });
+        if (uri.startsWith("http:") || uri.startsWith("https:")){
+            let res = await request.get(uri.replace("ipfs.io","ipfs.infura.io")).catch( err => {
+                ctx.throw(err.message);
+            });
+            type.icon = JSON.parse(res.body.toString()).icon;
+        }
+    }
+    await AssetType.create(type).catch((err) => {
+        ctx.throw(err.message);
+    });
+
+    ctx.response.body = Result.success();
+};
 
 
 const create =async (ctx) => {
@@ -31,6 +113,8 @@ const create =async (ctx) => {
     let action = fields.action;
     if (!action || (action != 'create' && action != 'import'))
         ctx.throw("'action' param error");
+    if(action == 'import')
+        return importType(ctx);
 
     let name = fields.name;
     let symbol = fields.symbol;
@@ -44,7 +128,7 @@ const create =async (ctx) => {
     if (!symbol || !validator.isLength(symbol,{min:1, max: 45}))
         ctx.throw("'symbol' param cannot be empty and the max length is 45");
     if (!owner || !web3.isAddress(owner))
-        ctx.throw("'web3' isn't an address");
+        ctx.throw("'owner' param isn't an address");
     if (!icon || Array.isArray(icon))
         ctx.throw("'icon' param error");
     if(!appid)
