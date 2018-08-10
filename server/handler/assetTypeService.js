@@ -137,11 +137,17 @@ const create =async (ctx) => {
     let assetTypeUri = await ipfsUtil.addJson({
         desc:desc,
         icon:buff.toString("base64")
+    }).catch((err) => {
+        ctx.throw(err.message);
     });
-    let txHash = await ethereumUtil.newStandAssert(name,symbol,assetTypeUri);
+    let txHash = await ethereumUtil.newStandAssert(name,symbol,assetTypeUri).catch((err) => {
+        ctx.throw(err.message);
+    });
 
     //address param need web3.eth.getTransactionReceipt success
-    let receipt = web3.eth.getTransactionReceipt(txHash);
+    let receipt = web3.eth.getTransactionReceipt(txHash).catch((err) => {
+        ctx.throw(err.message);
+    });
 
     let type = {
         gid:appid,
