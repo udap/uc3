@@ -145,21 +145,22 @@ const create =async (ctx) => {
     });
 
     //address param need web3.eth.getTransactionReceipt success
-    let receipt = web3.eth.getTransactionReceipt(txHash);
+    // let receipt = web3.eth.getTransactionReceipt(txHash);
 
     let type = {
         gid:appid,
         icon:buff.toString("base64"),
         name:name,
         symbol:symbol,
-        txHash:txHash
+        txHash:txHash,
+        status:2
     };
-    if(receipt.contractAddress)
+    /*if(receipt && receipt.contractAddress)
         type.address = receipt.contractAddress;
-    if(receipt.status)
+    if(receipt && receipt.status)
         type.status = parseInt(receipt.status,16);
     else
-        type.status = 2;
+        type.status = 2;*/
     await AssetType.create(type).catch((err) => {
         ctx.throw(err.message);
     });
