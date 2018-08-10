@@ -17,16 +17,18 @@ const newStandAssert = (name,symbol,uri) =>{
     let gasPriceHex = web3.toHex(gasPrice);
     let nonce = web3.eth.getTransactionCount(ethereumCfg.address);
     let nonceHex = web3.toHex(nonce);
-    //estimateGas
-    let gasEstimate = web3.eth.estimateGas({data: contractData});
-    let gasLimitHex = web3.toHex(gasEstimate);
+
     let rawTx = {
+        from:ethereumCfg.address,
         nonce: nonceHex,
         gasPrice: gasPriceHex,
-        gasLimit: gasLimitHex,
         value: '0x00',
         data: contractData
     };
+    //estimateGas
+    let gasEstimate = web3.eth.estimateGas(rawTx);
+    let gasLimitHex = web3.toHex(gasEstimate);
+    rawTx.gasLimit=gasLimitHex;
     let tx = new Tx(rawTx);
     tx.sign(privateKey);
     let serializedTx = tx.serialize();
