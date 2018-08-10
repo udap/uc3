@@ -3,7 +3,7 @@ CREATE TABLE `app_registry` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'auto-generated primary key',
   `gid` varchar(64) NOT NULL COMMENT '前端产生的全局id',
   `desc` varchar(128) DEFAULT NULL COMMENT '应用描述',
-  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_app-gid` (`gid`) USING BTREE
@@ -18,7 +18,7 @@ CREATE TABLE `asset_type` (
   `symbol` varchar(45) DEFAULT NULL COMMENT 'asset type的symbol',
   `tx_hash` varchar(128) DEFAULT NULL COMMENT '创建asset type的transaction hash',
   `status` tinyint(1) DEFAULT NULL COMMENT 'transaction hash 的 status(0 fail、1 success、2 pending)',
-  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_app-gid_address` (`gid`,`address`) USING BTREE
