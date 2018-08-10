@@ -185,6 +185,18 @@ const getAll =async (ctx) => {
     ).catch(function (err) {
         ctx.throw(err.message);
     });
+    let allPromise =[];
+    typeList.forEach((item, index)=>{
+        let balancePromise = StandardAsset.at(item.address)
+            .then(instance => {
+                return instance.balanceOf.call(owner,{from: owner});
+            }).catch((err) => {});
+        allPromise.push(balancePromise);
+    });
+    let allBalances = await Promise.all(allPromise).catch((err) => {ctx.throw(err)});
+    typeList.forEach((item, index)=>{
+        item.balance = allBalances[index]?allBalances[index]:0;
+    });
     //response
     ctx.response.body = result.success(typeList);
 };
