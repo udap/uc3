@@ -145,9 +145,7 @@ const create =async (ctx) => {
     });
 
     //address param need web3.eth.getTransactionReceipt success
-    let receipt = web3.eth.getTransactionReceipt(txHash).catch((err) => {
-        ctx.throw(err.message);
-    });
+    let receipt = web3.eth.getTransactionReceipt(txHash);
 
     let type = {
         gid:appid,
