@@ -12,8 +12,10 @@ const request = require('superagent');
 const contract = require('truffle-contract');
 const StandardAsset_artifacts = require('../../build/contracts/StandardAsset.json');
 const StandardAsset = contract(StandardAsset_artifacts);
+StandardAsset.setProvider(web3.currentProvider);
 const AssetType_artifacts = require('../../build/contracts/AssetType.json');
 const AssetTypeContract = contract(AssetType_artifacts);
+AssetTypeContract.setProvider(web3.currentProvider);
 const udapValidator = require('../common/udapValidator');
 const ethereumUtil = require('../util/ethereumUtil');
 const Result = require('../common/result');
@@ -191,6 +193,18 @@ const getAll =async (ctx) => {
         ctx.throw(err.message);
     });
     let allPromise =[];
+
+    /*for (let i=0;i<typeList.length;i++){
+        let item = typeList[i];
+        let balancePromise = new Promise(resolve => {resolve(0)});
+        let address = item.address;
+        if (address && address != null && address.length >0){
+            let instance = await StandardAsset.at(item.address);
+            balancePromise = instance.balanceOf.call(owner,{from: owner}).catch((err) => {});
+        }
+        allPromise.push(balancePromise);
+
+    }*/
     typeList.forEach((item, index)=>{
         let balancePromise = new Promise(resolve => {resolve(0)});
         let address = item.address;
