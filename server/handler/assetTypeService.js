@@ -186,7 +186,9 @@ const getAll =async (ctx) => {
     let where = {gid:appid};
     //query data
     let typeList = await AssetType.findAll(
-        { where: where }
+        { where: where },
+        {raw: true}
+
     ).catch(function (err) {
         ctx.throw(err.message);
     });
@@ -203,11 +205,14 @@ const getAll =async (ctx) => {
         allPromise.push(balancePromise);
     });
     let allBalances = await Promise.all(allPromise).catch((err) => {ctx.throw(err)});
+    let content = [];
     typeList.forEach((item, index)=>{
-        item.balance = allBalances[index]?allBalances[index]:0;
+        let temp = item.toJSON();
+        temp.balance = allBalances[index]?allBalances[index]:0;
+        content.push(temp);
     });
     //response
-    ctx.response.body = Result.success(typeList);
+    ctx.response.body = Result.success(content);
 };
 
 module.exports  = { create:create,getAll:getAll};
