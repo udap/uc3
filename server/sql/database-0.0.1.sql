@@ -38,8 +38,7 @@ CREATE TABLE `mint_record` (
   `status` tinyint(1) DEFAULT NULL COMMENT 'transaction hash 的 status(0 fail、1 success、2 pending)',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_app-gid_address` (`gid`,`address`) USING BTREE
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1104 DEFAULT CHARSET=utf8;
 
 
