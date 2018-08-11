@@ -1,7 +1,7 @@
 const sequelize = require('../data/db');
 const Sequelize = require('sequelize');
 
-const assetType = sequelize.define('asset_type', {
+const mintRecord = sequelize.define('mint_record', {
     id: {
         type: Sequelize.BIGINT,
         primaryKey: true,
@@ -45,7 +45,7 @@ const assetType = sequelize.define('asset_type', {
     }
 },{freezeTableName:true,createdAt: 'create_time',updatedAt:'update_time'});
 
-module.exports = assetType;
+module.exports = mintRecord;
 
 
 
