@@ -207,7 +207,7 @@ const getAll =async (ctx) => {
         item.balance = allBalances[index]?allBalances[index]:0;
     });
     //response
-    ctx.response.body = result.success(typeList);
+    ctx.response.body = Result.success(typeList);
 };
 
 module.exports  = { create:create,getAll:getAll};
