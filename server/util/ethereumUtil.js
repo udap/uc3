@@ -47,7 +47,7 @@ const newStandAssert = (name,symbol,uri) =>{
 const newAssert = (typeAddr,to,uri) =>{
     let abi = standardAsset_artifacts.abi;
     let standardAsset = web3.eth.contract(abi).at(typeAddr);
-    let data = standardAsset.mint.getData(to,symbol,uri);
+    let data = standardAsset.mint.getData(to,uri);
 
     let gasPrice = web3.eth.gasPrice;
     let nonce = web3.eth.getTransactionCount(ethereumCfg.address);

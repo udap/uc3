@@ -1,7 +1,11 @@
 const contract = require('truffle-contract');
 const Result = require('../common/result');
+const validator = require('validator');
 const udapValidator = require('../common/udapValidator');
+const ipfsUtil = require('../util/ipfsUtil');
+const ethereumUtil = require('../util/ethereumUtil');
 
+const fs = require('fs');
 const Web3 = require('web3');
 const web3 = new Web3();
 const ethereumCfg = require('../config/ethereumCfg');
