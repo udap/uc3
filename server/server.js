@@ -8,6 +8,7 @@ const standardAssetService = require('./handler/standardAssetService');
 const appService = require('./handler/appService');
 const assetTypeService = require('./handler/assetTypeService');
 const Result = require('./common/result');
+const assetTypeJob = require('./schedule/assetTypeJob');
 
 const app = new Koa();
 
@@ -56,6 +57,7 @@ const logger = (ctx, next) => {
 };
 app.use(logger);
 
+assetTypeJob.queryCreateTypeReceipt();
 
 app.listen(3000);
 console.log('app started at port 3000...');

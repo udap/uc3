@@ -183,7 +183,7 @@ const getAll =async (ctx) => {
     if (!owner || !web3.isAddress(owner))
         ctx.throw("'owner' param isn't an address");
 
-    let where = {appid:appid};
+    let where = {gid:appid};
     //query data
     let typeList = await AssetType.findAll(
         { where: where }
