@@ -13,6 +13,7 @@ web3.setProvider(new web3.providers.HttpProvider(ethereumCfg.provider));
 const standardAsset_artifacts = require('../../build/contracts/StandardAsset.json');
 const StandardAsset = contract(standardAsset_artifacts);
 StandardAsset.setProvider(web3.currentProvider);
+const request = require('superagent');
 
 
 const MintRecord = require('../model/mintRecord');
@@ -100,9 +101,7 @@ const getAllByOwner =async (ctx) => {
     await udapValidator.appidRegistered(appid);
 
     //get instance
-    let instance = await StandardAsset.at(typeAddr).catch((err) => {
-        ctx.throw(err);
-    });
+    let instance = await StandardAsset.at(typeAddr);
     let totalCount = await instance.balanceOf.call(owner,{from: owner}).catch((err) => {
         ctx.throw(err);
     });
@@ -125,16 +124,31 @@ const getAllByOwner =async (ctx) => {
         ctx.throw(err);
     });
 
+
+    let metadataPromises = [];
+    tokenURIs.forEach((item,index)=>{
+        let pro;
+        if (item && (item.startsWith("http") || item.startsWith("https"))){
+            pro = request.get(item);
+        }else {
+            pro = new Promise((resolve,reject) => {reject(item)})
+        }
+        metadataPromises.push(pro);
+    });
+    let metadatas = await Promise.all(metadataPromises).catch((err) => {
+        ctx.throw(err);
+    });
     let tokens = [];
-    tokenIds.forEach((item,index)=>{
+    tokenURIs.forEach((item,index)=>{
         let token = {
             tokenId:item
         };
         if (tokenURIs[index])
             token.tokenURI = tokenURIs[index];
+        if(metadatas[index])
+            token.metadata = metadatas[index];
         tokens.push(token);
     });
-
     ctx.response.body = Result.success(tokens);
 };
 
