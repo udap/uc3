@@ -17,7 +17,7 @@ CREATE TABLE `asset_type` (
   `name` varchar(45) DEFAULT NULL COMMENT 'asset type的name',
   `symbol` varchar(45) DEFAULT NULL COMMENT 'asset type的symbol',
   `tx_hash` varchar(128) DEFAULT NULL COMMENT '创建asset type的transaction hash',
-  `status` tinyint(1) DEFAULT NULL COMMENT 'transaction hash 的 status(0 fail、1 success、2 pending)',
+  `status` tinyint(1) NOT NULL COMMENT 'transaction hash 的 status(0 fail、1 success、2 pending)',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -35,7 +35,7 @@ CREATE TABLE `mint_record` (
   `image` LONGTEXT  DEFAULT NULL COMMENT 'metadata image',
   `owner` varchar(45) DEFAULT NULL COMMENT '调用者地址',
   `tx_hash` varchar(128) DEFAULT NULL COMMENT 'transaction hash',
-  `status` tinyint(1) DEFAULT NULL COMMENT 'transaction hash 的 status(0 fail、1 success、2 pending)',
+  `status` tinyint(1) NOT NULL COMMENT 'transaction hash 的 status(0 fail、1 success、2 pending)',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)

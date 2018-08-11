@@ -62,7 +62,7 @@ const importType =async (ctx) => {
         allPromise.push(assetInstance.getAssetType.call({from: owner}));
     }
     let [name,symbol,typeContractAddr] = await Promise.all(allPromise).catch( err => {
-        ctx.throw(err.message);
+        ctx.throw(err);
     });
     if (name)
         type.name = name;
@@ -72,11 +72,11 @@ const importType =async (ctx) => {
         let assetTypeContractInstance = await AssetTypeContract.at(typeContractAddr);
 
         let uri = assetTypeContractInstance.uri.call({from: owner}).catch( err => {
-            ctx.throw(err.message);
+            ctx.throw(err);
         });
         if (uri.startsWith("http:") || uri.startsWith("https:")){
             let res = await request.get(uri.replace("ipfs.io","ipfs.infura.io")).catch( err => {
-                ctx.throw(err.message);
+                ctx.throw(err);
             });
             type.icon = JSON.parse(res.body.toString()).icon;
         }
