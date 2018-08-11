@@ -129,7 +129,9 @@ const getAllByOwner =async (ctx) => {
     tokenURIs.forEach((item,index)=>{
         let pro;
         if (item && (item.startsWith("http") || item.startsWith("https"))){
-            pro = request.get(item.replace("ipfs.io","ipfs.infura.io"));
+            pro = request.get(item.replace("ipfs.io","ipfs.infura.io")).then(res =>{
+                return res.body;
+            });
         }else {
             pro = new Promise((resolve,reject) => {reject(item)})
         }
@@ -139,7 +141,7 @@ const getAllByOwner =async (ctx) => {
         ctx.throw(err);
     });
     let tokens = [];
-    tokenURIs.forEach((item,index)=>{
+    tokenIds.forEach((item,index)=>{
         let token = {
             tokenId:item
         };
