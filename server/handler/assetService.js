@@ -1,140 +1,84 @@
 const contract = require('truffle-contract');
-const standardAsset_artifacts = require('../../build/contracts/StandardAsset.json');
-const StandardAsset = contract(standardAsset_artifacts);
-const ethereumCfg = require('../config/ethereumCfg');
-const result = require('../common/result');
+const Result = require('../common/result');
 const udapValidator = require('../common/udapValidator');
-const pagerhelper = require('../common/pagerhelper');
 
 const Web3 = require('web3');
 const web3 = new Web3();
+const ethereumCfg = require('../config/ethereumCfg');
 web3.setProvider(new web3.providers.HttpProvider(ethereumCfg.provider));
+const standardAsset_artifacts = require('../../build/contracts/StandardAsset.json');
+const StandardAsset = contract(standardAsset_artifacts);
 StandardAsset.setProvider(web3.currentProvider);
 
 
-
-const loadErc721 =async (ctx) => {
-
-    let fields = ctx.query;
+const MintRecord = require('../model/mintRecord');
 
 
-    if (!fields){
-        ctx.throw("Param error");
-    }
-    let erc721Addr = fields.erc721Addr;
-    let from = fields.from;
 
-    udapValidator.checkErc721Addr(ctx,erc721Addr);
-    udapValidator.checkFromAddr(ctx,from);
+const mint =async (ctx) => {
 
+    let fields = ctx.request.body.fields;
+    if (!fields) ctx.throw("Please fill in the data");
+    let files = ctx.request.body.files;
+    if (!files) ctx.throw("Please upload the image");
 
-    let instance = await StandardAsset.at(erc721Addr);
+    let typeAddr = fields.typeAddr;
+    let to = fields.to;
+    let name = fields.name;
+    let desc = fields.desc;
+    let image = files.image;
+    let owner = fields.owner;
+    let appid = fields.appid;
 
-    let allPromise =[instance.name.call({from: from}),
-            instance.symbol.call({from: from}),
-            instance.balanceOf.call(from,{from: from})];
+    if (!typeAddr)
+        ctx.throw("'typeAddr' param cannot be empty");
+    udapValidator.isContractAddr(typeAddr,"'typeAddr' must be contract");
 
-    let [name,symbol,balance] = await Promise.all(allPromise).catch( err => {
-        ctx.throw(err.message);
-    });
-    let content = {
+    if (!to || !web3.isAddress(to))
+        ctx.throw("'to' param error");
+
+    if (!name || !validator.isLength(name,{min:1, max: 45}))
+        ctx.throw("'name' param cannot be empty and the max length is 45");
+    if (!desc || !validator.isLength(desc,{min:1, max: 255}))
+        ctx.throw("'desc' param cannot be empty and the max length is 45");
+    if (!image || Array.isArray(image))
+        ctx.throw("'image' param error");
+
+    if (!owner || !web3.isAddress(owner))
+        ctx.throw("'owner' param isn't an address");
+    await udapValidator.appidRegistered(appid);
+
+    //upload file to ipfs
+    let buff = fs.readFileSync(image.path);
+    let metadataUri = await ipfsUtil.addJson({
         name:name,
-        symbol:symbol,
-        balance:balance
-    };
-    //response
-    ctx.response.body = result.success(content);
-};
-
-const tokenOfOwnerByIndex =async (ctx) => {
-
-    let fields = ctx.query;
-
-    if (!fields){
-        ctx.throw("Param error");
-    }
-    let index = fields.index;
-    let from = fields.from;
-    let erc721Addr = fields.erc721Addr;
-
-
-    udapValidator.checkErc721Addr(ctx,erc721Addr);
-    udapValidator.checkFromAddr(ctx,from);
-
-    if (!index || index.length == 0)
-        ctx.throw("'index' param can not be empty");
-
-    let content = {};
-    await StandardAsset.at(erc721Addr).then(instance => {
-        return instance.tokenOfOwnerByIndex.call(from,index,{from: from})
-    }).then(tokenId => {
-        content.tokenId = tokenId;
-    }).catch( err => {
-        ctx.throw(err.message);
+        description:desc,
+        image:buff.toString("base64")
+    }).catch((err) => {
+        ctx.throw(err);
+    });
+    let txHash = await ethereumUtil.newAssert(typeAddr,to,metadataUri).catch((err) => {
+        ctx.throw(err);
     });
 
-    //response
-    ctx.response.body = result.success(content);
-};
-
-const tokenInfo = async (ctx) => {
-
-    let fields = ctx.query;
-
-    if (!fields){
-        ctx.throw("Param error");
-    }
-    let from = fields.from;
-    let erc721Addr = fields.erc721Addr;
-    let pageSize = 10;// default 10
-    let pageNo = 1;
-
-    udapValidator.checkErc721Addr(ctx,erc721Addr);
-    udapValidator.checkFromAddr(ctx,from);
-
-    if (fields.pageNo)
-        pageNo = parseInt(fields.pageNo);
-    if (fields.pageSize)
-        pageSize = parseInt(fields.pageSize);
-
-    let instance = await StandardAsset.at(erc721Addr);
-
-    let totalCount = await instance.balanceOf.call(from,{from: from});
-    let start = pagerhelper.calcStart(pageNo,pageSize);
-    let end = pagerhelper.calcEnd(pageNo,pageSize,totalCount);
-
-    let tokenIdPromise = [];
-    for(let index = start;index < end ;index++){
-        tokenIdPromise.push(instance.tokenOfOwnerByIndex.call(from,index,{from: from}));
-    }
-    let tokenIds = await Promise.all(tokenIdPromise);
-
-    let tokenUriPromise = [];
-    for(let i = 0;i < tokenIds.length ;i++){
-        tokenUriPromise.push(instance.tokenURI.call(tokenIds[i],{from: from}));
-    }
-    let tokenURIs = await Promise.all(tokenUriPromise);
-
-    let tokens = [];
-    for(let i = 0;i < tokenIds.length ;i++){
-        let token = {
-            tokenId:tokenIds[i],
-            tokenURI:tokenURIs[i]
-        };
-        tokens.push(token);
-    }
-
-
-    let content = {
-        tokens : tokens,
-        pager :pagerhelper.getPager(pageNo,pageSize,totalCount)
+    let record = {
+        gid:appid,
+        typeAddr:typeAddr,
+        to:to,
+        name:name,
+        desc:desc,
+        image:buff.toString("base64"),
+        owner:owner,
+        txHash:txHash,
+        status:2
     };
+    await MintRecord.create(record).catch((err) => {
+        ctx.throw(err);
+    });
 
-    //response
-    ctx.response.body = result.success(content);
+    ctx.response.body = Result.success();
 };
 
 
 
-
-module.exports  = { loadErc721:loadErc721,tokenOfOwnerByIndex:tokenOfOwnerByIndex,tokenInfo:tokenInfo};
+module.exports  = { mint:mint};

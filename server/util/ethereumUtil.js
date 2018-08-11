@@ -42,5 +42,39 @@ const newStandAssert = (name,symbol,uri) =>{
     }).catch((err)=>{
         throw err;
     })
+};
+
+const newAssert = (typeAddr,to,uri) =>{
+    let abi = standardAsset_artifacts.abi;
+    let standardAsset = web3.eth.contract(abi).at(typeAddr);
+    let data = standardAsset.mint.getData(to,symbol,uri);
+
+    let gasPrice = web3.eth.gasPrice;
+    let nonce = web3.eth.getTransactionCount(ethereumCfg.address);
+
+    let rawTx = {
+        from:ethereumCfg.address,
+        to:typeAddr,
+        nonce: web3.toHex(nonce),
+        gasPrice: web3.toHex(gasPrice),
+        value: '0x00',
+        data: data
+    };
+    //estimateGas
+    let gasEstimate = web3.eth.estimateGas(rawTx);
+    rawTx.gasLimit=web3.toHex(gasEstimate);
+    let tx = new Tx(rawTx);
+    tx.sign(privateKey);
+    let serializedTx = tx.serialize();
+    return new Promise((resolve,reject) => {
+        web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'), (err, hash) => {
+            if (!err)
+                resolve(hash);
+            else
+                reject(err);
+        });
+    }).catch((err)=>{
+        throw err;
+    })
 }
-module.exports  = { newStandAssert:newStandAssert};
+module.exports  = { newStandAssert:newStandAssert,newAssert:newAssert};
