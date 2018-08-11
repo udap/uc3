@@ -126,7 +126,7 @@ const create =async (ctx) => {
             symbol:symbol
         }
     }).catch((err) => {
-        ctx.throw(err.message);
+        ctx.throw(err);
     });
     if (typeCount > 0)
         ctx.throw("AssetType already exists");
@@ -138,10 +138,10 @@ const create =async (ctx) => {
         desc:desc,
         icon:buff.toString("base64")
     }).catch((err) => {
-        ctx.throw(err.message);
+        ctx.throw(err);
     });
     let txHash = await ethereumUtil.newStandAssert(name,symbol,assetTypeUri).catch((err) => {
-        ctx.throw(err.message);
+        ctx.throw(err);
     });
 
     //address param need web3.eth.getTransactionReceipt success
@@ -162,7 +162,7 @@ const create =async (ctx) => {
     else
         type.status = 2;*/
     await AssetType.create(type).catch((err) => {
-        ctx.throw(err.message);
+        ctx.throw(err);
     });
 
     ctx.response.body = Result.success();
