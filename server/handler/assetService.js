@@ -129,7 +129,7 @@ const getAllByOwner =async (ctx) => {
     tokenURIs.forEach((item,index)=>{
         let pro;
         if (item && (item.startsWith("http") || item.startsWith("https"))){
-            pro = request.get(item);
+            pro = request.get(item.replace("ipfs.io","ipfs.infura.io"));
         }else {
             pro = new Promise((resolve,reject) => {reject(item)})
         }
