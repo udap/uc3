@@ -21,7 +21,7 @@ const appidRegistered = async (appid) => {
 
 const isContractAddr = (address,message) => {
     message = message?message:'not a contract address';
-    if (!typeAddr || !web3.isAddress(address))
+    if (!address || !web3.isAddress(address))
         throw message;
     let byteCode = web3.eth.getCode(address);//byteCode
     if(byteCode === '0x') throw message;
