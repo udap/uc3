@@ -80,5 +80,60 @@ const mint =async (ctx) => {
 };
 
 
+const getAllByOwner =async (ctx) => {
 
-module.exports  = { mint:mint};
+    let fields = ctx.query;
+
+    //valid
+    if (!fields){
+        ctx.throw("Param error");
+    }
+    let typeAddr = fields.typeAddr;
+    let owner = fields.owner;
+    let appid = fields.appid;
+
+    udapValidator.isContractAddr(typeAddr,"'typeAddr' param must be contract address")
+    await udapValidator.appidRegistered(appid);
+
+    //get instance
+    let instance = await StandardAsset.at(typeAddr).catch((err) => {
+        ctx.throw(err);
+    });
+    let totalCount = await instance.balanceOf.call(owner,{from: owner}).catch((err) => {
+        ctx.throw(err);
+    });
+    let tokenIdsPromise = [];
+    for(let index = 0;index < totalCount ;index++){
+        let idPromise=instance.tokenOfOwnerByIndex.call(owner,index,{from: owner});
+        tokenIdsPromise.push(idPromise);
+    }
+    //get tokenIds
+    let tokenIds = await Promise.all(tokenIdsPromise).catch((err) => {
+        ctx.throw(err);
+    });
+    tokenIds.filter(tid => tid);
+
+    let tokenUriPromise = [];
+    tokenIds.forEach((item,index)=>{
+        tokenUriPromise.push(instance.tokenURI.call(item,{from: owner}));
+    });
+    let tokenURIs = await Promise.all(tokenUriPromise).catch((err) => {
+        ctx.throw(err);
+    });
+
+    let tokens = [];
+    tokenIds.forEach((item,index)=>{
+        let token = {
+            tokenId:item
+        };
+        if (tokenURIs[index])
+            token.tokenURI = tokenURIs[index];
+        tokens.push(token);
+    });
+
+    ctx.response.body = Result.success(tokens);
+};
+
+
+
+module.exports  = { mint:mint,getAllByOwner:getAllByOwner};

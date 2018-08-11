@@ -7,6 +7,7 @@ const mount = require('koa-mount');
 const standardAssetService = require('./handler/standardAssetService');
 const appService = require('./handler/appService');
 const assetTypeService = require('./handler/assetTypeService');
+const assetService = require('./handler/assetService');
 const Result = require('./common/result');
 const assetTypeJob = require('./schedule/assetTypeJob');
 
@@ -38,11 +39,8 @@ route.get('/', main);
 route.post('/apps',koaBody(),appService.register);
 route.post('/types',koaBody({ multipart: true}),assetTypeService.create);
 route.get('/types',koaBody(),assetTypeService.getAll);
-
-
-
-route.get('/erc721/tokenOfOwnerByIndex',koaBody(),standardAssetService.tokenOfOwnerByIndex);
-route.get('/erc721/tokenInfo',koaBody(),standardAssetService.tokenInfo);
+route.post('/assets',koaBody({ multipart: true}),assetService.mint);
+route.get('/assets',koaBody(),assetService.getAllByOwner);
 
 
 
