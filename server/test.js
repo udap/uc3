@@ -11,7 +11,8 @@ let StandardAsset = contract(standardAsset_artifacts);
 
 StandardAsset.setProvider(web3.currentProvider);
 
-//js sign
+//js sign,If used v0.20.6, This account needs to be unlocked. see https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethsign
+//If used v1 see https://ethereum.stackexchange.com/questions/35425/web3-js-eth-sign-vs-eth-accounts-sign-producing-different-signatures
 function signString(text) {
     /*
     * Sign a string and return (hash, v, r, s) used by ecrecover to regenerate the coinbase address;
