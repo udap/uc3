@@ -9,26 +9,22 @@ web3.setProvider(new web3.providers.HttpProvider(ethereumCfg.provider));
 
 const newStandAssert = (name,symbol,uri) =>{
     let abi = standardAsset_artifacts.abi;
-    let bytecode = standardAsset_artifacts.bytecode;
     let standardAsset = web3.eth.contract(abi);
     let contractData = standardAsset.new.getData(name,symbol,uri,{data:bytecode});
 
     let gasPrice = web3.eth.gasPrice;
-    let gasPriceHex = web3.toHex(gasPrice);
     let nonce = web3.eth.getTransactionCount(ethereumCfg.address);
-    let nonceHex = web3.toHex(nonce);
 
     let rawTx = {
         from:ethereumCfg.address,
-        nonce: nonceHex,
-        gasPrice: gasPriceHex,
+        nonce: web3.toHex(nonce),
+        gasPrice: web3.toHex(gasPrice),
         value: '0x00',
         data: contractData
     };
     //estimateGas
     let gasEstimate = web3.eth.estimateGas(rawTx);
-    let gasLimitHex = web3.toHex(gasEstimate);
-    rawTx.gasLimit=gasLimitHex;
+    rawTx.gasLimit=web3.toHex(gasEstimate);
     let tx = new Tx(rawTx);
     tx.sign(privateKey);
     let serializedTx = tx.serialize();
