@@ -4,7 +4,6 @@ const route = require('koa-router')();
 const koaBody = require('koa-body');
 const staticHandler = require('koa-static');
 const mount = require('koa-mount');
-const standardAssetService = require('./handler/standardAssetService');
 const appService = require('./handler/appService');
 const assetTypeService = require('./handler/assetTypeService');
 const assetService = require('./handler/assetService');
