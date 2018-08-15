@@ -21,7 +21,7 @@ contract AssetType {
         name = _name;
         symbol = _symbol;
         uri = _uri;
-        supplyLimit = _supplyLimit;
+        supplyLimit = (_supplyLimit == 0 ? 2**256-1 : _supplyLimit);
     }
 }
 
@@ -32,13 +32,13 @@ contract StandardAsset is ERC721Token, Ownable {
     //token  issuer
     address public issuer;
 
-    uint256 public supplyLimit;
+    uint256 public supplyLimit = ;
 
     AssetType private assetType;
 
     /**
-   * @dev Constructor function
-   */
+     * @dev Constructor function
+     */
     constructor(string _name, string _symbol, uint256 _supplyLimit, string _classURI) public ERC721Token(_name, _symbol) {
         assetType = new AssetType(_name, _symbol, _supplyLimit, _classURI);
         issuer = owner;
@@ -46,33 +46,33 @@ contract StandardAsset is ERC721Token, Ownable {
     }
 
     /**
-       * @dev create a new token
-       * @dev Reverts if the given token ID already exists
-       * @param _to address the beneficiary that will own the minted token
-       * @param _tokenURI token uri
-       */
+      * @dev create a new token
+      * @dev Reverts if the given token ID already exists
+      * @param _to address the beneficiary that will own the minted token
+      * @param _tokenURI token uri
+      */
     function mint(address _to, string _tokenURI) onlyOwner public {
-        uint256 tokenId = id_ ++;
-        require(!exists(tokenId));
+        uint256 tokenId = id_.add(1);
+        require(!exists(tokenId) && tokenId < supplyLimit);
+        id_ = tokenId;
         super._mint(_to, tokenId);
         super._setTokenURI(tokenId, _tokenURI);
     }
 
-    /**
-   * @dev  burn a specific token
-   * @dev Reverts if the token does not exist
-   * @param _owner owner of the token to burn
-   * @param _tokenId uint256 ID of the token being burned by the msg.sender
-   */
+   /**
+    * @dev  burn a specific token by its owner
+    * @dev Reverts if the token does not exist
+    * @param _tokenId uint256 ID of the token being burned by the msg.sender
+    */
     function burn(uint256 _tokenId) public {
         super._burn(msg.sender, _tokenId);
     }
 
 
-    /**
-   * @dev Returns token IDs of owner
-   * @param _owner token owner
-   */
+   /**
+    * @dev Returns token IDs of owner
+    * @param _owner token owner
+    */
     function getOwnedTokens(address _owner) public view returns (uint256[]){
         return ownedTokens[_owner];
     }
