@@ -43,7 +43,7 @@ const getJson = async (hash) =>{
     let uri =ipfsCfg.dataUrl+hash;
     if (hash.startsWith("http:") || hash.startsWith("https:"))
         uri = hash;
-    let res = await request.get(uri.replace("ipfs.io","127.0.0.1:8080")).catch( err => {
+    let res = await request.get(uri.replace("https://ipfs.io","http://127.0.0.1:8080")).catch( err => {
         throw err;
     });
     return JSON.parse(res.body.toString());
