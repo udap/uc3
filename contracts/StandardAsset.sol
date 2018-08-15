@@ -14,10 +14,10 @@ contract AssetType {
     //SupplyLimit
     uint256 public supplyLimit;
 
-// Asset type metadata uri,Pointing to a json file
+    // Asset type metadata uri,Pointing to a json file
     string public uri;
 
-    constructor(string _name, string _symbol,uint256 _supplyLimit, string _uri) public {
+    constructor(string _name, string _symbol, uint256 _supplyLimit, string _uri) public {
         name = _name;
         symbol = _symbol;
         uri = _uri;
@@ -25,9 +25,9 @@ contract AssetType {
     }
 }
 
-contract StandardAsset is ERC721Token,Ownable {
+contract StandardAsset is ERC721Token, Ownable {
 
-     uint256 internal id_;
+    uint256 internal id_;
 
     //token  issuer
     address public issuer;
@@ -39,8 +39,8 @@ contract StandardAsset is ERC721Token,Ownable {
     /**
    * @dev Constructor function
    */
-    constructor(string _name, string _symbol,uint256 _supplyLimit,string _classURI) public ERC721Token(_name,_symbol) {
-        assetType = new AssetType(_name,_symbol,_supplyLimit,_classURI);
+    constructor(string _name, string _symbol, uint256 _supplyLimit, string _classURI) public ERC721Token(_name, _symbol) {
+        assetType = new AssetType(_name, _symbol, _supplyLimit, _classURI);
         issuer = owner;
 
     }
@@ -51,11 +51,11 @@ contract StandardAsset is ERC721Token,Ownable {
        * @param _to address the beneficiary that will own the minted token
        * @param _tokenURI token uri
        */
-    function mint(address _to,string _tokenURI) onlyOwner public  {
-        uint256 tokenId = id_ ++ ;
+    function mint(address _to, string _tokenURI) onlyOwner public {
+        uint256 tokenId = id_ ++;
         require(!exists(tokenId));
         super._mint(_to, tokenId);
-        super._setTokenURI(tokenId,_tokenURI);
+        super._setTokenURI(tokenId, _tokenURI);
     }
 
     /**
@@ -73,18 +73,13 @@ contract StandardAsset is ERC721Token,Ownable {
    * @dev Returns token IDs of owner
    * @param _owner token owner
    */
-    function getOwnedTokens(address _owner)public view returns(uint256[]){
+    function getOwnedTokens(address _owner) public view returns (uint256[]){
         return ownedTokens[_owner];
     }
 
-    function getAssetType() public view returns(AssetType){
+    function getAssetType() public view returns (AssetType){
         return assetType;
     }
-
-
-
-
-
 
 
 }

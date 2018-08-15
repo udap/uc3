@@ -5,7 +5,7 @@ import './StandardAsset.sol';
 
 contract Escrow {
 
-    enum State { CREATED, ACCEPTED, REJECTED }
+    enum State {CREATED, ACCEPTED, REJECTED}
 
     address public recipient;
     address public sender;
@@ -13,11 +13,11 @@ contract Escrow {
     uint256 public assetId;
     State   public state;
 
-    constructor(address _recipient,StandardAsset _standardAsset,uint256 _assetId) public {
+    constructor(address _recipient, StandardAsset _standardAsset, uint256 _assetId) public {
 
-        require(_standardAsset.ownerOf(_assetId) == msg.sender );
-//        require(msg.sender)
-//        recipient = _recipient;
+        require(_standardAsset.ownerOf(_assetId) == msg.sender);
+        //        require(msg.sender)
+        //        recipient = _recipient;
         sender = msg.sender;
         standardAsset = _standardAsset;
         assetId = _assetId;

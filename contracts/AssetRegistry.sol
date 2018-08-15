@@ -5,13 +5,10 @@ import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 contract AssetRegistry is Ownable {
 
-    event StandardAssetCreated(StandardAsset indexed asset,uint indexed id);
-
+    event StandardAssetCreated(StandardAsset indexed asset, uint indexed id);
 
     // Mapping from contract ID to StandardAsset
-    mapping(uint=>StandardAsset) public idAssets;
-
-
+    mapping(uint => StandardAsset) public idAssets;
 
     constructor() public {
 
@@ -22,8 +19,8 @@ contract AssetRegistry is Ownable {
     * @param _name AssetType name
     * @param _symbol AssetType symbol
     */
-    function registerClass(string _name,string _symbol) onlyOwner public returns(uint){
-        return register(_name,_symbol,"");
+    function registerClass(string _name, string _symbol) onlyOwner public returns (uint){
+        return register(_name, _symbol, "");
     }
 
     /**
@@ -32,8 +29,8 @@ contract AssetRegistry is Ownable {
     * @param _symbol AssetType symbol
     * @param _uri AssetType metadata uri
     */
-    function registerClass(string _name,string _symbol,string _uri) onlyOwner public returns(uint){
-        return register(_name,_symbol,_uri);
+    function registerClass(string _name, string _symbol, string _uri) onlyOwner public returns (uint){
+        return register(_name, _symbol, _uri);
     }
 
     /**
@@ -42,19 +39,19 @@ contract AssetRegistry is Ownable {
     * @param _symbol AssetType symbol
     * @param _uri AssetType metadata uri
     */
-    function register(string _name,string _symbol,string _uri) internal returns(uint){
-        uint id = getId(_name, _symbol,_uri);
+    function register(string _name, string _symbol, string _uri) internal returns (uint){
+        uint id = getId(_name, _symbol, _uri);
         require(idAssets[id] == address(0x0));
-        StandardAsset asset = new StandardAsset(_name, _symbol,_uri);
+        StandardAsset asset = new StandardAsset(_name, _symbol, _uri);
         idAssets[id] = asset;
-        emit StandardAssetCreated(asset,id);
+        emit StandardAssetCreated(asset, id);
     }
 
     /**
     * @dev id generator
     */
-    function getId(string _name,string _symbol,string _uri) public pure returns(uint){
-        uint id = uint(keccak256(abi.encodePacked(_name, _symbol,_uri)));
+    function getId(string _name, string _symbol, string _uri) public pure returns (uint){
+        uint id = uint(keccak256(abi.encodePacked(_name, _symbol, _uri)));
         return id;
     }
 
