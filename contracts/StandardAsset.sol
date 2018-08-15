@@ -11,13 +11,17 @@ contract AssetType {
     // Asset type symbol
     string public symbol;
 
-    // Asset type metadata uri,Pointing to a json file
+    //SupplyLimit
+    uint256 public supplyLimit;
+
+// Asset type metadata uri,Pointing to a json file
     string public uri;
 
-    constructor(string _name, string _symbol,string _uri) public {
+    constructor(string _name, string _symbol,uint256 _supplyLimit, string _uri) public {
         name = _name;
         symbol = _symbol;
         uri = _uri;
+        supplyLimit = _supplyLimit;
     }
 }
 
@@ -28,13 +32,15 @@ contract StandardAsset is ERC721Token,Ownable {
     //token  issuer
     address public issuer;
 
+    uint256 public supplyLimit;
+
     AssetType private assetType;
 
     /**
    * @dev Constructor function
    */
-    constructor(string _name, string _symbol,string _classURI) public ERC721Token(_name,_symbol) {
-        assetType = new AssetType(_name,_symbol,_classURI);
+    constructor(string _name, string _symbol,uint256 _supplyLimit,string _classURI) public ERC721Token(_name,_symbol) {
+        assetType = new AssetType(_name,_symbol,_supplyLimit,_classURI);
         issuer = owner;
 
     }
