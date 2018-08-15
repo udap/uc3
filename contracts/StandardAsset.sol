@@ -32,7 +32,6 @@ contract StandardAsset is ERC721Token, Ownable {
     //token  issuer
     address public issuer;
 
-    uint256 public supplyLimit = ;
 
     AssetType private assetType;
 
@@ -53,7 +52,7 @@ contract StandardAsset is ERC721Token, Ownable {
       */
     function mint(address _to, string _tokenURI) onlyOwner public {
         uint256 tokenId = id_.add(1);
-        require(!exists(tokenId) && tokenId < supplyLimit);
+        require(!exists(tokenId) && tokenId <= assetType.supplyLimit());
         id_ = tokenId;
         super._mint(_to, tokenId);
         super._setTokenURI(tokenId, _tokenURI);
