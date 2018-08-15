@@ -20,6 +20,7 @@ const errorHandler = async (ctx, next) => {
         };
         await next();
     } catch (err) {
+        console.log(err);
         ctx.response.status = 200;
         ctx.response.body = Result.fail(err.message,err);
     }
