@@ -64,8 +64,8 @@ contract StandardAsset is ERC721Token, Ownable {
    * @param _owner owner of the token to burn
    * @param _tokenId uint256 ID of the token being burned by the msg.sender
    */
-    function burn(address _owner, uint256 _tokenId) public {
-        super._burn(_owner, _tokenId);
+    function burn(uint256 _tokenId) public {
+        super._burn(msg.sender, _tokenId);
     }
 
 
