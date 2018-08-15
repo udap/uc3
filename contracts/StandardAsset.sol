@@ -1,6 +1,7 @@
 pragma solidity ^0.4.19;
 
 import 'openzeppelin-solidity/contracts/token/ERC721/ERC721Token.sol';
+import 'openzeppelin-solidity/contracts/ownership/Ownable.sol';
 
 contract AssetType {
 
@@ -20,7 +21,7 @@ contract AssetType {
     }
 }
 
-contract StandardAsset is ERC721Token {
+contract StandardAsset is ERC721Token,Ownable {
 
      uint256 internal id_;
 
@@ -42,7 +43,7 @@ contract StandardAsset is ERC721Token {
        * @param _to address the beneficiary that will own the minted token
        * @param _tokenURI token uri
        */
-    function mint(address _to,string _tokenURI) public {
+    function mint(address _to,string _tokenURI) onlyOwner public  {
         uint256 tokenId = id_ ++ ;
         require(!exists(tokenId));
         super._mint(_to, tokenId);
