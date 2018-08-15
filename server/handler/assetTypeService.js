@@ -77,10 +77,7 @@ const importType =async (ctx) => {
             ctx.throw(err);
         });
         if (uri.startsWith("http:") || uri.startsWith("https:")){
-            let res = await request.get(uri.replace("ipfs.io","ipfs.infura.io")).catch( err => {
-                ctx.throw(err);
-            });
-            type.icon = JSON.parse(res.body.toString()).icon;
+            type.icon = ipfsUtil.getJson().icon;
         }
     }
     await AssetType.create(type).catch((err) => {
