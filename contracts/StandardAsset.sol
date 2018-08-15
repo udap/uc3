@@ -25,8 +25,8 @@ contract StandardAsset is ERC721Token,Ownable {
 
      uint256 internal id_;
 
-    // Mapping from token ID to issuer
-    mapping (uint256 => address) internal tokenIssuers;
+    //token  issuer
+    address public issuer;
 
     AssetType private assetType;
 
@@ -35,6 +35,8 @@ contract StandardAsset is ERC721Token,Ownable {
    */
     constructor(string _name, string _symbol,string _classURI) public ERC721Token(_name,_symbol) {
         assetType = new AssetType(_name,_symbol,_classURI);
+        issuer = owner;
+
     }
 
     /**
@@ -48,7 +50,6 @@ contract StandardAsset is ERC721Token,Ownable {
         require(!exists(tokenId));
         super._mint(_to, tokenId);
         super._setTokenURI(tokenId,_tokenURI);
-        tokenIssuers[tokenId] = msg.sender;
     }
 
     /**
@@ -59,18 +60,8 @@ contract StandardAsset is ERC721Token,Ownable {
    */
     function burn(address _owner, uint256 _tokenId) public {
         super._burn(_owner, _tokenId);
-        delete tokenIssuers[_tokenId];
     }
 
-    /**
-   * @dev Returns issuer for a given token ID
-   * @dev Throws if the token ID does not exist.
-   * @param _tokenId uint256 ID of the token to query
-   */
-    function tokenIssuer(uint256 _tokenId) public view returns (address) {
-        require(exists(_tokenId));
-        return tokenIssuers[_tokenId];
-    }
 
     /**
    * @dev Returns token IDs of owner
