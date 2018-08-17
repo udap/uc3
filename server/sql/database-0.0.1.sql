@@ -18,6 +18,7 @@ CREATE TABLE `asset_type` (
   `symbol` varchar(45) DEFAULT NULL COMMENT 'asset type的symbol',
   `tx_hash` varchar(128) DEFAULT NULL COMMENT '创建asset type的transaction hash',
   `status` tinyint(1) NOT NULL COMMENT 'transaction hash 的 status(0 fail、1 success、2 pending)',
+  `type` varchar(45) NOT NULL COMMENT 'ERC20、ERC721、UPA',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),

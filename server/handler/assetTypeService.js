@@ -191,17 +191,6 @@ const getAll =async (ctx) => {
     });
     let allPromise =[];
 
-    /*for (let i=0;i<typeList.length;i++){
-        let item = typeList[i];
-        let balancePromise = new Promise(resolve => {resolve(0)});
-        let address = item.address;
-        if (address && address != null && address.length >0){
-            let instance = await StandardAsset.at(item.address);
-            balancePromise = instance.balanceOf.call(owner,{from: owner}).catch((err) => {});
-        }
-        allPromise.push(balancePromise);
-
-    }*/
     typeList.forEach((item, index)=>{
         let balancePromise = new Promise(resolve => {resolve(0)});
         let address = item.address;

@@ -34,6 +34,10 @@ const assetType = sequelize.define('asset_type', {
     status: {
         type: Sequelize.INTEGER,
         field: 'status'
+    },
+    type: {
+        type: Sequelize.STRING,
+        field: 'type'
     }
 },{freezeTableName:true,createdAt: 'create_time',updatedAt:'update_time'});
 
