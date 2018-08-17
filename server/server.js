@@ -34,6 +34,8 @@ app.use(errorHandler);
 //static ctx
 app.use(staticHandler(path.join(__dirname,"view")));
 
+app.use(mount('/img', staticHandler(path.join(__dirname,"img"))));
+
 //root path
 route.get('/', main);
 route.post('/apps',koaBody(),appService.register);
@@ -41,6 +43,10 @@ route.post('/types',koaBody({ multipart: true}),assetTypeService.create);
 route.get('/types',koaBody(),assetTypeService.getAll);
 route.post('/assets',koaBody({ multipart: true}),assetService.mint);
 route.get('/assets',koaBody(),assetService.getAllByOwner);
+
+
+const testDataService = require('./handler/testDataService');
+route.get('/testData',koaBody(),testDataService.getData);
 
 
 
