@@ -16,6 +16,10 @@ StandardAsset.setProvider(web3.currentProvider);
 const AssetType_artifacts = require('../../build/contracts/AssetType.json');
 const AssetTypeContract = contract(AssetType_artifacts);
 AssetTypeContract.setProvider(web3.currentProvider);
+
+const DetailedERC20_artifacts = require('../../build/contracts/DetailedERC20.json');
+const DetailedERC20 = contract(DetailedERC20_artifacts);
+DetailedERC20.setProvider(web3.currentProvider);
 const udapValidator = require('../common/udapValidator');
 const ethereumUtil = require('../util/ethereumUtil');
 const Result = require('../common/result');
@@ -199,11 +203,14 @@ const getAll =async (ctx) => {
         let address = item.address;
         if (address && address != null && address.length >0){
             balancePromise = StandardAsset.at(item.address).then(instance => {
-                    return instance.balanceOf.call(owner,{from: owner});
-                }).catch((err) => {});
-            decimalsPromise = StandardAsset.at(item.address).then(instance => {
-                return instance.decimals.call({from: owner});
+                return instance.balanceOf.call(owner,{from: owner});
             }).catch((err) => {});
+            if(item.type == "ERC20"){
+                decimalsPromise = DetailedERC20.at(item.address).then(instance => {
+                    return instance.decimals.call({from: owner});
+                }).catch((err) => {});
+            }
+
         }
         allBalancesPromise.push(balancePromise);
         allDecimalsPromise.push(decimalsPromise);
@@ -215,7 +222,7 @@ const getAll =async (ctx) => {
         let temp = item.toJSON();
         let balance = allBalances[index]?allBalances[index]:0;
         let decimals = allDecimals[index]?allDecimals[index]:0;
-        temp.balance = balance / Math.pow(10,decimals);
+        temp.balance = balance.dividedBy(Math.pow(10,decimals)).toFixed(decimals);
         content.push(temp);
     });
     //response

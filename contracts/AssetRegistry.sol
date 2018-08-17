@@ -34,13 +34,13 @@ contract AssetRegistry is Ownable {
         return register(_name, _symbol, _supplyLimit, _uri);
     }
     
-    function registerClass(AssetType _type) onlyOwner public returns (uint) {
+   /* function registerClass(AssetType _type) onlyOwner public returns (uint) {
         uint id = getId(_type.name(), _type.symbol(), _type.uri());
         require(idAssets[id] == address(0x0));
-        idAssets[id] = _type;
+        idAssets[id] = id;
         emit AssetRegistered(_type, id);    
         return id;
-    }    
+    }   */
 
     /**
     * @dev internal function, Registering a type of asset

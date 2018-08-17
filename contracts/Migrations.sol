@@ -1,5 +1,8 @@
 pragma solidity ^0.4.17;
 
+
+import 'openzeppelin-solidity/contracts/token/ERC20/DetailedERC20.sol';
+
 contract Migrations {
     address public owner;
     uint public last_completed_migration;
