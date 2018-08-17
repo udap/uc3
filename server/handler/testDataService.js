@@ -14,7 +14,7 @@ const getData = async (ctx) =>  {
         ctx.response.body = Result.success({});
         return;
     }
-    ctx.response.body = Result.success(testData[fields.key]);
+    ctx.response.body = testData[fields.key];
 };
 
 
