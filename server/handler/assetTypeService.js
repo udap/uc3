@@ -221,8 +221,11 @@ const getAll =async (ctx) => {
     typeList.forEach((item, index)=>{
         let temp = item.toJSON();
         let balance = allBalances[index]?allBalances[index]:0;
-        let decimals = allDecimals[index]?allDecimals[index]:0;
-        temp.balance = balance.dividedBy(Math.pow(10,decimals)).toFixed(decimals);
+        temp.balance = balance;
+        if(balance >0){
+            let decimals = allDecimals[index]?allDecimals[index]:0;
+            temp.balance = balance.dividedBy(Math.pow(10,decimals)).toFixed(decimals);
+        }
         content.push(temp);
     });
     //response
