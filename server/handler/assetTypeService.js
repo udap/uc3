@@ -152,7 +152,8 @@ const create =async (ctx) => {
         name:name,
         symbol:symbol,
         txHash:txHash,
-        status:2
+        status:2,
+        type:"UPA"
     };
     /*if(receipt && receipt.contractAddress)
         type.address = receipt.contractAddress;
