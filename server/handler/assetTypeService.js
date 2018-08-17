@@ -190,24 +190,32 @@ const getAll =async (ctx) => {
     ).catch(function (err) {
         ctx.throw(err.message);
     });
-    let allPromise =[];
+    let allBalancesPromise =[];
+    let allDecimalsPromise = [];
 
     typeList.forEach((item, index)=>{
         let balancePromise = new Promise(resolve => {resolve(0)});
+        let decimalsPromise = new Promise(resolve => {resolve(0)});
         let address = item.address;
         if (address && address != null && address.length >0){
-            balancePromise = StandardAsset.at(item.address)
-                .then(instance => {
+            balancePromise = StandardAsset.at(item.address).then(instance => {
                     return instance.balanceOf.call(owner,{from: owner});
                 }).catch((err) => {});
+            decimalsPromise = StandardAsset.at(item.address).then(instance => {
+                return instance.decimals.call({from: owner});
+            }).catch((err) => {});
         }
-        allPromise.push(balancePromise);
+        allBalancesPromise.push(balancePromise);
+        allDecimalsPromise.push(decimalsPromise);
     });
-    let allBalances = await Promise.all(allPromise).catch((err) => {ctx.throw(err)});
+    let allBalances = await Promise.all(allBalancesPromise).catch((err) => {ctx.throw(err)});
+    let allDecimals = await Promise.all(allDecimalsPromise).catch((err) => {ctx.throw(err)});
     let content = [];
     typeList.forEach((item, index)=>{
         let temp = item.toJSON();
-        temp.balance = allBalances[index]?allBalances[index]:0;
+        let balance = allBalances[index]?allBalances[index]:0;
+        let decimals = allDecimals[index]?allDecimals[index]:0;
+        temp.balance = balance / Math.pow(10,decimals);
         content.push(temp);
     });
     //response
