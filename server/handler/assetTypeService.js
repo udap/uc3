@@ -79,12 +79,11 @@ const importType =async (ctx) => {
         type.symbol = symbol;
     if (typeContractAddr){
         type.type = "UPA";
-        let assetTypeContractInstance = await AssetTypeContract.at(typeContractAddr);
 
-        let uri = assetTypeContractInstance.uri.call({from: owner}).catch( err => {
+        let uri = await  AssetTypeContract.at(typeContractAddr).uri.call({from: owner}).catch( err => {
             ctx.throw(err);
         });
-        if (uri.startsWith("http:") || uri.startsWith("https:")){
+        if (uri && (uri.startsWith("http:") || uri.startsWith("https:"))){
             type.icon = ipfsUtil.getJson().icon;
         }
     }
