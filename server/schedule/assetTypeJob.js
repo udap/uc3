@@ -27,7 +27,7 @@ const queryCreateTypeReceipt = ()=>{
             console.log(err);
         });
         console.log("end queryCreateTypeReceipt job..");
-    },5 * 60 * 1000);
+    },3 * 60 * 1000);
 };
 
 
