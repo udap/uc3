@@ -38,8 +38,55 @@ const data =  {
             DATE:"25/08/2018",
             TIME:"14:00PM"
         }
+    },
+    "warrant1":{
+        name:"Corn",
+        desc:"Warehouse receipt for agricultural goods",
+        image:"http://47.104.225.39:3000/img/warrant.png",
+        attributes:{
+            "RECEIPT NO":"W1803151",
+            "WAREHOUSE CODE":"TZQ1002-B1",
+            "WAREHOUSE NAME":"DaFang warehouse",
+            "WAREHOUSE ADDRESS":"No. 1310 Yongan Road, Horqin district, Tongliao City, the Inner Mongolia Autonomous Region",
+            "SKU":"171004100000000",
+            "PRODUCED IN":"Tongliao City, the Inner Mongolia Autonomous Region",
+            "STANDARD":"Grade A grade grain (mildew <=2%)",
+            "AMOUNT":"12090",
+            "UNIT WEIGHT":"50.00KG"
+        }
+    },
+    "warrant2":{
+        name:"Corn",
+        desc:"Warehouse receipt for agricultural goods",
+        image:"http://47.104.225.39:3000/img/warrant.png",
+        attributes:{
+            "RECEIPT NO":"W1803152",
+            "WAREHOUSE CODE":"TZQ1002-B2",
+            "WAREHOUSE NAME":"DaFang warehouse",
+            "WAREHOUSE ADDRESS":"No. 1310 Yongan Road, Horqin district, Tongliao City, the Inner Mongolia Autonomous Region",
+            "SKU":"171004100000011",
+            "PRODUCED IN":"Tongliao City, the Inner Mongolia Autonomous Region",
+            "STANDARD":"Grade A grade grain (mildew <=2%)",
+            "AMOUNT":"12000",
+            "UNIT WEIGHT":"100.00KG"
+        }
+    },
+    "warrant3":{
+        name:"Corn",
+        desc:"Warehouse receipt for agricultural goods",
+        image:"http://47.104.225.39:3000/img/warrant.png",
+        attributes:{
+            "RECEIPT NO":"W1803153",
+            "WAREHOUSE CODE":"TZQ1002-B3",
+            "WAREHOUSE NAME":"DaFang warehouse",
+            "WAREHOUSE ADDRESS":"No. 1310 Yongan Road, Horqin district, Tongliao City, the Inner Mongolia Autonomous Region",
+            "SKU":"171004100000022",
+            "PRODUCED IN":"Tongliao City, the Inner Mongolia Autonomous Region",
+            "STANDARD":"Grade A grade grain (mildew <=2%)",
+            "AMOUNT":"13000",
+            "UNIT WEIGHT":"150.00KG"
+        }
     }
-
 };
 
 
