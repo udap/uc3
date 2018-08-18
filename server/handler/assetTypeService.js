@@ -29,6 +29,7 @@ let privateKey = new Buffer(ethereumCfg.privateKey, 'hex');
 
 const importType =async (ctx) => {
 
+
     let fields = ctx.request.body.fields;
     if (!fields) ctx.throw("Please fill in the data");
 
@@ -95,17 +96,19 @@ const importType =async (ctx) => {
 
 
 const create =async (ctx) => {
-
     let fields = ctx.request.body.fields;
+    if(!fields)
+        fields = ctx.request.body;
     if (!fields) ctx.throw("Please fill in the data");
-    let files = ctx.request.body.files;
-    if (!files) ctx.throw("Please upload the icon");
-
     let action = fields.action;
     if (!action || (action != 'create' && action != 'import'))
         ctx.throw("'action' param error");
     if(action == 'import')
         return importType(ctx);
+
+
+    let files = ctx.request.body.files;
+    if (!files) ctx.throw("Please upload the icon");
 
     let name = fields.name;
     let symbol = fields.symbol;
