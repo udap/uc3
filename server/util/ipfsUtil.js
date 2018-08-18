@@ -46,7 +46,10 @@ const getJson = async (hash) =>{
     let res = await request.get(uri.replace("https://ipfs.io","http://127.0.0.1:8080")).catch( err => {
         throw err;
     });
-    return JSON.parse(res.body.toString());
+    let body = res.body;
+    if (typeof body == 'string')
+        body = JSON.parse(body);
+    return body;
 };
 
 /*const upload = async (ctx) => {

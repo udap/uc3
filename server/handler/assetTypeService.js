@@ -82,7 +82,8 @@ const importType =async (ctx) => {
             ctx.throw(err);
         });
         if (uri && (uri.startsWith("http:") || uri.startsWith("https:"))){
-            type.icon = ipfsUtil.getJson().icon;
+            let uriData = await ipfsUtil.getJson(uri);
+            type.icon = uriData.icon
         }
     }
     await AssetType.create(type).catch((err) => {
