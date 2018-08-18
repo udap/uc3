@@ -194,7 +194,7 @@ const getAll =async (ctx) => {
     let where = {gid:appid};
     //query data
     let typeList = await AssetType.findAll(
-        { where: where }
+        { where: where ,order: [['id', 'ASC']]}
     ).catch(function (err) {
         ctx.throw(err.message);
     });
