@@ -31,6 +31,7 @@ const importType =async (ctx) => {
 
 
     let fields = ctx.request.body.fields;
+    if (!fields) fields = ctx.request.body;
     if (!fields) ctx.throw("Please fill in the data");
 
     // valid data
