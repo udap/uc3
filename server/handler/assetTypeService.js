@@ -57,7 +57,8 @@ const importType =async (ctx) => {
     let type = {
         gid:appid,
         address:typeAddr,
-        status:1
+        status:1,
+        type:"ERC721"
     };
 
     let assetInstance = await StandardAsset.at(typeAddr);
@@ -75,6 +76,7 @@ const importType =async (ctx) => {
     if (symbol)
         type.symbol = symbol;
     if (typeContractAddr){
+        type.type = "UPA";
         let assetTypeContractInstance = await AssetTypeContract.at(typeContractAddr);
 
         let uri = assetTypeContractInstance.uri.call({from: owner}).catch( err => {
