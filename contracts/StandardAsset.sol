@@ -58,6 +58,19 @@ contract StandardAsset is ERC721Token, Ownable {
         super._setTokenURI(tokenId, _tokenURI);
     }
 
+    /**
+     * @dev create a new token
+     * @dev Reverts if the given token ID already exists
+     * @param _to address the beneficiary that will own the minted token
+     * @param _tokenURI token uri
+     */
+    function mint(address _to, string _tokenURI,bytes32 metaDataHash,
+        uint8 v, bytes32 r, bytes32 s) public {
+        address addr = ecrecover(metaDataHash, v, r, s);
+        require(addr == owner);
+        mint(_to,_tokenURI);
+    }
+
    /**
     * @dev  burn a specific token by its owner
     * @dev Reverts if the token does not exist
