@@ -68,14 +68,6 @@ contract StandardAsset is ERC721Token, Ownable {
     }
 
 
-   /**
-    * @dev Returns token IDs of owner
-    * @param _owner token owner
-    */
-    function getOwnedTokens(address _owner) public view returns (uint256[]){
-        return ownedTokens[_owner];
-    }
-
     function getAssetType() public view returns (AssetType){
         return assetType;
     }
