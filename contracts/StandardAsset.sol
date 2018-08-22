@@ -64,9 +64,9 @@ contract StandardAsset is ERC721Token, Ownable {
      * @param _to address the beneficiary that will own the minted token
      * @param _tokenURI token uri
      */
-    function mint(address _to, string _tokenURI,bytes32 metaDataHash,
-        uint8 v, bytes32 r, bytes32 s) public {
-        address addr = ecrecover(metaDataHash, v, r, s);
+    function mint(address _to, string _tokenURI,uint8 v, bytes32 r, bytes32 s) public {
+        bytes32 hash = keccak256(_to, _tokenURI);
+        address addr = ecrecover(hash, v, r, s);
         require(addr == owner);
         mint(_to,_tokenURI);
     }

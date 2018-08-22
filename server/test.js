@@ -100,4 +100,30 @@ var signatureRPC = ethUtil.toRpcSig(sig.v, sig.r, sig.s);
 console.log("signatureRPC",signatureRPC);
 console.log("hashPersonalMessage 结果：",{v:sig.v,r:ethUtil.bufferToHex(sig.r),s:ethUtil.bufferToHex(sig.s)}) ;
 */
+var web3Util = require('web3-utils');
 
+let sign = function sign(privateKey) {
+
+    // let sha = ethUtil.sha3(["0x67f09ED73F2Fe18965d6f35325Ec983Aff2532e6","www.baidu.com"]);
+    let sha = web3Util.soliditySha3({
+        type: 'address', value: '0x67f09ED73F2Fe18965d6f35325Ec983Aff2532e6'
+    },{type: 'string', value: 'www.baidu.com'});
+    sha = sha.substr(2);
+    sha = new Buffer(sha, 'hex');
+    let sig = ethUtil.ecsign(sha, privateKey);
+    //solidity:0x39588101491b0250bd6cecf501960004d289c97d261e57dcd8e1d127653b4c47
+    //ethUtil.sha3:0x3a333e1fb2d1b4e7b530eea4ac5f031d4b88d9b506c0b385781b2094fa45f2f5
+    //web3Util.soliditySha3: 0x0519b0c23cd675bd0cde121e96b0b7585c49f16887a5d035d693c94acc418bfb
+
+    /*_chainId = web3.version.network;
+    if (this._chainId > 0) {
+        sig.v +=this._chainId * 2 + 8;
+    }*/
+    let sigBuff = ethUtil.bufferToHex(Buffer.concat([ sig.r, sig.s, ethUtil.toBuffer(sig.v)]));
+    console.log("sig====",sigBuff);
+    return {sha:ethUtil.bufferToHex(sha),sig:sig,v:sig.v - 27,r:ethUtil.bufferToHex(sig.r),s:ethUtil.bufferToHex(sig.s)};
+};
+
+
+let utilSignRet  = sign(privateKey);
+console.log("ethereumjs-util sign的结果：",utilSignRet);
