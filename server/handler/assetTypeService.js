@@ -152,7 +152,7 @@ const create =async (ctx) => {
     }).catch((err) => {
         ctx.throw(err);
     });
-    let txHash = await ethereumUtil.newStandAssert(name,symbol,supplyLimit,assetTypeUri).catch((err) => {
+    let txHash = await ethereumUtil.newStandAssert(name,symbol,supplyLimit,assetTypeUri,owner).catch((err) => {
         ctx.throw(err);
     });
 
