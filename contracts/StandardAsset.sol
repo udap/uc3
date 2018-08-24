@@ -38,9 +38,10 @@ contract StandardAsset is ERC721Token, Ownable {
     /**
      * @dev Constructor function
      */
-    constructor(string _name, string _symbol, uint256 _supplyLimit, string _classURI) public ERC721Token(_name, _symbol) {
+    constructor(string _name, string _symbol, uint256 _supplyLimit, string _classURI,address _owner) public ERC721Token(_name, _symbol) {
         assetType = new AssetType(_name, _symbol, _supplyLimit, _classURI);
-        issuer = owner;
+        owner = _owner;
+        issuer = _owner;
 
     }
 
