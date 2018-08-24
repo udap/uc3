@@ -200,27 +200,35 @@ const getAll =async (ctx) => {
     });
     let allBalancesPromise =[];
     let allDecimalsPromise = [];
+    let allOwnerPromise = [];
 
     typeList.forEach((item, index)=>{
         let balancePromise = new Promise(resolve => {resolve(0)});
         let decimalsPromise = new Promise(resolve => {resolve(0)});
+        let ownerPromise = new Promise(resolve => {resolve(0)});
         let address = item.address;
         if (address && address != null && address.length >0){
             balancePromise = StandardAsset.at(item.address).then(instance => {
                 return instance.balanceOf.call(owner,{from: owner});
-            }).catch((err) => {});
+            }).catch(err => {});
             if(item.type == "ERC20"){
                 decimalsPromise = DetailedERC20.at(item.address).then(instance => {
                     return instance.decimals.call({from: owner});
-                }).catch((err) => {});
+                }).catch(err => {});
+            }
+            if(item.type == "UPA"){
+                ownerPromise = StandardAsset.at(item.address).then(instance => {
+                    return instance.owner.call({from: owner});
+                }).catch(err => {});
             }
 
         }
         allBalancesPromise.push(balancePromise);
         allDecimalsPromise.push(decimalsPromise);
+        allOwnerPromise.push(ownerPromise);
     });
-    let allBalances = await Promise.all(allBalancesPromise).catch((err) => {ctx.throw(err)});
-    let allDecimals = await Promise.all(allDecimalsPromise).catch((err) => {ctx.throw(err)});
+    let allBalances = await Promise.all(allBalancesPromise).catch(err => {ctx.throw(err)});
+    let allDecimals = await Promise.all(allDecimalsPromise).catch(err => {ctx.throw(err)});
     let content = [];
     typeList.forEach((item, index)=>{
         let temp = item.toJSON();
@@ -230,6 +238,7 @@ const getAll =async (ctx) => {
             let decimals = allDecimals[index]?allDecimals[index]:0;
             temp.balance = balance.dividedBy(Math.pow(10,decimals)).toFixed(decimals);
         }
+        temp.isOwner = allOwnerPromise[index] == owner;
         content.push(temp);
     });
     //response
