@@ -234,6 +234,7 @@ const getAll =async (ctx) => {
     });
     let allBalances = await Promise.all(allBalancesPromise).catch(err => {ctx.throw(err)});
     let allDecimals = await Promise.all(allDecimalsPromise).catch(err => {ctx.throw(err)});
+    let allOwner = await Promise.all(allOwnerPromise).catch(err => {ctx.throw(err)});
     let content = [];
     typeList.forEach((item, index)=>{
         let temp = item.toJSON();
@@ -243,7 +244,9 @@ const getAll =async (ctx) => {
             let decimals = allDecimals[index]?allDecimals[index]:0;
             temp.balance = balance.dividedBy(Math.pow(10,decimals)).toFixed(decimals);
         }
-        temp.isOwner = allOwnerPromise[index] == owner;
+        temp.isOwner = false;
+        if(temp.type == "UPA")
+            temp.isOwner = allOwner[index] == owner;
         content.push(temp);
     });
     //response
