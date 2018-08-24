@@ -19,8 +19,8 @@ contract AssetRegistry is Ownable {
     * @param _name AssetType name
     * @param _symbol AssetType symbol
     */
-    function registerClass(string _name, string _symbol) onlyOwner public returns (uint){
-        return register(_name, _symbol, 1, "");
+    function registerClass(string _name, string _symbol,address _owner) onlyOwner public returns (uint){
+        return register(_name, _symbol, 1, "",_owner);
     }
 
     /**
@@ -30,8 +30,8 @@ contract AssetRegistry is Ownable {
     * @param _supplyLimit supply limit
     * @param _uri AssetType metadata uri
     */
-    function registerClass(string _name, string _symbol, uint256 _supplyLimit, string _uri) onlyOwner public returns (uint){
-        return register(_name, _symbol, _supplyLimit, _uri);
+    function registerClass(string _name, string _symbol, uint256 _supplyLimit, string _uri,address _owner) onlyOwner public returns (uint){
+        return register(_name, _symbol, _supplyLimit, _uri,_owner);
     }
     
    /* function registerClass(AssetType _type) onlyOwner public returns (uint) {
@@ -48,10 +48,10 @@ contract AssetRegistry is Ownable {
     * @param _symbol AssetType symbol
     * @param _uri AssetType metadata uri
     */
-    function register(string _name, string _symbol, uint256 _supplyLimit, string _uri) internal returns (uint){
+    function register(string _name, string _symbol, uint256 _supplyLimit, string _uri,address _owner) internal returns (uint){
         uint id = getId(_name, _symbol, _uri);
         require(idAssets[id] == address(0x0));
-        StandardAsset asset = new StandardAsset(_name, _symbol, _supplyLimit, _uri);
+        StandardAsset asset = new StandardAsset(_name, _symbol, _supplyLimit, _uri,_owner);
         idAssets[id] = asset;
         emit AssetRegistered(asset, id);
         return id;
