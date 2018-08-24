@@ -111,10 +111,13 @@ const create =async (ctx) => {
 
     let name = fields.name;
     let symbol = fields.symbol;
+    let supplyLimit = fields.supplyLimit;
     let desc = fields.desc;
     let owner = fields.owner;
     let icon = files.icon;
     let appid = fields.appid;
+
+
 
     if (!name || !validator.isLength(name,{min:1, max: 45}))
         ctx.throw("'name' param cannot be empty and the max length is 45");
@@ -124,6 +127,8 @@ const create =async (ctx) => {
         ctx.throw("'owner' param isn't an address");
     if (!icon || Array.isArray(icon))
         ctx.throw("'icon' param error");
+    if(!supplyLimit)
+        supplyLimit = 0;
     await udapValidator.appidRegistered(appid);
 
     let typeCount = await AssetType.count({
@@ -147,7 +152,7 @@ const create =async (ctx) => {
     }).catch((err) => {
         ctx.throw(err);
     });
-    let txHash = await ethereumUtil.newStandAssert(name,symbol,assetTypeUri).catch((err) => {
+    let txHash = await ethereumUtil.newStandAssert(name,symbol,supplyLimit,assetTypeUri).catch((err) => {
         ctx.throw(err);
     });
 

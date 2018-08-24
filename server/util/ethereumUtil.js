@@ -7,10 +7,10 @@ const standardAsset_artifacts = require('../../build/contracts/StandardAsset.jso
 web3.setProvider(new web3.providers.HttpProvider(ethereumCfg.provider));
 
 
-const newStandAssert = (name,symbol,uri) =>{
+const newStandAssert = (name,symbol,supplyLimit,uri) =>{
     let abi = standardAsset_artifacts.abi;
     let standardAsset = web3.eth.contract(abi);
-    let contractData = standardAsset.new.getData(name,symbol,uri,{data:standardAsset_artifacts.bytecode});
+    let contractData = standardAsset.new.getData(name,symbol,supplyLimit,uri,{data:standardAsset_artifacts.bytecode});
 
     let gasPrice = web3.eth.gasPrice;
     let nonce = web3.eth.getTransactionCount(ethereumCfg.address);
