@@ -155,5 +155,47 @@ const getAllByOwner =async (ctx) => {
 };
 
 
+const createMetadata =async (ctx) => {
 
-module.exports  = { mint:mint,getAllByOwner:getAllByOwner};
+    let fields = ctx.request.body.fields;
+    if (!fields) ctx.throw("Please fill in the data");
+    let files = ctx.request.body.files;
+    if (!files) ctx.throw("Please upload the image");
+
+    let id = fields.id;
+    let name = fields.name;
+    let desc = fields.desc;
+    let image = files.image;
+    let appid = fields.appid;
+    let attributes = fields.attributes;
+
+    if (!name || !validator.isLength(name,{min:1, max: 45}))
+        ctx.throw("'name' param cannot be empty and the max length is 45");
+    if (!desc || !validator.isLength(desc,{min:1, max: 255}))
+        ctx.throw("'desc' param cannot be empty and the max length is 45");
+    if (!image || Array.isArray(image))
+        ctx.throw("'image' param error");
+
+    await udapValidator.appidRegistered(appid);
+
+    let metadata = {
+        name:name,
+        description:desc,
+        image:buff.toString("base64")
+    };
+    if(id)
+        metadata.id = id;
+    if(attributes)
+        metadata.attributes = JSON.parse(attributes);
+
+    //upload file to ipfs
+    let buff = fs.readFileSync(image.path);
+    let metadataUri = await ipfsUtil.addJson(metadata).catch((err) => {
+        ctx.throw(err);
+    });
+    ctx.response.body = Result.success(metadataUri);
+};
+
+
+
+module.exports  = { mint:mint,getAllByOwner:getAllByOwner,createMetadata:createMetadata};
