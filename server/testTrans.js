@@ -8,6 +8,10 @@ let ethereumCfg = {
 };
 const web3 = new Web3(new Web3.providers.HttpProvider(ethereumCfg.provider));
 
+let receipt = web3.eth.getTransactionReceipt("0xa349f882e3f1cdf9cc48501f825f3b429f8cf2e4620f1efcae3b2cdffc960b09");
+console.log(receipt);
+
+/*
 
 const privateKey = new Buffer(ethereumCfg.privateKey, 'hex');
 
@@ -42,4 +46,4 @@ web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'), (err, hash) => 
         console.log("err====",err);
     else
         console.log("hash====",hash);
-});
+});*/
