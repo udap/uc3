@@ -45,7 +45,7 @@ const register =async (ctx) => {
     };
     if (desc)
         app.desc = desc;
-    await AppRegistry.create(app).catch((err) => {
+    await AppRegistry.create(app).catch(err => {
         ctx.throw(err.message);
     });
     let type = {
@@ -57,7 +57,7 @@ const register =async (ctx) => {
         status:1,
         type:"ERC20"
     };
-    await AssetType.create(type).catch((err) => {
+    await AssetType.create(type).catch(err => {
         ctx.throw(err);
     });
 
