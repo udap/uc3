@@ -127,3 +127,13 @@ let sign = function sign(privateKey) {
 
 let utilSignRet  = sign(privateKey);
 console.log("ethereumjs-util sign的结果：",utilSignRet);
+
+
+let pubKey = ethUtil.ecrecover(
+    ethUtil.toBuffer("0x39588101491b0250bd6cecf501960004d289c97d261e57dcd8e1d127653b4c47"),
+    parseInt(utilSignRet.sig.v),
+    ethUtil.toBuffer(utilSignRet.sig.r),
+    ethUtil.toBuffer(utilSignRet.sig.s)
+);
+
+console.log("ethUtils.ecrecover的结果publickey：",ethUtil.bufferToHex(ethUtil.pubToAddress(pubKey)));
