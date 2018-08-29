@@ -5,21 +5,28 @@ const Result = require('../common/result');
 const AssetType = require('../model/assetType');
 const upxToken = require('../config/upx-config');
 
+const Web3 = require('web3');
+const web3 = new Web3();
 
 const register =async (ctx) => {
 
     let body = ctx.request.body;
 
     if (!body) ctx.throw("Please fill in the data");
-    let id = body.id;
     let desc = body.desc;
+    let name = body.name;
+    let address = body.address;
 
-    if (!id || !validator.isLength(id,{min:1, max: 64}))
-        ctx.throw("id cannot be empty and the max length is 64");
-    if (desc && !validator.isLength(id,{max: 128}))
+
+    if (desc && !validator.isLength(desc,{max: 128}))
         ctx.throw("desc max length is 128");
+    if (!name)
+        ctx.throw(" 'name' param cannot be empty");
+    if (!web3.isAddress(address))
+        ctx.throw(" 'address' param error");
 
 
+    let id = address + "@" + name;
     let count = await AppRegistry.count({
         where: {
             gid:id
