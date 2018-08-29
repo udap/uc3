@@ -246,8 +246,17 @@ const getAll =async (ctx) => {
             temp.balance = balance.dividedBy(Math.pow(10,decimals)).toFixed(decimals);
         }
         temp.isOwner = false;
-        if(temp.type == "UPA")
+        if(temp.type == "UPA"){
             temp.isOwner = allOwner[index] == owner;
+            let metadata = temp.metadata;
+            if(metadata && validator.isJSON(metadata)){
+                metadata = JSON.parse(metadata);
+                temp.supplyLimit = metadata.supplyLimit;
+                temp.attributes = metadata.attributes;
+                temp.views = metadata.views;
+                temp.icon = metadata.icon;
+            }
+        }
         content.push(temp);
     });
     //response
