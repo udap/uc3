@@ -82,8 +82,8 @@ const importType =async (ctx) => {
             ctx.throw(err);
         });
         if (uri && (uri.startsWith("http:") || uri.startsWith("https:"))){
-            let uriData = await ipfsUtil.getJson(uri);
-            type.icon = uriData.icon
+            let metadata = await ipfsUtil.getJson(uri);
+            type.metadata = metadata
         }
     }
     await AssetType.create(type).catch((err) => {
@@ -113,10 +113,12 @@ const create =async (ctx) => {
     let symbol = fields.symbol;
     let supplyLimit = fields.supplyLimit;
     let desc = fields.desc;
-    let owner = fields.owner;
     let icon = files.icon;
+    let owner = fields.owner;
     let appid = fields.appid;
 
+    let attributes = files.attributes;
+    let views = files.views;
 
 
     if (!name || !validator.isLength(name,{min:1, max: 45}))
@@ -145,35 +147,34 @@ const create =async (ctx) => {
 
     //upload file to ipfs
     let buff = fs.readFileSync(icon.path);
-    // let iconHash = await ipfsUtil.addFile(buff);
-    let assetTypeUri = await ipfsUtil.addJson({
-        desc:desc,
-        icon:buff.toString("base64")
-    }).catch((err) => {
-        ctx.throw(err);
-    });
-    let txHash = await ethereumUtil.newStandAssert(name,symbol,supplyLimit,assetTypeUri,owner).catch((err) => {
-        ctx.throw(err);
-    });
 
-    //address param need web3.eth.getTransactionReceipt success
-    // let receipt = web3.eth.getTransactionReceipt(txHash);
+    let iconUri = await ipfsUtil.addFile(buff).catch((err) => {
+        ctx.throw(err);
+    });
+    let metadata = {
+        name:name,
+        symbol:symbol,
+        desc:desc?desc:"",
+        icon:iconUri,
+        attributes:attributes?attributes:[],
+        views:views?views:[]
+    };
+    let metadataUri = await ipfsUtil.addJson(metadata).catch((err) => {
+        ctx.throw(err);
+    });
+    let txHash = await ethereumUtil.newStandAssert(name,symbol,supplyLimit,metadataUri,owner).catch((err) => {
+        ctx.throw(err);
+    });
 
     let type = {
         gid:appid,
-        icon:buff.toString("base64"),
+        metadata:JSON.stringify(metadata),
         name:name,
         symbol:symbol,
         txHash:txHash,
         status:2,
         type:"UPA"
     };
-    /*if(receipt && receipt.contractAddress)
-        type.address = receipt.contractAddress;
-    if(receipt && receipt.status)
-        type.status = parseInt(receipt.status,16);
-    else
-        type.status = 2;*/
     await AssetType.create(type).catch((err) => {
         ctx.throw(err);
     });

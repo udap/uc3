@@ -3,14 +3,14 @@ const ipfsCfg = require("../config/ipfsCfg");
 let ipfs = ipfsAPI(ipfsCfg.host,ipfsCfg.port,{protocol:ipfsCfg.protocol});
 const request = require('superagent');
 
-const addFile = (buffer) =>{
+const addFile = buffer =>{
     return new Promise((resolve,reject)=>{
         try {
             ipfs.add(buffer, function (err, files) {
                 if (err || typeof files == "undefined") {
                     reject(err);
                 } else {
-                    resolve(files[0].hash);
+                    resolve(ipfsCfg.fileUrl+files[0].hash);
                 }
             })
         }catch(ex) {

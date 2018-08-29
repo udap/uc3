@@ -1,5 +1,5 @@
 var config = {
-    dbname: 'udap',
+    dbname: 'udap_test',
     uname: 'root',
     upwd: 'xinongeth',
     host: '47.104.225.39',

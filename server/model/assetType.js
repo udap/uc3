@@ -15,9 +15,9 @@ const assetType = sequelize.define('asset_type', {
         type: Sequelize.STRING,
         field: 'address'
     },
-    icon: {
+    metadata: {
         type: Sequelize.STRING,
-        field: 'icon'
+        field: 'metadata'
     },
     name: {
         type: Sequelize.STRING,
