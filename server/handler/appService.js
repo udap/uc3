@@ -53,7 +53,7 @@ const register =async (ctx) => {
         address:upxToken.address,
         name:upxToken.name,
         symbol:upxToken.symbol,
-        icon:upxToken.icon,
+        metadata:JSON.stringify({icon:upxToken.icon}),
         status:1,
         type:"ERC20"
     };
