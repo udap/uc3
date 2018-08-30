@@ -61,7 +61,7 @@ const register =async (ctx) => {
         ctx.throw(err);
     });
 
-    ctx.response.body = Result.success();
+    ctx.response.body = Result.success(id);
 };
 
 module.exports  = { register:register};
