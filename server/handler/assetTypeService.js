@@ -252,10 +252,14 @@ const getAll =async (ctx) => {
         let metadata = temp.metadata;
         if(metadata && validator.isJSON(metadata)){
             metadata = JSON.parse(metadata);
-            temp.supplyLimit = metadata.supplyLimit;
-            temp.attributes = metadata.attributes;
-            temp.views = metadata.views;
-            temp.icon = metadata.icon;
+            if(metadata.supplyLimit)
+                temp.supplyLimit = metadata.supplyLimit;
+            if(metadata.attributes)
+                temp.attributes = metadata.attributes;
+            if(metadata.views)
+                temp.views = metadata.views;
+            if(metadata.icon)
+                temp.icon = metadata.icon;
         }
         content.push(temp);
     });
