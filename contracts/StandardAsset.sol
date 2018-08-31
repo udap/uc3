@@ -77,7 +77,7 @@ contract StandardAsset is ERC721Token, Ownable {
      * @param _tokenURI token uri
      */
     function mint(address _to, string _tokenURI,bytes _sig) public {
-        bytes32 hash = keccak256(_to, _tokenURI);
+        bytes32 hash = keccak256(abi.encodePacked(_to, _tokenURI));
         address addr = hash.recover(_sig);
         require(addr == owner);
         _mint(_to, _tokenURI);
