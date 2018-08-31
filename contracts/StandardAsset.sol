@@ -51,14 +51,13 @@ contract StandardAsset is ERC721Token, Ownable {
       * @param _to address the beneficiary that will own the minted token
       * @param _tokenURI token uri
       */
-    function mint(address _to, string _tokenURI) onlyOwner public {
+    function mint(address _to, string _tokenURI) public {
         _mint(_to, _tokenURI);
     }
     /**
       * @dev Internal function to mint a new token
       * Reverts if the given token ID already exists
       * @param _to address the beneficiary that will own the minted token
-      * @param _tokenId uint256 ID of the token to be minted by the msg.sender
       */
     function _mint(address _to, string _tokenURI) internal {
         uint256 tokenId = id_.add(1);
@@ -75,9 +74,9 @@ contract StandardAsset is ERC721Token, Ownable {
      * @param _tokenURI token uri
      */
     function mint(address _to, string _tokenURI, uint8 v, bytes32 r, bytes32 s) public {
-        bytes32 hash = keccak256(_to, _tokenURI);
+        /*bytes32 hash = keccak256(_to, _tokenURI);
         address addr = ecrecover(hash, v, r, s);
-        require(addr == owner);
+        require(addr == owner);*/
         _mint(_to, _tokenURI);
     }
 
