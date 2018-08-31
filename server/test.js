@@ -21,7 +21,7 @@ const privateKey = new Buffer(ethereumCfg.privateKey, 'hex');
 //If used v1.0
 //https://ethereum.stackexchange.com/questions/23701/can-i-web3-eth-sign-with-private-key
 
-function signString(text) {
+/*function signString(text) {
     let sha = web3.sha3(text);
     let sign = web3.eth.sign(ethereumCfg.address,sha);
 
@@ -30,16 +30,16 @@ function signString(text) {
     ret.sha = sha;
     ret.sig = sign;
     return ret;
-   /* sig = sig.substr(2, sig.length);
+   /!* sig = sig.substr(2, sig.length);
     let r = '0x' + sig.substr(0, 64);
     let s = '0x' + sig.substr(64,128);
     let v = web3.toDecimal(sig.substr(128, 130)) + 27;
-    return {sha:sha,sig:sig,v:v,r:r,s:s};*/
+    return {sha:sha,sig:sig,v:v,r:r,s:s};*!/
 }
 let data  = "this is data";
 console.log(web3.eth.coinbase);
 let ethSignRet = signString(data);
-console.log("web3.eth.sign的结果：",ethSignRet);
+console.log("web3.eth.sign的结果：",ethSignRet);*/
 
 
 
@@ -100,7 +100,7 @@ var signatureRPC = ethUtil.toRpcSig(sig.v, sig.r, sig.s);
 console.log("signatureRPC",signatureRPC);
 console.log("hashPersonalMessage 结果：",{v:sig.v,r:ethUtil.bufferToHex(sig.r),s:ethUtil.bufferToHex(sig.s)}) ;
 */
-var web3Util = require('web3-utils');
+let web3Util = require('web3-utils');
 
 let sign = function sign(privateKey) {
 
