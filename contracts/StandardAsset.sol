@@ -2,6 +2,7 @@ pragma solidity ^0.4.19;
 
 import 'openzeppelin-solidity/contracts/token/ERC721/ERC721Token.sol';
 import 'openzeppelin-solidity/contracts/ownership/Ownable.sol';
+import 'openzeppelin-solidity/contracts/ECRecovery.sol';
 
 contract AssetType {
 
@@ -27,6 +28,8 @@ contract AssetType {
 
 contract StandardAsset is ERC721Token, Ownable {
 
+    using ECRecovery for bytes32;
+
     uint256 internal id_;
 
     //token  issuer
@@ -51,7 +54,7 @@ contract StandardAsset is ERC721Token, Ownable {
       * @param _to address the beneficiary that will own the minted token
       * @param _tokenURI token uri
       */
-    function mint(address _to, string _tokenURI) public {
+    function mint(address _to, string _tokenURI) onlyOwner public {
         _mint(_to, _tokenURI);
     }
     /**
@@ -73,10 +76,10 @@ contract StandardAsset is ERC721Token, Ownable {
      * @param _to address the beneficiary that will own the minted token
      * @param _tokenURI token uri
      */
-    function mint(address _to, string _tokenURI, uint8 v, bytes32 r, bytes32 s) public {
-        /*bytes32 hash = keccak256(_to, _tokenURI);
-        address addr = ecrecover(hash, v, r, s);
-        require(addr == owner);*/
+    function mint(address _to, string _tokenURI,bytes _sig) public {
+        bytes32 hash = keccak256(_to, _tokenURI);
+        address addr = hash.recover(_sig);
+        require(addr == owner);
         _mint(_to, _tokenURI);
     }
 
