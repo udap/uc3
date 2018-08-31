@@ -17,7 +17,7 @@ StandardAsset.setProvider(web3.currentProvider);
 const request = require('superagent');
 
 
-const MintRecord = require('../model/mintRecord');
+
 
 
 
@@ -153,23 +153,8 @@ const mint =async (ctx) => {
     let txHash = await ethereumUtil.newAssert(typeAddr,to,metadataUri).catch((err) => {
         ctx.throw(err);
     });
-/*
-    let record = {
-        gid:appid,
-        typeAddr:typeAddr,
-        to:to,
-        name:name,
-        desc:desc,
-        image:buff.toString("base64"),
-        owner:owner,
-        txHash:txHash,
-        status:2
-    };
-    await MintRecord.create(record).catch((err) => {
-        ctx.throw(err);
-    });*/
 
-    ctx.response.body = Result.success();
+    ctx.response.body = Result.success(txHash);
 };
 
 

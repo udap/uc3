@@ -5,7 +5,8 @@ const ethereumCfg = require('../config/ethereumCfg');
 const privateKey = new Buffer(ethereumCfg.privateKey, 'hex');
 const standardAsset_artifacts = require('../../build/contracts/StandardAsset.json');
 web3.setProvider(new web3.providers.HttpProvider(ethereumCfg.provider));
-
+const TxSent = require('../model/txSent');
+const uuidv4 = require('uuid/v4');
 
 const newStandAssert = (name,symbol,supplyLimit,uri,owner) =>{
     let abi = standardAsset_artifacts.abi;
@@ -40,7 +41,7 @@ const newStandAssert = (name,symbol,supplyLimit,uri,owner) =>{
     })
 };
 
-const newAssert = (typeAddr,to,uri) =>{
+const newAssert = async (typeAddr,to,uri) =>{
     let abi = standardAsset_artifacts.abi;
     let standardAsset = web3.eth.contract(abi).at(typeAddr);
     let data = standardAsset.mint.getData(to,uri);
@@ -62,7 +63,7 @@ const newAssert = (typeAddr,to,uri) =>{
     let tx = new Tx(rawTx);
     tx.sign(privateKey);
     let serializedTx = tx.serialize();
-    return new Promise((resolve,reject) => {
+    let txHash = new Promise((resolve,reject) => {
         web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'), (err, hash) => {
             if (!err)
                 resolve(hash);
@@ -71,6 +72,14 @@ const newAssert = (typeAddr,to,uri) =>{
         });
     }).catch((err)=>{
         throw err;
-    })
-}
+    });
+    rawTx.bizType = "CREATE_ASSET";
+    rawTx.bizId = uuidv4();
+    rawTx.txHash = txHash;
+    rawTx.status = 2;
+    await TxSent.create(rawTx).catch((err) => {
+        throw err;
+    });
+    return txHash;
+};
 module.exports  = { newStandAssert:newStandAssert,newAssert:newAssert};
