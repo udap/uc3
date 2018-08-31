@@ -73,7 +73,7 @@ const txSent = sequelize.define('tx_sent', {
     }
 },{freezeTableName:true,createdAt: 'create_time',updatedAt:'update_time'});
 
-module.exports = mintRecord;
+module.exports = txSent;
 
 
 

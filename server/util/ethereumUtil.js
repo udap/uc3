@@ -41,7 +41,7 @@ const newStandAssert = (name,symbol,supplyLimit,uri,owner) =>{
     })
 };
 
-const newAssert = async (typeAddr,to,uri) =>{
+const newAssert = async (typeAddr,to,uri,owner) =>{
     let abi = standardAsset_artifacts.abi;
     let standardAsset = web3.eth.contract(abi).at(typeAddr);
     let data = standardAsset.mint.getData(to,uri);
@@ -77,6 +77,7 @@ const newAssert = async (typeAddr,to,uri) =>{
     rawTx.bizId = uuidv4();
     rawTx.txHash = txHash;
     rawTx.status = 2;
+    rawTx.owner = owner;
     await TxSent.create(rawTx).catch((err) => {
         throw err;
     });

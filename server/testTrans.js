@@ -2,14 +2,28 @@ const Web3 = require('web3');
 const Tx = require('ethereumjs-tx');
 
 let ethereumCfg = {
-    provider:"http://47.104.225.39:8545",
-    address:"0xec7866550cf25820d346b19dfd74ee2e0daf35de",
-    privateKey:"54cb0ff772b0bd47fbd5fa6bed57ea919930c21940494f7af7a9fff2a3df0783"
+    provider: 'https://ropsten.infura.io/HUkrzYiEqgEioBDoT5Mq',
+    address: '0xcabe9a163B96865308605bdE13233FD1A0610931',
+    privateKey: '816a873c934de69b966d34a2bd464be55de47aea11deeb554de23d2b8b8b8f93'
 };
 const web3 = new Web3(new Web3.providers.HttpProvider(ethereumCfg.provider));
 
-let receipt = web3.eth.getTransactionReceipt("0xa349f882e3f1cdf9cc48501f825f3b429f8cf2e4620f1efcae3b2cdffc960b09");
-console.log(receipt);
+web3.eth.getTransactionReceipt("0xa349f882e3f1cdf9cc48501f825f3b429f8cf2e4620f1efcae3b2cdffc960b09",(err, receipt) => {
+    if (err)
+        console.log(err);
+    else
+        console.log(receipt);
+});
+
+web3.eth.getTransaction("0xa349f882e3f1cdf9cc48501f825f3b429f8cf2e4620f1efcae3b2cdffc960b09",(err, receipt) => {
+
+    console.log("getTransaction==========================");
+    if (err)
+        console.log(err);
+    else
+        console.log(receipt);
+})
+
 
 /*
 
