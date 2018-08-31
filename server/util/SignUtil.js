@@ -19,8 +19,12 @@ const verifySha3Sig = (from,param,sig) =>{
     let publicKey = ethUtil.bufferToHex(ethUtil.pubToAddress(pubKey));
     return publicKey == from;
 };
+const verifySha3 = (hex,param) =>{
+    let paramHex = ethUtil.bufferToHex(ethUtil.sha3(param));
+    return paramHex == hex;
+};
 const verifySoliditySha3Sig = (param,sig) =>{
     throw "Not support soliditySha3Sig";
 };
 
-module.exports  = { verifySig:verifySha3Sig};
+module.exports  = { verifySha3Sig:verifySha3Sig,verifySha3:verifySha3};

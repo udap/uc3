@@ -9,7 +9,7 @@ const web3 = new Web3(new Web3.providers.HttpProvider(ethereumCfg.provider));
 
 
 var ethUtil = require('ethereumjs-util');
-
+const fs = require('fs');
 
 const Tx = require('ethereumjs-tx');
 const privateKey = new Buffer(ethereumCfg.privateKey, 'hex');
@@ -20,7 +20,7 @@ const privateKey = new Buffer(ethereumCfg.privateKey, 'hex');
 
 //If used v1.0
 //https://ethereum.stackexchange.com/questions/23701/can-i-web3-eth-sign-with-private-key
-
+/*
 function signString(text) {
     let sha = web3.sha3(text);
     let sign = web3.eth.sign(ethereumCfg.address,sha);
@@ -30,16 +30,16 @@ function signString(text) {
     ret.sha = sha;
     ret.sig = sign;
     return ret;
-   /* sig = sig.substr(2, sig.length);
+   /!* sig = sig.substr(2, sig.length);
     let r = '0x' + sig.substr(0, 64);
     let s = '0x' + sig.substr(64,128);
     let v = web3.toDecimal(sig.substr(128, 130)) + 27;
-    return {sha:sha,sig:sig,v:v,r:r,s:s};*/
+    return {sha:sha,sig:sig,v:v,r:r,s:s};*!/
 }
 let data  = "this is data";
 console.log(web3.eth.coinbase);
 let ethSignRet = signString(data);
-console.log("web3.eth.sign的结果：",ethSignRet);
+console.log("web3.eth.sign的结果：",ethSignRet);*/
 
 
 
@@ -137,3 +137,7 @@ let pubKey = ethUtil.ecrecover(
 );
 
 console.log("ethUtils.ecrecover的结果publickey：",ethUtil.bufferToHex(ethUtil.pubToAddress(pubKey)));
+
+let buff = fs.readFileSync("C:\\Users\\Administrator\\Desktop\\test.png");
+buff = ethUtil.bufferToHex(buff);
+console.log("ethUtil.sha3 文件的结果：",ethUtil.bufferToHex(ethUtil.sha3("0x7b5f591a6acfec329e0d36d4f13e0818afd4b63ff38c02b5dae0b338a766327f")));

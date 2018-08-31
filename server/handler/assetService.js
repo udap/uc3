@@ -4,6 +4,7 @@ const validator = require('validator');
 const udapValidator = require('../common/udapValidator');
 const ipfsUtil = require('../util/ipfsUtil');
 const ethereumUtil = require('../util/ethereumUtil');
+const signUtil = require('../util/signUtil');
 
 const fs = require('fs');
 const Web3 = require('web3');
@@ -20,7 +21,7 @@ const MintRecord = require('../model/mintRecord');
 
 
 
-const mint =async (ctx) => {
+/*const mint =async (ctx) => {
 
     let fields = ctx.request.body.fields;
     if (!fields) ctx.throw("Please fill in the data");
@@ -80,6 +81,93 @@ const mint =async (ctx) => {
     await MintRecord.create(record).catch((err) => {
         ctx.throw(err);
     });
+
+    ctx.response.body = Result.success();
+};*/
+
+const mint =async (ctx) => {
+
+    let fields = ctx.request.body.fields;
+    if (!fields) ctx.throw("Please fill in the data");
+    let files = ctx.request.body.files;
+    if (!files) ctx.throw("Please upload the image");
+
+    let owner = fields.owner;
+    let typeAddr = fields.typeAddr;
+    let to = fields.to;
+    let id = fields.id;
+    let name = fields.name;
+    let desc = fields.desc;
+    let image = files.image;
+    let imageHex = files.imageHex;
+    let attributes = files.attributes;
+    let appid = fields.appid;
+    let sig = files.sig;
+    delete fields["sig"];
+
+    if (!typeAddr)
+        ctx.throw("'typeAddr' param cannot be empty");
+    udapValidator.isContractAddr(typeAddr,"'typeAddr' must be contract");
+
+    if (!to || !web3.isAddress(to))
+        ctx.throw("'to' param error");
+
+    if (!name || !validator.isLength(name,{min:1, max: 45}))
+        ctx.throw("'name' param cannot be empty and the max length is 45");
+    if (!desc || !validator.isLength(desc,{min:1, max: 255}))
+        ctx.throw("'desc' param cannot be empty and the max length is 45");
+    if (!image || Array.isArray(image))
+        ctx.throw("'image' param error");
+
+    if (!owner || !web3.isAddress(owner))
+        ctx.throw("'owner' param isn't an address");
+    await udapValidator.appidRegistered(appid);
+
+
+    if(!signUtil.verifySha3Sig(owner,fields,sig)){
+        ctx.throw("signature error");
+    }
+
+    //upload file to ipfs
+    let buff = fs.readFileSync(image.path);
+    if(!signUtil.verifySha3(imageHex,buff)){
+        ctx.throw("imageHex error");
+    }
+
+    let metadataObj = {
+        name:name,
+        description:desc
+    };
+    if(id)
+        metadataObj.id = id;
+    if(attributes)
+        metadataObj.attributes = attributes;
+
+    let imageUri = await ipfsUtil.addFile(buff).catch((err) => {
+        ctx.throw(err);
+    });
+    metadataObj.image = imageUri;
+    let metadataUri = await ipfsUtil.addJson(metadataObj).catch((err) => {
+        ctx.throw(err);
+    });
+    let txHash = await ethereumUtil.newAssert(typeAddr,to,metadataUri).catch((err) => {
+        ctx.throw(err);
+    });
+/*
+    let record = {
+        gid:appid,
+        typeAddr:typeAddr,
+        to:to,
+        name:name,
+        desc:desc,
+        image:buff.toString("base64"),
+        owner:owner,
+        txHash:txHash,
+        status:2
+    };
+    await MintRecord.create(record).catch((err) => {
+        ctx.throw(err);
+    });*/
 
     ctx.response.body = Result.success();
 };
