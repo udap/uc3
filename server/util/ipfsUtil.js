@@ -2,6 +2,7 @@ const ipfsAPI = require('ipfs-api');
 const ipfsCfg = require("../config/ipfsCfg");
 let ipfs = ipfsAPI(ipfsCfg.host,ipfsCfg.port,{protocol:ipfsCfg.protocol});
 const request = require('superagent');
+const validator = require('validator');
 
 const addFile = buffer =>{
     return new Promise((resolve,reject)=>{
@@ -39,17 +40,19 @@ const addJson = async (json) =>{
     return ipfsCfg.dataUrl+cid.toBaseEncodedString();
 };
 
-const getJson = async (hash) =>{
-    let uri =ipfsCfg.dataUrl+hash;
-    if (hash.startsWith("http:") || hash.startsWith("https:"))
-        uri = hash;
-    let res = await request.get(uri.replace("https://ipfs.io","http://127.0.0.1:8080")).catch( err => {
-        throw err;
-    });
-    let body = res.body;
-    if (typeof body == 'string')
-        body = JSON.parse(body);
-    return body;
+const getJson = async (uri) =>{
+    let result = {};
+    if (uri.startsWith("http:") || uri.startsWith("https:")){
+        let res = await request.get(uri.replace("https://ipfs.io","http://127.0.0.1:8080")).catch( err => {
+            throw err;
+        });
+        if(res && res.body){
+            result = res.body;
+            if (validator.isJSON(res.body))
+                result = JSON.parse(res.body);
+        }
+    }
+    return result;
 };
 
 /*const upload = async (ctx) => {
