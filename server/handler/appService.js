@@ -35,7 +35,7 @@ const register =async (ctx) => {
         ctx.throw(err.message);
     });
     if (count > 0){
-        ctx.response.body = Result.other(2,"app already exists");
+        ctx.response.body = Result.success(id);
         return;
     }
 
