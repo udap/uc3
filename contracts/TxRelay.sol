@@ -20,8 +20,9 @@ contract TxRelay is Ownable {
     * @dev Relays meta transactions
     */
     function relayMetaTx(address _txSender,address _dest,bytes _data,uint256 _fees,bytes _sig) public {
+        require(address(this) != _dest);
         require(balance[_txSender] >= _fees);
-        bytes32 hash = keccak256(abi.encodePacked(this,_txSender,_dest,_data,nonce[_txSender],_fees));
+        bytes32 hash = keccak256(abi.encodePacked(address(this),_txSender,_dest,_data,nonce[_txSender],_fees));
         address addr = hash.recover(_sig);
         require(addr == _txSender);
         nonce[_txSender]++; //if we are going to do tx, update nonce
