@@ -3,6 +3,7 @@ pragma solidity ^0.4.19;
 import 'openzeppelin-solidity/contracts/token/ERC721/ERC721Token.sol';
 import 'openzeppelin-solidity/contracts/ownership/Ownable.sol';
 import 'openzeppelin-solidity/contracts/ECRecovery.sol';
+import './Controlled.sol';
 
 contract AssetType {
 
@@ -26,7 +27,7 @@ contract AssetType {
     }
 }
 
-contract StandardAsset is ERC721Token, Ownable {
+contract StandardAsset is ERC721Token,Controlled,Ownable {
 
     using ECRecovery for bytes32;
 
@@ -37,6 +38,11 @@ contract StandardAsset is ERC721Token, Ownable {
 
 
     AssetType private assetType;
+
+    modifier onlyOwnerOrController() {
+        require(msg.sender == controller || msg.sender == owner);
+        _;
+    }
 
     /**
      * @dev Constructor function
@@ -54,7 +60,7 @@ contract StandardAsset is ERC721Token, Ownable {
       * @param _to address the beneficiary that will own the minted token
       * @param _tokenURI token uri
       */
-    function mint(address _to, string _tokenURI) onlyOwner public {
+    function mint(address _to, string _tokenURI) onlyOwnerOrController public {
         _mint(_to, _tokenURI);
     }
     /**
@@ -75,13 +81,13 @@ contract StandardAsset is ERC721Token, Ownable {
      * @dev Reverts if the given token ID already exists
      * @param _to address the beneficiary that will own the minted token
      * @param _tokenURI token uri
-     */
+     *//*
     function mint(address _to, string _tokenURI,bytes _sig) public {
         bytes32 hash = keccak256(abi.encodePacked(_to, _tokenURI));
         address addr = hash.recover(_sig);
-//        require(addr == owner);
+        require(addr == owner);
         _mint(_to, _tokenURI);
-    }
+    }*/
 
     /**
      * @dev  burn a specific token by its owner
