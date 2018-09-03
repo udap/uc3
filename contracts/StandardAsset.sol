@@ -32,10 +32,7 @@ contract StandardAsset is ERC721Token,Controlled,Ownable {
     using ECRecovery for bytes32;
 
     uint256 internal id_;
-
-    //token  issuer
-    address public issuer;
-
+    
 
     AssetType private assetType;
 
@@ -50,7 +47,6 @@ contract StandardAsset is ERC721Token,Controlled,Ownable {
     constructor(string _name, string _symbol, uint256 _supplyLimit, string _classURI, address _owner) public ERC721Token(_name, _symbol) {
         assetType = new AssetType(_name, _symbol, _supplyLimit, _classURI);
         owner = _owner;
-        issuer = _owner;
 
     }
 
