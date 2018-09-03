@@ -212,11 +212,13 @@ const getAll =async (ctx) => {
     let allBalancesPromise =[];
     let allDecimalsPromise = [];
     let allOwnerPromise = [];
+    let allControllerPromise = [];
 
     typeList.forEach((item, index)=>{
         let balancePromise = new Promise(resolve => {resolve(0)});
         let decimalsPromise = new Promise(resolve => {resolve(0)});
         let ownerPromise = new Promise(resolve => {resolve(0)});
+        let controllerPromise = new Promise(resolve => {resolve(0)});
         let address = item.address;
         if (address && address != null && address.length >0){
             balancePromise = StandardAsset.at(item.address).then(instance => {
@@ -231,16 +233,21 @@ const getAll =async (ctx) => {
                 ownerPromise = StandardAsset.at(item.address).then(instance => {
                     return instance.owner.call({from: owner});
                 }).catch(err => {});
+                controllerPromise = StandardAsset.at(item.address).then(instance => {
+                    return instance.controller.call({from: owner});
+                }).catch(err => {});
             }
 
         }
         allBalancesPromise.push(balancePromise);
         allDecimalsPromise.push(decimalsPromise);
         allOwnerPromise.push(ownerPromise);
+        allControllerPromise.push(controllerPromise);
     });
     let allBalances = await Promise.all(allBalancesPromise).catch(err => {ctx.throw(err)});
     let allDecimals = await Promise.all(allDecimalsPromise).catch(err => {ctx.throw(err)});
     let allOwner = await Promise.all(allOwnerPromise).catch(err => {ctx.throw(err)});
+    let allController = await Promise.all(allControllerPromise).catch(err => {ctx.throw(err)});
     let content = [];
     typeList.forEach((item, index)=>{
         let temp = item.toJSON();
@@ -253,6 +260,7 @@ const getAll =async (ctx) => {
         temp.isOwner = false;
         if(temp.type == "UPA"){
             temp.isOwner = allOwner[index] == owner;
+            temp.mintable = allController[index] == ethereumCfg.address;
         }
         let metadata = temp.metadata;
         if(metadata && validator.isJSON(metadata)){
