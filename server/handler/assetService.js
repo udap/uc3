@@ -119,7 +119,6 @@ const getAllByOwner =async (ctx) => {
     let tokenIds = await Promise.all(tokenIdsPromise).catch((err) => {
         ctx.throw(err);
     });
-    tokenIds.filter(tid => tid);
 
     let tokenUriPromise = [];
     tokenIds.forEach((item,index)=>{
@@ -130,6 +129,7 @@ const getAllByOwner =async (ctx) => {
     });
 
 
+    //get  tokenURIs
     let metadataPromises = [];
     tokenURIs.forEach((item,index)=>{
         let pro;
@@ -142,9 +142,13 @@ const getAllByOwner =async (ctx) => {
         }
         metadataPromises.push(pro);
     });
+
+    //get  metadatas
     let metadatas = await Promise.all(metadataPromises).catch((err) => {
         ctx.throw(err);
     });
+
+    //tokens result
     let tokens = [];
     tokenIds.forEach((item,index)=>{
         let token = {
