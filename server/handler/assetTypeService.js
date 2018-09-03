@@ -22,6 +22,7 @@ const DetailedERC20 = contract(DetailedERC20_artifacts);
 DetailedERC20.setProvider(web3.currentProvider);
 const udapValidator = require('../common/udapValidator');
 const ethereumUtil = require('../util/ethereumUtil');
+const InterfaceIds = require('../util/InterfaceIds');
 const Result = require('../common/result');
 
 let privateKey = new Buffer(ethereumCfg.privateKey, 'hex');
@@ -59,11 +60,15 @@ const importType =async (ctx) => {
     let type = {
         gid:appid,
         address:typeAddr,
-        status:1,
-        type:"ERC721"
+        status:1
     };
 
     let assetInstance = await StandardAsset.at(typeAddr);
+    let support721 = await assetInstance.supportsInterface.call(InterfaceIds.InterfaceId_ERC721,{from: owner}).catch((err) => {});
+    if(support721 && support721)
+        type.type = "ERC721";
+    else
+        ctx.throw("only support ERC721 import");
 
     let allPromise =[assetInstance.name.call({from: owner}).catch((err) => {}),
         assetInstance.symbol.call({from: owner}).catch((err) => {})];
