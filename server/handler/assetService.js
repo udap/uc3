@@ -185,8 +185,7 @@ const createMetadata =async (ctx) => {
 
     let metadata = {
         name:name,
-        description:desc,
-        image:buff.toString("base64")
+        description:desc
     };
     if(id)
         metadata.id = id;
@@ -195,6 +194,10 @@ const createMetadata =async (ctx) => {
 
     //upload file to ipfs
     let buff = fs.readFileSync(image.path);
+    let imageUri = await ipfsUtil.addFile(buff).catch((err) => {
+        ctx.throw(err);
+    });
+    metadata.image = imageUri;
     let metadataUri = await ipfsUtil.addJson(metadata).catch((err) => {
         ctx.throw(err);
     });
