@@ -1,7 +1,6 @@
 pragma solidity ^0.4.19;
 
 import 'openzeppelin-solidity/contracts/token/ERC721/ERC721Token.sol';
-import 'openzeppelin-solidity/contracts/ownership/Ownable.sol';
 import 'openzeppelin-solidity/contracts/ECRecovery.sol';
 import './Controlled.sol';
 
@@ -27,12 +26,12 @@ contract AssetType {
     }
 }
 
-contract StandardAsset is ERC721Token,Controlled,Ownable {
+contract StandardAsset is ERC721Token,Controlled {
 
     using ECRecovery for bytes32;
 
     uint256 internal id_;
-    
+
 
     AssetType private assetType;
 

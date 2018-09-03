@@ -26,8 +26,8 @@ contract TxRelay is Ownable {
         address addr = hash.recover(_sig);
         require(addr == _txSender);
         nonce[_txSender]++; //if we are going to do tx, update nonce
-        balance = balance.sub(_fees);
-        require(_dest.call(data));
+        balance[_txSender] = balance[_txSender].sub(_fees);
+        require(_dest.call(_data));
     }
 
 
@@ -49,6 +49,6 @@ contract TxRelay is Ownable {
     }
 
     function() payable public {
-        balance = balance.add(msg.value);
+        balance[msg.sender] = balance[msg.sender].add(msg.value);
     }
 }
