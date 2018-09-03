@@ -180,31 +180,32 @@ const createMetadata =async (ctx) => {
 
     if (!name || !validator.isLength(name,{min:1, max: 45}))
         ctx.throw("'name' param cannot be empty and the max length is 45");
-    if (!desc || !validator.isLength(desc,{min:1, max: 255}))
-        ctx.throw("'desc' param cannot be empty and the max length is 45");
-    if (!image || Array.isArray(image))
-        ctx.throw("'image' param error");
+    if (desc && !validator.isLength(desc,{min:1, max: 255}))
+        ctx.throw("'desc' param  max length is 255");
+    if (image && Array.isArray(image))
+        ctx.throw("'image' param cannot be an array");
 
     await udapValidator.appidRegistered(appid);
 
     let metadata = {
-        name:name,
-        description:desc
+        name:name
     };
     if(id)
         metadata.id = id;
+    if(desc)
+        metadata.description = desc;
     if(attributes)
         metadata.attributes = JSON.parse(attributes);
 
     //upload file to ipfs
-    let buff = fs.readFileSync(image.path);
-    let imageUri = await ipfsUtil.addFile(buff).catch((err) => {
-        ctx.throw(err);
-    });
-    metadata.image = imageUri;
-    let metadataUri = await ipfsUtil.addJson(metadata).catch((err) => {
-        ctx.throw(err);
-    });
+    if(image){
+        let buff = fs.readFileSync(image.path);
+        let imageUri = await ipfsUtil.addFile(buff).catch(err => {ctx.throw(err)});
+        metadata.image = imageUri;
+    }
+
+    //upload metadata to ipfs
+    let metadataUri = await ipfsUtil.addJson(metadata).catch(err => {ctx.throw(err)});
     ctx.response.body = Result.success(metadataUri);
 };
 
