@@ -9,6 +9,7 @@ const assetTypeService = require('./handler/assetTypeService');
 const assetService = require('./handler/assetService');
 const Result = require('./common/result');
 const assetTypeJob = require('./schedule/assetTypeJob');
+const relayService = require('./handler/relayService');
 
 const app = new Koa();
 
@@ -44,6 +45,7 @@ route.get('/types',koaBody(),assetTypeService.getAll);
 route.post('/assets/metadatas',koaBody({ multipart: true}),assetService.createMetadata);
 route.post('/assets',koaBody({ multipart: true}),assetService.mint);
 route.get('/assets',koaBody(),assetService.getAllByOwner);
+route.get('/relay/nonce',koaBody(),relayService.getNonce);
 
 
 const testDataService = require('./handler/testDataService');
