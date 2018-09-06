@@ -30,7 +30,7 @@ CREATE TABLE `tx_sent` (
 CREATE TABLE `fees` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'auto-generated primary key',
   `destination` varchar(45) NOT NULL COMMENT 'contract address',
-  `methodId` varchar(128) NOT NULL COMMENT 'e.g., bytes4(keccak256(mint(address,string)))',
+  `method_id` varchar(128) NOT NULL COMMENT 'e.g., bytes4(keccak256(mint(address,string)))',
   `fees` varchar(128) NOT NULL,
   `memo` varchar(128) DEFAULT NULL COMMENT 'e.g., mint(address,string)',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
