@@ -44,7 +44,7 @@ route.get('/', main);
 route.post('/apps',koaBody(),appService.register);
 route.post('/types',koaBody({ multipart: true}),assetTypeService.create);
 route.get('/types',koaBody(),assetTypeService.getAll);
-route.post('/assets/metadatas',koaBody({ multipart: true}),assetService.createMetadata);
+route.post('/assets/metadatas',koaBody(),assetService.createMetadata);
 route.post('/assets',koaBody({ multipart: true}),assetService.mint);
 route.get('/assets',koaBody(),assetService.getAllByOwner);
 route.get('/relay/nonce',koaBody(),relayService.getNonce);

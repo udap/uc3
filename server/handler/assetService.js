@@ -164,7 +164,7 @@ const getAllByOwner =async (ctx) => {
 };
 
 
-const createMetadata =async (ctx) => {
+/*const createMetadata =async (ctx) => {
 
     let fields = ctx.request.body.fields;
     if (!fields) ctx.throw("Please fill in the data");
@@ -203,6 +203,25 @@ const createMetadata =async (ctx) => {
         let imageUri = await ipfsUtil.addFile(buff).catch(err => {ctx.throw(err)});
         metadata.image = imageUri;
     }
+
+    //upload metadata to ipfs
+    let metadataUri = await ipfsUtil.addJson(metadata).catch(err => {ctx.throw(err)});
+    ctx.response.body = Result.success(metadataUri);
+};*/
+
+const createMetadata =async (ctx) => {
+
+    let fields = ctx.request.body;
+    if (!fields) ctx.throw("Please fill in the data");
+
+    let metadata = fields.metadata;
+    let appid = fields.appid;
+
+    if (!metadata)
+        ctx.throw("'metadata' param error");
+    await udapValidator.appidRegistered(appid);
+
+
 
     //upload metadata to ipfs
     let metadataUri = await ipfsUtil.addJson(metadata).catch(err => {ctx.throw(err)});
