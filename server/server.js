@@ -11,6 +11,7 @@ const Result = require('./common/result');
 const assetTypeJob = require('./schedule/assetTypeJob');
 const relayService = require('./handler/relayService');
 const feesService = require('./handler/feesService');
+const networkService = require('./handler/networkService');
 
 const app = new Koa();
 
@@ -48,6 +49,8 @@ route.post('/assets',koaBody({ multipart: true}),assetService.mint);
 route.get('/assets',koaBody(),assetService.getAllByOwner);
 route.get('/relay/nonce',koaBody(),relayService.getNonce);
 route.get('/fees',koaBody(),feesService.queryFees);
+route.get('/networks',networkService.getAll);
+route.get('/networks/:id',networkService.getById);
 
 
 const testDataService = require('./handler/testDataService');
