@@ -1,4 +1,4 @@
-const ipfsUtil = require('./util/ipfsUtil');
+const ipfsUtil = require('../util/ipfsUtil');
 
 const fs = require('fs');
 let buff = fs.readFileSync("C:\\Users\\Administrator\\Desktop\\testImg.jpg");
