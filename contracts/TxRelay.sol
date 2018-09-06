@@ -11,44 +11,24 @@ contract TxRelay is Ownable {
 
     using SafeMath for uint256;
 
-    mapping(address => uint) nonce;
-
-    mapping(address => uint256) balance;
+    mapping(address => uint) public nonces;
 
 
     /*
     * @dev Relays meta transactions
     */
-    function relayMetaTx(address _txSender,address _dest,bytes _data,uint256 _fees,bytes _sig) public {
+    function relayMetaTx(address _txSender,address _dest,bytes _data,uint256 _fees,bytes _sig,uint256 _txFees) public {
         require(address(this) != _dest);
-        require(balance[_txSender] >= _fees);
-        bytes32 hash = keccak256(abi.encodePacked(address(this),_txSender,_dest,_data,nonce[_txSender],_fees));
+        require(_fees >= _txFees);
+        bytes32 hash = keccak256(abi.encodePacked(address(this),_txSender,_dest,_data,nonces[_txSender],_fees));
         address addr = hash.recover(_sig);
         require(addr == _txSender);
-        nonce[_txSender]++; //if we are going to do tx, update nonce
-        balance[_txSender] = balance[_txSender].sub(_fees);
-        require(_dest.call(_data));
+        nonces[_txSender]++; //if we are going to do tx, update nonce
+        require(_dest.call.value(_fees.sub(_txFees))(_data));
     }
 
 
-    /*
-     * @dev Returns the local nonce of an account.
-     * @param add The address to return the nonce for.
-     * @return The specific-to-this-contract nonce of the address provided
-     */
-    function getNonce(address addr) public constant returns (uint) {
-        return nonce[addr];
-    }
 
-    function withdrawal() public{
-        msg.sender.transfer(balance[msg.sender]);
-    }
 
-    function ownerWithdrawal() public onlyOwner{
-        msg.sender.transfer(this.balance);
-    }
 
-    function() payable public {
-        balance[msg.sender] = balance[msg.sender].add(msg.value);
-    }
 }

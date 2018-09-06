@@ -55,7 +55,7 @@ contract StandardAsset is ERC721Token,Controlled {
       * @param _to address the beneficiary that will own the minted token
       * @param _tokenURI token uri
       */
-    function mint(address _to, string _tokenURI) onlyOwnerOrController public {
+    function mint(address _to, string _tokenURI) onlyOwnerOrController payable public {
         _mint(_to, _tokenURI);
     }
     /**
