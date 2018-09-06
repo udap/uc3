@@ -22,7 +22,7 @@ const getNonce = async (ctx) => {
 
 
     let nonce = await TxRelay.deployed().then(instance =>{
-        return instance.getNonce(sender,{from: sender});
+        return instance.nonces(sender,{from: sender});
     }).catch(err => {ctx.throw(err)});
 
     let content = {nonce:nonce};
