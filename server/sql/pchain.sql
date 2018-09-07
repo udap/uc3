@@ -1,2 +1,2 @@
-INSERT INTO `pchain`.`asset_type` (`id`, `gid`, `address`, `metadata`, `name`, `symbol`, `tx_hash`, `status`, `type`, `create_time`, `update_time`)
-VALUES ('1', '0', '0xa301dff2894f5c16332956a08245d6485118b551', '{\"name\":\"n1\",\"symbol\":\"s1\",\"desc\":\"\",\"icon\":\"https://ipfs.io/ipfs/QmWw8yEDdrNU7aexyrB8dTv74CJqJi7dH934PrkT37PrkZ\",\"schema\":\"\",\"views\":[]}', 'n1', 's1', '0x9a22b11df5a31cf31e64a307b573868e63557123666d90c97adfab3221c08cd7', '1', 'UPA', '2018-09-07 15:18:23', '2018-09-07 15:53:56');
+INSERT INTO `asset_type` (`id`, `gid`, `address`, `metadata`, `name`, `symbol`, `tx_hash`, `status`, `type`, `create_time`, `update_time`)
+VALUES ('1', '0', '0x273f4b5b281fc98a9b2b5d990766ac0a5277ba2f', '{\"icon\":\"https://www.udap.io/logo400x400.png\"}', 'UDAP Token', 'UPX', NULL, '1', 'ERC20', '2018-09-07 14:45:47', '2018-09-07 15:38:58');
