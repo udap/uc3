@@ -156,7 +156,7 @@ const create =async (ctx) => {
     let iconUri = await ipfsUtil.addFile(buff).catch((err) => {
         ctx.throw(err);
     });
-    if(schemaSrc && schemaSrc.startsWith("http://")){
+    if(schemaSrc && (schemaSrc.startsWith("http://") || schemaSrc.startsWith("https://"))){
         schemaSrc = await request.get(schemaSrc).catch( err => {
             throw err;
         });
@@ -272,8 +272,8 @@ const getAll =async (ctx) => {
             metadata = JSON.parse(metadata);
             if(metadata.supplyLimit)
                 temp.supplyLimit = metadata.supplyLimit;
-            if(metadata.attributes)
-                temp.attributes = metadata.attributes;
+            if(metadata.schema)
+                temp.schema = metadata.schema;
             if(metadata.views)
                 temp.views = metadata.views;
             if(metadata.icon)
