@@ -2,8 +2,6 @@ const validator = require('validator');
 const AppRegistry = require('../model/appRegistry');
 const Result = require('../common/result');
 
-const AssetType = require('../model/assetType');
-const upxToken = require('../config/upx-config');
 const idGenerator = require('../util/idGenerator');
 
 const Web3 = require('web3');
@@ -48,20 +46,6 @@ const register =async (ctx) => {
         app.desc = desc;
     await AppRegistry.create(app).catch(err => {
         ctx.throw(err.message);
-    });
-
-    //
-    let type = {
-        gid:id,
-        address:upxToken.address,
-        name:upxToken.name,
-        symbol:upxToken.symbol,
-        metadata:JSON.stringify({icon:upxToken.icon}),
-        status:1,
-        type:"ERC20"
-    };
-    await AssetType.create(type).catch(err => {
-        ctx.throw(err);
     });
 
     ctx.response.body = Result.success(id);
