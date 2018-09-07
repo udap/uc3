@@ -18,6 +18,8 @@ const queryCreateTypeReceipt = ()=>{
                     updateFields.address = receipt.contractAddress;
                 if(receipt && receipt.status)
                     updateFields.status = parseInt(receipt.status,16);
+                if(receipt && receipt.blockNumber)
+                    updateFields.status = 1;
                 if (Object.keys(updateFields.length > 0)){
                     AssetType.update(
                         updateFields,
