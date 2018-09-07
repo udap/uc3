@@ -123,8 +123,8 @@ const create =async (ctx) => {
     let owner = fields.owner;
     let appid = fields.appid;
 
-    let schemaSrc = files.schemaSrc;
-    let views = files.views;
+    let schemaSrc = fields.schemaSrc;
+    let views = fields.views;
 
 
     if (!name || !validator.isLength(name,{min:1, max: 45}))
