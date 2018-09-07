@@ -4,6 +4,7 @@ const Result = require('../common/result');
 
 const AssetType = require('../model/assetType');
 const upxToken = require('../config/upx-config');
+const idGenerator = require('../util/idGenerator');
 
 const Web3 = require('web3');
 const web3 = new Web3();
@@ -26,7 +27,7 @@ const register =async (ctx) => {
         ctx.throw(" 'address' param error");
 
 
-    let id = web3.sha3(address + "@" + name);
+    let id = idGenerator.getId(address,name);
     let count = await AppRegistry.count({
         where: {
             gid:id
