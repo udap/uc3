@@ -12,6 +12,7 @@ const queryCreateTypeReceipt = ()=>{
         ).then(typeList =>{
             typeList.forEach((item, index)=>{
                 let receipt = web3.eth.getTransactionReceipt(item.txHash);
+                console.log("receipt=======,",receipt);
                 let updateFields = {};
                 if(receipt && receipt.contractAddress)
                     updateFields.address = receipt.contractAddress;

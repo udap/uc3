@@ -24,6 +24,7 @@ const udapValidator = require('../common/udapValidator');
 const ethereumUtil = require('../util/ethereumUtil');
 const InterfaceIds = require('../util/InterfaceIds');
 const Result = require('../common/result');
+const Sequelize = require('sequelize');
 
 let privateKey = new Buffer(ethereumCfg.privateKey, 'hex');
 
@@ -209,7 +210,14 @@ const getAll =async (ctx) => {
     if (!owner || !web3.isAddress(owner))
         ctx.throw("'owner' param isn't an address");
 
-    let where = {gid:appid};
+    let where = {
+        gid: {
+            [Sequelize.Op.or]: {
+                [Sequelize.Op.eq]: appid,
+                [Sequelize.Op.eq]: null
+            }
+        }
+    };
     //query data
     let typeList = await AssetType.findAll(
         { where: where ,order: [['id', 'ASC']]}
