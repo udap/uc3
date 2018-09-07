@@ -1,7 +1,7 @@
 
 CREATE TABLE `app_registry` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'auto-generated primary key',
-  `gid` varchar(64) NOT NULL COMMENT '前端产生的全局id',
+  `gid` varchar(256) NOT NULL COMMENT '前端产生的全局id',
   `desc` varchar(128) DEFAULT NULL COMMENT '应用描述',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -11,7 +11,7 @@ CREATE TABLE `app_registry` (
 
 CREATE TABLE `asset_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'auto-generated primary key',
-  `gid` varchar(64) NOT NULL COMMENT '前端产生的全局id',
+  `gid` varchar(256) NOT NULL COMMENT '前端产生的全局id',
   `address` varchar(45) DEFAULT NULL COMMENT 'asset type的合约地址',
   `icon` LONGTEXT  DEFAULT NULL COMMENT 'asset type的logo',
   `name` varchar(45) DEFAULT NULL COMMENT 'asset type的name',
@@ -28,7 +28,7 @@ CREATE TABLE `asset_type` (
 
 CREATE TABLE `mint_record` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'auto-generated primary key',
-  `gid` varchar(64) NOT NULL COMMENT '前端产生的全局id',
+  `gid` varchar(256) NOT NULL COMMENT '前端产生的全局id',
   `type_addr` varchar(45) NOT NULL COMMENT 'asset type的合约地址',
   `to` varchar(45) NOT NULL COMMENT 'mint to address',
   `name` varchar(45) DEFAULT NULL COMMENT 'metadata name',

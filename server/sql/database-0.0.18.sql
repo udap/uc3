@@ -4,7 +4,7 @@ CHANGE COLUMN `icon` `metadata` LONGTEXT NULL DEFAULT NULL COMMENT 'asset type�
 DROP TABLE IF EXISTS `mint_record`;
 CREATE TABLE `tx_sent` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'auto-generated primary key',
-  `gid` varchar(64) NOT NULL COMMENT 'user appid',
+  `gid` varchar(256) NOT NULL COMMENT 'user appid',
   `owner` varchar(45) NOT NULL COMMENT '调用者地址',
   `tx_hash` varchar(128) NOT NULL COMMENT 'transaction hash',
   `status` tinyint(1) NOT NULL COMMENT 'transaction hash 的 status(0 fail、1 success、2 pending)',
