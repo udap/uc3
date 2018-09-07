@@ -8,7 +8,7 @@ const AppRegistry = require('../model/appRegistry');
 const appidRegistered = async (appid) => {
     if(!appid)
         throw "'appid' param cannot be empty";
-    let count = await AppRegistry.count({
+    /*let count = await AppRegistry.count({
         where: {
             gid:appid
         }
@@ -16,7 +16,7 @@ const appidRegistered = async (appid) => {
         throw err.message;
     });
     if (count = 0)
-        ctx.throw("appid not registered");
+        ctx.throw("appid not registered");*/
 };
 
 const isContractAddr = (address,message) => {

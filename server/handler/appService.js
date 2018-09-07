@@ -26,7 +26,7 @@ const register =async (ctx) => {
         ctx.throw(" 'address' param error");
 
 
-    let id = address + "@" + name;
+    let id = web3.sha3(address + "@" + name);
     let count = await AppRegistry.count({
         where: {
             gid:id
@@ -48,6 +48,8 @@ const register =async (ctx) => {
     await AppRegistry.create(app).catch(err => {
         ctx.throw(err.message);
     });
+
+    //
     let type = {
         gid:id,
         address:upxToken.address,

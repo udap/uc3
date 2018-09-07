@@ -122,7 +122,7 @@ const create =async (ctx) => {
     let owner = fields.owner;
     let appid = fields.appid;
 
-    let attributes = files.attributes;
+    let schemaSrc = files.schemaSrc;
     let views = files.views;
 
 
@@ -156,12 +156,17 @@ const create =async (ctx) => {
     let iconUri = await ipfsUtil.addFile(buff).catch((err) => {
         ctx.throw(err);
     });
+    if(schemaSrc && schemaSrc.startsWith("http://")){
+        schemaSrc = await request.get(schemaSrc).catch( err => {
+            throw err;
+        });
+    }
     let metadata = {
         name:name,
         symbol:symbol,
         desc:desc?desc:"",
         icon:iconUri,
-        attributes:attributes?attributes:[],
+        schema:schemaSrc?schemaSrc:"",
         views:views?views:[]
     };
     let metadataUri = await ipfsUtil.addJson(metadata).catch((err) => {
@@ -180,11 +185,11 @@ const create =async (ctx) => {
         status:2,
         type:"UPA"
     };
-    await AssetType.create(type).catch((err) => {
+    let result = await AssetType.create(type).catch((err) => {
         ctx.throw(err);
     });
 
-    ctx.response.body = Result.success();
+    ctx.response.body = Result.success(result.id);
 };
 
 const getAll =async (ctx) => {
