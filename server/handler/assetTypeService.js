@@ -91,11 +91,11 @@ const importType =async (ctx) => {
             type.metadata = metadata
         }
     }
-    await AssetType.create(type).catch((err) => {
+    let result = await AssetType.create(type).catch((err) => {
         ctx.throw(err.message);
     });
 
-    ctx.response.body = Result.success();
+    ctx.response.body = Result.success(result.id);
 };
 
 
