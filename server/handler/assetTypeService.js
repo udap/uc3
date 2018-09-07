@@ -134,6 +134,8 @@ const create =async (ctx) => {
         ctx.throw("'owner' param isn't an address");
     if (!icon || Array.isArray(icon))
         ctx.throw("'icon' param error");
+    if (!schemaSrc || !validator.isJSON(schemaSrc))
+        ctx.throw("'schemaSrc' param error");
     if(!supplyLimit)
         supplyLimit = 0;
     await udapValidator.appidRegistered(appid);
@@ -166,7 +168,7 @@ const create =async (ctx) => {
         symbol:symbol,
         desc:desc?desc:"",
         icon:iconUri,
-        schema:schemaSrc?schemaSrc:"",
+        schema:schemaSrc,
         views:views?views:[]
     };
     let metadataUri = await ipfsUtil.addJson(metadata).catch((err) => {
