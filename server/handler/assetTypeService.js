@@ -135,7 +135,7 @@ const create =async (ctx) => {
         ctx.throw("'owner' param isn't an address");
     if (!icon || Array.isArray(icon))
         ctx.throw("'icon' param error");
-    if (!schemaSrc || !validator.isJSON(schemaSrc))
+    if (!schemaSrc || (!validator.isJSON(schemaSrc) && !validator.isURL(schemaSrc)))
         ctx.throw("'schemaSrc' param error");
     if(!supplyLimit)
         supplyLimit = 0;
