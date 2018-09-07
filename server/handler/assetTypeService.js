@@ -160,9 +160,12 @@ const create =async (ctx) => {
         ctx.throw(err);
     });
     if(schemaSrc && (schemaSrc.startsWith("http://") || schemaSrc.startsWith("https://"))){
-        schemaSrc = await request.get(schemaSrc).catch( err => {
+        let res = await request.get(schemaSrc).catch( err => {
             throw err;
         });
+        if(res && res.text){
+            schemaSrc = res.text;
+        }
     }
     let metadata = {
         name:name,
@@ -172,6 +175,7 @@ const create =async (ctx) => {
         schema:schemaSrc,
         views:views?views:[]
     };
+    console.log("ipfsUtil.addJson=====",JSON.stringify(metadata));
     let metadataUri = await ipfsUtil.addJson(metadata).catch((err) => {
         ctx.throw(err);
     });

@@ -36,7 +36,7 @@ const getFile = (hash) =>{
 };
 
 const addJson = async (json) =>{
-    let  cid = await ipfs.dag.put(json, { format: 'dag-cbor', hashAlg: 'sha2-256' });
+    let  cid = await ipfs.dag.put(JSON.stringify(json), { format: 'dag-cbor', hashAlg: 'sha2-256' });
     return ipfsCfg.dataUrl+cid.toBaseEncodedString();
 };
 
@@ -54,6 +54,8 @@ const getJson = async (uri) =>{
     }
     return result;
 };
+
+
 
 /*const upload = async (ctx) => {
     ipfs.dag.put(metadata, { format: 'dag-cbor', hashAlg: 'sha2-256' });
