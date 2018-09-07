@@ -215,7 +215,7 @@ const getAll =async (ctx) => {
         ctx.throw("'owner' param isn't an address");
 
     let where = {
-        [Sequelize.Op.or]: [{gid: 0}, {gid:appid}]
+        [Sequelize.Op.or]: [{gid: '0'}, {gid:appid}]
     };
     //query data
     let typeList = await AssetType.findAll(
