@@ -71,7 +71,7 @@ const logger = (ctx, next) => {
 };
 app.use(logger);
 
-// assetTypeJob.startJobs();
+assetTypeJob.startJobs();
 
 app.listen(3000);
 console.log('app started at port 3000...');
