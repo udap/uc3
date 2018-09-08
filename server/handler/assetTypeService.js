@@ -277,7 +277,7 @@ const getAll =async (ctx) => {
             temp.mintable = allController[index] == ethereumCfg.address;
         }
         let metadata = temp.metadata;
-        if(metadata && validator.isJSON(metadata)){
+        if(metadata && udapValidator.isValidJson(metadata)){
             metadata = JSON.parse(metadata);
             if(metadata.supplyLimit)
                 temp.supplyLimit = metadata.supplyLimit;
