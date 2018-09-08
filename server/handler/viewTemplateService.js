@@ -26,6 +26,8 @@ const viewTemplate = async (ctx) => {
         ctx.throw("'typeId' param error");
     if (!metadate)
         ctx.throw("'metadate' param error");
+    if(typeof metadate == string)
+        metadate = JSON.parse(metadate);
 
 
     let templates = await ViewTemplate.findAll(
@@ -37,6 +39,7 @@ const viewTemplate = async (ctx) => {
 
     metadate.context = templates[0].context;
     let templeteContent = "";
+
 
     let templateUri = templates[0].context+templates[0].templateUri;
     if(templateUri.startsWith("http://") || templateUri.startsWith("https://")){
@@ -51,7 +54,6 @@ const viewTemplate = async (ctx) => {
     }
     let compiledTemplate = template7(templeteContent).compile();
 
-    console.log("metadate=========",metadate);
     let html = compiledTemplate(metadate);
     ctx.response.type = 'text/html';
     ctx.response.body = html;
