@@ -3,6 +3,7 @@ const ethereumCfg = require('../config/ethereumCfg');
 const validator = require('validator');
 const AssetType = require('../model/assetType');
 const AppRegistry = require('../model/appRegistry');
+const ViewTemplate = require('../model/viewTemplate');
 const Web3 = require('web3');
 const web3 = new Web3(new Web3.providers.HttpProvider(ethereumCfg.provider));
 const ipfsUtil = require('../util/ipfsUtil');
@@ -195,6 +196,22 @@ const create =async (ctx) => {
     let result = await AssetType.create(type).catch((err) => {
         ctx.throw(err);
     });
+
+
+    //add template
+    let template = await ViewTemplate.typeId(1).catch((err) => {
+        ctx.throw(err);
+    });
+    if(template != null){
+        template = template.toJSON();
+        template.typeId = result.id;
+        delete template.id;
+        await ViewTemplate.create(template).catch((err) => {
+            ctx.throw(err);
+        });
+    }
+
+
 
     ctx.response.body = Result.success(result.id);
 };
