@@ -12,6 +12,7 @@ const assetTypeJob = require('./schedule/assetTypeJob');
 const relayService = require('./handler/relayService');
 const feesService = require('./handler/feesService');
 const networkService = require('./handler/networkService');
+const viewTemplateService = require('./handler/viewTemplateService');
 
 const app = new Koa();
 
@@ -35,7 +36,7 @@ const main = ctx => {
 //error Handler
 app.use(errorHandler);
 //static ctx
-app.use(staticHandler(path.join(__dirname,"view")));
+// app.use(staticHandler(path.join(__dirname,"view")));
 
 app.use(mount('/img', staticHandler(path.join(__dirname,"img"))));
 
@@ -49,6 +50,7 @@ route.post('/assets',koaBody({ multipart: true}),assetService.mint);
 route.get('/assets',koaBody(),assetService.getAllByOwner);
 route.get('/relay/nonce',koaBody(),relayService.getNonce);
 route.get('/fees',koaBody(),feesService.queryFees);
+route.post('/views',koaBody(),viewTemplateService.viewTemplate);
 route.get('/networks',networkService.getAll);
 route.get('/networks/:id',networkService.getById);
 
@@ -69,7 +71,7 @@ const logger = (ctx, next) => {
 };
 app.use(logger);
 
-assetTypeJob.startJobs();
+// assetTypeJob.startJobs();
 
 app.listen(3000);
 console.log('app started at port 3000...');

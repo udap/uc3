@@ -1,5 +1,6 @@
 const Web3 = require('web3');
 
+const standardAsset_artifacts = require('../../build/contracts/StandardAsset.json');
 const Tx = require('ethereumjs-tx');
 let ethereumCfg = {
     provider:"http://52.11.73.193:6969/child_0",
@@ -386,17 +387,24 @@ const newAssert =  (typeAddr,to,uri) =>{
     let serializedTx = tx.serialize();
     let txHash = new Promise((resolve,reject) => {
         web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'), (err, hash) => {
-            if (!err)
-                resolve(hash);
+            if (err)
+                console.log(err);
             else
-                reject(err);
+                console.log(hash);
         });
     }).catch(err=>{throw err;});
     return txHash;
 };
 
+web3.eth.getTransactionReceipt("0x50a26e702ab0244f29f2588047b7371e611200ec6cf1834c8be0aa6dae926e98",(err, receipt) => {
+    if (err)
+        console.log(err);
+    else
+        console.log(receipt);
+});
 
-// console.log(newAssert(typeAddr,to,uri));
+
+newAssert("0xfecbfdc6f7dc8c9df23bdddff45c368f0f90a95a","0xcabe9a163b96865308605bde13233fd1a0610931","https://ipfs.io/api/v0/dag/get?arg=zdpuAo6w1qzcp5XuEkfsU8VPq9bWoobNPZfb7Ynz366eVpb1k")
 
 
 

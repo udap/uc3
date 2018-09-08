@@ -16,7 +16,6 @@ const StandardAsset = contract(standardAsset_artifacts);
 StandardAsset.setProvider(web3.currentProvider);
 const request = require('superagent');
 const AssetType = require('../model/assetType');
-const Ajv = require('ajv');
 
 
 const mint =async (ctx) => {
