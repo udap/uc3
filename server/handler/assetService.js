@@ -159,6 +159,8 @@ const getAllByOwner =async (ctx) => {
             token.tokenURI = tokenURIs[index];
         if(metadatas[index])
             token.metadata = metadatas[index];
+        if(udapValidator.isValidJson(token.metadata))
+            token.metadata = JSON.parse(token.metadata);
         tokens.push(token);
     });
     ctx.response.body = Result.success(tokens);

@@ -26,5 +26,13 @@ const isContractAddr = (address,message) => {
     let byteCode = web3.eth.getCode(address);//byteCode
     if(byteCode === '0x') throw message;
 };
+const isValidJson = (json)=> {
+    try {
+        JSON.parse(json);
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
 
-module.exports  = { appidRegistered:appidRegistered,isContractAddr:isContractAddr};
+module.exports  = { appidRegistered:appidRegistered,isContractAddr:isContractAddr,isValidJson:isValidJson};
