@@ -15,6 +15,8 @@ const standardAsset_artifacts = require('../../build/contracts/StandardAsset.jso
 const StandardAsset = contract(standardAsset_artifacts);
 StandardAsset.setProvider(web3.currentProvider);
 const request = require('superagent');
+const AssetType = require('../model/assetType');
+const Ajv = require('ajv');
 
 
 const mint =async (ctx) => {
@@ -216,13 +218,38 @@ const createMetadata =async (ctx) => {
 
     let metadata = fields.metadata;
     let appid = fields.appid;
+    let typeId = fields.typeId;
 
-    if (!metadata)
+    if (!metadata || (!validator.isJSON(metadata) && !validator.isURL(metadata)))
         ctx.throw("'metadata' param error");
     await udapValidator.appidRegistered(appid);
+    if (!typeId || !validator.isInt(typeId))
+        ctx.throw("'typeId' param error");
+    let assetType = await AssetType.findById(parseInt(typeId)).catch(err => {ctx.throw(err)});
+    if(!assetType)
+        ctx.throw("'typeId' param error,This type does not exist");
 
-
-
+    let schema = "";
+    if(assetType.type == "UPA"  && assetType.metadata){
+        schema = JSON.parse(assetType.metadata).schema;
+    }
+    if(validator.isJSON(schema)){
+        let ajv = new Ajv();
+        let validate = ajv.compile(JSON.parse(schema));
+        if(metadata.startsWith("http://") || metadata.startsWith("https://")){
+            let res = await request.get(metadata).catch( err => {
+                throw err;
+            });
+            if(res && res.text){
+                metadata = res.text;
+            }
+        }
+        if(!validator.isJSON(metadata))
+            ctx.throw("'metadata' param error");
+        let valid = validate(JSON.parse(metadata));
+        if(!valid)
+            ctx.throw("'metadata' param not match schema");
+    }
     //upload metadata to ipfs
     let metadataUri = await ipfsUtil.addJson(metadata).catch(err => {ctx.throw(err)});
     ctx.response.body = Result.success(metadataUri);
