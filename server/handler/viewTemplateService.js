@@ -19,7 +19,7 @@ const viewTemplate = async (ctx) => {
     let appid = fields.appid;
     let metadate = fields.metadate;
 
-    // await udapValidator.appidRegistered(appid);
+    await udapValidator.appidRegistered(appid);
     if (!key)
         ctx.throw("'key' param error");
     if (!typeId)
