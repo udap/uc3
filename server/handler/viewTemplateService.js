@@ -26,7 +26,7 @@ const viewTemplate = async (ctx) => {
         ctx.throw("'typeId' param error");
     if (!metadate)
         ctx.throw("'metadate' param error");
-    if(typeof metadate == string)
+    if(typeof metadate == "string")
         metadate = JSON.parse(metadate);
 
 
