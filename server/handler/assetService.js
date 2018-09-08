@@ -233,6 +233,7 @@ const createMetadata =async (ctx) => {
     if(assetType.type == "UPA"  && assetType.metadata){
         schema = JSON.parse(assetType.metadata).schema;
     }
+
     if(validator.isJSON(schema)){
         let ajv = new Ajv();
         let validate = ajv.compile(JSON.parse(schema));
