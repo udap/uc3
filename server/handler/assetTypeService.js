@@ -303,6 +303,22 @@ const getAll =async (ctx) => {
     ctx.response.body = Result.success(content);
 };
 
+const cloneType = async (ctx,next) =>{
+    let fields = ctx.request.body;
+    if (!fields) ctx.throw("Please fill in the data");
+    let name = fields.name;
+    let symbol = fields.symbol;
+    let supplyLimit = fields.supplyLimit;
+    let icon = fields.icon;
+    let viewTemplateId = fields.viewTemplateId;
+
+
+
+    // {name:"xx",symbol:"xx",supplyLimit:"1000",icon:"http://xx",viewTemplateId:"12"}
+
+    next();
+
+};
 
 const getDefaultUPA =async (ctx) => {
 
@@ -341,18 +357,28 @@ const getDefaultUPA =async (ctx) => {
     ctx.response.body = Result.success(newTypeList);
 };
 
-const getTemplatesByTypeId =async (ctx,next)=>{
+const getTemplatesByTypeId =async (ctx)=>{
     let fields = ctx.query;
 
     if (!fields)
         ctx.throw("Param error");
 
+    let caller = ctx.header["x-identity"];
     let appid = fields.appid;
     await udapValidator.appidRegistered(appid);
 
     let typeId = ctx.params.id;
     if (!typeId)
         ctx.throw(" 'typeId' Param error");
+    if(!caller || !web3.isAddress(caller))
+        ctx.throw(" 'caller' header error");
+
+    let assetType = await AssetType.findById(parseInt(typeId)).catch( err => {ctx.throw(err)});
+    let owner = await AssetTypeContract.at(assetType.address).then(instance=>{
+        return instance.owner.call({from: caller});
+    }).catch( err => {ctx.throw(err)});
+    if(assetType.gid != '0' && owner.toLowerCase() != caller.toLowerCase())
+        ctx.throw(" 'Caller' does not have permission");
 
     //query data
     let templates = await ViewTemplate.findAll(
@@ -361,12 +387,10 @@ const getTemplatesByTypeId =async (ctx,next)=>{
             order: [['id', 'ASC']],
             raw:true
         }
-    ).catch(function (err) {
-        ctx.throw(err.message);
-    });
+    ).catch( err => {ctx.throw(err)});
+
     //response
     ctx.response.body = Result.success(templates);
-    next();
 }
 
-module.exports  = { create:create,getAll:getAll,getTemplatesByTypeId:getTemplatesByTypeId};
+module.exports  = { create:create,getAll:getAll,getTemplatesByTypeId:getTemplatesByTypeId,cloneType:cloneType};
