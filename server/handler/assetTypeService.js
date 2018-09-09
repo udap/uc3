@@ -236,7 +236,10 @@ const getAll =async (ctx) => {
     };
     //query data
     let typeList = await AssetType.findAll(
-        { where: where ,order: [['id', 'ASC']]}
+        {
+            where: where,
+            order: [['id', 'ASC']]
+        }
     ).catch(function (err) {
         ctx.throw(err.message);
     });
@@ -295,13 +298,14 @@ const getAll =async (ctx) => {
         }
         let metadata = temp.metadata;
         if(metadata && udapValidator.isValidJson(metadata)){
+            delete temp.metadata; //Do not return metadata
             metadata = JSON.parse(metadata);
             if(metadata.supplyLimit)
                 temp.supplyLimit = metadata.supplyLimit;
-            if(metadata.schema)
-                temp.schema = metadata.schema;
-            if(metadata.views)
-                temp.views = metadata.views;
+            /*if(metadata.schema)
+                temp.schema = metadata.schema;*/
+           /* if(metadata.views)
+                temp.views = metadata.views;*/
             if(metadata.icon)
                 temp.icon = metadata.icon;
         }
