@@ -375,7 +375,7 @@ const cloneType = async (ctx) =>{
     let result = await AssetType.create(type).catch((err) => {
         ctx.throw(err);
     });
-    let template = await ViewTemplate.typeId(parseInt(viewTemplateId),{raw:true}).catch((err) => {
+    let template = await ViewTemplate.findById(parseInt(viewTemplateId),{raw:true}).catch((err) => {
         ctx.throw(err);
     });
     if(template == null)
