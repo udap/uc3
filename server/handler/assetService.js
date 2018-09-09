@@ -221,7 +221,7 @@ const createMetadata =async (ctx) => {
     let appid = fields.appid;
     let typeId = fields.typeId;
 
-    if (!metadata || (!validator.isJSON(metadata) && !validator.isURL(metadata)))
+    if (!metadata || (!udapValidator.isValidJson(metadata) && !validator.isURL(metadata)))
         ctx.throw("'metadata' param error");
     await udapValidator.appidRegistered(appid);
     if (!typeId || !validator.isInt(typeId))
