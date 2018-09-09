@@ -197,22 +197,6 @@ const create =async (ctx) => {
         ctx.throw(err);
     });
 
-
-    //add template
-    let template = await ViewTemplate.typeId(1).catch((err) => {
-        ctx.throw(err);
-    });
-    if(template != null){
-        template = template.toJSON();
-        template.typeId = result.id;
-        delete template.id;
-        await ViewTemplate.create(template).catch((err) => {
-            ctx.throw(err);
-        });
-    }
-
-
-
     ctx.response.body = Result.success(result.id);
 };
 
