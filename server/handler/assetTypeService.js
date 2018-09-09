@@ -341,4 +341,32 @@ const getDefaultUPA =async (ctx) => {
     ctx.response.body = Result.success(newTypeList);
 };
 
-module.exports  = { create:create,getAll:getAll};
+const getTemplatesByTypeId =async (ctx,next)=>{
+    let fields = ctx.query;
+
+    if (!fields)
+        ctx.throw("Param error");
+
+    let appid = fields.appid;
+    await udapValidator.appidRegistered(appid);
+
+    let typeId = ctx.params.id;
+    if (!typeId)
+        ctx.throw(" 'typeId' Param error");
+
+    //query data
+    let templates = await ViewTemplate.findAll(
+        {
+            where: {key: 'view',typeId:typeId},
+            order: [['id', 'ASC']],
+            raw:true
+        }
+    ).catch(function (err) {
+        ctx.throw(err.message);
+    });
+    //response
+    ctx.response.body = Result.success(templates);
+    next();
+}
+
+module.exports  = { create:create,getAll:getAll,getTemplatesByTypeId:getTemplatesByTypeId};

@@ -45,6 +45,7 @@ route.get('/', main);
 route.post('/apps',koaBody(),appService.register);
 route.post('/types',koaBody({ multipart: true}),assetTypeService.create);
 route.get('/types',koaBody(),assetTypeService.getAll);
+route.get('/types/:id/viewTemplates',assetTypeService.getTemplatesByTypeId);
 route.post('/metadata',koaBody(),assetService.createMetadata);
 route.post('/assets',koaBody({ multipart: true}),assetService.mint);
 route.get('/assets',koaBody(),assetService.getAllByOwner);
