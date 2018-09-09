@@ -235,7 +235,7 @@ const createMetadata =async (ctx) => {
         schema = JSON.parse(assetType.metadata).schema;
     }
 
-    if(validator.isJSON(schema)){
+    if(udapValidator.isValidJson(schema)){
         let ajv = new Ajv();
         let validate = ajv.compile(JSON.parse(schema));
         if(metadata.startsWith("http://") || metadata.startsWith("https://")){
