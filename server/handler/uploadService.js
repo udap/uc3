@@ -3,6 +3,7 @@ const ipfsUtil = require('../util/ipfsUtil');
 const Result = require('../common/result');
 const fs = require('fs');
 const validator = require('validator');
+const udapValidator = require('../common/udapValidator');
 
 let mbSize = 1024 * 1024;
 let MAX_SIZE = 20 * mbSize;

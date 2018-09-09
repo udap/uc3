@@ -56,7 +56,7 @@ route.get('/fees',koaBody(),feesService.queryFees);
 route.post('/views',koaBody(),viewTemplateService.viewTemplate);
 route.get('/networks',networkService.getAll);
 route.get('/networks/:id',networkService.getById);
-route.post('/image',uploadService.uploadImage);
+route.post('/image',koaBody({ multipart: true}),uploadService.uploadImage);
 
 
 const testDataService = require('./handler/testDataService');
