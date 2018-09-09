@@ -10,14 +10,15 @@ const getData =async () => {
     return template;
 
 };
-getData().then(
+/*getData().then(
     result => {
         console.log(result)
     }
 
-);
+);*/
 
-
-/*
-let buff = fs.readFileSync("C:\\Users\\Administrator\\Desktop\\certificate.json", "utf8");
+let stats = fs.statSync("C:\\Users\\Administrator\\Desktop\\restclient-ui-fat-3.6.1.jar");
+let fileSizeInBytes = stats["size"];
+console.log(fileSizeInBytes)
+/*let buff = fs.readFileSync("C:\\Users\\Administrator\\Desktop\\certificate.json");
 console.log(buff);*/

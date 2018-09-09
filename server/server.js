@@ -13,6 +13,7 @@ const relayService = require('./handler/relayService');
 const feesService = require('./handler/feesService');
 const networkService = require('./handler/networkService');
 const viewTemplateService = require('./handler/viewTemplateService');
+const uploadService = require('./handler/uploadService');
 
 const app = new Koa();
 
@@ -55,6 +56,7 @@ route.get('/fees',koaBody(),feesService.queryFees);
 route.post('/views',koaBody(),viewTemplateService.viewTemplate);
 route.get('/networks',networkService.getAll);
 route.get('/networks/:id',networkService.getById);
+route.post('/image',uploadService.uploadImage);
 
 
 const testDataService = require('./handler/testDataService');
