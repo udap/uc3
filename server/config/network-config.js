@@ -5,7 +5,7 @@ let config ={
         currency:"PAI"
     },
     ropsten:{
-        serviceEndpoint:"http://47.104.225.39:3001",
+        serviceEndpoint:"http://47.104.225.39",
         nodeEndpoint:"http://47.104.225.39:8545",
         currency:"ETH"
     }
