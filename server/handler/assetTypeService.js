@@ -351,7 +351,7 @@ const cloneType = async (ctx) =>{
         // desc:desc?desc:"",
         icon:icon,
         // schema:schemaSrc,
-        views:views?views:[]
+        // views:views?views:[]
     };
     if(udapValidator.isValidJson(asType.metadata))
         metadata.schema = JSON.parse(asType.metadata).schema;
