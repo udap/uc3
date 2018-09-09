@@ -224,6 +224,10 @@ const getAll =async (ctx) => {
     if (!fields){
         ctx.throw("Param error");
     }
+    let filter = fields.filter;
+    if(filter && filter == "default")
+        return getDefaultUPA(ctx);
+
     let appid = fields.appid;
     let owner = fields.owner;
 
@@ -313,6 +317,44 @@ const getAll =async (ctx) => {
     });
     //response
     ctx.response.body = Result.success(content);
+};
+
+
+const getDefaultUPA =async (ctx) => {
+
+    let fields = ctx.query;
+
+
+    if (!fields)
+        ctx.throw("Param error");
+
+    let appid = fields.appid;
+
+    await udapValidator.appidRegistered(appid);
+    //query data
+    let typeList = await AssetType.findAll(
+        {
+            where: {gid: '0'},
+            order: [['id', 'ASC']],
+            attributes: ['id','metadata','name','symbol'],
+            raw:true
+        }
+    ).catch(function (err) {
+        ctx.throw(err.message);
+    });
+
+    const newTypeList = typeList.map((item)=>{
+        let metadata = item.metadata;
+        delete item.metadata;
+        if(metadata && udapValidator.isValidJson(metadata)){
+            metadata = JSON.parse(metadata);
+            if(metadata.icon)
+                item.icon = metadata.icon;
+        }
+        return item;
+    });
+    //response
+    ctx.response.body = Result.success(newTypeList);
 };
 
 module.exports  = { create:create,getAll:getAll};
