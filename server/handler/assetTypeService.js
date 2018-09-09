@@ -357,7 +357,7 @@ const getTemplatesByTypeId =async (ctx,next)=>{
     //query data
     let templates = await ViewTemplate.findAll(
         {
-            where: {key: 'view',typeId:typeId},
+            where: {key: 'view',typeId:parseInt(typeId)},
             order: [['id', 'ASC']],
             raw:true
         }
