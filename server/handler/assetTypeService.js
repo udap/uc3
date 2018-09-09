@@ -442,7 +442,7 @@ const getTemplatesByTypeId =async (ctx)=>{
         ctx.throw(" 'caller' header error");
 
     let assetType = await AssetType.findById(parseInt(typeId)).catch( err => {ctx.throw(err)});
-    let owner = await AssetTypeContract.at(assetType.address).then(instance=>{
+    let owner = await StandardAsset.at(assetType.address).then(instance=>{
         return instance.owner.call({from: caller});
     }).catch( err => {ctx.throw(err)});
     if(assetType.gid != '0' && owner.toLowerCase() != caller.toLowerCase())
