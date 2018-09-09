@@ -334,7 +334,7 @@ const getDefaultUPA =async (ctx) => {
     //query data
     let typeList = await AssetType.findAll(
         {
-            where: {gid: '0'},
+            where: {gid: '0',type:"UPA"},
             order: [['id', 'ASC']],
             attributes: ['id','metadata','name','symbol'],
             raw:true
