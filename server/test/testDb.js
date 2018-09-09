@@ -6,7 +6,7 @@ const getData =async () => {
         { where: {key:"VIEW",typeId:1} ,raw : true}
     ).catch(err =>{ctx.throw(err)});*/
 
-    let template = await  ViewTemplate.findById(3).catch(err =>{ctx.throw(err)});
+    let template = await  ViewTemplate.findById(1,{raw:true}).catch(err =>{ctx.throw(err)});
     return template;
 
 };

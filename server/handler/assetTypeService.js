@@ -303,20 +303,88 @@ const getAll =async (ctx) => {
     ctx.response.body = Result.success(content);
 };
 
-const cloneType = async (ctx,next) =>{
+const cloneType = async (ctx) =>{
     let fields = ctx.request.body;
     if (!fields) ctx.throw("Please fill in the data");
     let name = fields.name;
     let symbol = fields.symbol;
     let supplyLimit = fields.supplyLimit;
     let icon = fields.icon;
+    let caller = ctx.header["x-identity"];
+    let appid = fields.appid;
     let viewTemplateId = fields.viewTemplateId;
+    if(!supplyLimit)
+        supplyLimit = 0;
 
+    //valid data
+    if (!name || !validator.isLength(name,{min:1, max: 45}))
+        ctx.throw("'name' param cannot be empty and the max length is 45");
+    if (!symbol || !validator.isLength(symbol,{min:1, max: 45}))
+        ctx.throw("'symbol' param cannot be empty and the max length is 45");
+    if (!caller || !web3.isAddress(caller))
+        ctx.throw("'owner' param isn't an address");
+    if (!icon || !validator.isURL(icon))
+        ctx.throw("'icon' param error");
+    await udapValidator.appidRegistered(appid);
+    /*let typeCount = await AssetType.count({
+        where: {
+            gid:appid,
+            name:name,
+            symbol:symbol
+        }
+    }).catch((err) => {
+        ctx.throw(err);
+    });
+    if (typeCount > 0)
+        ctx.throw("AssetType already exists");*/
+    let typeId = ctx.params.id;
 
+    let asType = AssetType.findById(parseInt(typeId),{raw:true}).catch(err => {
+        ctx.throw(err);
+    });
+    if(asType == null)
+        ctx.throw("AssetType id error");
 
-    // {name:"xx",symbol:"xx",supplyLimit:"1000",icon:"http://xx",viewTemplateId:"12"}
+    let metadata = {
+        name:name,
+        symbol:symbol,
+        // desc:desc?desc:"",
+        icon:icon,
+        // schema:schemaSrc,
+        views:views?views:[]
+    };
+    if(udapValidator.isValidJson(asType.metadata))
+        metadata.schema = JSON.parse(asType.metadata).schema;
 
-    next();
+    let metadataUri = await ipfsUtil.addJson(metadata).catch((err) => {
+        ctx.throw(err);
+    });
+    let txHash = await ethereumUtil.newStandAssert(name,symbol,supplyLimit,metadataUri,caller).catch((err) => {
+        ctx.throw(err);
+    });
+
+    let type = {
+        gid:appid,
+        metadata:JSON.stringify(metadata),
+        name:name,
+        symbol:symbol,
+        txHash:txHash,
+        status:2,
+        type:"UPA"
+    };
+    let result = await AssetType.create(type).catch((err) => {
+        ctx.throw(err);
+    });
+    let template = await ViewTemplate.typeId(parseInt(viewTemplateId),{raw:true}).catch((err) => {
+        ctx.throw(err);
+    });
+    if(template == null)
+        ctx.throw("Cannot find viewTemplate");
+    template.typeId = result.id;
+    delete template.id;
+    await ViewTemplate.create(template).catch(err => {ctx.throw(err)});
+
+    ctx.response.body = Result.success(result.id);
 
 };
 

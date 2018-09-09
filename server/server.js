@@ -44,6 +44,7 @@ app.use(mount('/img', staticHandler(path.join(__dirname,"img"))));
 route.get('/', main);
 route.post('/apps',koaBody(),appService.register);
 route.post('/types',koaBody({ multipart: true}),assetTypeService.create);
+route.post('/types/:id',koaBody(),assetTypeService.cloneType);
 route.get('/types',koaBody(),assetTypeService.getAll);
 route.get('/types/:id/viewTemplates',assetTypeService.getTemplatesByTypeId);
 route.post('/metadata',koaBody(),assetService.createMetadata);
