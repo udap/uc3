@@ -281,8 +281,11 @@ const getAll =async (ctx) => {
         }
         temp.isOwner = false;
         if(temp.type == "UPA"){
-            temp.isOwner = allOwner[index].toLowerCase() == owner.toLowerCase();
-            temp.mintable = allController[index].toLowerCase() == ethereumCfg.address.toLowerCase();
+
+            if(allOwner[index])
+                temp.isOwner = allOwner[index].toLowerCase() == owner.toLowerCase();
+            if(allController[index])
+                temp.mintable = allController[index].toLowerCase() == ethereumCfg.address.toLowerCase();
         }
         let metadata = temp.metadata;
         if(metadata && udapValidator.isValidJson(metadata)){
