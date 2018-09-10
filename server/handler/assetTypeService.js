@@ -464,4 +464,38 @@ const getTemplatesByTypeId =async (ctx)=>{
     ctx.response.body = Result.success(templates);
 }
 
-module.exports  = { create:create,getAll:getAll,getTemplatesByTypeId:getTemplatesByTypeId,cloneType:cloneType};
+const getSchemaByTypeId =async (ctx)=>{
+    let fields = ctx.query;
+
+    if (!fields)
+        ctx.throw("Param error");
+
+    let caller = ctx.header["x-identity"];
+    let appid = fields.appid;
+    await udapValidator.appidRegistered(appid);
+
+    let typeId = ctx.params.id;
+    if (!typeId)
+        ctx.throw(" 'typeId' Param error");
+    if(!caller || !web3.isAddress(caller))
+        ctx.throw(" 'caller' header error");
+
+    let assetType = await AssetType.findById(parseInt(typeId)).catch( err => {ctx.throw(err)});
+    let owner = await StandardAsset.at(assetType.address).then(instance=>{
+        return instance.owner.call({from: caller});
+    }).catch( err => {ctx.throw(err)});
+    if(assetType.gid != '0' && owner.toLowerCase() != caller.toLowerCase())
+        ctx.throw(" 'Caller' does not have permission");
+
+    let metadata = assetType.metadata;
+    let schema = "";
+    if(metadata && udapValidator.isValidJson(metadata)){
+        metadata = JSON.parse(metadata);
+        schema = metadata.schema;
+    }
+
+    //response
+    ctx.response.body = Result.success(schema);
+}
+
+module.exports  = { create:create,getAll:getAll,getTemplatesByTypeId:getTemplatesByTypeId,cloneType:cloneType,getSchemaByTypeId:getSchemaByTypeId};
