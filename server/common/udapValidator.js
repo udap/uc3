@@ -28,6 +28,8 @@ const isContractAddr = (address,message) => {
 };
 const isValidJson = (json)=> {
     try {
+        if(typeof(json) == "object")
+          return Object.prototype.toString.call(json).toLowerCase() == "[object object]" && !obj.length;
         JSON.parse(json);
         return true;
     } catch (e) {
