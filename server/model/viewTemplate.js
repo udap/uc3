@@ -22,6 +22,10 @@ const fees = sequelize.define('view_template', {
     templateUri: {
         type: Sequelize.STRING,
         field: 'template_uri'
+    },
+    thumbnail: {
+        type: Sequelize.STRING,
+        field: 'thumbnail'
     }
 },{freezeTableName:true,createdAt: 'create_time',updatedAt:'update_time'});
 
