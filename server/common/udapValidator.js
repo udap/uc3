@@ -27,14 +27,18 @@ const isContractAddr = (address,message) => {
     if(byteCode === '0x') throw message;
 };
 const isValidJson = (json)=> {
-    try {
-        if(typeof(json) == "object")
-          return Object.prototype.toString.call(json).toLowerCase() == "[object object]" && !obj.length;
-        JSON.parse(json);
-        return true;
-    } catch (e) {
-        return false;
-    }
+        if(typeof(json) == "object"){
+            return Object.prototype.toString.call(json).toLowerCase() == "[object object]" && !json.length;
+        }else if (typeof(json) == "string"){
+            try {
+                JSON.parse(json);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }else{
+            return false;
+        }
 }
 
 module.exports  = { appidRegistered:appidRegistered,isContractAddr:isContractAddr,isValidJson:isValidJson};
