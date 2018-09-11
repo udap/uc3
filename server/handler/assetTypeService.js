@@ -358,6 +358,8 @@ const cloneType = async (ctx) =>{
     };
     if(udapValidator.isValidJson(asType.metadata))
         metadata.schema = JSON.parse(asType.metadata).schema;
+    if(!metadata.schema || !udapValidator.isValidJson(metadata.schema))
+        ctx.throw("schema  error");
 
     let metadataUri = await ipfsUtil.addJson(metadata).catch((err) => {
         ctx.throw(err);
