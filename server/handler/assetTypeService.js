@@ -493,7 +493,7 @@ const getSchemaByTypeId =async (ctx)=>{
     let schema = "";
     if(metadata && udapValidator.isValidJson(metadata)){
         metadata = JSON.parse(metadata);
-        schema = JSON.stringify(metadata.schema);
+        schema = metadata.schema;
     }
 
     //response
