@@ -342,7 +342,7 @@ const cloneType = async (ctx) =>{
         ctx.throw("AssetType already exists");*/
     let typeId = ctx.params.id;
 
-    let asType = AssetType.findById(parseInt(typeId),{raw:true}).catch(err => {
+    let asType = await AssetType.findById(parseInt(typeId),{raw:true}).catch(err => {
         ctx.throw(err);
     });
     if(asType == null)
