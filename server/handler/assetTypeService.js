@@ -219,8 +219,12 @@ const getAll =async (ctx) => {
     if (!owner || !web3.isAddress(owner))
         ctx.throw("'owner' param isn't an address");
 
+    // WHERE (`asset_type`.`gid` = 'xxx' OR (`asset_type`.`gid` = '0' AND `asset_type`.`type` != 'UPA'))
     let where = {
-        [Sequelize.Op.or]: [{gid: '0'}, {gid:appid}]
+        [Sequelize.Op.or]: [
+            {gid:appid},
+            {gid:'0',type: {[Sequelize.Op.ne]: 'UPA'}}
+        ]
     };
     //query data
     let typeList = await AssetType.findAll(
