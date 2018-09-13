@@ -8,7 +8,7 @@ const Web3 = require('web3');
 const web3 = new Web3(new Web3.providers.HttpProvider(ethereumCfg.provider));
 const ipfsUtil = require('../util/ipfsUtil');
 const fs = require('fs');
-const requestUtil = require('../util/requestUtil');
+const request = require('superagent');
 
 const contract = require('truffle-contract');
 const StandardAsset_artifacts = require('../../build/contracts/StandardAsset.json');
@@ -136,7 +136,7 @@ const create =async (ctx) => {
         ctx.throw("'owner' param isn't an address");
     if (!icon || Array.isArray(icon))
         ctx.throw("'icon' param error");
-    if (!schemaSrc || (!udapValidator.isValidJson(schemaSrc) && !validator.isURL(schemaSrc)))
+    if (!schemaSrc || (!validator.isJSON(schemaSrc) && !validator.isURL(schemaSrc)))
         ctx.throw("'schemaSrc' param error");
     if(!supplyLimit)
         supplyLimit = 0;
@@ -160,14 +160,14 @@ const create =async (ctx) => {
     let iconUri = await ipfsUtil.addFile(buff).catch((err) => {
         ctx.throw(err);
     });
-    /*if(schemaSrc && (schemaSrc.startsWith("http://") || schemaSrc.startsWith("https://"))){
+    if(schemaSrc && (schemaSrc.startsWith("http://") || schemaSrc.startsWith("https://"))){
         let res = await request.get(schemaSrc).catch( err => {
             throw err;
         });
         if(res && res.text){
             schemaSrc = res.text;
         }
-    }*/
+    }
     let metadata = {
         name:name,
         symbol:symbol,
@@ -362,7 +362,7 @@ const cloneType = async (ctx) =>{
     };
     if(udapValidator.isValidJson(asType.metadata))
         metadata.schema = JSON.parse(asType.metadata).schema;
-    if(!metadata.schema)
+    if(!metadata.schema || !udapValidator.isValidJson(metadata.schema))
         ctx.throw("schema  error");
 
     let metadataUri = await ipfsUtil.addJson(metadata).catch((err) => {
@@ -499,8 +499,6 @@ const getSchemaByTypeId =async (ctx)=>{
         metadata = JSON.parse(metadata);
         schema = metadata.schema;
     }
-    if (schema.startsWith("http:") || schema.startsWith("https:"))
-        schema = await requestUtil.getText(schema);
 
     //response
     ctx.response.body = Result.success(schema);
