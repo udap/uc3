@@ -1,8 +1,8 @@
 var config = {
-    dbname: 'udap',
+    dbname: 'ropsten',
     uname: 'root',
-    upwd: '123456',
-    host: 'localhost',
+    upwd: 'xinongeth',
+    host: '47.104.225.39',
     port: 3306,
     dialect: 'mysql',
     pool: {

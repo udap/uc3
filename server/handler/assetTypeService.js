@@ -67,23 +67,27 @@ const importType =async (ctx) => {
 
     let assetInstance = await StandardAsset.at(typeAddr);
     let support721 = await assetInstance.supportsInterface.call(InterfaceIds.InterfaceId_ERC721,{from: owner}).catch((err) => {});
-    if(support721 && support721)
+    if(support721 && support721 == true){
         type.type = "ERC721";
-    else
+        let supportStandAsset = await assetInstance.supportsInterface.call(InterfaceIds.InterfaceId_StandardAsset,{from: owner}).catch((err) => {});
+        if(supportStandAsset && supportStandAsset == true) type.type = "UPA";
+    }else{
         ctx.throw("only support ERC721 import");
+    }
 
     let allPromise =[assetInstance.name.call({from: owner}).catch((err) => {}),
         assetInstance.symbol.call({from: owner}).catch((err) => {})];
-    allPromise.push(assetInstance.getAssetType.call({from: owner}));
-    let [name,symbol,typeContractAddr] = await Promise.all(allPromise).catch( err => {
+    let [name,symbol] = await Promise.all(allPromise).catch( err => {
         ctx.throw(err);
     });
     if (name)
         type.name = name;
     if (symbol)
         type.symbol = symbol;
-    if (typeContractAddr){
-        type.type = "UPA";
+    if (type.type == "UPA"){
+        let typeContractAddr = await assetInstance.getAssetType.call({from: owner}).catch( err => {
+            ctx.throw(err);
+        });
 
         let uri = await  AssetTypeContract.at(typeContractAddr).uri.call({from: owner}).catch( err => {
             ctx.throw(err);

@@ -29,9 +29,13 @@ const InterfaceId_ERC721Enumerable = "0x780e9d63";
 
 const InterfaceId_ERC721Metadata = "0x5b5e139f";
 
+const InterfaceId_StandardAsset = "0x1b2b8ef1";
+
+
 module.exports  = {
     InterfaceId_ERC721:InterfaceId_ERC721,
     InterfaceId_ERC721Exists:InterfaceId_ERC721Exists,
-    InterfaceId_ERC721Enumerable,InterfaceId_ERC721Enumerable,
-    InterfaceId_ERC721Metadata,InterfaceId_ERC721Metadata
+    InterfaceId_ERC721Enumerable:InterfaceId_ERC721Enumerable,
+    InterfaceId_ERC721Metadata:InterfaceId_ERC721Metadata,
+    InterfaceId_StandardAsset:InterfaceId_StandardAsset
 };

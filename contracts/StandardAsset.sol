@@ -28,6 +28,14 @@ contract AssetType {
 
 contract StandardAsset is ERC721Token,Controlled {
 
+    /*
+     * 0x1b2b8ef1 ===
+     *  bytes4(keccak256('getAssetType()')) ^
+     *   bytes4(keccak256('burn(uint256)')) ^
+     *    bytes4(keccak256('mint(address,string)'))
+    */
+    bytes4 internal constant InterfaceId_StandardAsset = 0x1b2b8ef1;
+
     using ECRecovery for bytes32;
 
     uint256 internal id_;
@@ -46,6 +54,7 @@ contract StandardAsset is ERC721Token,Controlled {
     constructor(string _name, string _symbol, uint256 _supplyLimit, string _classURI, address _owner) public ERC721Token(_name, _symbol) {
         assetType = new AssetType(_name, _symbol, _supplyLimit, _classURI);
         owner = _owner;
+        super._registerInterface(InterfaceId_StandardAsset);
 
     }
 
