@@ -66,7 +66,7 @@ const importType =async (ctx) => {
     };
 
     let assetInstance = await StandardAsset.at(typeAddr);
-    let supportFull721 = InterfaceIds.supportFull721(assetInstance,owner);
+    let supportFull721 = await InterfaceIds.supportFull721(assetInstance,owner);
     if(supportFull721 == true){
         type.type = "ERC721";
         let supportStandAsset = await assetInstance.supportsInterface.call(InterfaceIds.InterfaceId_StandardAsset,{from: owner}).catch((err) => {});
