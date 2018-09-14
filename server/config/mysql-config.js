@@ -1,8 +1,8 @@
 var config = {
     dbname: 'ropsten',
     uname: 'root',
-    upwd: 'xinongeth',
-    host: '47.104.225.39',
+    upwd: '123456',
+    host: 'localhost',
     port: 3306,
     dialect: 'mysql',
     pool: {
