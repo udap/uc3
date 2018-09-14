@@ -31,11 +31,21 @@ const InterfaceId_ERC721Metadata = "0x5b5e139f";
 
 const InterfaceId_StandardAsset = "0x1b2b8ef1";
 
+const supportFull721 =async (assetInstance,caller) =>{
+    let support721 = await assetInstance.supportsInterface.call(InterfaceId_ERC721,{from: caller}).catch(err => {});
+    let support721Enum = await assetInstance.supportsInterface.call(InterfaceId_ERC721Enumerable,{from: caller}).catch(err => {});
+    let support721Metadata = await assetInstance.supportsInterface.call(InterfaceId_ERC721Metadata,{from: caller}).catch(err => {});
+    if(support721 == true && support721Enum == true  && support721Metadata == true)
+        return true;
+    else
+        return false;
+}
 
 module.exports  = {
     InterfaceId_ERC721:InterfaceId_ERC721,
     InterfaceId_ERC721Exists:InterfaceId_ERC721Exists,
     InterfaceId_ERC721Enumerable:InterfaceId_ERC721Enumerable,
     InterfaceId_ERC721Metadata:InterfaceId_ERC721Metadata,
-    InterfaceId_StandardAsset:InterfaceId_StandardAsset
+    InterfaceId_StandardAsset:InterfaceId_StandardAsset,
+    supportFull721:supportFull721
 };

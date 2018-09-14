@@ -66,13 +66,13 @@ const importType =async (ctx) => {
     };
 
     let assetInstance = await StandardAsset.at(typeAddr);
-    let support721 = await assetInstance.supportsInterface.call(InterfaceIds.InterfaceId_ERC721,{from: owner}).catch((err) => {});
-    if(support721 && support721 == true){
+    let supportFull721 = InterfaceIds.supportFull721(assetInstance,owner);
+    if(supportFull721 == true){
         type.type = "ERC721";
         let supportStandAsset = await assetInstance.supportsInterface.call(InterfaceIds.InterfaceId_StandardAsset,{from: owner}).catch((err) => {});
         if(supportStandAsset && supportStandAsset == true) type.type = "UPA";
     }else{
-        ctx.throw("only support ERC721 import");
+        ctx.throw("only support full ERC721 import");
     }
 
     let allPromise =[assetInstance.name.call({from: owner}).catch((err) => {}),

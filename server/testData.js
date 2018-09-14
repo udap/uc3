@@ -90,6 +90,16 @@ const data =  {
             "AMOUNT":"13000",
             "UNIT WEIGHT":"150.00KG"
         }
+    },
+    "0xcert1":{
+        name:"W1803154",
+        description:"Warehouse receipt for agricultural goods",
+        image:"http://47.104.225.39/img/warrant.png"
+    },
+    "0xcert2":{
+        name:"W1803153",
+        description:"Warehouse receipt for agricultural goods",
+        image:"http://47.104.225.39/img/warrant.png"
     }
 };
 
