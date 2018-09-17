@@ -413,6 +413,7 @@ const cloneType = async (ctx) =>{
     if(templateList.length >0){
         let entryTemp =  templateList[0];
         delete entryTemp.id;
+        entryTemp.typeId = result.id;
         await ViewTemplate.create(entryTemp).catch(err => {ctx.throw(err)});
     }
 
