@@ -541,8 +541,6 @@ const getEntryTemplateByTypeId = async (ctx) => {
     let appid = fields.appid;
 
     await udapValidator.appidRegistered(appid);
-    if (!typeId)
-        ctx.throw("'typeId' param error");
 
     let typeId = ctx.params.id;
     if (!typeId)
@@ -554,7 +552,7 @@ const getEntryTemplateByTypeId = async (ctx) => {
 
     let  entryTemp={};
     if (entryTemplates.length > 0){
-        entryTemp = templates[0];
+        entryTemp = entryTemplates[0];
     }
 
     ctx.response.body = Result.success(entryTemp);
