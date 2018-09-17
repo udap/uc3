@@ -467,6 +467,9 @@ const getTemplatesByTypeId =async (ctx)=>{
     let caller = ctx.header["x-identity"];
     let appid = fields.appid;
     await udapValidator.appidRegistered(appid);
+    let key = fields.key;
+    if(key && key == 'entry')
+        return getEntryTemplateByTypeId(ctx);
 
     let typeId = ctx.params.id;
     if (!typeId)
@@ -528,4 +531,39 @@ const getSchemaByTypeId =async (ctx)=>{
     ctx.response.body = Result.success(schema);
 }
 
-module.exports  = { create:create,getAll:getAll,getTemplatesByTypeId:getTemplatesByTypeId,cloneType:cloneType,getSchemaByTypeId:getSchemaByTypeId};
+const getEntryTemplateByTypeId = async (ctx) => {
+
+    let fields = ctx.query;
+    if (!fields) ctx.throw("no param ");
+
+    // valid data
+    let appid = fields.appid;
+
+    await udapValidator.appidRegistered(appid);
+    if (!typeId)
+        ctx.throw("'typeId' param error");
+
+    let typeId = ctx.params.id;
+    if (!typeId)
+        ctx.throw(" 'typeId' Param error");
+
+    let entryTemplates = await ViewTemplate.findAll(
+        { where: {key:"entry",typeId:typeId},raw:true}
+    ).catch(err =>{ctx.throw(err)});
+
+    let  entryTemp={};
+    if (entryTemplates.length > 0){
+        entryTemp = templates[0];
+    }
+
+    ctx.response.body = Result.success(entryTemp);
+};
+
+module.exports  = {
+    create:create,
+    getAll:getAll,
+    getTemplatesByTypeId:getTemplatesByTypeId,
+    cloneType:cloneType,
+    getSchemaByTypeId:getSchemaByTypeId
+    // getEntryTemplateByTypeId:getEntryTemplateByTypeId,
+};
