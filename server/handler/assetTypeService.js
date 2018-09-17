@@ -388,6 +388,8 @@ const cloneType = async (ctx) =>{
     let result = await AssetType.create(type).catch((err) => {
         ctx.throw(err);
     });
+
+    //clone ViewTemplate
     let template = await ViewTemplate.findById(parseInt(viewTemplateId),{raw:true}).catch((err) => {
         ctx.throw(err);
     });
@@ -396,6 +398,24 @@ const cloneType = async (ctx) =>{
     template.typeId = result.id;
     delete template.id;
     await ViewTemplate.create(template).catch(err => {ctx.throw(err)});
+
+
+    //clone others
+    let templateList = await ViewTemplate.findAll(
+        {
+            where: {typeId:typeId,key:'entry'},
+            order: [['id', 'ASC']],
+            raw:true
+        }
+    ).catch(function (err) {
+        ctx.throw(err.message);
+    });
+    if(templateList.length >0){
+        let entryTemp =  templateList[0];
+        delete entryTemp.id;
+        await ViewTemplate.create(entryTemp).catch(err => {ctx.throw(err)});
+    }
+
 
     ctx.response.body = Result.success(result.id);
 

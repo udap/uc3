@@ -55,6 +55,7 @@ route.post('/assets',koaBody({ multipart: true}),assetService.mint);
 route.get('/assets',koaBody(),assetService.getAllByOwner);
 route.get('/relay/nonce',koaBody(),relayService.getNonce);
 route.get('/fees',koaBody(),feesService.queryFees);
+route.get('/schemas',koaBody(),viewTemplateService.getUiAndTypeSchema);
 route.post('/views',koaBody(),viewTemplateService.viewTemplate);
 route.get('/networks',networkService.getAll);
 route.get('/networks/:id',networkService.getById);
