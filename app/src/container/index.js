@@ -1,5 +1,0 @@
-export { default as Home } from './Home'
-export { default as ISSUE } from './Issue'
-export { default as Detail } from './Detail'
-export { default as Pledge } from './Pledge'
-export { default as NoMatch } from './NoMatch'
