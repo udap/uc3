@@ -32,12 +32,12 @@ const errorHandler = async (ctx, next) => {
 };
 
 const main = ctx => {
-    ctx.response.redirect("./view/index.html");
+    ctx.response.redirect("../../app/index.html");
 };
 //error Handler
 app.use(errorHandler);
 //static ctx
-// app.use(staticHandler(path.join(__dirname,"view")));
+app.use(staticHandler(path.join(__dirname,"../app")));
 
 app.use(mount('/img', staticHandler(path.join(__dirname,"img"))));
 
