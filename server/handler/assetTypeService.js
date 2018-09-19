@@ -504,22 +504,22 @@ const getSchemaByTypeId =async (ctx)=>{
     if (!fields)
         ctx.throw("Param error");
 
-    let caller = ctx.header["x-identity"];
+    // let caller = ctx.header["x-identity"];
     let appid = fields.appid;
     await udapValidator.appidRegistered(appid);
 
     let typeId = ctx.params.id;
     if (!typeId)
         ctx.throw(" 'typeId' Param error");
-    if(!caller || !web3.isAddress(caller))
-        ctx.throw(" 'caller' header error");
+    /*if(!caller || !web3.isAddress(caller))
+        ctx.throw(" 'caller' header error");*/
 
     let assetType = await AssetType.findById(parseInt(typeId)).catch( err => {ctx.throw(err)});
-    let owner = await StandardAsset.at(assetType.address).then(instance=>{
+    /*let owner = await StandardAsset.at(assetType.address).then(instance=>{
         return instance.owner.call({from: caller});
     }).catch( err => {ctx.throw(err)});
     if(assetType.gid != '0' && owner.toLowerCase() != caller.toLowerCase())
-        ctx.throw(" 'Caller' does not have permission");
+        ctx.throw(" 'Caller' does not have permission");*/
 
     let metadata = assetType.metadata;
     let schema = "";
