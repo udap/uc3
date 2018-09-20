@@ -4,6 +4,8 @@ const Web3 = require('web3');
 const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider(ethereumCfg.provider));
 const AppRegistry = require('../model/appRegistry');
+const validator = require('validator');
+
 
 const appidRegistered = async (appid) => {
     if(!appid)
@@ -30,12 +32,7 @@ const isValidJson = (json)=> {
         if(typeof(json) == "object"){
             return Object.prototype.toString.call(json).toLowerCase() == "[object object]" && !json.length;
         }else if (typeof(json) == "string"){
-            try {
-                JSON.parse(json);
-                return true;
-            } catch (e) {
-                return false;
-            }
+            return validator.isJSON(json);
         }else{
             return false;
         }
