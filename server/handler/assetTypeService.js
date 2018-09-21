@@ -234,7 +234,8 @@ const getAll =async (ctx) => {
     let typeList = await AssetType.findAll(
         {
             where: where,
-            order: [['id', 'ASC']]
+            order: [['id', 'ASC']],
+            raw:true
         }
     ).catch(function (err) {
         ctx.throw(err.message);
@@ -245,10 +246,10 @@ const getAll =async (ctx) => {
     let allControllerPromise = [];
 
     typeList.forEach((item, index)=>{
-        let balancePromise = new Promise(resolve => {resolve(0)});
-        let decimalsPromise = new Promise(resolve => {resolve(0)});
-        let ownerPromise = new Promise(resolve => {resolve(0)});
-        let controllerPromise = new Promise(resolve => {resolve(0)});
+        let balancePromise = 0;
+        let decimalsPromise = 0;
+        let ownerPromise = 0;
+        let controllerPromise = 0;
         let address = item.address;
         if (address && address != null && address.length >0){
             balancePromise = StandardAsset.at(item.address).then(instance => {
@@ -280,7 +281,7 @@ const getAll =async (ctx) => {
     let allController = await Promise.all(allControllerPromise).catch(err => {ctx.throw(err)});
     let content = [];
     typeList.forEach((item, index)=>{
-        let temp = item.toJSON();
+        let temp = item;
         let balance = allBalances[index]?allBalances[index]:0;
         temp.balance = balance;
         if(balance >0){
