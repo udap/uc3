@@ -3,7 +3,7 @@ pragma solidity ^0.4.19;
 import 'openzeppelin-solidity/contracts/token/ERC721/ERC721Token.sol';
 import 'openzeppelin-solidity/contracts/ECRecovery.sol';
 import './Controlled.sol';
-
+/*
 contract AssetType {
 
     // Asset type name
@@ -24,7 +24,7 @@ contract AssetType {
         uri = _uri;
         supplyLimit = (_supplyLimit == 0 ? 2 ** 256 - 1 : _supplyLimit);
     }
-}
+}*/
 
 contract StandardAsset is ERC721Token,Controlled {
 
@@ -40,8 +40,13 @@ contract StandardAsset is ERC721Token,Controlled {
 
     uint256 internal id_;
 
+    //SupplyLimit
+    uint256 public supplyLimit;
 
-    AssetType private assetType;
+    // Asset type metadata uri,Pointing to a json file
+    string public uri;
+
+//    AssetType private assetType;
 
     modifier onlyOwnerOrController() {
         require(msg.sender == controller || msg.sender == owner);
@@ -52,7 +57,9 @@ contract StandardAsset is ERC721Token,Controlled {
      * @dev Constructor function
      */
     constructor(string _name, string _symbol, uint256 _supplyLimit, string _classURI, address _owner) public ERC721Token(_name, _symbol) {
-        assetType = new AssetType(_name, _symbol, _supplyLimit, _classURI);
+//        assetType = new AssetType(_name, _symbol, _supplyLimit, _classURI);
+        uri = _classURI;
+        supplyLimit = (_supplyLimit == 0 ? uint256(-1) : _supplyLimit);
         owner = _owner;
         super._registerInterface(InterfaceId_StandardAsset);
 
@@ -74,7 +81,7 @@ contract StandardAsset is ERC721Token,Controlled {
       */
     function _mint(address _to, string _tokenURI) internal {
         uint256 tokenId = id_.add(1);
-        require(!exists(tokenId) && tokenId <= assetType.supplyLimit());
+        require(!exists(tokenId) && tokenId <= supplyLimit);
         id_ = tokenId;
         super._mint(_to, tokenId);
         super._setTokenURI(tokenId, _tokenURI);
@@ -102,10 +109,10 @@ contract StandardAsset is ERC721Token,Controlled {
         super._burn(msg.sender, _tokenId);
     }
 
-
+/*
     function getAssetType() public view returns (AssetType){
         return assetType;
-    }
+    }*/
 
 
 }

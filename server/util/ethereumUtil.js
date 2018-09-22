@@ -8,7 +8,7 @@ web3.setProvider(new web3.providers.HttpProvider(ethereumCfg.provider));
 const TxSent = require('../model/txSent');
 const uuidv4 = require('uuid/v4');
 
-const newStandAssert = (name,symbol,supplyLimit,uri,owner) =>{
+const newStandardAsset = (name,symbol,supplyLimit,uri,owner) =>{
     let abi = standardAsset_artifacts.abi;
     let standardAsset = web3.eth.contract(abi);
     let contractData = standardAsset.new.getData(name,symbol,supplyLimit,uri,owner,{data:standardAsset_artifacts.bytecode});
@@ -41,7 +41,7 @@ const newStandAssert = (name,symbol,supplyLimit,uri,owner) =>{
     })
 };
 
-const newAssert = async (typeAddr,to,uri,owner) =>{
+const mint = async (typeAddr,to,uri,owner) =>{
     let abi = standardAsset_artifacts.abi;
     let standardAsset = web3.eth.contract(abi).at(typeAddr);
     let data = standardAsset.mint.getData(to,uri);
@@ -83,4 +83,4 @@ const newAssert = async (typeAddr,to,uri,owner) =>{
     });
     return txHash;
 };
-module.exports  = { newStandAssert:newStandAssert,newAssert:newAssert};
+module.exports  = { newStandardAsset:newStandardAsset,mint:mint};

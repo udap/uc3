@@ -14,9 +14,7 @@ const contract = require('truffle-contract');
 const StandardAsset_artifacts = require('../../build/contracts/StandardAsset.json');
 const StandardAsset = contract(StandardAsset_artifacts);
 StandardAsset.setProvider(web3.currentProvider);
-const AssetType_artifacts = require('../../build/contracts/AssetType.json');
-const AssetTypeContract = contract(AssetType_artifacts);
-AssetTypeContract.setProvider(web3.currentProvider);
+
 
 const DetailedERC20_artifacts = require('../../build/contracts/DetailedERC20.json');
 const DetailedERC20 = contract(DetailedERC20_artifacts);
@@ -85,11 +83,8 @@ const importType =async (ctx) => {
     if (symbol)
         type.symbol = symbol;
     if (type.type == "UPA"){
-        let typeContractAddr = await assetInstance.getAssetType.call({from: owner}).catch( err => {
-            ctx.throw(err);
-        });
 
-        let uri = await  AssetTypeContract.at(typeContractAddr).uri.call({from: owner}).catch( err => {
+        let uri = await  assetInstance.uri.call({from: owner}).catch( err => {
             ctx.throw(err);
         });
         if (uri && (uri.startsWith("http:") || uri.startsWith("https:"))){
@@ -184,7 +179,7 @@ const create =async (ctx) => {
     let metadataUri = await ipfsUtil.addJson(metadata).catch((err) => {
         ctx.throw(err);
     });
-    let txHash = await ethereumUtil.newStandAssert(name,symbol,supplyLimit,metadataUri,owner).catch((err) => {
+    let txHash = await ethereumUtil.newStandardAsset(name,symbol,supplyLimit,metadataUri,owner).catch((err) => {
         ctx.throw(err);
     });
 
@@ -373,7 +368,7 @@ const cloneType = async (ctx) =>{
     let metadataUri = await ipfsUtil.addJson(metadata).catch((err) => {
         ctx.throw(err);
     });
-    let txHash = await ethereumUtil.newStandAssert(name,symbol,supplyLimit,metadataUri,caller).catch((err) => {
+    let txHash = await ethereumUtil.newStandardAsset(name,symbol,supplyLimit,metadataUri,caller).catch((err) => {
         ctx.throw(err);
     });
 
