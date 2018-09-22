@@ -5,8 +5,14 @@ const standardAsset_artifacts = require('../../build/contracts/StandardAsset.jso
 let abi = standardAsset_artifacts.abi;
 
 let startGetData = new Date().getTime();
-let standardAsset = web3.eth.contract(abi).at("0x68f2CBdA42eDb8f2A4Da853b34E772A5f8e98Ce0");
-let data = standardAsset.balanceOf.getData("0x110189c51e9b9eebee1ae111c8f28718cf795fef");
+let contract = web3.eth.contract(abi);
+// let standardAsset = web3.eth.contract(abi).at("0x68f2CBdA42eDb8f2A4Da853b34E772A5f8e98Ce0");
+// let data = standardAsset.balanceOf.getData("0x110189c51e9b9eebee1ae111c8f28718cf795fef");
+
+contract.at("0x68f2CBdA42eDb8f2A4Da853b34E772A5f8e98Ce0");
+
+let contract2 = contract.at("0xb398CEbdC41d2935a438659dA3F0B01Fb583F339");
+
 
 let endGetData = new Date().getTime();
 
@@ -14,8 +20,8 @@ console.log("data spend time =====",endGetData - startGetData);
 
 
 
-const contract = require('truffle-contract');
-const StandardAsset = contract(standardAsset_artifacts);
+const contractTruffle = require('truffle-contract');
+const StandardAsset = contractTruffle(standardAsset_artifacts);
 StandardAsset.setProvider(web3.currentProvider);
 
 let startInstance = new Date().getTime();
