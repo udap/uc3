@@ -22,13 +22,12 @@ const styles = theme => ({
 class App extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {
-      date: new Date()
-    }
+    window.getParams = this.getParams.bind(this)
   }
 
   componentDidMount () {
     this.setState({})
+
   }
 
   componentWillUnmount () {
@@ -39,7 +38,7 @@ class App extends React.Component {
     this.setState({})
   }
 
-  getParams (e) {
+  getParams=()=>{
     const data = this.props.dataAsString
     return data
   }
