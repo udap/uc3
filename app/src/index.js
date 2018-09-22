@@ -9,7 +9,7 @@ import { Actions, jsonformsReducer } from '@jsonforms/core'
 import { materialFields, materialRenderers } from '@jsonforms/material-renderers'
 import RatingControl from './RatingControl'
 import ratingControlTester from './ratingControlTester'
-
+import WebViewJavascriptBridge from './WebViewJavascriptBridge'
 const data = {}
 
 var schema
@@ -26,6 +26,12 @@ const store = createStore(
     }
   }
 )
+
+console.log(window.WebViewJavascriptBridge)
+window.WebViewJavascriptBridge.registerHandler('initalData', function (data, responseCallback) {
+  return '123'
+  console.log('data', data)
+})
 
 // paraName 等找参数的名称
 function GetUrlParam (paraName) {

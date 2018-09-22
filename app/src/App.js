@@ -3,9 +3,20 @@ import { JsonForms } from '@jsonforms/react'
 import React from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { getData } from '@jsonforms/core'
+import Grid from '@material-ui/core/Grid'
 import './App.css'
 
 const styles = theme => ({
+  root: {
+    backgroundColor: '#243C9C',
+    padding: '1em',
+    margin: 0
+  },
+  cont: {
+    backgroundColor: 'white',
+    width: '94%',
+    padding: '3%'
+  },
   button: {
     margin: theme.spacing.unit
   },
@@ -22,12 +33,15 @@ const styles = theme => ({
 class App extends React.Component {
   constructor (props) {
     super(props)
-    window.getParams = this.getParams.bind(this)
   }
 
   componentDidMount () {
     this.setState({})
-
+    window.WebViewJavascriptBridge.registerHandler('getParams', function () {
+      const dataAsString = this.props.dataAsString
+      return dataAsString
+    })
+    console.log('window', window.WebViewJavascriptBridge)
   }
 
   componentWillUnmount () {
@@ -38,15 +52,16 @@ class App extends React.Component {
     this.setState({})
   }
 
-  getParams=()=>{
-    const data = this.props.dataAsString
-    return data
-  }
-
   render () {
+    const {classes} = this.props
     return (
       <div>
-        <JsonForms />
+        <Grid container className={classes.root}>
+          <Grid className={classes.cont} >
+
+            <JsonForms />
+          </Grid>
+        </Grid>
       </div>
     )
   }
