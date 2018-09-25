@@ -10,10 +10,12 @@ import { materialFields, materialRenderers } from '@jsonforms/material-renderers
 import RatingControl from './RatingControl'
 import ratingControlTester from './ratingControlTester'
 import WebViewJavascriptBridge from './WebViewJavascriptBridge'
-const data = {}
+
+var data1 = {}
 
 var schema
 var uischema
+
 window.schema = schema
 window.uischema = uischema
 
@@ -27,73 +29,19 @@ const store = createStore(
   }
 )
 
-console.log(window.WebViewJavascriptBridge)
-window.WebViewJavascriptBridge.registerHandler('initalData', function (data, responseCallback) {
-  return '123'
-  console.log('data', data)
+window.WebViewJavascriptBridge.registerHandler('initialData', function (data, responseCallback) {
+  let newData = JSON.parse(data)
+  schema = JSON.parse(newData.schema)
+  if (newData.uischema) {
+    uischema = JSON.parse(newData.uischema)
+  }
+  store.dispatch(Actions.init(data1, schema, uischema))
+  if (responseCallback) {
+    responseCallback('initialData responseData')
+  }
 })
 
-// paraName 等找参数的名称
-function GetUrlParam (paraName) {
-  var url = document.location.toString()
-  var arrObj = url.split('?')
-  if (arrObj.length > 1) {
-    var arrPara = arrObj[1].split('&')
-    var arr
-    for (var i = 0; i < arrPara.length; i++) {
-      arr = arrPara[i].split('=')
-      if (arr != null && arr[0] === paraName) {
-        return arr[1]
-      }
-    }
-    return ''
-  } else {
-    return ''
-  }
-}
-
-var typeId = GetUrlParam('typeId')
-var appid = GetUrlParam('appid')
-var network = GetUrlParam('network')
-
-if (typeId && appid) {
-   // 获取schema
-  let urlschema = '/types/' + typeId + '/schema?appid=' + appid
-  fetch(urlschema)
-  .then(function (response) {
-    return response.json()
-  })
-  .then(function (myJson) {
-    if (myJson.content) {
-      schema = JSON.parse(myJson.content)
-      store.dispatch(Actions.init(data, schema))
-    }
-  })
-
-   // 获取url参数 调取uischema
-  let urluischema = '/types/' + typeId + '/viewTemplates?appid=' + appid + '&key=entry'
-  fetch(urluischema)
-    .then(function (response) {
-      return response.json()
-    })
-    .then(function (myJson) {
-      if (JSON.stringify(myJson.content) !== '{}') {
-        let uiUrl = myJson.content.context + myJson.content.templateUri
-        fetch(uiUrl, {
-          mode: 'cors'
-        })
-        .then(function (response) {
-          return response.json().then(function (myJson) {
-            uischema = myJson
-            store.dispatch(Actions.init(data, schema, uischema))
-          })
-        })
-      }
-    })
-  store.dispatch(Actions.init(data, schema, uischema))
-}
-
-store.dispatch(Actions.init(data, schema))
+store.dispatch(Actions.init(data1, schema))
 
 // Uncomment this line (and respective import) to register our custom renderer
 store.dispatch(Actions.registerRenderer(ratingControlTester, RatingControl))

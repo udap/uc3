@@ -8,26 +8,12 @@ import './App.css'
 
 const styles = theme => ({
   root: {
-    backgroundColor: '#243C9C',
     padding: '1em',
     margin: 0
   },
   cont: {
-    backgroundColor: 'white',
     width: '94%',
     padding: '3%'
-  },
-  button: {
-    margin: theme.spacing.unit
-  },
-  leftIcon: {
-    marginRight: theme.spacing.unit
-  },
-  rightIcon: {
-    marginLeft: theme.spacing.unit
-  },
-  iconSmall: {
-    fontSize: 20
   }
 })
 class App extends React.Component {
@@ -37,11 +23,10 @@ class App extends React.Component {
 
   componentDidMount () {
     this.setState({})
-    window.WebViewJavascriptBridge.registerHandler('getParams', function () {
+    window.WebViewJavascriptBridge.registerHandler('getParams', function (data, responseCallback) {
       const dataAsString = this.props.dataAsString
-      return dataAsString
+      responseCallback(dataAsString)
     })
-    console.log('window', window.WebViewJavascriptBridge)
   }
 
   componentWillUnmount () {
@@ -49,6 +34,7 @@ class App extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
+    console.log('nextProps', nextProps)
     this.setState({})
   }
 
@@ -58,7 +44,6 @@ class App extends React.Component {
       <div>
         <Grid container className={classes.root}>
           <Grid className={classes.cont} >
-
             <JsonForms />
           </Grid>
         </Grid>
