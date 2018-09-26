@@ -15,9 +15,10 @@ var data1 = {}
 
 var schema
 var uischema
-
+var newString
 window.schema = schema
 window.uischema = uischema
+window.newString = newString
 
 const store = createStore(
   combineReducers({ jsonforms: jsonformsReducer() }),
