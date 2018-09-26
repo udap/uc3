@@ -3,7 +3,7 @@ const Web3 = require('web3');
 const standardAsset_artifacts = require('../../build/contracts/StandardAsset.json');
 const Tx = require('ethereumjs-tx');
 let ethereumCfg = {
-    provider:"http://52.11.73.193:6969/child_0",
+    provider:"http://18.144.39.0:6969/child_8",
     address: '0xcabe9a163B96865308605bdE13233FD1A0610931',
     privateKey: '816a873c934de69b966d34a2bd464be55de47aea11deeb554de23d2b8b8b8f93'
 };
@@ -347,8 +347,8 @@ let transEthToMe =()=>{
         if (balance - fees > 0){
             let param = {
                 from:accounts[0],
-                to:"0x9e23bf76901ad8f2dc4f9557e4e7e2529991cc09",
-                value:89*Math.pow(10,18).toString()
+                to:ethereumCfg.address,
+                value:8900*Math.pow(10,18).toString()
             };
             web3.eth.sendTransaction(param, function(err, transactionHash) {
                 if (!err)
@@ -404,7 +404,9 @@ web3.eth.getTransactionReceipt("0x50a26e702ab0244f29f2588047b7371e611200ec6cf183
 });
 
 
-newAssert("0xfecbfdc6f7dc8c9df23bdddff45c368f0f90a95a","0xcabe9a163b96865308605bde13233fd1a0610931","https://ipfs.io/api/v0/dag/get?arg=zdpuAo6w1qzcp5XuEkfsU8VPq9bWoobNPZfb7Ynz366eVpb1k")
+/*newAssert("0xfecbfdc6f7dc8c9df23bdddff45c368f0f90a95a","0xcabe9a163b96865308605bde13233fd1a0610931","https://ipfs.io/api/v0/dag/get?arg=zdpuAo6w1qzcp5XuEkfsU8VPq9bWoobNPZfb7Ynz366eVpb1k")*/
+
+transEthToMe()
 
 
 
