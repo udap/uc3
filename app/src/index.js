@@ -9,8 +9,7 @@ import { Actions, jsonformsReducer } from '@jsonforms/core'
 import { materialFields, materialRenderers } from '@jsonforms/material-renderers'
 import RatingControl from './RatingControl'
 import ratingControlTester from './ratingControlTester'
-import WebViewJavascriptBridge from './WebViewJavascriptBridge'
-
+import dsBridge from 'dsbridge'
 var data1 = {}
 
 var schema
@@ -29,9 +28,8 @@ const store = createStore(
     }
   }
 )
-
-window.WebViewJavascriptBridge.registerHandler('initialData', function (data, responseCallback) {
-  let newData = JSON.parse(data)
+dsBridge.register('initialData', function (arg1, responseCallback) {
+  let newData = JSON.parse(arg1)
   schema = JSON.parse(newData.schema)
   if (newData.uischema) {
     uischema = JSON.parse(newData.uischema)

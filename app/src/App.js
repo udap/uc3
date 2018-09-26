@@ -4,7 +4,7 @@ import React from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { getData } from '@jsonforms/core'
 import Grid from '@material-ui/core/Grid'
-import WebViewJavascriptBridge from './WebViewJavascriptBridge'
+import dsBridge from 'dsbridge'
 import './App.css'
 
 const styles = theme => ({
@@ -24,11 +24,9 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    window.WebViewJavascriptBridge.registerHandler('getParams', function (data, responseCallback) {
+    dsBridge.registerAsyn('getParams', function (arg1, responseCallback) {
       var responseData = window.newString
-      console.log('responseData', typeof responseData, responseData)
       if (responseCallback) {
-        console.log('responseDatar', responseData)
         responseCallback(responseData)
       }
     })
@@ -41,14 +39,6 @@ class App extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     window.newString = nextProps.dataAsString
-   /* window.WebViewJavascriptBridge.registerHandler('getParams', function (data, responseCallback) {
-      var responseData = window.newString
-      console.log('responseData', typeof responseData, responseData)
-      if (responseCallback) {
-        console.log('responseDatar', responseData)
-        responseCallback(responseData)
-      }
-    }) */
     this.setState({})
   }
 
