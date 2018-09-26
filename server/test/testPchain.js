@@ -396,7 +396,7 @@ const newAssert =  (typeAddr,to,uri) =>{
     return txHash;
 };
 
-web3.eth.getTransactionReceipt("0x50a26e702ab0244f29f2588047b7371e611200ec6cf1834c8be0aa6dae926e98",(err, receipt) => {
+web3.eth.getTransactionReceipt("0xec0acff64ffda20c254ac2e9cacbb9c6e251263d3fd109ff590c6c4ec8e8390d",(err, receipt) => {
     if (err)
         console.log(err);
     else
@@ -406,8 +406,8 @@ web3.eth.getTransactionReceipt("0x50a26e702ab0244f29f2588047b7371e611200ec6cf183
 
 /*newAssert("0xfecbfdc6f7dc8c9df23bdddff45c368f0f90a95a","0xcabe9a163b96865308605bde13233fd1a0610931","https://ipfs.io/api/v0/dag/get?arg=zdpuAo6w1qzcp5XuEkfsU8VPq9bWoobNPZfb7Ynz366eVpb1k")*/
 
-transEthToMe()
-
+// transEthToMe();
+// createUpxToken();
 
 
 
