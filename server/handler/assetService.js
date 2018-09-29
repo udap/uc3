@@ -248,7 +248,8 @@ const createMetadata =async (ctx) => {
         }
         if(!validator.isJSON(metadata))
             ctx.throw("'metadata' param error");
-        let valid = validate(JSON.parse(metadata));
+        metadata = JSON.parse(metadata);
+        let valid = validate(metadata);
         if(!valid)
             ctx.throw("'metadata' param not match schema");
     }
