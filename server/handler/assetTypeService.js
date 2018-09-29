@@ -22,6 +22,7 @@ DetailedERC20.setProvider(web3.currentProvider);
 const udapValidator = require('../common/udapValidator');
 const ethereumUtil = require('../util/ethereumUtil');
 const InterfaceIds = require('../util/InterfaceIds');
+const mathUtil = require('../util/mathUtil');
 const Result = require('../common/result');
 const Sequelize = require('sequelize');
 
@@ -281,7 +282,7 @@ const getAll =async (ctx) => {
         temp.balance = balance;
         if(balance >0){
             let decimals = allDecimals[index]?allDecimals[index]:0;
-            temp.balance = balance.dividedBy(Math.pow(10,decimals)).toFixed(decimals);
+            temp.balance = mathUtil.div(balance,Math.pow(10,decimals));
         }
         temp.isOwner = false;
         if(temp.type == "UPA"){
