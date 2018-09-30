@@ -1,4 +1,4 @@
-import BD from "bigdecimal";
+const BD = require("bigdecimal");
 
 let down = BD.RoundingMode.DOWN();
 
