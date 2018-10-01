@@ -1,53 +1,52 @@
 {
   "type": "object",
   "properties": {
-    "person": {
-      "title": "Person",
-      "type": "object",
-      "properties": {
-        "firstName": {
-          "type": "string"
-        },
-        "lastName": {
-          "type": "string"
-        },
-        "age": {
-          "description": "Age in years",
-          "type": "integer",
-          "minimum": 0
-        },
-        "shippingAddress": {
-          "$ref": "#/properties/address/properties/addressId"
-        }
-      },
-      "required": [
-        "firstName",
-        "lastName"
+    "name": {
+      "type": "string",
+      "minLength": 3,
+      "description": "Please enter your name"
+    },
+    "vegetarian": {
+      "type": "boolean"
+    },
+    "birthDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Please enter your birth date."
+    },
+    "nationality": {
+      "type": "string",
+      "enum": [
+        "DE",
+        "IT",
+        "JP",
+        "US",
+        "RU",
+        "Other"
       ]
     },
-    "address": {
-      "title": "Order",
-      "type": "object",
-      "properties": {
-        "addressId": {
-          "type": "string",
-          "label": "Address Type",
-          "enum": [
-            "Home Address 1",
-            "Home Address 2",
-            "Workplace"
-          ]
-        },
-        "street": {
-          "type": "string"
-        },
-        "city": {
-          "type": "string"
-        },
-        "zipCode": {
-          "type": "string"
+    "occupation": {
+      "type": "string"
+    },
+    "comments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "message": {
+            "type": "string",
+            "maxLength": 5
+          }
         }
       }
     }
-  }
+  },
+  "required": [
+    "occupation",
+    "nationality"
+  ]
 }

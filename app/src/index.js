@@ -10,7 +10,20 @@ import { materialFields, materialRenderers } from '@jsonforms/material-renderers
 import RatingControl from './RatingControl'
 import ratingControlTester from './ratingControlTester'
 import dsBridge from 'dsbridge'
-var data1 = {}
+import schema1 from './invoice.json'
+// import uischema1 from './uischema.json'
+var data1 = {
+  'comments': [
+    {
+      'date': '2001-09-10',
+      'message': 'This is an example message'
+    },
+    {
+      'date': '2018-09-27',
+      'message': 'Get ready for booohay'
+    }
+  ]
+}
 
 var schema
 var uischema
@@ -25,6 +38,7 @@ const store = createStore(
     jsonforms: {
       fields: materialFields,
       renderers: materialRenderers
+
     }
   }
 )
@@ -40,7 +54,7 @@ dsBridge.register('initialData', function (arg1, responseCallback) {
   }
 })
 
-store.dispatch(Actions.init(data1, schema))
+store.dispatch(Actions.init(data1, schema1))
 
 // Uncomment this line (and respective import) to register our custom renderer
 store.dispatch(Actions.registerRenderer(ratingControlTester, RatingControl))

@@ -2,59 +2,8 @@
   "type": "VerticalLayout",
   "elements": [
     {
-      "type": "Group",
-      "label": "Person",
-      "elements": [
-        {
-          "type": "HorizontalLayout",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/person/properties/firstName"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/person/properties/lastName"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/person/properties/age"
-            },
-            {
-              "type": "Control",
-              "label": "Address",
-              "scope": "#/properties/person/properties/shippingAddress"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "Group",
-      "label": "Address",
-      "elements": [
-        {
-          "type": "HorizontalLayout",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/person/properties/shippingAddress"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/address/properties/street"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/address/properties/city"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/address/properties/zipCode"
-            }
-          ]
-        }
-      ]
+      "type": "Control",
+      "scope": "#/properties/comments"
     }
   ]
 }
