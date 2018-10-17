@@ -37,5 +37,17 @@ const isValidJson = (json)=> {
             return false;
         }
 }
+const isDomainName = (domainName)=> {
+    if(typeof(domainName) == "string" && domainName.endsWith(".eth")){
+        return true;
+    }else{
+        return false;
+    }
+}
 
-module.exports  = { appidRegistered:appidRegistered,isContractAddr:isContractAddr,isValidJson:isValidJson};
+module.exports  = {
+    appidRegistered:appidRegistered,
+    isContractAddr:isContractAddr,
+    isValidJson:isValidJson,
+    isDomainName:isDomainName
+};

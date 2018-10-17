@@ -15,6 +15,9 @@ const networkService = require('./handler/networkService');
 const viewTemplateService = require('./handler/viewTemplateService');
 const uploadService = require('./handler/uploadService');
 
+
+const ensService = require('./handler/ensService');
+
 const app = new Koa();
 
 //error handler
@@ -63,6 +66,10 @@ route.post('/image',koaBody({ multipart: true}),uploadService.uploadImage);
 
 const testDataService = require('./handler/testDataService');
 route.get('/testData',koaBody(),testDataService.getData);
+
+
+//ENS API
+route.get('/ens/address',koaBody(),ensService.getAddrByDN);
 
 
 
