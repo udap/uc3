@@ -18,7 +18,7 @@ contract PublicResolver {
         _;
     }
 
-    function PublicResolver(address ensAddr) {
+    constructor(address ensAddr) {
         ens = ENS(ensAddr);
     }
 

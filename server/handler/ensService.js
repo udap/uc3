@@ -24,6 +24,8 @@ const getAddrByDN = async (ctx) => {
     ctx.response.body = Result.success(address);
 };
 
+
+
 module.exports  = {
     getAddrByDN:getAddrByDN
 };
