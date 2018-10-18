@@ -38,7 +38,7 @@ const isValidJson = (json)=> {
         }
 }
 const isDomainName = (domainName)=> {
-    if(typeof(domainName) == "string" && domainName.endsWith(".eth")){
+    if(typeof(domainName) == "string" &&(domainName.endsWith(".eth") || domainName.endsWith(".test")) ){
         return true;
     }else{
         return false;
