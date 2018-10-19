@@ -1406,6 +1406,7 @@ function getAddr(name) {
   return resolverContract.at(resolverAddress).addr(node);
 }
 
+
 function getContent(name) {
   var node = namehash(name)
   var resolverAddress = ens.resolver(node);

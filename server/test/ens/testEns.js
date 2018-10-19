@@ -13,6 +13,7 @@ let  expiryTimes = new Date(ensutils.testRegistrar.expiryTimes(web3.sha3('udapTe
 console.log("expiryTimes === ",expiryTimes);
 console.log("web3.sha3('udapTest') === ",web3.sha3('udapTest'));
 console.log("namehash('udapTest.test') === ",ensutils.namehash('udapTest.test'));
+console.log("namehash('eth') === ",ensutils.namehash('eth'));
 
 
 //create domain name

@@ -1,6 +1,6 @@
 pragma solidity ^0.4.19;
 
-import './ENS.sol';
+import './AbstractENS.sol';
 
 contract PublicResolver {
 
@@ -10,7 +10,7 @@ contract PublicResolver {
     event AddrChanged(bytes32 indexed node, address a);
     event ContentChanged(bytes32 indexed node, bytes32 hash);
 
-    ENS ens;
+    AbstractENS ens;
     mapping(bytes32=>address) addresses;
 
     modifier only_owner(bytes32 node) {
@@ -18,8 +18,8 @@ contract PublicResolver {
         _;
     }
 
-    constructor(address ensAddr) {
-        ens = ENS(ensAddr);
+    constructor(AbstractENS ensAddr) {
+        ens = ensAddr;
     }
 
     function addr(bytes32 node) constant returns (address ret) {
