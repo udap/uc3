@@ -14,7 +14,7 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
 
     Fee public fees = Fee(0,0);
 
-    event OwnerChanged(bytes32 indexed subnode, address indexed oldOwner, address indexed newOwner);
+    event OwnerChanged( string indexed subdomain,address indexed oldOwner, address indexed newOwner);
 
 
     constructor(AbstractENS _ensAddr, bytes32 _node) FIFSRegistrar(_ensAddr,_node) public {
@@ -37,14 +37,14 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
 
     function transfer(string _subdomain, address _newOwner) public {
         require(_newOwner != address(0));
-        bytes32 subnode = keccak256(rootNode, keccak256(_subdomain));
-        address currentOwner = ens.owner(subnode);
+        bytes32 subdomainLabel = keccak256(_subdomain);
+        address currentOwner = ens.owner(keccak256(rootNode,subdomainLabel));
 
         require(currentOwner == msg.sender);
 
         if (ens.owner(rootNode) == address(this)) {
-            ens.setSubnodeOwner(rootNode, subnode, _newOwner);
-            emit OwnerChanged(subnode,currentOwner,_newOwner);
+            ens.setSubnodeOwner(rootNode, subdomainLabel, _newOwner);
+            emit OwnerChanged(_subdomain,currentOwner,_newOwner);
         }
     }
 

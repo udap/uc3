@@ -15,6 +15,7 @@ console.log("expiryTimes === ",expiryTimes);
 console.log("web3.sha3("+domain+") === ",web3.sha3(domain));
 console.log("namehash("+domain+") === ",ensutils.namehash(domain));
 console.log("namehash("+fullDomain+") === ",ensutils.namehash(fullDomain));
+console.log("namehash('test') === ",ensutils.namehash('test'));
 console.log("namehash('eth') === ",ensutils.namehash('eth'));
 
 

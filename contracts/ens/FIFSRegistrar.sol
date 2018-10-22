@@ -20,11 +20,10 @@ contract FIFSRegistrar {
 
     function register(string _subdomain, address _owner) public {
         require(_owner != address(0));
-        bytes32 subnode = keccak256(rootNode, keccak256(_subdomain));
-        address currentOwner = ens.owner(subnode);
-        require(currentOwner == 0);
-        ens.setSubnodeOwner(rootNode, subnode, _owner);
+        bytes32 subdomainLabel = keccak256(_subdomain);
+        require(ens.owner(keccak256(rootNode, subdomainLabel)) == 0);
+        ens.setSubnodeOwner(rootNode, subdomainLabel, _owner);
 
-        emit NewRegistration(rootNode,subnode,_owner);
+        emit NewRegistration(rootNode,_subdomain,_owner);
     }
 }
