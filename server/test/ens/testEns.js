@@ -5,20 +5,22 @@ const web3 = new Web3(new Web3.providers.HttpProvider(ethereumCfg.provider));
 const Tx = require('ethereumjs-tx');
 const privateKey = new Buffer(ethereumCfg.privateKey, 'hex');
 
-
-let  expiryTimes = new Date(ensutils.testRegistrar.expiryTimes(web3.sha3('udapTest')).toNumber() * 1000);
+let domain = "udap88812";
+let fullDomain = domain+".test";
+let  expiryTimes = new Date(ensutils.testRegistrar.expiryTimes(web3.sha3(domain)).toNumber() * 1000);
 
 //If this line returns a date earlier than the current date, the name is available and you’re good to go.
 // You can register the domain for yourself by running:
 console.log("expiryTimes === ",expiryTimes);
-console.log("web3.sha3('udapTest') === ",web3.sha3('udapTest'));
-console.log("namehash('udapTest.test') === ",ensutils.namehash('udapTest.test'));
+console.log("web3.sha3("+domain+") === ",web3.sha3(domain));
+console.log("namehash("+domain+") === ",ensutils.namehash(domain));
+console.log("namehash("+fullDomain+") === ",ensutils.namehash(fullDomain));
 console.log("namehash('eth') === ",ensutils.namehash('eth'));
 
 
 //create domain name
 let  createTestDomain = () => {
-    let data = ensutils.testRegistrar.register.getData(web3.sha3('udapTest'),ethereumCfg.address);
+    let data = ensutils.testRegistrar.register.getData(web3.sha3(domain),ethereumCfg.address);
     let to = ensutils.testRegistrar.address;
     let value = "0x00";
     createTx(to,data,value);
@@ -50,7 +52,7 @@ let  createTx = (to,data,value) =>  {
 };
 
 let setResolver = () =>{
-    let data = ensutils.ens.setResolver.getData(ensutils.namehash('udapTest.test'),ensutils.publicResolver.address);
+    let data = ensutils.ens.setResolver.getData(ensutils.namehash(fullDomain),ensutils.publicResolver.address);
     let to = ensutils.ens.address;
     let value = "0x00";
     createTx(to,data,value);
@@ -58,7 +60,7 @@ let setResolver = () =>{
 // setResolver();
 
 let setDomainAddr = () =>{
-    let data = ensutils.publicResolver.setAddr.getData(ensutils.namehash('udapTest.test'),"0x67f09ED73F2Fe18965d6f35325Ec983Aff2532e6");
+    let data = ensutils.publicResolver.setAddr.getData(ensutils.namehash(fullDomain),"0xcD86431E62Bca1F4Fbef76669D3FB22B90fc83b8");
     let to = ensutils.publicResolver.address;
     let value = "0x00";
     createTx(to,data,value);
@@ -66,7 +68,17 @@ let setDomainAddr = () =>{
 
 // setDomainAddr()
 
-console.log("udapTest.test addr == ",ensutils.getAddr("udapTest.test"));
+
+
+//1、
+// createTestDomain();
+//2、
+// setResolver();
+//3、
+// setDomainAddr();
+
+
+console.log(""+fullDomain+" addr == ",ensutils.getAddr(fullDomain));
 
 
 
