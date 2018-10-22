@@ -2,9 +2,17 @@ pragma solidity ^0.4.19;
 
 import './FIFSRegistrar.sol';
 import 'openzeppelin-solidity/contracts/ownership/Ownable.sol';
+import 'openzeppelin-solidity/contracts/token/ERC20/DetailedERC20.sol';
 
 
 contract HarvestRegistrar is FIFSRegistrar,Ownable{
+
+    struct Fee {
+        DetailedERC20 token;
+        uint256 fees;
+    }
+
+    Fee public fees = Fee(0,0);
 
     event OwnerChanged(bytes32 indexed subnode, address indexed oldOwner, address indexed newOwner);
 
@@ -45,6 +53,10 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
         return ens.owner(subnode);
     }
 
+    function setFees(DetailedERC20 _token, uint256 _fees) onlyOwner public{
+        require(_token != address(0) && _fees != 0);
+        fees = Fee(_token,_fees);
+    }
 
 
 
