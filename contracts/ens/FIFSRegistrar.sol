@@ -3,26 +3,28 @@ import './AbstractENS.sol';
 
 contract FIFSRegistrar {
 
+    // namehash('eth')
+    bytes32 constant public TLD_NODE = 0x93cdeb708b7545dc668eb9280176169d1c33cfd8ed6f04690a0bcc88a93fc4ae;
+
     event NewRegistration(bytes32 indexed rootNode, string subdomain, address indexed owner);
 
     AbstractENS public ens;
 
     bytes32 public rootNode;
 
-    constructor(AbstractENS _ensAddr, bytes32 _node) public {
+    constructor(AbstractENS _ensAddr, string _name) public {
         ens = _ensAddr;
-        rootNode = _node;
+        bytes32 label = keccak256(_name);
+        rootNode = keccak256(TLD_NODE, label);
     }
 
-    function register(bytes32 _subnode, address _owner) public {
+    function register(string _subdomain, address _owner) public {
         require(_owner != address(0));
-        bytes32 node = sha3(rootNode, _subnode);
-        address currentOwner = ens.owner(node);
+        bytes32 subnode = keccak256(rootNode, keccak256(_subdomain));
+        address currentOwner = ens.owner(subnode);
+        require(currentOwner == 0);
+        ens.setSubnodeOwner(rootNode, subnode, _owner);
 
-        if (currentOwner != 0 && currentOwner != msg.sender) throw;
-
-        ens.setSubnodeOwner(rootNode, _subnode, _owner);
-
-        emit NewRegistration(rootNode,_subnode,_owner);
+        emit NewRegistration(rootNode,subnode,_owner);
     }
 }

@@ -27,22 +27,22 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
         ens.setTTL(_node,_ttl);
     }
 
-    function transfer(bytes32 _subnode, address _newOwner) public {
+    function transfer(string _subdomain, address _newOwner) public {
         require(_newOwner != address(0));
-        bytes32 node = sha3(rootNode, _subnode);
-        address currentOwner = ens.owner(node);
+        bytes32 subnode = keccak256(rootNode, keccak256(_subdomain));
+        address currentOwner = ens.owner(subnode);
 
         require(currentOwner == msg.sender);
 
         if (ens.owner(rootNode) == address(this)) {
-            ens.setSubnodeOwner(rootNode, _subnode, _newOwner);
-            emit OwnerChanged(_subnode,currentOwner,_newOwner);
+            ens.setSubnodeOwner(rootNode, subnode, _newOwner);
+            emit OwnerChanged(subnode,currentOwner,_newOwner);
         }
     }
 
-    function query(bytes32 _subnode) public view returns (address){
-        bytes32 node = sha3(rootNode, _subnode);
-        return ens.owner(node);
+    function query(string _subdomain) public view returns (address){
+        bytes32 subnode = keccak256(rootNode, keccak256(_subdomain));
+        return ens.owner(subnode);
     }
 
 
