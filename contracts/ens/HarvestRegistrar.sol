@@ -64,7 +64,7 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
         fees = Fee(_token,_amount);
     }
 
-    function register(string _subdomain, address _owner) payable external  {
+    function register(string _subdomain, address _owner) external  {
         uint256 amount = fees.amount;
         if(amount > 0){
             require(ownedTokens[msg.sender] >= amount);
@@ -72,6 +72,22 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
         }
         super.register(_subdomain,_owner);
     }
+
+
+    function withdraw(uint256 _amount){
+        require(_amount > 0);
+        uint256 ownedAmount = ownedTokens[msg.sender];
+        require(ownedAmount >= _amount);
+        ownedTokens[msg.sender] = ownedAmount.sub(_amount);
+        fees.token.transfer(msg.sender,_amount);
+        /*if(fees.token == address(0)){
+            msg.sender.transfer(_amount);
+        }else{
+            fees.token.transfer(msg.sender,_amount);
+        }*/
+    }
+
+    function() payable public { throw; }
 
 
 
