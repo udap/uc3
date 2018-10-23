@@ -1,5 +1,5 @@
 pragma solidity ^0.4.19;
-import './AbstractENS.sol';
+import './ENS.sol';
 
 contract FIFSRegistrar {
 
@@ -8,11 +8,11 @@ contract FIFSRegistrar {
 
     event NewRegistration(bytes32 indexed rootNode, string subdomain, address indexed owner);
 
-    AbstractENS public ens;
+    ENS public ens;
 
     bytes32 public rootNode;
 
-    constructor(AbstractENS _ensAddr, string _name) public {
+    constructor(ENS _ensAddr, string _name) public {
         ens = _ensAddr;
         bytes32 label = keccak256(_name);
         rootNode = keccak256(TLD_NODE, label);
