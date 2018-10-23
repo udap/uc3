@@ -74,7 +74,7 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
     }
 
 
-    function withdraw(uint256 _amount){
+    function withdraw(uint256 _amount) external{
         require(_amount > 0);
         uint256 ownedAmount = ownedTokens[msg.sender];
         require(ownedAmount >= _amount);
@@ -85,6 +85,11 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
         }else{
             fees.token.transfer(msg.sender,_amount);
         }*/
+    }
+
+    function adminWithdraw(uint256 _amount) onlyOwner external{
+        require(_amount > 0);
+        fees.token.transfer(msg.sender,_amount);
     }
 
     function() payable public { throw; }
