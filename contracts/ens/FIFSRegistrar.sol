@@ -18,7 +18,7 @@ contract FIFSRegistrar {
         rootNode = keccak256(TLD_NODE, label);
     }
 
-    function register(string _subdomain, address _owner) public {
+    function register(string _subdomain, address _owner) internal {
         require(_owner != address(0));
         bytes32 subdomainLabel = keccak256(_subdomain);
         require(ens.owner(keccak256(rootNode, subdomainLabel)) == 0);
