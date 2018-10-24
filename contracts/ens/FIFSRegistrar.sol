@@ -28,7 +28,7 @@ contract FIFSRegistrar {
         bytes32 subdomainLabel = keccak256(_subdomain);
         require(ens.owner(keccak256(rootNode, subdomainLabel)) == 0);
 //        ens.setSubnodeOwner(rootNode, subdomainLabel, _owner);
-        doRegistration(rootNode,subdomainLabel,_owner,)
+        doRegistration(rootNode,subdomainLabel,_owner,address(0));
 
         emit NewRegistration(rootNode,_subdomain,_owner);
     }
