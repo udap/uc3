@@ -23,7 +23,7 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
     mapping(address => uint256) public ownedTokens;
 
     // Mapping from caller to nonce
-    mapping(address => uint) public nonces;
+    mapping(address => uint256) public nonces;
 
     event OwnerChanged( string indexed subdomain,address indexed oldOwner, address indexed newOwner);
 
@@ -80,6 +80,7 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
         bytes32 hash = keccak256(abi.encodePacked(address(this),nonces[_txSender],_subdomain,_owner));
         address caller = hash.recover(_sig);
         require(caller == _txSender);
+        nonces[_txSender] = nonces[_txSender].add(1); //if we are going to do tx, update nonce
 
         uint256 amount = fees.amount;
         if(amount > 0){
