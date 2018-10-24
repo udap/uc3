@@ -6,6 +6,7 @@ import 'openzeppelin-solidity/contracts/token/ERC20/DetailedERC20.sol';
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 import './ENS.sol';
 import './Resolver.sol';
+import 'openzeppelin-solidity/contracts/ECRecovery.sol';
 
 contract HarvestRegistrar is FIFSRegistrar,Ownable{
 
@@ -20,6 +21,9 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
 
     // Mapping from ERC20Token to amount
     mapping(address => uint256) public ownedTokens;
+
+    // Mapping from caller to nonce
+    mapping(address => uint) public nonces;
 
     event OwnerChanged( string indexed subdomain,address indexed oldOwner, address indexed newOwner);
 
@@ -63,11 +67,24 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
         fees = Fee(_token,_amount);
     }
 
-    function register(string _subdomain, address _owner) external  {
+    /*function register(string _subdomain, address _owner) external  {
         uint256 amount = fees.amount;
         if(amount > 0){
             require(ownedTokens[msg.sender] >= amount);
             ownedTokens[msg.sender] = ownedTokens[msg.sender].sub(amount);
+        }
+        super.register(_subdomain,_owner);
+    }*/
+
+    function register(address _txSender,string _subdomain, address _owner,bytes _sig) external  {
+        bytes32 hash = keccak256(abi.encodePacked(address(this),nonces[_txSender],_subdomain,_owner));
+        address caller = hash.recover(_sig);
+        require(caller == _txSender);
+
+        uint256 amount = fees.amount;
+        if(amount > 0){
+            require(ownedTokens[caller] >= amount);
+            ownedTokens[caller] = ownedTokens[caller].sub(amount);
         }
         super.register(_subdomain,_owner);
     }
