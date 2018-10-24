@@ -1,5 +1,5 @@
 var HDWalletProvider = require("truffle-hdwallet-provider");
-
+var ethereumCfg = require('./server/config/ethereumCfg');
 var mnemonic = "asthma type over scout banana kite cactus flame oppose pizza wrist goose";
 
 module.exports = {
@@ -14,6 +14,7 @@ module.exports = {
             gas: 3100000
         },
         ropsten: {
+            //ethereumCfg.provider
             //adderss 0xcabe9a163b96865308605bde13233fd1a0610931
             //private key 816a873c934de69b966d34a2bd464be55de47aea11deeb554de23d2b8b8b8f93
             provider: new HDWalletProvider(mnemonic, "https://ropsten.infura.io/HUkrzYiEqgEioBDoT5Mq"),
