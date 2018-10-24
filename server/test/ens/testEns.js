@@ -81,7 +81,7 @@ let setDomainAddr = () =>{
 
 
 
-
+//Set the caller's domain to 'fullDomain'
 let setDomainReverse = () =>{
     let data = ensutils.reverseRegistrar.setName.getData(fullDomain);
     let to = ensutils.reverseRegistrar.address;
@@ -91,6 +91,7 @@ let setDomainReverse = () =>{
 
 //4、
 // setDomainReverse();
+/*
 
 let fullDomainAddr= ensutils.getAddr(fullDomain);
 console.log(""+fullDomain+" addr == ",fullDomainAddr);
@@ -105,6 +106,7 @@ const reverseResolver = ensutils.resolverContract.at(reverseResolverAddr);
 let  getDomain  = reverseResolver.name(ensutils.namehash(fullDomainAddr.substr(2) + '.addr.reverse')).call();
 
 console.log("getDomain == ",getDomain);
+*/
 
 /*await ensutils.publicResolver.name(namehash(yourAccount.substr(2) + '.addr.reverse')).call()
 // nikola.test
