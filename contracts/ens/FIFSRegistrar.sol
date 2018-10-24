@@ -1,5 +1,6 @@
 pragma solidity ^0.4.19;
 import './ENS.sol';
+import './Resolver.sol';
 
 contract FIFSRegistrar {
 
@@ -12,18 +13,42 @@ contract FIFSRegistrar {
 
     bytes32 public rootNode;
 
-    constructor(ENS _ensAddr, string _name) public {
+    Resolver public defaultResolver;
+
+    constructor(ENS _ensAddr, string _name,Resolver _defaultResolver) public {
+        require(_ensAddr != address(0) && _defaultResolver != address(0));
         ens = _ensAddr;
         bytes32 label = keccak256(_name);
         rootNode = keccak256(TLD_NODE, label);
+        defaultResolver = _defaultResolver;
     }
 
     function register(string _subdomain, address _owner) internal {
         require(_owner != address(0));
         bytes32 subdomainLabel = keccak256(_subdomain);
         require(ens.owner(keccak256(rootNode, subdomainLabel)) == 0);
-        ens.setSubnodeOwner(rootNode, subdomainLabel, _owner);
+//        ens.setSubnodeOwner(rootNode, subdomainLabel, _owner);
+        doRegistration(rootNode,subdomainLabel,_owner,)
 
         emit NewRegistration(rootNode,_subdomain,_owner);
+    }
+
+    function doRegistration(bytes32 _node, bytes32 _label, address _subdomainOwner, Resolver _resolver) internal {
+        // Get the subdomain so we can configure it
+        ens.setSubnodeOwner(_node, _label, this);
+
+        bytes32 subnode = keccak256(_node, _label);
+
+        if(_resolver == address(0))
+            _resolver = defaultResolver;
+
+        // Set the subdomain's resolver
+        ens.setResolver(subnode, _resolver);
+
+        // Set the address record on the resolver
+        _resolver.setAddr(subnode, _subdomainOwner);
+
+        // Pass ownership of the new subdomain to the registrant
+        ens.setOwner(subnode, _subdomainOwner);
     }
 }
