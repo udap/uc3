@@ -12,12 +12,15 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
 
     using SafeMath for uint256;
 
+    using ECRecovery for bytes32;
+
+
     struct Fee {
         DetailedERC20 token;
         uint256 amount;
     }
 
-    Fee public fees = Fee(0,0);
+    Fee public fees;
 
     // Mapping from ERC20Token to amount
     mapping(address => uint256) public ownedTokens;

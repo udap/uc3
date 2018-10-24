@@ -28,7 +28,7 @@ contract FIFSRegistrar {
         bytes32 subdomainLabel = keccak256(_subdomain);
         require(ens.owner(keccak256(rootNode, subdomainLabel)) == 0);
 //        ens.setSubnodeOwner(rootNode, subdomainLabel, _owner);
-        doRegistration(rootNode,subdomainLabel,_owner,address(0));
+        doRegistration(rootNode,subdomainLabel,_owner,defaultResolver);
 
         emit NewRegistration(rootNode,_subdomain,_owner);
     }
@@ -38,9 +38,6 @@ contract FIFSRegistrar {
         ens.setSubnodeOwner(_node, _label, this);
 
         bytes32 subnode = keccak256(_node, _label);
-
-        if(_resolver == address(0))
-            _resolver = defaultResolver;
 
         // Set the subdomain's resolver
         ens.setResolver(subnode, _resolver);

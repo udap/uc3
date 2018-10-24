@@ -14,13 +14,13 @@ interface ENS {
     // Logged when the TTL of a node changes
     event NewTTL(bytes32 indexed node, uint64 ttl);
 
-    function owner(bytes32 node) constant returns(address);
-    function resolver(bytes32 node) constant returns(address);
-    function ttl(bytes32 node) constant returns(uint64);
-    function setOwner(bytes32 node, address owner);
-    function setSubnodeOwner(bytes32 node, bytes32 label, address owner);
-    function setResolver(bytes32 node, address resolver);
-    function setTTL(bytes32 node, uint64 ttl);
+    function owner(bytes32 node) constant public returns(address);
+    function resolver(bytes32 node) constant public returns(address) ;
+    function ttl(bytes32 node) constant public returns(uint64);
+    function setOwner(bytes32 node, address owner) public;
+    function setSubnodeOwner(bytes32 node, bytes32 label, address owner) public;
+    function setResolver(bytes32 node, address resolver) public;
+    function setTTL(bytes32 node, uint64 ttl) public;
 
 
 
