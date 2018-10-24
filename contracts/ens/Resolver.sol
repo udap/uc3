@@ -13,7 +13,7 @@ contract Resolver {
     mapping(bytes32=>address) addresses;
 
     modifier only_owner(bytes32 node) {
-        if(ens.owner(node) != msg.sender) throw;
+        require(ens.owner(node) == msg.sender);
         _;
     }
 
@@ -25,7 +25,7 @@ contract Resolver {
         return addresses[node];
     }
 
-    function setAddr(bytes32 node, address addr) only_owner(node) {
+    function setAddr(bytes32 node, address addr) only_owner {
         addresses[node] = addr;
         AddrChanged(node, addr);
     }
@@ -35,6 +35,6 @@ contract Resolver {
     }
 
     function() {
-        throw;
+        revert();
     }
 }

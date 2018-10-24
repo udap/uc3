@@ -109,7 +109,9 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
         fees.token.transfer(msg.sender,_amount);
     }
 
-    function() payable public { throw; }
+    function() payable public {
+        revert();
+    }
 
 
 
