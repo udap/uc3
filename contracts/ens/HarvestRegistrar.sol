@@ -4,7 +4,8 @@ import './FIFSRegistrar.sol';
 import 'openzeppelin-solidity/contracts/ownership/Ownable.sol';
 import 'openzeppelin-solidity/contracts/token/ERC20/DetailedERC20.sol';
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
-
+import './ENS.sol';
+import './Resolver.sol';
 
 contract HarvestRegistrar is FIFSRegistrar,Ownable{
 
@@ -23,9 +24,7 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
     event OwnerChanged( string indexed subdomain,address indexed oldOwner, address indexed newOwner);
 
 
-    constructor(AbstractENS _ensAddr, bytes32 _node) FIFSRegistrar(_ensAddr,_node) public {
-        ens = _ensAddr;
-        rootNode = _node;
+    constructor(ENS _ens, string _name,Resolver _defaultResolver) FIFSRegistrar(_ens,_name,_defaultResolver) public {
     }
 
     function setOwner(bytes32 _node, address _owner) onlyOwner public{
