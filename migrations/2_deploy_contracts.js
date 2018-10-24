@@ -1,8 +1,12 @@
-// var ConvertLib = artifacts.require("./ConvertLib.sol");
-var AssetRegistry = artifacts.require("./AssetRegistry.sol");
+var HarvestRegistrar = artifacts.require("./ens/HarvestRegistrar.sol");
 
-module.exports = function(deployer) {
-  // deployer.deploy(ConvertLib);
-  // deployer.link(ConvertLib, MetaCoin);
-  deployer.deploy(AssetRegistry);
+let ens = "0x112234455c3a32fd11230c42e7bccd4a84e02010";
+let name = "udaptest";
+let defaultResolver = "0x4c641fb9bad9b60ef180c31f56051ce826d21a9a" ;
+
+module.exports = function(deployer,network) {
+    if (network == "ropsten") {
+        deployer.deploy(HarvestRegistrar,ens, name,defaultResolver);
+    } else {
+    }
 };
