@@ -21,8 +21,8 @@ contract Resolver {
         ens = ENS(ensAddr);
     }
 
-    function addr(bytes32 node) constant returns (address ret) {
-        ret = addresses[node];
+    function addr(bytes32 node) constant returns (address) {
+        return addresses[node];
     }
 
     function setAddr(bytes32 node, address addr) only_owner(node) {
