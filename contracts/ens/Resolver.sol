@@ -1,4 +1,4 @@
-pragma solidity ^0.4.17;
+pragma solidity ^0.4.24;
 
 
 import "./ENS.sol";
@@ -21,7 +21,7 @@ contract Resolver {
         ens = ENS(ensAddr);
     }
 
-    function addr(bytes32 node)  constant public returns (address) {
+    function addr(bytes32 node)  view public returns (address) {
         return addresses[node];
     }
 
