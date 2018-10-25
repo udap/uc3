@@ -6,7 +6,7 @@ import "./ENS.sol";
  * @dev A basic interface for ENS resolvers.
  */
 contract Resolver {
-    event AddrChanged(bytes32 indexed node, address a);
+    event AddrChanged(bytes32 indexed node, address addr);
     event ContentChanged(bytes32 indexed node, bytes32 hash);
 
     ENS public ens;
