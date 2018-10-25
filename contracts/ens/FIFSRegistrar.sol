@@ -18,15 +18,15 @@ contract FIFSRegistrar {
     constructor(ENS _ensAddr, string _name,Resolver _defaultResolver) public {
         require(_ensAddr != address(0) && _defaultResolver != address(0));
         ens = _ensAddr;
-        bytes32 label = keccak256(_name);
-        rootNode = keccak256(TLD_NODE, label);
+        bytes32 label = keccak256(abi.encodePacked(_name));
+        rootNode = keccak256(abi.encodePacked(TLD_NODE, label));
         defaultResolver = _defaultResolver;
     }
 
     function register(string _subdomain, address _owner) internal {
         require(_owner != address(0));
-        bytes32 subdomainLabel = keccak256(_subdomain);
-        require(ens.owner(keccak256(rootNode, subdomainLabel)) == 0);
+        bytes32 subdomainLabel = keccak256(abi.encodePacked(_subdomain));
+        require(ens.owner(keccak256(abi.encodePacked(rootNode, subdomainLabel))) == 0);
 //        ens.setSubnodeOwner(rootNode, subdomainLabel, _owner);
         doRegistration(rootNode,subdomainLabel,_owner,defaultResolver);
 
@@ -37,7 +37,7 @@ contract FIFSRegistrar {
         // Get the subdomain so we can configure it
         ens.setSubnodeOwner(_node, _label, this);
 
-        bytes32 subnode = keccak256(_node, _label);
+        bytes32 subnode = keccak256(abi.encodePacked(_node, _label));
 
         // Set the subdomain's resolver
         ens.setResolver(subnode, _resolver);

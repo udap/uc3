@@ -27,10 +27,10 @@ contract Resolver {
 
     function setAddr(bytes32 node, address addr) only_owner(node) public {
         addresses[node] = addr;
-        AddrChanged(node, addr);
+        emit AddrChanged(node, addr);
     }
 
-    function supportsInterface(bytes4 interfaceID) constant public returns (bool) {
+    function supportsInterface(bytes4 interfaceID) pure external returns (bool) {
         return interfaceID == 0x3b3b57de || interfaceID == 0x01ffc9a7;
     }
 
