@@ -5,6 +5,8 @@ const web3 = new Web3(new Web3.providers.HttpProvider(ethereumCfg.provider));
 const ens = new ENS(web3);
 const Result = require('../common/result');
 const udapValidator = require('../common/udapValidator');
+const ethereumUtil = require('../util/ethereumUtil');
+const signUtil = require('../util/signUtil');
 
 
 
@@ -41,10 +43,28 @@ const getDomainByAddr = async (ctx) => {
     });
     ctx.response.body = Result.success(domain);
 };
+const registerSubDomain = async (ctx) => {
+
+    let fields = ctx.request.body;
+    if (!fields) ctx.throw("no param ");
+    let caller = ctx.header["x-identity"];
+    let domain = fields.domain;
+    let sig = fields.sig;
+
+    // valid data
+    let address = fields.address;
+    if (!web3.isAddress(address))
+        ctx.throw("'address' param error");
+    await udapValidator.appidRegistered(fields.appid);
+
+    let txHash = await ethereumUtil.registerSubdomain(caller,domain,caller,sig);
+    ctx.response.body = Result.success(txHash);
+};
 
 
 
 module.exports  = {
     getAddrByDomain:getAddrByDomain,
-    getDomainByAddr:getDomainByAddr
+    getDomainByAddr:getDomainByAddr,
+    registerSubDomain:registerSubDomain
 };

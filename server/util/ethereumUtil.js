@@ -1,10 +1,10 @@
 const Web3 = require('web3');
-const web3 = new Web3();
-const Tx = require('ethereumjs-tx');
 const ethereumCfg = require('../config/ethereumCfg');
+const web3 = new Web3(new Web3.providers.HttpProvider(ethereumCfg.provider));
+const Tx = require('ethereumjs-tx');
 const privateKey = new Buffer(ethereumCfg.privateKey, 'hex');
 const standardAsset_artifacts = require('../../build/contracts/StandardAsset.json');
-web3.setProvider(new web3.providers.HttpProvider(ethereumCfg.provider));
+const harvestRegistrar_artifacts = require('../../build/contracts/HarvestRegistrar.json');
 const TxSent = require('../model/txSent');
 const uuidv4 = require('uuid/v4');
 
@@ -73,7 +73,7 @@ const mint = async (typeAddr,to,uri,owner) =>{
     }).catch((err)=>{
         throw err;
     });
-    rawTx.bizType = "CREATE_ASSET";
+    rawTx.bizType = "StandardAsset_mint";
     rawTx.bizId = uuidv4();
     rawTx.txHash = txHash;
     rawTx.status = 2;
@@ -83,4 +83,54 @@ const mint = async (typeAddr,to,uri,owner) =>{
     });
     return txHash;
 };
-module.exports  = { newStandardAsset:newStandardAsset,mint:mint};
+
+
+let createTx = async (to,data,value) =>  {
+    let gasPrice = web3.eth.gasPrice;
+    let nonce = web3.eth.getTransactionCount(ethereumCfg.address);
+    let rawTx = {
+        from:ethereumCfg.address,
+        to:to,
+        nonce: web3.toHex(nonce),
+        gasPrice: web3.toHex(gasPrice),
+        value: value,//'0x00',
+        data: data
+    };
+    //estimateGas
+    let gasEstimate = web3.eth.estimateGas(rawTx);
+    rawTx.gasLimit=web3.toHex(gasEstimate);
+    let tx = new Tx(rawTx);
+    tx.sign(privateKey);
+    let serializedTx = tx.serialize();
+    let txHash = new Promise((resolve,reject) => {
+        web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'), (err, hash) => {
+            if (!err)
+                resolve(hash);
+            else
+                reject(err);
+        });
+    }).catch((err)=>{
+        throw err;
+    });
+    rawTx.txHash = txHash;
+    return rawTx;
+};
+
+
+let registerSubdomain = async (txSender,subdomain,owner,sig) =>{
+    let abi = harvestRegistrar_artifacts.abi;
+    let HarvestRegistrar = web3.eth.contract(abi).at(harvestRegistrar_artifacts.networks[web3.version.network]);
+    let data = HarvestRegistrar.register.getData(txSender,subdomain,owner,sig);
+    let rawTx = await createTx(HarvestRegistrar.address,data,'0x00');
+    rawTx.bizType = "HarvestRegistrar_register";
+    rawTx.bizId = uuidv4();
+    rawTx.status = 2;
+    rawTx.owner = txSender;
+    await TxSent.create(rawTx).catch((err) => {
+        throw err;
+    });
+    return rawTx.txHash;
+}
+
+
+module.exports  = { newStandardAsset:newStandardAsset,mint:mint,registerSubdomain:registerSubdomain};

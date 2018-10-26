@@ -71,6 +71,7 @@ route.get('/testData',koaBody(),testDataService.getData);
 //ENS API
 route.get('/ens/address',koaBody(),ensService.getAddrByDomain);
 route.get('/ens/domain',koaBody(),ensService.getDomainByAddr);
+route.post('/ens/register',koaBody(),ensService.registerSubDomain);
 
 
 

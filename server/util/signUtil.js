@@ -23,8 +23,16 @@ const verifySha3 = (hex,param) =>{
     let paramHex = ethUtil.bufferToHex(ethUtil.sha3(param));
     return paramHex == hex;
 };
-const verifySoliditySha3Sig = (param,sig) =>{
-    throw "Not support soliditySha3Sig";
+const verifyEcsign = (msgHash,sig,signer) =>{
+    let sigVRS = ethUtil.fromRpcSig(sig);
+    let pubKey = ethUtil.ecrecover(
+        ethUtil.toBuffer(msgHash),
+        parseInt(sigVRS.v),
+        ethUtil.toBuffer(sigVRS.r),
+        ethUtil.toBuffer(sigVRS.s)
+    );
+    pubKey = ethUtil.bufferToHex(ethUtil.pubToAddress(pubKey));
+    return signer == pubKey;
 };
 
-module.exports  = { verifySha3Sig:verifySha3Sig,verifySha3:verifySha3};
+module.exports  = { verifySha3Sig:verifySha3Sig,verifySha3:verifySha3,verifyEcsign:verifyEcsign};

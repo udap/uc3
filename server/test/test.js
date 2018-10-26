@@ -119,8 +119,10 @@ let sign = function sign(privateKey) {
     if (this._chainId > 0) {
         sig.v +=this._chainId * 2 + 8;
     }*/
-    let sigBuff = ethUtil.bufferToHex(Buffer.concat([ sig.r, sig.s, ethUtil.toBuffer(sig.v)]));
-    console.log("sig====",sigBuff);
+    let toRpcSig = ethUtil.toRpcSig(sig.v,sig.r,sig.s);
+    let fromRpcSig = ethUtil.fromRpcSig(toRpcSig);
+    // let sigBuff = ethUtil.bufferToHex(Buffer.concat([ sig.r, sig.s, ethUtil.toBuffer(sig.v)]));
+    console.log("sig====",toRpcSig);
     return {sha:ethUtil.bufferToHex(sha),sig:sig,v:sig.v - 27,r:ethUtil.bufferToHex(sig.r),s:ethUtil.bufferToHex(sig.s)};
 };
 
