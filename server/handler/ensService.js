@@ -12,7 +12,7 @@ const contract = require('truffle-contract');
 const harvestRegistrar_artifacts = require('../../build/contracts/HarvestRegistrar.json');
 const HarvestRegistrar = contract(harvestRegistrar_artifacts);
 HarvestRegistrar.setProvider(web3.currentProvider);
-const harvestRegistrarAddr = harvestRegistrar_artifacts.networks[web3.version.network];
+const harvestRegistrarAddr = harvestRegistrar_artifacts.networks[web3.version.network].address;
 const namehash = require('eth-ens-namehash');
 
 const getAddrByDomain = async (ctx) => {

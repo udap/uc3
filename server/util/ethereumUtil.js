@@ -5,6 +5,7 @@ const Tx = require('ethereumjs-tx');
 const privateKey = new Buffer(ethereumCfg.privateKey, 'hex');
 const standardAsset_artifacts = require('../../build/contracts/StandardAsset.json');
 const harvestRegistrar_artifacts = require('../../build/contracts/HarvestRegistrar.json');
+const harvestRegistrarAddr = harvestRegistrar_artifacts.networks[web3.version.network].address;
 const TxSent = require('../model/txSent');
 const uuidv4 = require('uuid/v4');
 
@@ -119,7 +120,7 @@ let createTx = async (to,data,value) =>  {
 
 let registerSubdomain = async (subdomain,owner,sig) =>{
     let abi = harvestRegistrar_artifacts.abi;
-    let HarvestRegistrar = web3.eth.contract(abi).at(harvestRegistrar_artifacts.networks[web3.version.network]);
+    let HarvestRegistrar = web3.eth.contract(abi).at(harvestRegistrarAddr);
     let data = HarvestRegistrar.register.getData(subdomain,owner,sig);
     let rawTx = await createTx(HarvestRegistrar.address,data,'0x00');
     rawTx.bizType = "HarvestRegistrar_register";
