@@ -85,6 +85,26 @@ const registerSubDomain = async (ctx) => {
     ctx.response.body = Result.success(txHash);
 };
 
+const sigParams = async (ctx) => {
+
+    let fields = ctx.query;
+    if (!fields) ctx.throw("no param ");
+    await udapValidator.appidRegistered(fields.appid);
+    let caller = ctx.header["x-identity"];
+
+    if (!web3.isAddress(caller))
+        ctx.throw("'caller' param error");
+
+    let nonce = await HarvestRegistrar.deployed().then(instance=>{
+        return instance.nonces(caller);
+    });
+    let content = {
+        registrarAddr:harvestRegistrarAddr,
+        nonce:nonce
+    };
+
+    ctx.response.body = Result.success(content);
+};
 
 
 module.exports  = {
