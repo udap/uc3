@@ -81,7 +81,7 @@ const registerSubDomain = async (ctx) => {
         ctx.throw("'address' param error");
     await udapValidator.appidRegistered(fields.appid);
 
-    let txHash = await ethereumUtil.registerSubdomain(caller,domain,caller,sig);
+    let txHash = await ethereumUtil.registerSubdomain(domain,caller,sig);
     ctx.response.body = Result.success(txHash);
 };
 

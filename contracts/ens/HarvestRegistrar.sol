@@ -79,11 +79,11 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
         super.register(_subdomain,_owner);
     }*/
 
-    function register(address _txSender,string _subdomain, address _owner,bytes _sig) external  {
-        bytes32 hash = keccak256(abi.encodePacked(address(this),nonces[_txSender],_subdomain,_owner));
+    function register(string _subdomain, address _owner,bytes _sig) external  {
+        bytes32 hash = keccak256(abi.encodePacked(address(this),nonces[_owner],_subdomain,_owner));
         address caller = hash.recover(_sig);
-        require(caller == _txSender);
-        nonces[_txSender] = nonces[_txSender].add(1); //if we are going to do tx, update nonce
+        require(caller == _owner);
+        nonces[_owner] = nonces[_owner].add(1); //if we are going to do tx, update nonce
 
         uint256 amount = fees.amount;
         if(amount > 0){

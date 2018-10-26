@@ -117,10 +117,10 @@ let createTx = async (to,data,value) =>  {
 };
 
 
-let registerSubdomain = async (txSender,subdomain,owner,sig) =>{
+let registerSubdomain = async (subdomain,owner,sig) =>{
     let abi = harvestRegistrar_artifacts.abi;
     let HarvestRegistrar = web3.eth.contract(abi).at(harvestRegistrar_artifacts.networks[web3.version.network]);
-    let data = HarvestRegistrar.register.getData(txSender,subdomain,owner,sig);
+    let data = HarvestRegistrar.register.getData(subdomain,owner,sig);
     let rawTx = await createTx(HarvestRegistrar.address,data,'0x00');
     rawTx.bizType = "HarvestRegistrar_register";
     rawTx.bizId = uuidv4();
