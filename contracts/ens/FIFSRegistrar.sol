@@ -10,27 +10,23 @@ contract FIFSRegistrar {
     event NewRegistration(bytes32 indexed rootNode, string subdomain, address indexed owner);
 
     ENS public ens;
-
-    bytes32 public rootNode;
-
+    
     Resolver public defaultResolver;
 
-    constructor(ENS _ensAddr, string _name,Resolver _defaultResolver) public {
+    constructor(ENS _ensAddr,Resolver _defaultResolver) public {
         require(_ensAddr != address(0) && _defaultResolver != address(0));
         ens = _ensAddr;
-        bytes32 label = keccak256(abi.encodePacked(_name));
-        rootNode = keccak256(abi.encodePacked(TLD_NODE, label));
         defaultResolver = _defaultResolver;
     }
 
-    function register(string _subdomain, address _owner) internal {
+    function register(bytes32 _label,string _subdomain, address _owner) internal {
         require(_owner != address(0));
+        bytes32 domainNode = keccak256(abi.encodePacked(TLD_NODE, _label));
         bytes32 subdomainLabel = keccak256(abi.encodePacked(_subdomain));
-        require(ens.owner(keccak256(abi.encodePacked(rootNode, subdomainLabel))) == 0);
-//        ens.setSubnodeOwner(rootNode, subdomainLabel, _owner);
-        doRegistration(rootNode,subdomainLabel,_owner,defaultResolver);
+        require(ens.owner(keccak256(abi.encodePacked(domainNode, subdomainLabel))) == 0);
+        doRegistration(domainNode,subdomainLabel,_owner,defaultResolver);
 
-        emit NewRegistration(rootNode,_subdomain,_owner);
+        emit NewRegistration(_label,_subdomain,_owner);
     }
 
     function doRegistration(bytes32 _node, bytes32 _label, address _subdomainOwner, Resolver _resolver) internal {
