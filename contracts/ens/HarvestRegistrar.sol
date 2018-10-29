@@ -92,6 +92,7 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
         if(amount > 0){
             require(ownedTokens[caller] >= amount);
             ownedTokens[caller] = ownedTokens[caller].sub(amount);
+            //The person who submitted the transaction earns the transaction fee
             fees.token.transfer(msg.sender,amount);
         }
         super.register(_subdomain,_owner);
