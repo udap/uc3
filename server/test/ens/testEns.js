@@ -91,11 +91,24 @@ let setDomainReverse = () =>{
 
 //4、
 // setDomainReverse();
+
+let getAddrWithDomain = () =>{
+    let fullDomainAddr= ensutils.getAddr(fullDomain);
+    console.log(""+fullDomain+" addr == ",fullDomainAddr);
+};
+let getDomainWithAddr = (address) =>{
+    let addrName = address.substr(2)+".addr.reverse";
+    addrName = addrName.toLowerCase();
+    let node  = ensutils.namehash(addrName);
+    let resolver = ensutils.ens.resolver.call(node);
+    let domain = ensutils.resolverContract.at(resolver).name(node);
+    console.log(addrName,"==",domain);
+};
+
+getDomainWithAddr("0x67f09ED73F2Fe18965d6f35325Ec983Aff2532e6");
+
+
 /*
-
-let fullDomainAddr= ensutils.getAddr(fullDomain);
-console.log(""+fullDomain+" addr == ",fullDomainAddr);
-
 // 0x53350F4089B10E516c164497f395Dbbbc8675e20 - defaultResolver from reverseResolver
 let reverseResolverAddr = ensutils.ens.resolver.call(ensutils.namehash(fullDomainAddr.substr(2)+'.addr.reverse'));
 

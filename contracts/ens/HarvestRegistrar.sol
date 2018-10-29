@@ -47,7 +47,7 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
         ens.setTTL(_node,_ttl);
     }
 
-    function transfer(bytes32 _label,string _subdomain, address _newOwner) public {
+    /*function transfer(bytes32 _label,string _subdomain, address _newOwner) public {
         require(_newOwner != address(0));
         bytes32 domainNode = keccak256(abi.encodePacked(TLD_NODE, _label));
         bytes32 subdomainLabel = keccak256(abi.encodePacked(_subdomain));
@@ -59,7 +59,7 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
             ens.setSubnodeOwner(domainNode, subdomainLabel, _newOwner);
             emit OwnerChanged(_label,_subdomain,currentOwner,_newOwner);
         }
-    }
+    }*/
 
     function query(bytes32 _label,string _subdomain) public view returns (address){
         bytes32 domainNode = keccak256(abi.encodePacked(TLD_NODE, _label));
