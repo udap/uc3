@@ -9,7 +9,7 @@ let ethereumCfg = {
 };
 const web3 = new Web3(new Web3.providers.HttpProvider(ethereumCfg.provider));
 
-const privateKey = new Buffer(ethereumCfg.privateKey, 'hex');
+const privateKey = Buffer.from(ethereumCfg.privateKey, 'hex');
 
 /*let balance = web3.eth.getBalance("0x9e23bf76901ad8f2dc4f9557e4e7e2529991cc09");
 

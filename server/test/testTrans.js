@@ -27,7 +27,7 @@ web3.eth.getTransaction("0xa349f882e3f1cdf9cc48501f825f3b429f8cf2e4620f1efcae3b2
 
 /*
 
-const privateKey = new Buffer(ethereumCfg.privateKey, 'hex');
+const privateKey = Buffer.from(ethereumCfg.privateKey, 'hex');
 
 const ERC20Basic_artifacts = require('../build/contracts/ERC20Basic.json');
 

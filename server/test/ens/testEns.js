@@ -3,7 +3,7 @@ const ethereumCfg = require('../../config/ethereumCfg');
 const Web3 = require('web3');
 const web3 = new Web3(new Web3.providers.HttpProvider(ethereumCfg.provider));
 const Tx = require('ethereumjs-tx');
-const privateKey = new Buffer(ethereumCfg.privateKey, 'hex');
+const privateKey = Buffer.from(ethereumCfg.privateKey, 'hex');
 
 let domain = "udap88812";
 let fullDomain = domain+".test";

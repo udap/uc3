@@ -26,7 +26,7 @@ const mathUtil = require('../util/mathUtil');
 const Result = require('../common/result');
 const Sequelize = require('sequelize');
 
-let privateKey = new Buffer(ethereumCfg.privateKey, 'hex');
+let privateKey = Buffer.from(ethereumCfg.privateKey, 'hex');
 
 
 const importType =async (ctx) => {

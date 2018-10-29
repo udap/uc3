@@ -12,7 +12,7 @@ var ethUtil = require('ethereumjs-util');
 const fs = require('fs');
 
 const Tx = require('ethereumjs-tx');
-const privateKey = new Buffer(ethereumCfg.privateKey, 'hex');
+const privateKey = Buffer.from(ethereumCfg.privateKey, 'hex');
 
 
 //js sign,If used v0.20.6, This account needs to be unlocked. see https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethsign
@@ -93,7 +93,7 @@ console.log("ethUtils.ecrecover的结果publickey：",ethUtil.bufferToHex(ethUti
 /*
 
 // ethereumjs-util具有hashPersonalMessage添加前缀并对其进行签名的方法。
-let  hashPersonalMessage = ethUtil.hashPersonalMessage(new Buffer(data));
+let  hashPersonalMessage = ethUtil.hashPersonalMessage(Buffer.from(data));
 let sig = ethUtil.ecsign(hashPersonalMessage, privateKey);
 var signatureRPC = ethUtil.toRpcSig(sig.v, sig.r, sig.s);
 
@@ -109,7 +109,7 @@ let sign = function sign(privateKey) {
         type: 'address', value: '0x67f09ED73F2Fe18965d6f35325Ec983Aff2532e6'
     },{type: 'string', value: 'www.baidu.com'});
     sha = sha.substr(2);
-    sha = new Buffer(sha, 'hex');
+    sha = Buffer.from(sha, 'hex');
     let sig = ethUtil.ecsign(sha, privateKey);
     //solidity:0x39588101491b0250bd6cecf501960004d289c97d261e57dcd8e1d127653b4c47
     //ethUtil.sha3:0x3a333e1fb2d1b4e7b530eea4ac5f031d4b88d9b506c0b385781b2094fa45f2f5
