@@ -105,6 +105,18 @@ let getDomainWithAddr = (address) =>{
     console.log(addrName,"==",domain);
 };
 
+let registerSubDomain = (subdomain)=>{
+    let node  = ensutils.namehash(fullDomain);
+    let lable = web3.sha3(subdomain);
+    console.log(subdomain,"lable node==",ensutils.namehash(subdomain+"."+fullDomain));
+
+    let data = ensutils.ens.setSubnodeOwner.getData(node,lable,"0x67f09ED73F2Fe18965d6f35325Ec983Aff2532e6");
+    let to = ensutils.ens.address;
+    let value = "0x00";
+    createTx(to,data,value);
+};
+//5、You can change the owner of a subdomain multiple times.
+registerSubDomain("mmm");
 getDomainWithAddr("0x67f09ED73F2Fe18965d6f35325Ec983Aff2532e6");
 
 
