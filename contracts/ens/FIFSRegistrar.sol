@@ -10,7 +10,7 @@ contract FIFSRegistrar {
     event NewRegistration(bytes32 indexed rootNode, string subdomain, address indexed owner);
 
     ENS public ens;
-    
+
     Resolver public defaultResolver;
 
     constructor(ENS _ensAddr,Resolver _defaultResolver) public {
