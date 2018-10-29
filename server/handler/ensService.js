@@ -110,5 +110,6 @@ const sigParams = async (ctx) => {
 module.exports  = {
     getAddrByDomain:getAddrByDomain,
     getDomainByAddr:getDomainByAddr,
-    registerSubDomain:registerSubDomain
+    registerSubDomain:registerSubDomain,
+    sigParams:sigParams
 };

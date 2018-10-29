@@ -17,6 +17,7 @@ const uploadService = require('./handler/uploadService');
 
 
 const ensService = require('./handler/ensService');
+const accountService = require('./handler/accountService');
 
 const app = new Koa();
 
@@ -73,6 +74,9 @@ route.get('/ens/address',koaBody(),ensService.getAddrByDomain);
 route.get('/ens/domain',koaBody(),ensService.getDomainByAddr);
 route.post('/ens/register',koaBody(),ensService.registerSubDomain);
 route.get('/ens/sigParams',koaBody(),ensService.sigParams);
+
+//accounts
+route.get('/accounts/:address/icon',koaBody(),accountService.generateIcon);
 
 
 
