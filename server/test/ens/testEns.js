@@ -108,25 +108,4 @@ let getDomainWithAddr = (address) =>{
 getDomainWithAddr("0x67f09ED73F2Fe18965d6f35325Ec983Aff2532e6");
 
 
-/*
-// 0x53350F4089B10E516c164497f395Dbbbc8675e20 - defaultResolver from reverseResolver
-let reverseResolverAddr = ensutils.ens.resolver.call(ensutils.namehash(fullDomainAddr.substr(2)+'.addr.reverse'));
-
-
-console.log("reverseResolverAddr == ",reverseResolverAddr);
-
-const reverseResolver = ensutils.resolverContract.at(reverseResolverAddr);
-let  getDomain  = reverseResolver.name(ensutils.namehash(fullDomainAddr.substr(2) + '.addr.reverse')).call();
-
-console.log("getDomain == ",getDomain);
-*/
-
-/*await ensutils.publicResolver.name(namehash(yourAccount.substr(2) + '.addr.reverse')).call()
-// nikola.test
-
-console.log(""+fullDomainAddr+" domain == ",ensutils.reverseRegistrar.name.call(fullDomainAddr));*/
-
-
-
-
 
