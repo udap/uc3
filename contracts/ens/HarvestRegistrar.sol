@@ -82,7 +82,6 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
     }*/
 
     function register(bytes32 _label,string _subdomain, address _owner,bytes _sig) external  {
-        bytes32 domainNode = keccak256(abi.encodePacked(TLD_NODE, _label));
         bytes32 hash = keccak256(abi.encodePacked(address(this),nonces[_owner],_label,_subdomain,_owner));
         address caller = hash.recover(_sig);
         require(caller == _owner);
@@ -95,7 +94,7 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
             //The person who submitted the transaction earns the transaction fee
             fees.token.transfer(msg.sender,amount);
         }
-        super.register(_subdomain,_owner);
+        super.register(_label,_subdomain,_owner);
     }
 
 
