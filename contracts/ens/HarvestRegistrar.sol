@@ -31,7 +31,7 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
     event OwnerChanged(bytes32 indexed _label,string indexed _subdomain,address indexed _oldOwner, address indexed _newOwner);
 
 
-    constructor(ENS _ens, string _name,Resolver _defaultResolver) FIFSRegistrar(_ens,_name,_defaultResolver) public {
+    constructor(ENS _ens,Resolver _defaultResolver) FIFSRegistrar(_ens,_defaultResolver) public {
     }
 
     function setOwner(bytes32 _node, address _owner) onlyOwner public{
