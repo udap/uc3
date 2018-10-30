@@ -53,13 +53,14 @@ const registerSubDomain = async (ctx) => {
     let fields = ctx.request.body;
     if (!fields) ctx.throw("no param ");
     let caller = ctx.header["x-identity"];
-    let domain = fields.domain;
+    let domainLabel = fields.domainLabel;
+    let subDomain = fields.subDomain;
     let sig = fields.sig;
 
     // valid param
     if (!web3.isAddress(caller))
         ctx.throw("'caller' param error");
-    if (!udapValidator.isDomainName(domain))
+    if (!udapValidator.isDomainName(subDomain))
         ctx.throw("'domain' param error");
     if (!sig)
         ctx.throw("'sig' param error");
@@ -70,7 +71,8 @@ const registerSubDomain = async (ctx) => {
     let sha = web3Util.soliditySha3(
         {type: 'address', value: harvestRegistrarAddr},
         {type: 'uint256', value: nonce.toNumber()},
-        {type: 'string', value: domain},
+        {type: 'bytes32', value: domainLabel},
+        {type: 'string', value: subDomain},
         {type: 'address', value: caller});
     if(!signUtil.verifyEcsign(Buffer.from(sha.substr(2), 'hex'),sig,caller))
         ctx.throw("Signature error");
@@ -81,7 +83,7 @@ const registerSubDomain = async (ctx) => {
         ctx.throw("'address' param error");
     await udapValidator.appidRegistered(fields.appid);
 
-    let txHash = await ethereumUtil.registerSubdomain(domain,caller,sig);
+    let txHash = await ethereumUtil.registerSubdomain(domainLabel,subDomain,caller,sig);
     ctx.response.body = Result.success(txHash);
 };
 
