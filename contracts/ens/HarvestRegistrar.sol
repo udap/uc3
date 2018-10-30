@@ -28,7 +28,7 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
     // Mapping from caller to nonce
     mapping(address => uint256) public nonces;
 
-    event OwnerChanged(bytes32 _label,string indexed _subdomain,address indexed _oldOwner, address indexed _newOwner);
+    event OwnerChanged(bytes32 indexed _label,string indexed _subdomain,address indexed _oldOwner, address indexed _newOwner);
 
 
     constructor(ENS _ens, string _name,Resolver _defaultResolver) FIFSRegistrar(_ens,_name,_defaultResolver) public {
@@ -47,19 +47,22 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
         ens.setTTL(_node,_ttl);
     }
 
-    /*function transfer(bytes32 _label,string _subdomain, address _newOwner) public {
+    function transfer(address _caller,bytes32 _label,string _subdomain, address _newOwner,bytes _sig) public {
+
+        bytes32 hash = keccak256(abi.encodePacked(address(this),nonces[_caller],_label,_subdomain,_newOwner));
+        require(hash.recover(_sig) == _caller);
         require(_newOwner != address(0));
         bytes32 domainNode = keccak256(abi.encodePacked(TLD_NODE, _label));
         bytes32 subdomainLabel = keccak256(abi.encodePacked(_subdomain));
         address currentOwner = ens.owner(keccak256(abi.encodePacked(domainNode,subdomainLabel)));
 
-        require(currentOwner == msg.sender);
+        require(currentOwner == _caller);
 
         if (ens.owner(domainNode) == address(this)) {
             ens.setSubnodeOwner(domainNode, subdomainLabel, _newOwner);
             emit OwnerChanged(_label,_subdomain,currentOwner,_newOwner);
         }
-    }*/
+    }
 
     function query(bytes32 _label,string _subdomain) public view returns (address){
         bytes32 domainNode = keccak256(abi.encodePacked(TLD_NODE, _label));
