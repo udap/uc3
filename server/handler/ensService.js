@@ -108,10 +108,29 @@ const sigParams = async (ctx) => {
     ctx.response.body = Result.success(content);
 };
 
+const getDomains = async (ctx) => {
+
+    let fields = ctx.query;
+    if (!fields) ctx.throw("no param ");
+    if (!fields.q) ctx.throw(" 'q' param error ");
+    await udapValidator.appidRegistered(fields.appid);
+
+    if(fields.q == "common"){
+        let content = [
+            {domain:"udaptest.eth",domainLabel:web3.sha3("udaptest.eth")},
+            {domain:"udapmax.test",domainLabel:web3.sha3("udapmax.test")}
+        ];
+        ctx.response.body = Result.success(content);
+    }else {
+
+    }
+};
+
 
 module.exports  = {
-    getAddrByDomain:getAddrByDomain,
-    getDomainByAddr:getDomainByAddr,
-    registerSubDomain:registerSubDomain,
-    sigParams:sigParams
+    getAddrByDomain,
+    getDomainByAddr,
+    registerSubDomain,
+    sigParams,
+    getDomains
 };
