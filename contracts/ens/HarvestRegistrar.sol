@@ -58,6 +58,15 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
 
         require(currentOwner == _caller);
 
+        //fees
+        uint256 amount = fees.amount;
+        if(amount > 0){
+            require(ownedTokens[_caller] >= amount);
+            ownedTokens[_caller] = ownedTokens[_caller].sub(amount);
+            //The person who submitted the transaction earns the transaction fee
+            fees.token.transfer(msg.sender,amount);
+        }
+
         if (ens.owner(domainNode) == address(this)) {
             ens.setSubnodeOwner(domainNode, subdomainLabel, _newOwner);
             emit OwnerChanged(_label,_subdomain,currentOwner,_newOwner);
