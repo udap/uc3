@@ -75,6 +75,7 @@ route.get('/ens/domain',koaBody(),ensService.getDomainByAddr);
 route.post('/ens/register',koaBody(),ensService.registerSubDomain);
 route.get('/ens/sigParams',koaBody(),ensService.sigParams);
 route.get('/ens/domains',koaBody(),ensService.getDomains);
+route.get('/ens/domains/:domain/normalize',koaBody(),ensService.getNormalizeDomain);
 
 //accounts
 route.get('/accounts/:address/icon',koaBody(),accountService.generateIcon);

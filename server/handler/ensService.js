@@ -126,11 +126,23 @@ const getDomains = async (ctx) => {
     }
 };
 
+const getNormalizeDomain = async (ctx) => {
+
+    let fields = ctx.query;
+    if (!fields) ctx.throw("no param ");
+    // let domain = fields.domain;
+    let domain = ctx.params.domain;
+    if (!domain) ctx.throw(" 'domain' param error ");
+    await udapValidator.appidRegistered(fields.appid);
+
+    ctx.response.body = Result.success(namehash.normalize(domain));
+};
 
 module.exports  = {
     getAddrByDomain,
     getDomainByAddr,
     registerSubDomain,
     sigParams,
-    getDomains
+    getDomains,
+    getNormalizeDomain
 };

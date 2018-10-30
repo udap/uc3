@@ -5,7 +5,7 @@ const web3 = new Web3(new Web3.providers.HttpProvider(ethereumCfg.provider));
 const Tx = require('ethereumjs-tx');
 const privateKey = Buffer.from(ethereumCfg.privateKey, 'hex');
 
-let domain = "udap88812";
+let domain = "udapmax";
 let fullDomain = domain+".test";
 let  expiryTimes = new Date(ensutils.testRegistrar.expiryTimes(web3.sha3(domain)).toNumber() * 1000);
 
@@ -68,12 +68,11 @@ let setDomainAddr = () =>{
     createTx(to,data,value);
 };
 
-// setDomainAddr()
 
 
 
 //1、
-// createTestDomain();
+createTestDomain();
 //2、
 // setResolver();
 //3、
@@ -116,8 +115,8 @@ let registerSubDomain = (subdomain)=>{
     createTx(to,data,value);
 };
 //5、You can change the owner of a subdomain multiple times.
-registerSubDomain("mmm");
-getDomainWithAddr("0x67f09ED73F2Fe18965d6f35325Ec983Aff2532e6");
+// registerSubDomain("mmm");
+// getDomainWithAddr("0x67f09ED73F2Fe18965d6f35325Ec983Aff2532e6");
 
 
 
