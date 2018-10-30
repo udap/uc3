@@ -28,7 +28,7 @@ contract HarvestRegistrar is FIFSRegistrar,Ownable{
     // Mapping from caller to nonce
     mapping(address => uint256) public nonces;
 
-    event OwnerChanged(bytes32 indexed _label,string indexed _subdomain,address indexed _oldOwner, address indexed _newOwner);
+    event OwnerChanged(bytes32  _label,string indexed _subdomain,address indexed _oldOwner, address indexed _newOwner);
 
 
     constructor(ENS _ens,Resolver _defaultResolver) FIFSRegistrar(_ens,_defaultResolver) public {
