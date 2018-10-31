@@ -41,7 +41,7 @@ let  createTx = (to,data,value) =>  {
     };
 //estimateGas
     let gasEstimate = web3.eth.estimateGas(rawTx);
-    rawTx.gasLimit=web3.toHex(gasEstimate);
+    rawTx.gasLimit=web3.toHex(gasEstimate*2);
     let tx = new Tx(rawTx);
     tx.sign(privateKey);
     let serializedTx = tx.serialize();
@@ -59,7 +59,6 @@ let setResolver = () =>{
     let value = "0x00";
     createTx(to,data,value);
 };
-// setResolver();
 
 let setDomainAddr = () =>{
     let data = ensutils.publicResolver.setAddr.getData(ensutils.namehash(fullDomain),"0xcD86431E62Bca1F4Fbef76669D3FB22B90fc83b8");
@@ -71,12 +70,6 @@ let setDomainAddr = () =>{
 
 
 
-//1、
-createTestDomain();
-//2、
-// setResolver();
-//3、
-// setDomainAddr();
 
 
 
@@ -88,8 +81,8 @@ let setDomainReverse = () =>{
     createTx(to,data,value);
 };
 
-//4、
-// setDomainReverse();
+
+
 
 let getAddrWithDomain = () =>{
     let fullDomainAddr= ensutils.getAddr(fullDomain);
@@ -109,14 +102,46 @@ let registerSubDomain = (subdomain)=>{
     let lable = web3.sha3(subdomain);
     console.log(subdomain,"lable node==",ensutils.namehash(subdomain+"."+fullDomain));
 
-    let data = ensutils.ens.setSubnodeOwner.getData(node,lable,"0x67f09ED73F2Fe18965d6f35325Ec983Aff2532e6");
+    // let data = ensutils.ens.setSubnodeOwner.getData(node,lable,ethereumCfg.address);
+    let data = ensutils.ens.setSubnodeOwner.getData(node,lable,"0xcD86431E62Bca1F4Fbef76669D3FB22B90fc83b8");
+
     let to = ensutils.ens.address;
     let value = "0x00";
     createTx(to,data,value);
 };
-//5、You can change the owner of a subdomain multiple times.
-// registerSubDomain("mmm");
+
+let setSubnodeToOwner = (subdomain)=>{
+    let subnode = ensutils.namehash(subdomain+"."+fullDomain);
+    console.log("subnode ==",subnode);
+
+    let data = ensutils.ens.setOwner.getData(subnode,"0xcD86431E62Bca1F4Fbef76669D3FB22B90fc83b8");
+    let to = ensutils.ens.address;
+    let value = "0x00";
+    createTx(to,data,value);
+};
+
+//1、
+// createTestDomain();
+//2、
+// setResolver();
+//3、
+// setDomainAddr();
+//4、
+//getAddrWithDomain();
+
+//5、Set the caller's domain to 'fullDomain'
+//setDomainReverse()
 // getDomainWithAddr("0x67f09ED73F2Fe18965d6f35325Ec983Aff2532e6");
+
+//6、
+// setDomainReverse();
+
+//7、You can change the owner of a subdomain multiple times.
+//set SubDomain  Owner to self
+registerSubDomain("mmmer");
+
+//8、if you are not the owner,you can't change owner with "ens.setOwner" method.
+// setSubnodeToOwner("mmmer");
 
 
 
