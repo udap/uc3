@@ -74,8 +74,7 @@ const startJobs = ()=>{
 
 };
 
-let receipt = web3.eth.getTransactionReceipt("0xfc027b8b841b704cda91513f4f3c035918381a0d10a5fb7ad3c6ac412d34499d");
-console.log("receipt ===== ",receipt);
+
 
 
 module.exports  = { startJobs:startJobs};
