@@ -3,6 +3,9 @@ const Web3 = require('web3');
 const web3 = new Web3(new Web3.providers.HttpProvider(ethereumCfg.provider));
 const AssetType = require('../model/assetType');
 const TxSent = require('../model/txSent');
+const txStatus = require('../common/txStatus');
+const txBizType = require('../common/txBizType');
+const DomainModel = require('../model/domain');
 
 const queryCreateTypeReceipt = ()=>{
     setInterval(()=>{
@@ -38,20 +41,25 @@ const queryTxSentReceipt = ()=>{
     setInterval(()=>{
         console.log("start TxSent job..");
         TxSent.findAll(
-            { where: {status:2} }
+            { where: {status:txStatus.PENDING} }
         ).then(txList =>{
             txList.forEach((item, index)=>{
                 let receipt = web3.eth.getTransactionReceipt(item.txHash);
                 let updateFields = {};
-                if(receipt && receipt.gasUsed){
+                if(receipt && updateFields.status){
+                    updateFields.status = parseInt(receipt.status);
                     updateFields.gasUsed = receipt.gasUsed;
                     updateFields.txCost = receipt.gasUsed * Number(item.gasPrice) + Number(item.value);
-                }
-                if (Object.keys(updateFields.length > 0)){
                     TxSent.update(
                         updateFields,
                         { where: { id: item.id }}
                     );
+                    if(item.bizType == txBizType.SUBDOMAIN_REGISTER){
+                        DomainModel.update(
+                            {status:updateFields.status},
+                            { where: { txHash: item.txHash }}
+                        );
+                    }
                 }
             });
         }).catch((err) => {
@@ -66,7 +74,8 @@ const startJobs = ()=>{
 
 };
 
-
+let receipt = web3.eth.getTransactionReceipt("0xfc027b8b841b704cda91513f4f3c035918381a0d10a5fb7ad3c6ac412d34499d");
+console.log("receipt ===== ",receipt);
 
 
 module.exports  = { startJobs:startJobs};

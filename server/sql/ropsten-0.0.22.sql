@@ -1,18 +1,2 @@
-
-ALTER TABLE `tx_sent`
-ADD UNIQUE INDEX `uk-tx_sent-tx_hash` (`tx_hash` ASC);
-
-
-CREATE TABLE `domain_name` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'auto-generated primary key',
-  `gid` varchar(256) NOT NULL COMMENT 'global id',
-  `name` varchar(45) DEFAULT NULL COMMENT 'domain name',
-  `tx_hash` varchar(128) NOT NULL COMMENT 'transaction hash',
-  `status` tinyint(1) NOT NULL COMMENT 'transaction hash  status(0 fail、1 success、2 pending)',
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uk-domain_name-tx_hash` (`tx_hash`)
-) ENGINE=InnoDB AUTO_INCREMENT=1104 DEFAULT CHARSET=utf8;
-
-
+INSERT INTO `domain_name` (`id`, `gid`, `name`, `tx_hash`, `status`, `create_time`, `update_time`)
+VALUES ('1104', '0', 'udaptest.eth', '0', '1', '2018-11-01 15:48:47', '2018-11-01 15:48:47');
