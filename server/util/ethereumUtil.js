@@ -8,6 +8,7 @@ const harvestRegistrar_artifacts = require('../../build/contracts/HarvestRegistr
 const harvestRegistrarAddr = harvestRegistrar_artifacts.networks[web3.version.network].address;
 const TxSent = require('../model/txSent');
 const uuidv4 = require('uuid/v4');
+const txBizType = require('../common/txBizType');
 
 const newStandardAsset = (name,symbol,supplyLimit,uri,owner) =>{
     let abi = standardAsset_artifacts.abi;
@@ -42,7 +43,7 @@ const newStandardAsset = (name,symbol,supplyLimit,uri,owner) =>{
     })
 };
 
-const mint = async (typeAddr,to,uri,owner) =>{
+const mint = async (appId,owner,typeAddr,to,uri) =>{
     let abi = standardAsset_artifacts.abi;
     let standardAsset = web3.eth.contract(abi).at(typeAddr);
     let data = standardAsset.mint.getData(to,uri);
@@ -74,11 +75,12 @@ const mint = async (typeAddr,to,uri,owner) =>{
     }).catch((err)=>{
         throw err;
     });
-    rawTx.bizType = "StandardAsset_mint";
+    rawTx.bizType = txBizType.STANDARD_ASSET_MINT;
     rawTx.bizId = uuidv4();
     rawTx.txHash = txHash;
     rawTx.status = 2;
     rawTx.owner = owner;
+    rawTx.gid = appId;
     await TxSent.create(rawTx).catch((err) => {
         throw err;
     });
@@ -118,15 +120,16 @@ let createTx = async (to,data,value) =>  {
 };
 
 
-let registerSubdomain = async (label,subdomain,owner,sig) =>{
+let registerSubdomain = async (appId,owner,label,subdomain,sig) =>{
     let abi = harvestRegistrar_artifacts.abi;
     let HarvestRegistrar = web3.eth.contract(abi).at(harvestRegistrarAddr);
     let data = HarvestRegistrar.register.getData(label,subdomain,owner,sig);
     let rawTx = await createTx(HarvestRegistrar.address,data,'0x00');
-    rawTx.bizType = "HarvestRegistrar_register";
+    rawTx.bizType = txBizType.SUBDOMAIN_REGISTER;
     rawTx.bizId = uuidv4();
     rawTx.status = 2;
-    rawTx.owner = txSender;
+    rawTx.owner = owner;
+    rawTx.gid = appId;
     await TxSent.create(rawTx).catch((err) => {
         throw err;
     });

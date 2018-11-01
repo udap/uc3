@@ -83,7 +83,7 @@ const mint =async (ctx) => {
     let metadataUri = await ipfsUtil.addJson(metadataObj).catch((err) => {
         ctx.throw(err);
     });
-    let txHash = await ethereumUtil.newAssert(typeAddr,to,metadataUri,owner).catch((err) => {
+    let txHash = await ethereumUtil.mint(appid,owner,typeAddr,to,metadataUri).catch((err) => {
         ctx.throw(err);
     });
 

@@ -14,6 +14,8 @@ const HarvestRegistrar = contract(harvestRegistrar_artifacts);
 HarvestRegistrar.setProvider(web3.currentProvider);
 const harvestRegistrarAddr = harvestRegistrar_artifacts.networks[web3.version.network].address;
 const namehash = require('eth-ens-namehash');
+const DomainModel = require('../model/domain');
+const txStatus = require('../common/txStatus');
 
 const getAddrByDomain = async (ctx) => {
 
@@ -53,17 +55,23 @@ const registerSubDomain = async (ctx) => {
     let fields = ctx.request.body;
     if (!fields) ctx.throw("no param ");
     let caller = ctx.header["x-identity"];
-    let domainLabel = fields.domainLabel;
-    let subDomain = fields.subDomain;
+    let domain = fields.domain;
     let sig = fields.sig;
+    let appid = fields.appid;
 
     // valid param
     if (!web3.isAddress(caller))
         ctx.throw("'caller' param error");
-    if (!udapValidator.isDomainName(subDomain))
-        ctx.throw("'domain' param error");
+    if (!udapValidator.isDomainName(domain))
+        ctx.throw("'subDomain' param error");
     if (!sig)
         ctx.throw("'sig' param error");
+    await udapValidator.appidRegistered(appid);
+    let domainArr = domain.split('.');
+    if(domainArr != 3)
+        ctx.throw("'subDomain' param error");
+    let domainLabel = web3.sha3(domainArr[1]);
+    let subDomain = domainArr[0];
 
     let nonce = await HarvestRegistrar.deployed().then(instance=>{
         return instance.nonces(caller);
@@ -77,13 +85,15 @@ const registerSubDomain = async (ctx) => {
     if(!signUtil.verifyEcsign(Buffer.from(sha.substr(2), 'hex'),sig,caller))
         ctx.throw("Signature error");
 
-    // valid data
-    let address = fields.address;
-    if (!web3.isAddress(address))
-        ctx.throw("'address' param error");
-    await udapValidator.appidRegistered(fields.appid);
-
-    let txHash = await ethereumUtil.registerSubdomain(domainLabel,subDomain,caller,sig);
+    let txHash = await ethereumUtil.registerSubdomain(appid,caller,domainLabel,subDomain,sig);
+    await DomainModel.create({
+        gid:appid,
+        name:domain,
+        txHash:txHash,
+        status:txStatus.PENDING
+    }).catch(err => {
+        throw err;
+    });
     ctx.response.body = Result.success(txHash);
 };
 
@@ -116,10 +126,7 @@ const getDomains = async (ctx) => {
     await udapValidator.appidRegistered(fields.appid);
 
     if(fields.q == "common"){
-        let content = [
-            {domain:"udaptest.eth",domainLabel:web3.sha3("udaptest.eth")},
-            {domain:"udapmax.test",domainLabel:web3.sha3("udapmax.test")}
-        ];
+        let content = [ "udaptest.eth","udapmax.test"];
         ctx.response.body = Result.success(content);
     }else {
 
