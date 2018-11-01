@@ -16,6 +16,7 @@ const harvestRegistrarAddr = harvestRegistrar_artifacts.networks[web3.version.ne
 const namehash = require('eth-ens-namehash');
 const DomainModel = require('../model/domain');
 const txStatus = require('../common/txStatus');
+const idGenerator = require('../util/idGenerator');
 
 const getAddrByDomain = async (ctx) => {
 
@@ -50,6 +51,20 @@ const getDomainByAddr = async (ctx) => {
     });
     ctx.response.body = Result.success(domain);
 };
+
+const existsDomain = async (ctx) => {
+
+    let fields = ctx.query;
+    if (!fields) ctx.throw("no param ");
+    // let domain = fields.domain;
+    let domain = ctx.params.domain;
+    if (!domain) ctx.throw(" 'domain' param error ");
+    await udapValidator.appidRegistered(fields.appid);
+
+    let owner = await ens.owner(domain);
+    ctx.response.body = Result.success(owner == 0);
+};
+
 const registerSubDomain = async (ctx) => {
 
     let fields = ctx.request.body;
@@ -72,6 +87,16 @@ const registerSubDomain = async (ctx) => {
         ctx.throw("'subDomain' param error");
     let domainLabel = web3.sha3(domainArr[1]);
     let subDomain = domainArr[0];
+
+    let existDomains = await DomainModel.findAll(
+        {
+            where: {gid:appid},
+            order: [['id', 'DESC']],
+            raw:true
+        }
+    ).catch(err => {ctx.throw(err.message);});
+    if(existDomains.length > 0)
+        ctx.throw("Already have a domain name");
 
     let nonce = await HarvestRegistrar.deployed().then(instance=>{
         return instance.nonces(caller);
@@ -123,14 +148,23 @@ const getDomains = async (ctx) => {
     let fields = ctx.query;
     if (!fields) ctx.throw("no param ");
     if (!fields.q) ctx.throw(" 'q' param error ");
-    await udapValidator.appidRegistered(fields.appid);
-
-    if(fields.q == "common"){
-        let content = [ "udaptest.eth","udapmax.test"];
-        ctx.response.body = Result.success(content);
-    }else {
-
+    let appid = fields.appid;
+    await udapValidator.appidRegistered(appid);
+    let q = fields.q;
+    let attributes = ['id','name','txHash','status'];
+    if(q == "common"){
+         appid = 0;
+         attributes = ['name'];
     }
+    let content = await DomainModel.findAll(
+        {
+            where: {gid:appid},
+            order: [['id', 'DESC']],
+            attributes: attributes,
+            raw:true
+        }
+    ).catch(err => {ctx.throw(err.message)});
+    ctx.response.body = Result.success(content);
 };
 
 const getNormalizeDomain = async (ctx) => {
@@ -151,5 +185,6 @@ module.exports  = {
     registerSubDomain,
     sigParams,
     getDomains,
-    getNormalizeDomain
+    getNormalizeDomain,
+    existsDomain
 };
