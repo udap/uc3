@@ -19,9 +19,9 @@ contract AssetRegistry is Ownable {
     * @param _name AssetType name
     * @param _symbol AssetType symbol
     */
-    function registerClass(string _name, string _symbol, address _owner) onlyOwner public returns (uint){
-        return register(_name, _symbol, 1, "", _owner);
-    }
+    /*function registerClass(string _name, string _symbol, address _owner) onlyOwner public returns (uint){
+        return register(_name, _symbol, 0, "", _owner);
+    }*/
 
     /**
     * @dev  Registering a type of asset
@@ -30,17 +30,10 @@ contract AssetRegistry is Ownable {
     * @param _supplyLimit supply limit
     * @param _uri AssetType metadata uri
     */
-    function registerClass(string _name, string _symbol, uint256 _supplyLimit, string _uri, address _owner) onlyOwner public returns (uint){
-        return register(_name, _symbol, _supplyLimit, _uri, _owner);
+    function registerClass(string _name, string _symbol, uint256 _supplyLimit, string _uri, address _owner,address _controller) onlyOwner public returns (uint){
+        return _register(_name, _symbol, _supplyLimit, _uri, _owner,_controller);
     }
 
-    /* function registerClass(AssetType _type) onlyOwner public returns (uint) {
-         uint id = getId(_type.name(), _type.symbol(), _type.uri());
-         require(idAssets[id] == address(0x0));
-         idAssets[id] = id;
-         emit AssetRegistered(_type, id);
-         return id;
-     }   */
 
     /**
     * @dev internal function, Registering a type of asset
@@ -48,10 +41,10 @@ contract AssetRegistry is Ownable {
     * @param _symbol AssetType symbol
     * @param _uri AssetType metadata uri
     */
-    function register(string _name, string _symbol, uint256 _supplyLimit, string _uri, address _owner) internal returns (uint){
+    function _register(string _name, string _symbol, uint256 _supplyLimit, string _uri, address _owner,address _controller) internal returns (uint){
         uint id = getId(_name, _symbol, _uri);
         require(idAssets[id] == address(0x0));
-        StandardAsset asset = new StandardAsset(_name, _symbol, _supplyLimit, _uri, _owner);
+        StandardAsset asset = new StandardAsset(_name, _symbol, _supplyLimit, _uri, _owner,_controller);
         idAssets[id] = asset;
         emit AssetRegistered(asset, id);
         return id;
