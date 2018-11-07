@@ -56,14 +56,13 @@ contract StandardAsset is ERC721Token,Controlled {
     /**
      * @dev Constructor function
      */
-    constructor(string _name, string _symbol, uint256 _supplyLimit, string _classURI, address _owner) public ERC721Token(_name, _symbol) {
-//        assetType = new AssetType(_name, _symbol, _supplyLimit, _classURI);
+   /* constructor(string _name, string _symbol, uint256 _supplyLimit, string _classURI, address _owner) public ERC721Token(_name, _symbol) {
         uri = _classURI;
         supplyLimit = (_supplyLimit == 0 ? uint256(-1) : _supplyLimit);
         owner = _owner;
         super._registerInterface(InterfaceId_StandardAsset);
 
-    }
+    }*/
     /**
     * @dev Constructor function
     */
