@@ -9,8 +9,10 @@ const harvestRegistrarAddr = harvestRegistrar_artifacts.networks[web3.version.ne
 const TxSent = require('../model/txSent');
 const uuidv4 = require('uuid/v4');
 const txBizType = require('../common/txBizType');
+const assetRegistry_artifacts = require('../../build/contracts/AssetRegistry.json');
+const assetRegistryAddr = assetRegistry_artifacts.networks[web3.version.network].address;
 
-const newStandardAsset = (name,symbol,supplyLimit,uri,owner) =>{
+/*const newStandardAsset = (name,symbol,supplyLimit,uri,owner) =>{
     let abi = standardAsset_artifacts.abi;
     let standardAsset = web3.eth.contract(abi);
     let contractData = standardAsset.new.getData(name,symbol,supplyLimit,uri,owner,{data:standardAsset_artifacts.bytecode});
@@ -41,6 +43,13 @@ const newStandardAsset = (name,symbol,supplyLimit,uri,owner) =>{
     }).catch((err)=>{
         throw err;
     })
+};*/
+
+const newStandardAsset = async (name,symbol,supplyLimit,uri,owner,controller) =>{
+    let assetRegistry = web3.eth.contract(assetRegistry_artifacts.abi).at(assetRegistryAddr);;
+    let data = assetRegistry.registerClass.getData(name,symbol,supplyLimit,uri,owner,controller);
+    let rawTx = await createTx(assetRegistry.address,data,'0x00');
+    return rawTx.txHash;
 };
 
 const mint = async (appId,owner,typeAddr,to,uri) =>{

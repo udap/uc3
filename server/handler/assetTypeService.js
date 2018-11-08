@@ -176,11 +176,10 @@ const create =async (ctx) => {
         schema:schemaSrc,
         views:views?views:[]
     };
-    console.log("ipfsUtil.addJson=====",JSON.stringify(metadata));
     let metadataUri = await ipfsUtil.addJson(metadata).catch((err) => {
         ctx.throw(err);
     });
-    let txHash = await ethereumUtil.newStandardAsset(name,symbol,supplyLimit,metadataUri,owner).catch((err) => {
+    let txHash = await ethereumUtil.newStandardAsset(name,symbol,supplyLimit,metadataUri,owner,ethereumCfg.address).catch((err) => {
         ctx.throw(err);
     });
 
@@ -369,7 +368,7 @@ const cloneType = async (ctx) =>{
     let metadataUri = await ipfsUtil.addJson(metadata).catch((err) => {
         ctx.throw(err);
     });
-    let txHash = await ethereumUtil.newStandardAsset(name,symbol,supplyLimit,metadataUri,caller).catch((err) => {
+    let txHash = await ethereumUtil.newStandardAsset(name,symbol,supplyLimit,metadataUri,caller,ethereumCfg.address).catch((err) => {
         ctx.throw(err);
     });
 
