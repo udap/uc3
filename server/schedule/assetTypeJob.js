@@ -32,7 +32,7 @@ const assetRegistryEvents = assetRegistry_artifacts.abi.filter( json => {
                     updateFields.status = parseInt(receipt.status,16);
                 if(receipt && receipt.blockNumber)
                     updateFields.status = 1;
-                if (Object.keys(updateFields.length > 0)){
+                if (Object.keys(updateFields).length > 0){
                     AssetType.update(
                         updateFields,
                         { where: { id: item.id }}
@@ -71,12 +71,7 @@ const queryCreateTypeReceipt = ()=>{
                         }
                     }
                     updateFields.status = parseInt(receipt.status,16);
-                    if (Object.keys(updateFields.length > 0)){
-                        AssetType.update(
-                            updateFields,
-                            { where: { id: item.id }}
-                        );
-                    }
+                    AssetType.update(updateFields,{ where: { id: item.id }});
                 }
             });
         }).catch((err) => {
@@ -95,7 +90,7 @@ const queryTxSentReceipt = ()=>{
             txList.forEach((item, index)=>{
                 let receipt = web3.eth.getTransactionReceipt(item.txHash);
                 let updateFields = {};
-                if(receipt && updateFields.status){
+                if(receipt && receipt.status){
                     updateFields.status = parseInt(receipt.status);
                     updateFields.gasUsed = receipt.gasUsed;
                     updateFields.txCost = receipt.gasUsed * Number(item.gasPrice) + Number(item.value);
