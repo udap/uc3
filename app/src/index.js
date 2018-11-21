@@ -11,8 +11,8 @@ import RatingControl from './RatingControl'
 import ratingControlTester from './ratingControlTester'
 import ArrayTableControl from './ArrayTableControl'
 import arrayTableControlTester from './ArrayTableControlTester'
-// import dsBridge from 'dsbridge'
-import WebViewJavascriptBridge from './WebViewJavascriptBridge'
+import dsBridge from 'dsbridge'
+// import WebViewJavascriptBridge from './WebViewJavascriptBridge'
 // import schema1 from './invoice.json'
 // import uischema1 from './uischema.json'
 // import schemaTest from './schemaTest.json'
@@ -35,7 +35,7 @@ const store = createStore(
     }
   }
 )
-console.log(window.WebViewJavascriptBridge)
+/* console.log(window.WebViewJavascriptBridge)
 window.WebViewJavascriptBridge.registerHandler('initialData', function (data, responseCallback) {
   let newData = JSON.parse(data)
   console.log('newData', newData)
@@ -47,9 +47,9 @@ window.WebViewJavascriptBridge.registerHandler('initialData', function (data, re
   if (responseCallback) {
     responseCallback('initialData responseData')
   }
-})
+}) */
 
-/* dsBridge.register('initialData', function (arg1, responseCallback) {
+dsBridge.register('initialData', function (arg1, responseCallback) {
   let newData = JSON.parse(arg1)
   schema = JSON.parse(newData.schema)
   if (newData.uischema) {
@@ -59,7 +59,7 @@ window.WebViewJavascriptBridge.registerHandler('initialData', function (data, re
   if (responseCallback) {
     responseCallback('initialData responseData')
   }
-}) */
+})
 
 store.dispatch(Actions.init(data1))
 
