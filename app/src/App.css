@@ -1,3 +1,46 @@
 .MuiFormHelperText-root{
   display: none;
 }
+
+/* card */
+.card{
+  margin-bottom: 16px;
+}
+.todoList h2{
+	margin-top: 16px;
+	margin-bottom: 16px;
+}
+.text-right{
+  text-align: right;
+}
+.capitalization {
+  text-transform:capitalize;
+}
+#Dialog{
+	margin:0 auto;
+}
+
+label {
+	width: auto!important;
+}
+
+.text-right button{
+	width: 45px;
+	height: 45px;
+}
+
+[class^="MuiFormHelperText-root-"] {
+	opacity: 0;
+	filter: alpha(opacity=0);
+	margin-top: 0!important;
+	height: 5px;
+}
+[class^="MuiFormHelperText-error-"] {
+ 	opacity: 0;
+ 	filter: alpha(opacity=0);
+ 	margin-top: 0!important;
+ 	height: 5px;
+}
+.colorRed{
+	color:#f44336;
+}

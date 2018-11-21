@@ -9,22 +9,15 @@ import { Actions, jsonformsReducer } from '@jsonforms/core'
 import { materialFields, materialRenderers } from '@jsonforms/material-renderers'
 import RatingControl from './RatingControl'
 import ratingControlTester from './ratingControlTester'
-import dsBridge from 'dsbridge'
-import schema1 from './invoice.json'
+import ArrayTableControl from './ArrayTableControl'
+import arrayTableControlTester from './ArrayTableControlTester'
+// import dsBridge from 'dsbridge'
+import WebViewJavascriptBridge from './WebViewJavascriptBridge'
+// import schema1 from './invoice.json'
 // import uischema1 from './uischema.json'
-var data1 = {
-  'comments': [
-    {
-      'date': '2001-09-10',
-      'message': 'This is an example message'
-    },
-    {
-      'date': '2018-09-27',
-      'message': 'Get ready for booohay'
-    }
-  ]
-}
+// import schemaTest from './schemaTest.json'
 
+var data1 = {}
 var schema
 var uischema
 var newString
@@ -42,8 +35,10 @@ const store = createStore(
     }
   }
 )
-dsBridge.register('initialData', function (arg1, responseCallback) {
-  let newData = JSON.parse(arg1)
+console.log(window.WebViewJavascriptBridge)
+window.WebViewJavascriptBridge.registerHandler('initialData', function (data, responseCallback) {
+  let newData = JSON.parse(data)
+  console.log('newData', newData)
   schema = JSON.parse(newData.schema)
   if (newData.uischema) {
     uischema = JSON.parse(newData.uischema)
@@ -54,10 +49,23 @@ dsBridge.register('initialData', function (arg1, responseCallback) {
   }
 })
 
-store.dispatch(Actions.init(data1, schema1))
+/* dsBridge.register('initialData', function (arg1, responseCallback) {
+  let newData = JSON.parse(arg1)
+  schema = JSON.parse(newData.schema)
+  if (newData.uischema) {
+    uischema = JSON.parse(newData.uischema)
+  }
+  store.dispatch(Actions.init(data1, schema, uischema))
+  if (responseCallback) {
+    responseCallback('initialData responseData')
+  }
+}) */
+
+store.dispatch(Actions.init(data1))
 
 // Uncomment this line (and respective import) to register our custom renderer
 store.dispatch(Actions.registerRenderer(ratingControlTester, RatingControl))
+store.dispatch(Actions.registerRenderer(arrayTableControlTester, ArrayTableControl))
 
 ReactDOM.render(
   <Provider store={store}>
