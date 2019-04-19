@@ -7,7 +7,7 @@ let config ={
     },
     ropsten:{
         serviceEndpoint:"http://47.104.225.39",
-        nodeEndpoint:"http://47.104.225.39:8545",
+        nodeEndpoint:"https://ropsten.infura.io/HUkrzYiEqgEioBDoT5Mq",
         currency:"ETH",
         description:"Ethereum Test Network"
     }

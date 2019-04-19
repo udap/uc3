@@ -5,7 +5,7 @@
 };*/
 
 const config = {
-    provider: 'http://206.189.164.83:8545',
+    provider: 'https://ropsten.infura.io/HUkrzYiEqgEioBDoT5Mq',
     address: '0xcabe9a163B96865308605bdE13233FD1A0610931',
     privateKey: '816a873c934de69b966d34a2bd464be55de47aea11deeb554de23d2b8b8b8f93'
 };
